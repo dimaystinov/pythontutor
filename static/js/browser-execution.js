@@ -22,8 +22,20 @@ function runJob(job){return new Promise((resolve,reject)=>{
  }
  worker.onmessage=receive;worker.onerror=e=>fail(e.message||'Не удалось запустить среду Python.');deadline(120000);worker.postMessage(job);
 });}
-let queue=Promise.resolve();
-function run(job){const next=queue.then(()=>runJob(job));queue=next.catch(()=>{});return next;}
+let queue=Promise.resolve(),lastRun=null;
+window.addEventListener?.('storage',event=>{if(event.key?.startsWith('tutor-progress-reset:'))lastRun=null;});
+function remember(job,result){
+ const list=Array.isArray(result)?result:[result];
+ const index=list.findIndex(r=>r.result!=='ok'&&r.result!=='skipped');
+ const item=list[index<0?0:index]||{};
+ lastRun={code:job.code,checked:!!job.tests,total:list.length,passed:list.filter(r=>r.result==='ok').length,
+  result:item.result,exception:item.exception||null,stderr:String(item.stderr||'').slice(0,1500),
+  stdout:String(item.stdout||'').slice(0,1500),test:index<0?null:index+1,
+  stdin:String((job.tests?.[index]?.stdin)??job.stdin??'').slice(0,800),
+  expected:typeof job.tests?.[index]?.answer==='string'?job.tests[index].answer.slice(0,800):null};
+}
+
+function run(job){lastRun=null;const next=queue.then(()=>runJob(job));queue=next.catch(()=>{});return next.then(result=>{remember(job,result);return result;});}
 async function submit(kind,slug,code){
  const response=await fetch('/pythontutor/browser/tests/'+kind+'/'+encodeURIComponent(slug)+'/index.json');
  if(!response.ok||response.redirected)throw new Error('Тесты недоступны. Скачайте курс для работы без интернета.');
@@ -42,7 +54,7 @@ async function submit(kind,slug,code){
  result.outputs=results.map(r=>typeof r.stdout==='string'?r.stdout:'');
  return result;
 }
-window.BrowserPython={run,submit};
+window.BrowserPython={run,submit,lastRun:()=>window.TutorDevice?.isCurrent?.()===false?null:lastRun};
 document.addEventListener('DOMContentLoaded',()=>{
  if(!document.querySelector('#visualizer,.visualizer,#image-task'))return;
  const note=document.createElement('p');note.dataset.browserStatus='';note.setAttribute('role','status');note.className='text-muted';note.textContent='Python выполняется на вашем устройстве. При первом запуске загрузится среда Python.';
