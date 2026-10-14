@@ -18,7 +18,25 @@ $('pwa-download')?.addEventListener('click',async()=>{
 });
 $('pwa-open')?.addEventListener('click',async()=>{await message({type:'mode',local:true});location.href='/pythontutor/';});
 $('pwa-online')?.addEventListener('click',async()=>{await message({type:'mode',local:false});location.href='/pythontutor/';});
-async function progress(){if(!$('pwa-results'))return;const entries=await TutorDevice.list();$('pwa-results').textContent=entries.length?'':'Вы пока не проверяли решения.';for(const r of entries){const p=document.createElement('p');p.textContent=(r.solved?'✓ Решено: ':'В работе: ')+r.slug+' · '+new Date(r.time).toLocaleString();$('pwa-results').append(p);}}
+async function progress(){
+ if(!$('pwa-results'))return;
+ const tasks=JSON.parse($('pwa-task-catalog')?.textContent||'{}');
+ const entries=await TutorDevice.list();
+ $('pwa-results').textContent=entries.length?'':'Вы пока не проверяли решения.';
+ for(const r of entries){
+  const row=document.createElement('p');
+  row.append(document.createTextNode(r.solved?'✓ Решено: ':'В работе: '));
+  const task=tasks[r.kind+':'+r.slug];
+  if(task){
+   const link=document.createElement('a');
+   link.href=task.url;
+   link.textContent=task.title;
+   row.append(link);
+  }else row.append(document.createTextNode('Задача больше не доступна в курсе'));
+  row.append(document.createTextNode(' · '+new Date(r.time).toLocaleString('ru-RU')));
+  $('pwa-results').append(row);
+ }
+}
 progress().catch(()=>say('Хранилище браузера недоступно. Разрешите сохранение данных сайта.'));
 const backupKey=key=>/^(problem-draft:|image-draft:|tutor-local-chat:)/.test(key)||['tutor-ai-model','tutor-panel-width','lesson-menu-open','tutor-hsv-settings'].includes(key);
 function localBackup(){const data={};for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(backupKey(key))data[key]=localStorage.getItem(key);}return data;}
