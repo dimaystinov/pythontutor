@@ -60,3 +60,5 @@
 .submit_solution {
 	margin-bottom: 35px;
 }
+
+.submission-status.is-solved { color: green; font-weight: bold; }

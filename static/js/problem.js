@@ -61,7 +61,8 @@ $(function() {
 
 	$('.submit_solution button').click(function() {
 		var test_rows = $('#example_tests > tbody > tr');
-		$('#submission-status').text('Проверяем решение…');
+		$('#submission-status').removeClass('is-solved').text('Проверяем решение…');
+        $('#submission-next-task').prop('hidden', true);
 
 		var button = $(this);
 		var initial_text = button.html();
@@ -77,7 +78,8 @@ $(function() {
 				return;
 			}
 
-			$('#submission-status').text(result.status === 'ok' ? (result.storage_error?'Решение принято, но локальное сохранение недоступно.':result.local&&!result.synced?'Решение принято. Сохранено на устройстве.':'Решение принято.') : 'Решение не принято. Проверьте результаты тестов.');
+			$('#submission-status').toggleClass('is-solved', result.status === 'ok').text(result.status === 'ok' ? 'Правильное решение, поздравляем.' + (result.storage_error ? ' Не удалось сохранить прогресс на устройстве.' : '') : 'Неправильное решение. На одном из тестов ниже программа неправильно работает.');
+            $('#submission-next-task').prop('hidden', result.status !== 'ok');
 			$('#example_tests .test_result').show();
             if (result.status === 'ok') $('#knowledge-unlock').prop('hidden', false);
 
@@ -89,7 +91,7 @@ $(function() {
 				if(result == 'ok') {
 					clazz = 'success';
 					image = 'ok';
-					text = 'Всё правильно :)';
+					text = 'правильно';
 				} else if(result == 'skipped') {
 					clazz = 'active';
 					image = null;
