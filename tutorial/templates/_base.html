@@ -86,7 +86,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
                     <li><a class="original-teacher" href="{% url 'teacher' %}">Учителям</a></li>
                 </ul>
 				<div class="navbar-text navbar-right">
-					{% if pwa_offline %}<span><a href="/pwa/#progress">Мой прогресс</a> · <a href="/pwa/#settings">Настройки</a></span>{% elif request.user.is_authenticated %}
+					{% if pwa_offline %}<span><a href="/pwa/#settings">Настройки</a></span>{% elif request.user.is_authenticated %}
 						<span class="fa fa-user"></span> <a href="{% url 'profile' request.user.username %}">{{ request.user.first_name }} {{ request.user.last_name }}</a>.
 						<form action="{% url 'logout' %}" method="post" class="logout-form">{% csrf_token %}<button type="submit" class="btn btn-link">Выйти</button></form>
 					{% else %}
