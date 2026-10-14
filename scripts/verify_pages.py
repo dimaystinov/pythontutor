@@ -2,7 +2,7 @@
 from pathlib import Path
 from html.parser import HTMLParser
 from urllib.parse import urlsplit, unquote
-import json
+import json, re
 ROOT=Path(__file__).resolve().parents[1]/'dist/pages'
 base='/pythontutor/'
 class Links(HTMLParser):
@@ -26,6 +26,15 @@ for p in ROOT.rglob('*.html'):
   if dest.is_dir():dest=dest/'index.html'
   if not dest.is_file():missing.add((p.relative_to(ROOT).as_posix(),url))
 for item in sorted(missing): print('MISSING',*item)
+hint_pages=0
+for page in ROOT.rglob('index.html'):
+ text=page.read_text()
+ match=re.search(r'<script id="tutor-hints-data" type="application/json">(.*?)</script>',text,re.S)
+ if match:
+  hints=json.loads(match.group(1))
+  assert len(hints)==2 and all(h.get('text','').strip() for h in hints),page
+  hint_pages+=1
+assert hint_pages==148, hint_pages
 counts={};total=0
 for kind,expected in [('problem',134),('image',14)]:
  files=list((ROOT/'browser/tests'/kind).glob('*/index.json'));assert len(files)==expected

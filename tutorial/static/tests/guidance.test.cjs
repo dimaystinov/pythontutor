@@ -1,0 +1,11 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const ctx={window:{},document:{getElementById:()=>null}};vm.runInNewContext(fs.readFileSync('tutorial/static/pwa/guidance.js','utf8'),ctx);
+const next=ctx.window.TutorGuidance.next,hints=[{text:'Считай два катета.'},{text:'S = a × b / 2. Деление / сохраняет дробную часть.'}];
+const first=next('Дай небольшую подсказку, с чего начать. Не выдавай решение целиком.',[],hints);assert.equal(first.guidedHint,1);assert.ok(first.answer.includes(hints[0].text));
+const second=next('Дай подсказку',[first],hints);assert.equal(second.guidedHint,2);assert.ok(second.answer.includes('a × b / 2'));
+assert.equal(next('Ещё подсказку',[first,second],hints).guidedHint,3);
+assert.equal(next('Покажи первую подсказку',[first,second],hints).guidedHint,1);
+assert.equal(next('Почему input возвращает строку?',[],hints),null);
+assert.equal(next('Дай подсказку',[],[]),null);
+assert.equal(next('Дай подсказку',[],hints).guidedHint,1);
+console.log('PASS reviewed hints in order, explicit replay, no model required, other questions remain conversational');
