@@ -13,7 +13,7 @@ class Links(HTMLParser):
    if a.get(key): self.urls.append(a[key])
 missing=set()
 for p in ROOT.rglob('*.html'):
- if 'static' in p.relative_to(ROOT).parts or 'audit' in p.parts:continue
+ if ('static' in p.relative_to(ROOT).parts and 'hsv' not in p.parts) or 'audit' in p.parts:continue
  s=p.read_text();parser=Links();parser.feed(s)
  assert '/accounts/login/' not in s,p
  for url in parser.urls:

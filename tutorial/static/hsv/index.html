@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HSV — лаборатория OpenCV</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f6f8;
+      --panel: #ffffff;
+      --ink: #18212f;
+      --muted: #657287;
+      --line: #d9e0e8;
+      --accent: #6e9ab9;
+      --accent-ink: #ffffff;
+      --danger: #b42318;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 340px minmax(0, 1fr);
+    }
+
+    aside {
+      background: var(--panel);
+      border-right: 1px solid var(--line);
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    main {
+      padding: 20px;
+      min-width: 0;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: 24px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .sub {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .section {
+      padding: 16px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section:first-of-type {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .section-title {
+      margin: 0 0 12px;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .file-input {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      background: #fbfcfe;
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    button {
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+      color: var(--ink);
+      font: inherit;
+      cursor: pointer;
+    }
+
+    button:hover {
+      border-color: #9fb0c3;
+    }
+
+    button.primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: var(--accent-ink);
+    }
+
+    .control {
+      margin-bottom: 14px;
+    }
+
+    .control-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .value {
+      min-width: 48px;
+      text-align: right;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    .small-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .status {
+      min-height: 20px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .status.error {
+      color: var(--danger);
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .stats {
+      color: var(--muted);
+      font-size: 14px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .views {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .view {
+      min-width: 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .view-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 42px;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .canvas-wrap {
+      display: grid;
+      place-items: center;
+      min-height: 320px;
+      background:
+        linear-gradient(45deg, #eef2f6 25%, transparent 25%),
+        linear-gradient(-45deg, #eef2f6 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #eef2f6 75%),
+        linear-gradient(-45deg, transparent 75%, #eef2f6 75%);
+      background-size: 20px 20px;
+      background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+    }
+
+    canvas {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      image-rendering: auto;
+    }
+
+    .empty {
+      padding: 28px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.45;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 900px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+
+      aside {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside>
+      <p><a href="/images/">← Задания OpenCV</a> · <a href="/">Все уроки</a></p><h1>Настройка HSV</h1>
+      <p class="sub">Выберите изображение, настройте HSV и площадь объекта. H — оттенок (0–179), S — насыщенность, V — яркость (0–255), как в cv2.COLOR_BGR2HSV. Маска и обводка считаются прямо в браузере.</p>
+
+      <div class="section">
+        <p class="section-title">Изображение</p>
+        <input id="fileInput" class="file-input" type="file" accept="image/*">
+        <div class="preset-grid">
+          <button data-src="img.jpg">img.jpg</button>
+          <button data-src="moon.jpg">moon.jpg</button>
+          <button data-src="sky.jpg">sky.jpg</button>
+          <button data-src="apples.jpg">apples.jpg</button>
+        </div>
+        <div id="loadStatus" class="status"></div>
+      </div>
+
+      <div class="section">
+        <p class="section-title">HSV</p>
+        <div id="hsvControls"></div>
+      </div>
+
+      <div class="section">
+        <p class="section-title">Детекция</p>
+        <div id="detectControls"></div>
+        <div class="small-row">
+          <button id="resetBtn">Сбросить</button>
+          <button id="saveBtn" class="primary">Скачать JSON</button>
+        </div>
+      </div>
+    </aside>
+
+    <main>
+      <div class="toolbar">
+        <div id="imageInfo" class="stats">Изображение не выбрано</div>
+        <div id="objectInfo" class="stats">Объектов: 0</div>
+      </div>
+
+      <section class="view" style="margin-bottom:16px;padding:16px"><h2>Попробуйте сами</h2><p>Выберите apples.jpg. Подберите H, чтобы выделить один цвет, затем увеличьте минимум S, чтобы убрать серые участки. Минимальная площадь убирает маленькие отдельные объекты; сама маска от неё не меняется.</p><p>H задаёт цвет, S отделяет насыщенные цвета от серых, V отсекает тёмные пиксели. Площадь измеряется после масштабирования. Для красного цвета иногда нужны два диапазона: около 0 и около 179.</p><h3>Ваш диапазон в Python</h3><pre id="pythonExample" style="white-space:pre-wrap"></pre><p>Изображение остаётся на устройстве. Настройки сохраняются автоматически. Предпросмотр ограничен 1600 пикселями по длинной стороне.</p></section><div class="views">
+        <section class="view">
+          <div class="view-title">
+            <span>Результат</span>
+            <span id="resultSize" class="stats"></span>
+          </div>
+          <div id="resultEmpty" class="empty">Загрузите картинку или выберите пример.</div>
+          <div class="canvas-wrap hidden" id="resultWrap">
+            <canvas id="resultCanvas"></canvas>
+          </div>
+        </section>
+
+        <section class="view">
+          <div class="view-title">
+            <span>Маска</span>
+            <span id="maskSize" class="stats"></span>
+          </div>
+          <div id="maskEmpty" class="empty">Белые пиксели попали в выбранный HSV-диапазон.</div>
+          <div class="canvas-wrap hidden" id="maskWrap">
+            <canvas id="maskCanvas"></canvas>
+          </div>
+        </section>
+      </div>
+    <p>Основа: <a href="https://github.com/dimaystinov/dimaystinov.github.io/blob/main/hsv.html">HSV Filter Дмитрия Устинова</a>. Шкала H адаптирована к OpenCV.</p></main>
+  </div>
+
+  <script>
+    const defaults = {
+      hueLow: 0,
+      hueHigh: 179,
+      saturationLow: 0,
+      saturationHigh: 255,
+      valueLow: 54,
+      valueHigh: 255,
+      areaMin: 517,
+      areaMax: 100000,
+      resize: 50
+    };
+
+    const state = { ...defaults };
+    try {const saved=JSON.parse(localStorage.getItem('tutor-hsv-settings')||'{}'); for(const key in defaults)if(Number.isFinite(saved[key]))state[key]=Math.max(0,Math.min(key.startsWith('hue')?179:key.startsWith('area')?100000:key==='resize'?100:255,saved[key]));}catch(_){}
+    function saveSettings(){try{localStorage.setItem('tutor-hsv-settings',JSON.stringify(state));}catch(_){}}
+    let sourceImage = null;
+    let sourceName = "";
+    let debounceTimer = 0;
+
+    const controls = [
+      ["hueLow", "H — минимум", 0, 179, "hsv"],
+      ["hueHigh", "H — максимум", 0, 179, "hsv"],
+      ["saturationLow", "Saturation min", 0, 255, "hsv"],
+      ["saturationHigh", "Saturation max", 0, 255, "hsv"],
+      ["valueLow", "Value min", 0, 255, "hsv"],
+      ["valueHigh", "Value max", 0, 255, "hsv"],
+      ["areaMin", "Площадь min", 0, 100000, "detect"],
+      ["areaMax", "Площадь max", 0, 100000, "detect"],
+      ["resize", "Масштаб, %", 10, 100, "detect"]
+    ];
+
+    const el = {
+      fileInput: document.getElementById("fileInput"),
+      hsvControls: document.getElementById("hsvControls"),
+      detectControls: document.getElementById("detectControls"),
+      resultCanvas: document.getElementById("resultCanvas"),
+      maskCanvas: document.getElementById("maskCanvas"),
+      resultWrap: document.getElementById("resultWrap"),
+      maskWrap: document.getElementById("maskWrap"),
+      resultEmpty: document.getElementById("resultEmpty"),
+      maskEmpty: document.getElementById("maskEmpty"),
+      imageInfo: document.getElementById("imageInfo"),
+      objectInfo: document.getElementById("objectInfo"),
+      resultSize: document.getElementById("resultSize"),
+      maskSize: document.getElementById("maskSize"),
+      loadStatus: document.getElementById("loadStatus"),
+      resetBtn: document.getElementById("resetBtn"),
+      saveBtn: document.getElementById("saveBtn")
+    };
+
+    function buildControls() {
+      for (const [key, label, min, max, group] of controls) {
+        const wrap = document.createElement("label");
+        wrap.className = "control";
+        wrap.innerHTML = `
+          <div class="control-head">
+            <span>${label}</span>
+            <span class="value" id="${key}Value">${state[key]}</span>
+          </div>
+          <input id="${key}" type="range" min="${min}" max="${max}" value="${state[key]}">
+        `;
+        (group === "hsv" ? el.hsvControls : el.detectControls).appendChild(wrap);
+        wrap.querySelector("input").addEventListener("input", (event) => {
+          state[key] = Number(event.target.value);
+          document.getElementById(`${key}Value`).textContent = state[key];
+          saveSettings(); scheduleRender();
+        });
+      }
+    }
+
+    function setStatus(text, isError = false) {
+      el.loadStatus.textContent = text;
+      el.loadStatus.classList.toggle("error", isError);
+    }
+
+    function scheduleRender() {
+      window.clearTimeout(debounceTimer);
+      debounceTimer = window.setTimeout(render, 25);
+    }
+
+    function setCanvasVisible(visible) {
+      el.resultWrap.classList.toggle("hidden", !visible);
+      el.maskWrap.classList.toggle("hidden", !visible);
+      el.resultEmpty.classList.toggle("hidden", visible);
+      el.maskEmpty.classList.toggle("hidden", visible);
+    }
+
+    function loadFile(file) {
+      if (!file) return;
+      if(file.size>10*1024*1024){setStatus('Выберите изображение не больше 10 МБ.',true);return;}
+      const reader = new FileReader();
+      reader.onload = () => loadImage(reader.result, file.name);
+      reader.onerror = () => setStatus("Не удалось прочитать файл.", true);
+      reader.readAsDataURL(file);
+    }
+
+    function loadImage(src, name) {
+      const img = new Image();
+      img.onload = () => {
+        sourceImage = img;
+        sourceName = name;
+        setCanvasVisible(true);
+        setStatus(`Загружено: ${name}`);
+        render();
+      };
+      img.onerror = () => {
+        setStatus(`Не удалось открыть ${name}. Для локальных примеров запустите страницу из папки проекта или выберите файл вручную.`, true);
+      };
+      img.src = src;
+    }
+
+    // OpenCV 8-bit HSV fixed-point conversion, H range 0..179.
+    function roundEven(x){const n=Math.floor(x),f=x-n;return f===0.5?(n%2?n+1:n):Math.round(x);}
+    function hsvFromRgb(r,g,b){
+      const v=Math.max(r,g,b),diff=v-Math.min(r,g,b);
+      if(!diff)return [0,0,v];
+      const sat=(diff*roundEven((255*4096)/v)+2048)>>12;
+      let h=v===r?g-b:v===g?b-r+2*diff:r-g+4*diff;
+      h=(h*roundEven((180*4096)/(6*diff))+2048)>>12;
+      if(h<0)h+=180;
+      return [h,sat,v];
+    }
+
+    function drawLabel(ctx, text, x, y) {
+      ctx.font = "16px Arial, Helvetica, sans-serif";
+      const metrics = ctx.measureText(text);
+      const labelX = Math.max(0, x);
+      const labelY = Math.max(18, y);
+      ctx.fillStyle = "rgba(0, 0, 0, 0.65)";
+      ctx.fillRect(labelX, labelY - 18, metrics.width + 10, 22);
+      ctx.fillStyle = "#ffffff";
+      ctx.fillText(text, labelX + 5, labelY - 3);
+    }
+
+    function findComponents(mask, width, height) {
+      const visited = new Uint8Array(width * height);
+      const stack = [];
+      const components = [];
+      const minArea = Math.min(state.areaMin, state.areaMax);
+      const maxArea = Math.max(state.areaMin, state.areaMax);
+
+      for (let start = 0; start < mask.length; start++) {
+        if (mask[start] === 0 || visited[start]) continue;
+
+        let area = 0;
+        let minX = width;
+        let minY = height;
+        let maxX = 0;
+        let maxY = 0;
+        stack.length = 0;
+        stack.push(start);
+        visited[start] = 1;
+
+        while (stack.length) {
+          const idx = stack.pop();
+          const x = idx % width;
+          const y = Math.floor(idx / width);
+          area++;
+          if (x < minX) minX = x;
+          if (y < minY) minY = y;
+          if (x > maxX) maxX = x;
+          if (y > maxY) maxY = y;
+
+          for (let ny = y - 1; ny <= y + 1; ny++) {
+            if (ny < 0 || ny >= height) continue;
+            for (let nx = x - 1; nx <= x + 1; nx++) {
+              if (nx < 0 || nx >= width || (nx === x && ny === y)) continue;
+              const next = ny * width + nx;
+              if (mask[next] && !visited[next]) {
+                visited[next] = 1;
+                stack.push(next);
+              }
+            }
+          }
+        }
+
+        if (area >= minArea && area <= maxArea) {
+          components.push({
+            x: minX,
+            y: minY,
+            w: maxX - minX + 1,
+            h: maxY - minY + 1,
+            area
+          });
+        }
+      }
+
+      return components;
+    }
+
+    function render() {
+      if (!sourceImage) return;
+
+      const scale = Math.min(Math.max(0.1, Math.min(1, state.resize / 100)), 1600 / Math.max(sourceImage.naturalWidth, sourceImage.naturalHeight));
+      const width = Math.max(1, Math.round(sourceImage.naturalWidth * scale));
+      const height = Math.max(1, Math.round(sourceImage.naturalHeight * scale));
+
+      const resultCtx = el.resultCanvas.getContext("2d", { willReadFrequently: true });
+      const maskCtx = el.maskCanvas.getContext("2d");
+      el.resultCanvas.width = width;
+      el.resultCanvas.height = height;
+      el.maskCanvas.width = width;
+      el.maskCanvas.height = height;
+
+      resultCtx.drawImage(sourceImage, 0, 0, width, height);
+      const imageData = resultCtx.getImageData(0, 0, width, height);
+      const maskData = maskCtx.createImageData(width, height);
+      const mask = new Uint8Array(width * height);
+      const data = imageData.data;
+      const out = maskData.data;
+
+      const hLow = Math.min(state.hueLow, state.hueHigh);
+      const hHigh = Math.max(state.hueLow, state.hueHigh);
+      const sLow = Math.min(state.saturationLow, state.saturationHigh);
+      const sHigh = Math.max(state.saturationLow, state.saturationHigh);
+      const vLow = Math.min(state.valueLow, state.valueHigh);
+      const vHigh = Math.max(state.valueLow, state.valueHigh);
+
+      for (let i = 0, p = 0; i < data.length; i += 4, p++) {
+        const [h, s, v] = hsvFromRgb(data[i], data[i + 1], data[i + 2]);
+        const hit = h >= hLow && h <= hHigh && s >= sLow && s <= sHigh && v >= vLow && v <= vHigh;
+        const color = hit ? 255 : 0;
+        mask[p] = hit ? 1 : 0;
+        out[i] = color;
+        out[i + 1] = color;
+        out[i + 2] = color;
+        out[i + 3] = 255;
+      }
+
+      maskCtx.putImageData(maskData, 0, 0);
+      document.getElementById('pythonExample').textContent = `hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)\nmask = cv2.inRange(hsv, (${hLow}, ${sLow}, ${vLow}), (${hHigh}, ${sHigh}, ${vHigh}))\ncv2.imwrite('output.png', mask)`;
+
+      const components = findComponents(mask, width, height);
+      resultCtx.putImageData(imageData, 0, 0);
+      resultCtx.lineWidth = Math.max(2, Math.round(width / 350));
+      resultCtx.strokeStyle = "#00ff00";
+
+      for (const item of components) {
+        resultCtx.strokeRect(item.x, item.y, item.w, item.h);
+        drawLabel(resultCtx, `${item.area}, ${Math.round((item.w + item.h) / 2)}`, item.x, item.y);
+      }
+
+      el.imageInfo.textContent = `${sourceName}: ${sourceImage.naturalWidth}x${sourceImage.naturalHeight}`;
+      el.objectInfo.textContent = `Объектов: ${components.length}`;
+      el.resultSize.textContent = `${width}x${height}`;
+      el.maskSize.textContent = `${width}x${height}`;
+    }
+
+    function resetControls() {
+      Object.assign(state, defaults); saveSettings();
+      for (const [key] of controls) {
+        document.getElementById(key).value = state[key];
+        document.getElementById(`${key}Value`).textContent = state[key];
+      }
+      render();
+    }
+
+    function downloadJson() {
+      const payload = {
+        low: [Math.min(state.hueLow,state.hueHigh), Math.min(state.saturationLow,state.saturationHigh), Math.min(state.valueLow,state.valueHigh)],
+        high: [Math.max(state.hueLow,state.hueHigh), Math.max(state.saturationLow,state.saturationHigh), Math.max(state.valueLow,state.valueHigh)],
+        area: [Math.min(state.areaMin,state.areaMax), Math.max(state.areaMin,state.areaMax)],
+        color_space: "OpenCV HSV",
+        resize_coef: state.resize / 100
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "hsv_filter.json";
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    buildControls();
+    setCanvasVisible(false);
+
+    el.fileInput.addEventListener("change", (event) => loadFile(event.target.files[0]));
+    el.resetBtn.addEventListener("click", resetControls);
+    el.saveBtn.addEventListener("click", downloadJson);
+
+    document.querySelectorAll("[data-src]").forEach((button) => {
+      button.addEventListener("click", () => loadImage(button.dataset.src, button.dataset.src));
+    });
+
+    loadImage("img.jpg", "img.jpg");
+  </script>
+</body>
+</html>

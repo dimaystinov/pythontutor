@@ -50,7 +50,7 @@ def download_manifest(request):
         resources.extend(reverse('image_input',args=[task['slug'],i]) for i in range(len(task['tests'])))
     root=Path(settings.BASE_DIR)/'tutorial/static'
     for file in sorted(root.rglob('*')):
-        if file.is_file() and file.suffix in {'.js','.mjs','.css','.png','.jpg','.jpeg','.gif','.svg','.ttf','.woff','.woff2','.eot','.wasm','.zip','.whl','.json'} and 'tests' not in file.relative_to(root).parts:
+        if file.is_file() and file.suffix in {'.html','.js','.mjs','.css','.png','.jpg','.jpeg','.gif','.svg','.ttf','.woff','.woff2','.eot','.wasm','.zip','.whl','.json'} and 'tests' not in file.relative_to(root).parts:
             resources.append(settings.STATIC_URL+file.relative_to(root).as_posix())
     return JsonResponse({'version':VERSION,'pages':list(dict.fromkeys(pages)),'resources':list(dict.fromkeys(resources))})
 

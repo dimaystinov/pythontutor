@@ -18,7 +18,7 @@ assets=ROOT/'dist/releases';assets.mkdir(exist_ok=True)
 for folder,name in [(out,'pythontutor-source-v1.0.0.zip'),(ROOT/'dist/pages','pythontutor-pages-v1.0.0.zip')]:
  with zipfile.ZipFile(assets/name,'w',zipfile.ZIP_DEFLATED) as z:
   for p in sorted(folder.rglob('*')):
-   if p.is_file() and '.git' not in p.parts and 'audit' not in p.relative_to(folder).parts:z.write(p,p.relative_to(folder))
+   if p.is_file() and '.git' not in p.parts and not (folder.name=='pages' and p.relative_to(folder).parts[0]=='audit'):z.write(p,p.relative_to(folder))
 files=sorted(assets.glob('*.zip'))
 (assets/'SHA256SUMS.txt').write_text(''.join(hashlib.sha256(p.read_bytes()).hexdigest()+'  '+p.name+'\n' for p in files))
 print(out)

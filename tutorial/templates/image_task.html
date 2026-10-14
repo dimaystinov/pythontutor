@@ -7,6 +7,7 @@
 <script defer src="{{ STATIC_URL }}js/image-task.js?v=pwa1"></script>
 {% endblock %}
 {% block body %}
+<p><a href="/static/hsv/index.html">Лаборатория HSV — подобрать цвет и маску</a></p>
 <p><a href="{% url 'image_index' %}">← Все задачи с изображениями</a> · <a href="{% url 'image_assignments' %}">Мои задания</a></p>
 <h1>{{ task.title }}</h1>
 <p>{{ task.statement }}</p>
