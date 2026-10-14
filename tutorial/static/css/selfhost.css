@@ -189,3 +189,5 @@ hr { margin-top: 16px; margin-bottom: 16px; }
 .settings-confirm { margin-top:18px; padding:16px; border:1px solid #e5c9c9; border-radius:4px; background:#fffafa; }
 .settings-confirm h3 { margin-top:0; }
 @media(max-width:600px) { .settings-section { padding:18px 16px; } .settings-actions .btn { white-space:normal; } }
+
+.settings-actions label:focus-within { outline:2px solid #337ab7; outline-offset:2px; }
