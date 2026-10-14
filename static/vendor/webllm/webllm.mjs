@@ -15372,7 +15372,8 @@ function getTokenTableFromTokenizer(tokenizer) {
 }
 function cleanModelUrl(modelUrl) {
   modelUrl += modelUrl.endsWith("/") ? "" : "/";
-  if (!modelUrl.match(/.+\/resolve\/.+\//))
+  // PythonTutor: local model URLs are already complete; only Hub URLs need a revision.
+  if (new URL(modelUrl).hostname === "huggingface.co" && !modelUrl.match(/.+\/resolve\/.+\//))
     modelUrl += "resolve/main/";
   return new URL(modelUrl).href;
 }
@@ -22292,7 +22293,8 @@ var MLCEngine = class {
       const fetchWasmSource = () => __awaiter(this, void 0, void 0, function* () {
         var _a2;
         if (wasmUrl.includes("localhost")) {
-          return (yield fetch(wasmUrl)).arrayBuffer();
+          // PythonTutor: imported WASM must also work offline on localhost.
+          return yield wasmCache.fetchWithCache(wasmUrl, "arraybuffer");
         } else if (!wasmUrl.startsWith("http")) {
           return (yield fetch(new URL(wasmUrl, baseUrl).href)).arrayBuffer();
         } else {

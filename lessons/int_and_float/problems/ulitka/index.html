@@ -49,9 +49,9 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 <link rel="manifest" href="/pythontutor/manifest.webmanifest">
 <meta name="theme-color" content="#e3ebf1">
 <link rel="apple-touch-icon" href="/pythontutor/static/pwa/icon-192.png">
-<script defer src="/pythontutor/static/pwa/app.js?v=progress6"></script>
-<script src="/pythontutor/static/pwa/storage.js?v=progress6"></script>
-<meta name="csrf-token" content="dxsCUK2hoj2ykYQ0n6iqN2W0rJGFB1vpdO0qyGx5ulEXRe1eCeZ7v8z0qHBVG2V7">
+<script defer src="/pythontutor/static/pwa/app.js?v=reset7"></script>
+<script src="/pythontutor/static/pwa/storage.js?v=reset7"></script>
+<meta name="csrf-token" content="jFAP7k4mmDeXSKTvTc0JlQsD4TJI2FnU8pt7p89ozGQHCKLuAeA7lCXheVsOErLO">
 
 	<title>Интерактивный учебник языка Python</title>
 
@@ -570,9 +570,10 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 		
 	</div>
 <link rel="stylesheet" href="/pythontutor/static/css/assistant.css?v=9">
-<script defer src="/pythontutor/static/pwa/local-ai.js?v=task-context3"></script>
-<script defer src="/pythontutor/static/pwa/local-voice.js?v=1"></script>
-<script defer src="/pythontutor/static/js/assistant.js?v=task-context3"></script>
+<script defer src="/pythontutor/static/pwa/model-assets.js?v=1"></script>
+<script defer src="/pythontutor/static/pwa/local-ai.js?v=bundle1"></script>
+<script defer src="/pythontutor/static/pwa/local-voice.js?v=bundle1"></script>
+<script defer src="/pythontutor/static/js/assistant.js?v=bundle1"></script>
 <button id="tutor-launcher" type="button" aria-expanded="false" aria-controls="tutor-panel" aria-label="ИИ-помощник" title="ИИ-помощник"><span aria-hidden="true">🐍</span></button>
 <div id="tutor-divider" role="separator" aria-label="Ширина помощника" aria-orientation="vertical" aria-valuemin="28" aria-valuemax="60" aria-valuenow="42" tabindex="0" hidden></div>
 <aside id="tutor-panel" hidden aria-label="ИИ-помощник по текущей задаче" data-url="/pythontutor/assistant/problem/ulitka/" data-kind="problem" data-learning-context="Мы в интерактивном учебнике Python: 15 уроков и 134 основные задачи. Ученик пишет код в редакторе на этой странице; Python, тесты и пошаговый запуск уже работают в браузере. Устанавливать Python или IDE для этих занятий не нужно. Основной способ обучения — последовательно решать задачи: прочитать условие, попробовать самому, запустить пример, проверить все тесты, при необходимости раскрыть подсказку, затем перейти к следующей задаче. После успешного решения можно обсудить разбор и улучшение. Цель прохождения курса с самостоятельной практикой — база начинающего Python-разработчика. Если спрашивают, как учиться или с чего начать, предложи посильный шаг в текущей задаче этого курса, а не установку программ, сторонние курсы или длинный общий план. Учитывай тему текущего урока и не вводи ещё не изученные конструкции. Это фон беседы: не повторяй описание курса и не навязывай решение задачи в ответ на каждое приветствие." data-user="" data-stt="/pythontutor/assistant/speech/transcribe/" data-worklet="/pythontutor/static/js/tutor-audio-worklet.js" data-auth="no">
@@ -582,7 +583,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
     
     <details id="tutor-settings"><summary>Настройки</summary><div class="tutor-local-options">
       <label for="tutor-model">Модель помощника</label>
-      <select id="tutor-model" class="form-control"><option value="Qwen2.5-Coder-0.5B-Instruct-q4f16_1-MLC">Qwen Coder 0.5B · минимальная</option><option value="Qwen2.5-Coder-1.5B-Instruct-q4f16_1-MLC" selected>Qwen Coder 1.5B · рекомендуется</option><option value="Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC">Qwen Coder 7B · мощный компьютер</option><option value="Qwen3-1.7B-q4f16_1-MLC">Qwen3 1.7B · универсальная</option></select>
+      <select id="tutor-model" class="form-control"><option value="Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC" selected>Qwen Coder 7B · мощный компьютер</option></select>
       <p id="tutor-model-info" class="tutor-fineprint"></p>
       
       
@@ -590,6 +591,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
     </div>
     <div class="tutor-code-access"><label><input id="tutor-include-code" type="checkbox" checked> Помощник видит мой код</label><span id="tutor-code-status">Код считывается из редактора</span></div>
     </details>
+    <div id="tutor-model-setup" hidden></div>
     <div id="tutor-voice-view" hidden><div class="tutor-voice-orb" aria-hidden="true">🐍</div><h3>Голосовой разговор</h3><p id="tutor-voice-status" role="status">Готовлю разговор… При первом запуске браузер попросит доступ к микрофону.</p><button id="tutor-call" type="button">Начать разговор</button><button id="tutor-interrupt" type="button" hidden>Отправить реплику</button><p class="tutor-fineprint">После паузы вопрос отправится автоматически. Ответ прозвучит вслух и останется в текстовом чате. Одна реплика — до 60 секунд.</p></div>
     <div id="tutor-messages" role="log" aria-live="polite" aria-relevant="additions"><div class="tutor-welcome"><span aria-hidden="true">🐍</span><p>Привет, я Питоныч. Можем просто поговорить или вместе разобраться с задачей. О чём хочешь поговорить?</p></div></div>
     <div id="tutor-quick"><button type="button" data-question="Объясни условие простыми словами, без готового решения.">Объясни условие</button><button type="button" data-question="Дай небольшую подсказку, с чего начать. Не выдавай решение целиком.">Дай подсказку</button><button type="button" data-question="Посмотри мой текущий код: помоги найти ошибку и понять её причину.">Проверь мой код</button></div>

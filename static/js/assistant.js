@@ -8,7 +8,11 @@
     const workspace=$('tutor-workspace'),divider=$('tutor-divider');
     const question=$('tutor-question'),log=$('tutor-messages'),status=$('tutor-status');
     const model=$('tutor-model');
-    try { const choice=localStorage.getItem('tutor-ai-model');if(choice&&model?.querySelector('option[value="'+choice.replace(/[^\w.-]/g,'')+'"]'))model.value=choice; } catch(_){}
+    try {
+        const choice=localStorage.getItem('tutor-ai-model');
+        if(choice&&model?.querySelector('option[value="'+choice.replace(/[^\w.-]/g,'')+'"]'))model.value=choice;
+        else if(model&&choice){model.value='Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC';localStorage.setItem('tutor-ai-model',model.value);}
+    } catch(_){}
     const local=()=>!!model&&model.value!=='cloud';
     const chatKey='tutor-local-chat:'+window.TutorDevice.owner()+':'+panel.dataset.url;
     let localTurns=[],modelPromise=null,mathQueue=Promise.resolve();
@@ -17,6 +21,10 @@
         const label=percent?'Готовлю помощника · '+percent[1]+'%':String(text).includes('Модель готова')?'Готов к разговору':String(text).includes('Подготовка модели')?'Готовлю помощника…':text;
         notice(label);if(voiceMode)voiceStatus(label);
     }
+    window.addEventListener('tutor-model-needed',event=>{
+        const setup=$('tutor-model-setup');
+        if(setup)window.TutorModelAssets.mount(setup,event.detail,()=>event.detail==='qwen7b'?prepareModel():window.TutorLocalVoice.prepare(friendlyProgress)).catch(e=>notice(e.message,true));
+    });
     function prepareModel(){
         if(!local())return Promise.resolve();
         if(!modelPromise){model.disabled=true;modelPromise=window.TutorLocalAI.load(model.value,friendlyProgress).finally(()=>{modelPromise=null;model.disabled=busy;});}
@@ -163,6 +171,7 @@
                 const record=await window.TutorDevice.get(panel.dataset.kind,slug);
                 const context=currentMaterial();
                 const answer=await window.TutorLocalAI.answer(model.value,{question:text,code,context,learningContext:panel.dataset.learningContext,turns:localHistory(),solved:!!record?.solved||document.getElementById('knowledge-unlock')?.hidden===false},notice);
+                if(window.TutorDevice.isCurrent&&!window.TutorDevice.isCurrent())return null;
                 const result={question:text,answer,id:'local-'+crypto.randomUUID()};
                 message('user',text);message('assistant',answer);
                 localTurns.push(result);try{localStorage.setItem(chatKey,JSON.stringify(localTurns.slice(-20)));}catch(_){}
