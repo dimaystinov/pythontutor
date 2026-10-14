@@ -1,5 +1,6 @@
 {% extends '_base_basic.html' %}
 {% block body %}
+{{ progress_tasks|json_script:"pwa-task-catalog" }}
 <div class="settings-page">
 <h1 id="settings">Настройки</h1>
 <section class="settings-section" aria-labelledby="progress">

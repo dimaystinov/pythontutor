@@ -12,11 +12,22 @@ from tutorial.image_course import catalog
 from tutorial.views import DEFAULT_COURSE
 
 PUBLIC_VIEWS = {'home', 'old', 'lesson_in_course', 'problem_in_lesson', 'image_index', 'image_task', 'visualizer', 'pwa'}
-VERSION = 'pwa-20261015-settings2'
+VERSION = 'pwa-20261015-progress3'
 
 @require_GET
 def dashboard(request):
-    return render(request, 'pwa.html')
+    from tutorial.problems import load_problem
+    tasks = {}
+    for entry in ProblemInLesson.objects.filter(lesson__lessonincourse__course__urlname=DEFAULT_COURSE).select_related('lesson', 'problem'):
+        tasks['problem:' + entry.problem.urlname] = {
+            'title': load_problem(entry.problem)['name'],
+            'url': reverse('problem_in_lesson', args=[entry.lesson.urlname, entry.problem.urlname]),
+        }
+    for task in catalog():
+        tasks['image:' + task['slug']] = {
+            'title': task['title'], 'url': reverse('image_task', args=[task['slug']]),
+        }
+    return render(request, 'pwa.html', {'progress_tasks': tasks})
 
 @require_GET
 def service_worker(request):
