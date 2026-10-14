@@ -174,7 +174,7 @@
     async function speak(id){
         if(local()){const turn=localTurns.find(t=>t.id===id);return window.TutorLocalVoice.speak(turn?.answer||'');}
         const speechEpoch=epoch;
-        stopAudio();const blob=await request('/pythontutor-selfhost/assistant/speech/speak/'+id+'/',new FormData());
+        stopAudio();const blob=await request('/pythontutor/assistant/speech/speak/'+id+'/',new FormData());
         if(speechEpoch!==epoch)return;
         if(!blob.type.startsWith('audio/'))throw new Error('Сервис не вернул аудио.');
         audio=new Audio(URL.createObjectURL(blob));

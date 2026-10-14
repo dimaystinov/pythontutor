@@ -1,5 +1,5 @@
 /* Only public snapshots and allowlisted course assets are cached, never user HTML/API. */
-const META='tutor-pwa-meta-v1', POINTER='/pythontutor-selfhost/__pwa_ready', MODE='/pythontutor-selfhost/__pwa_local';
+const META='tutor-pwa-meta-v1', POINTER='/pythontutor/__pwa_ready', MODE='/pythontutor/__pwa_local';
 self.addEventListener('install',event=>event.waitUntil(self.skipWaiting()));
 self.addEventListener('activate',event=>event.waitUntil(self.clients.claim()));
 async function configuration(){const c=await caches.open(META),r=await c.match(POINTER);return r?await r.json():null;}
@@ -17,10 +17,10 @@ self.addEventListener('message',event=>{
   if(downloading){send({error:'Загрузка уже выполняется в другой вкладке.'});return;}
   downloading=true;const name='tutor-pwa-pack-'+Date.now();
   try{
-   const response=await fetch('/pythontutor-selfhost/pwa/download-manifest/',{cache:'no-store',credentials:'omit'});
+   const response=await fetch('/pythontutor/pwa/download-manifest/',{cache:'no-store',credentials:'omit'});
    if(!response.ok)throw Error('Не удалось получить список файлов курса.');
    const manifest=await response.json(),cache=await caches.open(name);
-   const tasks=[...manifest.resources.map(url=>({key:url,url})),...manifest.pages.map(path=>({key:path,url:'/pythontutor-selfhost/pwa/page/?path='+encodeURIComponent(path)}))];
+   const tasks=[...manifest.resources.map(url=>({key:url,url})),...manifest.pages.map(path=>({key:path,url:'/pythontutor/pwa/page/?path='+encodeURIComponent(path)}))];
    let done=0,cursor=0;
    async function load(){while(cursor<tasks.length){const task=tasks[cursor++];
     const r=await fetch(task.url,{cache:'reload',credentials:'omit'});
@@ -47,7 +47,7 @@ self.addEventListener('fetch',event=>{
   if(saved && await localMode())return saved;
   try{const response=await fetch(req);if(response.status>=500&&saved)return saved;return response;}
   catch(error){if(saved)return saved;
-   if(req.mode==='navigate')return new Response('<meta charset="utf-8"><h1>Эта страница требует сети</h1><p>Учётная запись, преподаватель и ИИ доступны на сайте.</p><a href="/pythontutor-selfhost/">К скачанным урокам</a> · <a href="/pythontutor-selfhost/pwa/">Офлайн-приложение</a>',{status:503,headers:{'Content-Type':'text/html; charset=utf-8'}});
+   if(req.mode==='navigate')return new Response('<meta charset="utf-8"><h1>Эта страница требует сети</h1><p>Учётная запись, преподаватель и ИИ доступны на сайте.</p><a href="/pythontutor/">К скачанным урокам</a> · <a href="/pythontutor/pwa/">Офлайн-приложение</a>',{status:503,headers:{'Content-Type':'text/html; charset=utf-8'}});
    throw error;
   }
  })());

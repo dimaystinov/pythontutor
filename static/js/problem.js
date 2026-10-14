@@ -1,6 +1,6 @@
 function submit_solution(problem_name, code, callback) {
     if(window.BrowserPython){window.BrowserPython.submit('problem',problem_name,code).then(function(r){callback(true,r);},function(){callback(false);});return;}
-	var req = $.ajax({url: '/pythontutor-selfhost/tester/submit/', method: 'POST', dataType: 'json', data: {
+	var req = $.ajax({url: '/pythontutor/tester/submit/', method: 'POST', dataType: 'json', data: {
 		problem: problem_name,
 		user_code: code
 	}});
@@ -105,7 +105,7 @@ $(function() {
 				}
 
 				test_rows[id].addClass(clazz);
-				test_rows[id].find('.test_result').html((image ? '<img alt="" src="/pythontutor-selfhost/static/images/test_' + image + '.png"><br>' : '') + text);
+				test_rows[id].find('.test_result').html((image ? '<img alt="" src="/pythontutor/static/images/test_' + image + '.png"><br>' : '') + text);
 			});
 		});
 

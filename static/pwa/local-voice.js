@@ -3,7 +3,7 @@
 let worker,pending,speechEnd;
 function operation(audio,progress){
  if(pending)return Promise.reject(Error('Дождитесь распознавания речи.'));
- if(!worker)worker=new Worker('/pythontutor-selfhost/static/pwa/voice-worker.mjs',{type:'module'});
+ if(!worker)worker=new Worker('/pythontutor/static/pwa/voice-worker.mjs',{type:'module'});
  return new Promise((resolve,reject)=>{const timer=setTimeout(()=>{worker.terminate();worker=null;pending=null;reject(Error('Не удалось загрузить или запустить распознавание речи. Повторите с подключением к сети.'));},300000);
  pending=true;worker.onmessage=({data})=>{if(data.progress){progress?.(data.progress);return;}clearTimeout(timer);pending=null;if(data.error)reject(Error(data.error));else resolve(data);};worker.onerror=e=>{clearTimeout(timer);pending=null;worker.terminate();worker=null;reject(Error(e.message||'Ошибка локального распознавания.'));};worker.postMessage({audio});});
 }

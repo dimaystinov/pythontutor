@@ -1373,7 +1373,7 @@ function Visualizer(block, init_code, init_stdin, passed_options) {
 			return;
 		}
 
-		var req = window.BrowserPython ? $.Deferred(function(d){window.BrowserPython.run({code:viss.code,stdin:viss.stdin,explain:options.explain_mode}).then(d.resolve,d.reject);}).promise() : $.post('/pythontutor-selfhost/visualizer/execute/', {
+		var req = window.BrowserPython ? $.Deferred(function(d){window.BrowserPython.run({code:viss.code,stdin:viss.stdin,explain:options.explain_mode}).then(d.resolve,d.reject);}).promise() : $.post('/pythontutor/visualizer/execute/', {
 			user_script: viss.code,
 			input_data : viss.stdin,
 			explain    : options.explain_mode
@@ -1498,7 +1498,7 @@ function Visualizer(block, init_code, init_stdin, passed_options) {
 
 	function log_user_action(action, data) {
         if(document.querySelector('meta[name=static-site]'))return;
-		$.post('/pythontutor-selfhost/log_user_action/', {
+		$.post('/pythontutor/log_user_action/', {
 			action: action,
 			data: JSON.stringify(data)
 		});

@@ -24,13 +24,13 @@ $(function() {
 		var code_file = $(e.target).data('code');
 		var input_file = $(e.target).data('input');
 
-		$.get('/pythontutor-selfhost/static/example-code/' + code_file, function(code) {
+		$.get('/pythontutor/static/example-code/' + code_file, function(code) {
 			visualizer.code = code;
 			loaded();
 		}).fail(function() { visualizer.setStatus('Не удалось загрузить пример.'); });
 
 		if(typeof(input_file) !== 'undefined') {
-			$.get('/pythontutor-selfhost/static/example-code/' + input_file, function(stdin) {
+			$.get('/pythontutor/static/example-code/' + input_file, function(stdin) {
 				visualizer.stdin = stdin;
 				loaded();
 			}).fail(function() { visualizer.setStatus('Не удалось загрузить входные данные.'); });

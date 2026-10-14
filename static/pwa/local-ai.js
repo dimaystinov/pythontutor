@@ -7,7 +7,7 @@ const choices=[
  {id:'Qwen3-1.7B-q4f16_1-MLC',label:'Qwen3 1.7B · универсальная',download:'около 1,1 ГБ',memory:'около 2 ГБ памяти GPU',note:'Альтернатива для общих объяснений и диалога; не специализирована только на коде.'}
 ];
 let engine,worker,loadedId,loading=false,cancelLoading;
-const library=()=>import('/pythontutor-selfhost/static/vendor/webllm/webllm.mjs');
+const library=()=>import('/pythontutor/static/vendor/webllm/webllm.mjs');
 async function load(id,progress){
  if(engine&&loadedId===id)return engine;
  if(loading)throw Error('Дождитесь загрузки модели.');
@@ -19,7 +19,7 @@ async function load(id,progress){
  try{
   if(engine)await engine.unload();worker?.terminate();engine=null;loadedId=null;
   progress?.('Подготовка модели. При первой загрузке потребуется интернет…');
-  const api=await library();worker=new Worker('/pythontutor-selfhost/static/pwa/llm-worker.mjs',{type:'module'});
+  const api=await library();worker=new Worker('/pythontutor/static/pwa/llm-worker.mjs',{type:'module'});
   const timeout=new Promise((_,reject)=>{cancelLoading=()=>reject(Error('Загрузка остановлена. Уже скачанные файлы сохранены.'));worker.onerror=e=>reject(Error(e.message||'Ошибка локального ИИ.'));});
   engine=await Promise.race([api.CreateWebWorkerMLCEngine(worker,id,{initProgressCallback:p=>progress?.('Загрузка модели: '+Math.round(p.progress*100)+'% · '+p.text)}, {context_window_size:4096}),timeout]);
   loadedId=id;progress?.('Модель готова. Вопросы и код обрабатываются на устройстве.');return engine;

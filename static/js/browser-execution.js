@@ -3,7 +3,7 @@
 if(document.querySelector('meta[name=execution-mode]')?.content!=='browser')return;
 function status(text){document.querySelectorAll('[data-browser-status]').forEach(e=>e.textContent=text);}
 function runJob(job){return new Promise((resolve,reject)=>{
- const worker=new Worker('/pythontutor-selfhost/static/browser/worker.mjs',{type:'module'});
+ const worker=new Worker('/pythontutor/static/browser/worker.mjs',{type:'module'});
  let timer,index=0;
  function dispose(){clearTimeout(timer);worker.terminate();}
  function fail(error){dispose();status(error);reject(new Error(error));}
@@ -25,7 +25,7 @@ function runJob(job){return new Promise((resolve,reject)=>{
 let queue=Promise.resolve();
 function run(job){const next=queue.then(()=>runJob(job));queue=next.catch(()=>{});return next;}
 async function submit(kind,slug,code){
- const response=await fetch('/pythontutor-selfhost/browser/tests/'+kind+'/'+encodeURIComponent(slug)+'/index.json');
+ const response=await fetch('/pythontutor/browser/tests/'+kind+'/'+encodeURIComponent(slug)+'/index.json');
  if(!response.ok||response.redirected)throw new Error('Тесты недоступны. Скачайте курс для работы без интернета.');
  const {tests}=await response.json();const results=await run({code,tests});
  const verdicts=results.map(r=>r.result);
@@ -35,7 +35,7 @@ async function submit(kind,slug,code){
  const owner=document.querySelector('meta[name=learner-id]')?.content;
  if(owner&&owner!=='local'&&navigator.onLine){
   try{
-   const saved=await fetch('/pythontutor-selfhost/browser/submit/'+kind+'/'+encodeURIComponent(slug)+'/',{method:'POST',signal:AbortSignal.timeout(4000),headers:{'Content-Type':'application/json','X-CSRFToken':document.querySelector('meta[name=csrf-token]').content},body:JSON.stringify({code,results:verdicts.map(result=>({result}))})});
+   const saved=await fetch('/pythontutor/browser/submit/'+kind+'/'+encodeURIComponent(slug)+'/',{method:'POST',signal:AbortSignal.timeout(4000),headers:{'Content-Type':'application/json','X-CSRFToken':document.querySelector('meta[name=csrf-token]').content},body:JSON.stringify({code,results:verdicts.map(result=>({result}))})});
    if(saved.ok&&!saved.redirected)result.synced=true;
   }catch(_){}
  }
