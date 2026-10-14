@@ -73,3 +73,13 @@
 /* Task labels need room in the narrow lesson column. */
 .lesson_sections .problems_link > a { padding:5px 10px; }
 .lesson_sections .problems_link > ul > li > a { padding:5px 12px 5px 16px; overflow-wrap:anywhere; }
+
+/* A completed task keeps the original blue link on a green menu row. */
+.lesson_sections .problems_link li.solved { background: rgba(128, 252, 92, 0.3); }
+.lesson_sections .problems_link li.solved > a,
+.lesson_sections .problems_link li.solved > a.active {
+    color: #0275d8;
+    background: transparent;
+}
+.lesson_sections .problems_link li.solved > a:hover,
+.lesson_sections .problems_link li.solved > a:focus { background: rgba(0, 0, 0, 0.03); }
