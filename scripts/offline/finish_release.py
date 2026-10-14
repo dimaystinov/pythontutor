@@ -1,4 +1,4 @@
-"""Attach the verified application archives and checksums to the draft release."""
+"""Attach application archives, completed runtime audits and checksums to the draft release."""
 import importlib.util, json, os, urllib.request, hashlib, zipfile
 from pathlib import Path
 spec=importlib.util.spec_from_file_location('packages',Path(__file__).with_name('build_packages.py'))
