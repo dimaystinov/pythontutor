@@ -88,7 +88,7 @@
             for(const turn of localHistory()){message('user',turn.question);message('assistant',turn.answer);}
             $('tutor-context').textContent='Питоныч · локальный помощник';
             voiceReady=true;loaded=true;$('tutor-voice-mode').disabled=false;$('tutor-dictate').disabled=false;
-            prepareModel().catch(e=>notice(e.message||String(e),true));return;
+            window.TutorModelAssets.ready('qwen7b').then(ready=>{if(ready)return prepareModel();notice('Подсказки доступны сразу. Для свободного разговора можно подготовить ИИ.');}).catch(e=>notice(e.message||String(e),true));return;
         }
         notice('Загружаю историю…');
         try{
@@ -136,6 +136,7 @@
     if(initiallyOpen)setOpen(true);
     if(!question)return;
     model?.addEventListener('change',()=>{if(busy)return;stopCall();window.TutorLocalAI.stop();loaded=false;try{localStorage.setItem('tutor-ai-model',model.value);}catch(_){}describeModel();history();});
+    $('tutor-prepare-ai')?.addEventListener('click',()=>prepareModel().catch(e=>notice(e.message||String(e),true)));
     $('tutor-stop-model')?.addEventListener('click',()=>window.TutorLocalAI.stop());
     function setMode(voice){
         stopCall();
@@ -157,6 +158,14 @@
     async function send(text,fromVoice=false){
         if(busy)return null;text=text.trim();if(!text)return null;
         if(text.length>3000){notice('Сократите вопрос до 3000 символов.',true);return null;}
+        const prepared=window.TutorGuidance?.current(text,localHistory());
+        if(prepared&&!attachment){
+            if(window.TutorDevice.isCurrent&&!window.TutorDevice.isCurrent())return null;
+            const result={question:text,...prepared,id:'local-'+crypto.randomUUID()};
+            message('user',text);message('assistant',result.answer,result.id);
+            localTurns.push(result);try{localStorage.setItem(chatKey,JSON.stringify(localTurns.slice(-20)));}catch(_){}
+            question.value='';notice('Подсказка из учебника · работает без ИИ и интернета.');return result;
+        }
         updateCode();const code=$('tutor-include-code').checked?lastCode:'';
         if(code.length>12000){notice('Код слишком длинный. Сократите его или отключите передачу кода.',true);return null;}
         if(!pending||pending.text!==text||pending.code!==code)pending={text,code,id:crypto.randomUUID()};

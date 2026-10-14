@@ -51,7 +51,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 <link rel="apple-touch-icon" href="/pythontutor/static/pwa/icon-192.png">
 <script defer src="/pythontutor/static/pwa/app.js?v=reset7"></script>
 <script src="/pythontutor/static/pwa/storage.js?v=reset7"></script>
-<meta name="csrf-token" content="BNDAJIUTb7yjXL56yvNTxhf80IdcSqccQPRso9PzZrEhUSeorkMgxK6aZhFSPXne">
+<meta name="csrf-token" content="PviPp0lEbho9sQ4p1VLGSTyxzjcaBAEECwGxpENOLRo9Ofr83xeiCmUSnmQYA3lp">
 
 	<title>Интерактивный учебник языка Python</title>
 
@@ -535,10 +535,11 @@ for key, val in A.items():
 		
 	</div>
 <link rel="stylesheet" href="/pythontutor/static/css/assistant.css?v=9">
+<script defer src="/pythontutor/static/pwa/guidance.js?v=1"></script>
 <script defer src="/pythontutor/static/pwa/model-assets.js?v=1"></script>
 <script defer src="/pythontutor/static/pwa/local-ai.js?v=bundle1"></script>
 <script defer src="/pythontutor/static/pwa/local-voice.js?v=bundle1"></script>
-<script defer src="/pythontutor/static/js/assistant.js?v=bundle1"></script>
+<script defer src="/pythontutor/static/js/assistant.js?v=guidance1"></script>
 <button id="tutor-launcher" type="button" aria-expanded="false" aria-controls="tutor-panel" aria-label="ИИ-помощник" title="ИИ-помощник"><span aria-hidden="true">🐍</span></button>
 <div id="tutor-divider" role="separator" aria-label="Ширина помощника" aria-orientation="vertical" aria-valuemin="28" aria-valuemax="60" aria-valuenow="42" tabindex="0" hidden></div>
 <aside id="tutor-panel" hidden aria-label="ИИ-помощник по текущей задаче" data-url="/pythontutor/assistant/lesson/dicts/" data-kind="lesson" data-learning-context="Мы в интерактивном учебнике Python: 15 уроков и 134 основные задачи. Ученик пишет код в редакторе на этой странице; Python, тесты и пошаговый запуск уже работают в браузере. Устанавливать Python или IDE для этих занятий не нужно. Основной способ обучения — последовательно решать задачи: прочитать условие, попробовать самому, запустить пример, проверить все тесты, при необходимости раскрыть подсказку, затем перейти к следующей задаче. После успешного решения можно обсудить разбор и улучшение. Цель прохождения курса с самостоятельной практикой — база начинающего Python-разработчика. Если спрашивают, как учиться или с чего начать, предложи посильный шаг в текущей задаче этого курса, а не установку программ, сторонние курсы или длинный общий план. Учитывай тему текущего урока и не вводи ещё не изученные конструкции. Это фон беседы: не повторяй описание курса и не навязывай решение задачи в ответ на каждое приветствие." data-user="" data-stt="/pythontutor/assistant/speech/transcribe/" data-worklet="/pythontutor/static/js/tutor-audio-worklet.js" data-auth="no">
@@ -550,6 +551,8 @@ for key, val in A.items():
       <label for="tutor-model">Модель помощника</label>
       <select id="tutor-model" class="form-control"><option value="Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC" selected>Qwen Coder 7B · мощный компьютер</option></select>
       <p id="tutor-model-info" class="tutor-fineprint"></p>
+      <button id="tutor-prepare-ai" type="button">Подготовить ИИ</button>
+      <p class="tutor-fineprint">Две подсказки к задаче доступны без нейросети.</p>
       
       
       

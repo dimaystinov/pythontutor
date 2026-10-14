@@ -51,7 +51,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 <link rel="apple-touch-icon" href="/pythontutor/static/pwa/icon-192.png">
 <script defer src="/pythontutor/static/pwa/app.js?v=reset7"></script>
 <script src="/pythontutor/static/pwa/storage.js?v=reset7"></script>
-<meta name="csrf-token" content="9dFlEKzoGuJGAVM30YxSKCho15Ja2hfz1hMLlnLb1rtdZe2EbBdxHiTUIvSOEbJr">
+<meta name="csrf-token" content="zE1I8M73mY6viUslNzpl9rXKKdZp5oOe1yZnchiacxt4mR5aaPwmCOdMz1rbt3zk">
 
 	<title>Интерактивный учебник языка Python</title>
 
@@ -396,6 +396,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 		</tbody>
 	</table>
 	</div>
+<script id="tutor-hints-data" type="application/json">[{"text": "\u041f\u0435\u0440\u0435\u0432\u043e\u0434\u0438\u043c \u0443\u0433\u043e\u043b \u0432 \u043f\u043e\u043b\u043d\u044b\u0435 \u0441\u0435\u043a\u0443\u043d\u0434\u044b \u0438 \u0440\u0430\u0441\u043a\u043b\u0430\u0434\u044b\u0432\u0430\u0435\u043c \u0438\u0445 \u043d\u0430 \u0447\u0430\u0441\u044b, \u043c\u0438\u043d\u0443\u0442\u044b \u0438 \u0441\u0435\u043a\u0443\u043d\u0434\u044b.", "example": ""}, {"text": "\u041d\u0443\u0436\u043d\u044b \u043f\u043e\u043b\u043d\u044b\u0435 \u0441\u0435\u043a\u0443\u043d\u0434\u044b: \u043e\u043a\u0440\u0443\u0433\u043b\u0435\u043d\u0438\u0435 \u0434\u043e \u0431\u043b\u0438\u0436\u0430\u0439\u0448\u0435\u0439 \u0441\u0435\u043a\u0443\u043d\u0434\u044b \u043d\u0435\u0432\u0435\u0440\u043d\u043e.", "example": ""}]</script>
 <section class="task-hints" aria-label="Подсказки к задаче">
   <h3>Нужна подсказка?</h3>
   
@@ -440,10 +441,11 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 		
 	</div>
 <link rel="stylesheet" href="/pythontutor/static/css/assistant.css?v=9">
+<script defer src="/pythontutor/static/pwa/guidance.js?v=1"></script>
 <script defer src="/pythontutor/static/pwa/model-assets.js?v=1"></script>
 <script defer src="/pythontutor/static/pwa/local-ai.js?v=bundle1"></script>
 <script defer src="/pythontutor/static/pwa/local-voice.js?v=bundle1"></script>
-<script defer src="/pythontutor/static/js/assistant.js?v=bundle1"></script>
+<script defer src="/pythontutor/static/js/assistant.js?v=guidance1"></script>
 <button id="tutor-launcher" type="button" aria-expanded="false" aria-controls="tutor-panel" aria-label="ИИ-помощник" title="ИИ-помощник"><span aria-hidden="true">🐍</span></button>
 <div id="tutor-divider" role="separator" aria-label="Ширина помощника" aria-orientation="vertical" aria-valuemin="28" aria-valuemax="60" aria-valuenow="42" tabindex="0" hidden></div>
 <aside id="tutor-panel" hidden aria-label="ИИ-помощник по текущей задаче" data-url="/pythontutor/assistant/problem/watch_3/" data-kind="problem" data-learning-context="Мы в интерактивном учебнике Python: 15 уроков и 134 основные задачи. Ученик пишет код в редакторе на этой странице; Python, тесты и пошаговый запуск уже работают в браузере. Устанавливать Python или IDE для этих занятий не нужно. Основной способ обучения — последовательно решать задачи: прочитать условие, попробовать самому, запустить пример, проверить все тесты, при необходимости раскрыть подсказку, затем перейти к следующей задаче. После успешного решения можно обсудить разбор и улучшение. Цель прохождения курса с самостоятельной практикой — база начинающего Python-разработчика. Если спрашивают, как учиться или с чего начать, предложи посильный шаг в текущей задаче этого курса, а не установку программ, сторонние курсы или длинный общий план. Учитывай тему текущего урока и не вводи ещё не изученные конструкции. Это фон беседы: не повторяй описание курса и не навязывай решение задачи в ответ на каждое приветствие." data-user="" data-stt="/pythontutor/assistant/speech/transcribe/" data-worklet="/pythontutor/static/js/tutor-audio-worklet.js" data-auth="no">
@@ -455,6 +457,8 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
       <label for="tutor-model">Модель помощника</label>
       <select id="tutor-model" class="form-control"><option value="Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC" selected>Qwen Coder 7B · мощный компьютер</option></select>
       <p id="tutor-model-info" class="tutor-fineprint"></p>
+      <button id="tutor-prepare-ai" type="button">Подготовить ИИ</button>
+      <p class="tutor-fineprint">Две подсказки к задаче доступны без нейросети.</p>
       
       
       
