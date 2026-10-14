@@ -44,6 +44,25 @@ async function progress(){
  const solved=[...states.values()].filter(r=>r.solved);
  const started=[...states.values()].filter(r=>!r.solved);
  $('pwa-progress-summary').textContent='Решено '+solved.length+' из '+Object.keys(tasks).length;
+ const lessonResults=$('pwa-lesson-progress');
+ if(lessonResults){
+  lessonResults.replaceChildren();
+  for(const lesson of JSON.parse($('pwa-lesson-catalog')?.textContent||'[]')){
+   const ids=Object.keys(tasks).filter(id=>tasks[id].lesson===lesson.id);
+   const done=ids.filter(id=>states.get(id)?.solved).length;
+   const row=document.createElement('div');row.className='settings-lesson-row';
+   const link=document.createElement('a');link.href=lesson.url;link.textContent=lesson.title;
+   const count=document.createElement('span');
+   count.textContent=ids.length?'Решено '+done+' из '+ids.length+(done===ids.length?' · Завершено':' · Осталось '+(ids.length-done)):'Без задач';
+   row.append(link,count);
+   if(ids.length){
+    const bar=document.createElement('progress');bar.max=ids.length;bar.value=done;
+    bar.setAttribute('aria-label',lesson.title+': решено '+done+' из '+ids.length);
+    row.append(bar);
+   }
+   lessonResults.append(row);
+  }
+ }
  results.replaceChildren();
  for(const [title,records,empty] of [
   ['Решённые',solved,'Пока нет решённых задач.'],
