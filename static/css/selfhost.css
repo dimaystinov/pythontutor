@@ -198,3 +198,9 @@ hr { margin-top: 16px; margin-bottom: 16px; }
 .settings-progress-groups ul { list-style:none; padding:0; margin:0; max-height:300px; overflow:auto; }
 .settings-progress-groups li { padding:7px 0; }
 @media(max-width:600px) { .settings-progress-groups { grid-template-columns:1fr; gap:12px; } }
+
+.settings-lesson-progress { margin:12px 0 28px; }
+.settings-lesson-row { display:grid; grid-template-columns:1fr auto; gap:6px 16px; padding:12px 0; border-bottom:1px solid #e6edf2; }
+.settings-lesson-row span { color:#526575; font-size:14px; }
+.settings-lesson-row progress { grid-column:1/-1; width:100%; height:6px; accent-color:#7facca; }
+@media(max-width:600px) { .settings-lesson-row { grid-template-columns:1fr; } }
