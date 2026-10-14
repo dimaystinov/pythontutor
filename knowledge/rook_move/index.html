@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<!--
+
+Online Python Tutor
+https://github.com/pgbovine/OnlinePythonTutor/
+
+Copyright (C) 2010-2012 Philip J. Guo (philip@pgbovine.net)
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+-->
+
+<!--
+
+Онлайн учебник Python
+
+Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
+
+-->
+
+
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="execution-mode" content="browser">
+<meta name="local-page" content="yes">
+<meta name="learner-id" content="local">
+<link rel="manifest" href="/pythontutor-selfhost/manifest.webmanifest">
+<meta name="theme-color" content="#e3ebf1">
+<link rel="apple-touch-icon" href="/pythontutor-selfhost/static/pwa/icon-192.png">
+<script defer src="/pythontutor-selfhost/static/pwa/app.js?v=2"></script>
+<script src="/pythontutor-selfhost/static/pwa/storage.js?v=2"></script>
+<meta name="csrf-token" content="j799GcQS1OT7wITAHK2flLwgyQsC64wQVUV8JthEX4tlJLmiGAl80LfZoaiwu9mr">
+
+	<title>Интерактивный учебник языка Python</title>
+
+
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/jquery-3.7.1.min.js"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/pythontutor-selfhost/static/js/site.js?v=5"></script>
+    <script src="/pythontutor-selfhost/static/js/browser-execution.js?v=5"></script>
+    <script>window.MathJax = {options: {enableMenu: false}, loader: {load: []}, tex: {packages: {'[-]': ['autoload', 'require']}}, svg: {fontCache: 'local'}};</script>
+    <script defer src="/pythontutor-selfhost/static/vendor/mathjax/tex-svg.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/pythontutor.css">
+
+<link rel="stylesheet" href="/pythontutor-selfhost/static/css/selfhost.css?v=hints2">
+<meta name="static-site" content="yes"></head>
+<body>
+	<div class="navbar navbar-default navbar-static-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Открыть меню</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/pythontutor-selfhost/">Питонтьютор</a>
+			</div>
+			<div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/pythontutor-selfhost/pwa/">Офлайн-приложение</a></li>
+                    <li><button id="pwa-install-nav" type="button" class="btn btn-link navbar-btn">Установить приложение</button></li>
+                    <li><a class="original-en" href="https://snakify.org/">En</a></li>
+                    
+                </ul>
+				<div class="navbar-text navbar-right">
+					<span>Локальная версия · <a href="/pythontutor-selfhost/pwa/">Мой прогресс</a></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div  class="container">
+		
+        
+	
+		
+
+	
+<p id="local-knowledge-notice">Разбор откроется после решения задачи на этом устройстве. <a href="/pythontutor-selfhost/lessons/ifelse/problems/rook_move/">К задаче</a></p>
+<article class="knowledge-article" hidden data-local-article="problem" data-slug="rook_move">
+<p><a href="/pythontutor-selfhost/lessons/ifelse/problems/rook_move/">← К задаче</a> · <a href="/pythontutor-selfhost/knowledge/">База знаний</a></p>
+<h2>Ход ладьи</h2>
+<p class="text-success">Вы решили задачу. Теперь можно сравнить подходы.</p>
+<p>У ладьи одна из координат остаётся неизменной.</p>
+<p class="knowledge-origin">Авторский разбор для локальной версии на основе условия задачи. Это не выгрузка чужих посылок и не официальное решение исходного сайта.</p>
+<details><summary>Ваше принятое решение</summary><pre><code id="knowledge-own-code"></code></pre></details>
+<section><h3>Рекомендуемое решение: Проверка смещений</h3>
+<p>У ладьи одна из координат остаётся неизменной.</p>
+<pre><code>x1 = int(input())
+y1 = int(input())
+x2 = int(input())
+y2 = int(input())
+dx = abs(x2 - x1)
+dy = abs(y2 - y1)
+print(&quot;YES&quot; if dx == 0 or dy == 0 else &quot;NO&quot;)
+</code></pre>
+<p><strong>Время:</strong> O(1). <strong>Память:</strong> O(1).</p>
+</section>
+<section><h3>Другой способ: Другая форма условия</h3><p>Та же геометрия выражена через алгебраическое условие.</p><pre><code>x1 = int(input())
+y1 = int(input())
+x2 = int(input())
+y2 = int(input())
+dx = abs(x2 - x1)
+dy = abs(y2 - y1)
+print(&quot;YES&quot; if dx * dy == 0 else &quot;NO&quot;)
+</code></pre><p><strong>Время:</strong> O(1). <strong>Память:</strong> O(1).</p></section>
+<h3>На что обратить внимание</h3><ul><li>Клетки по условию различны; ответ печатается латинскими YES или NO.</li></ul>
+<p>Рекомендация учитывает сложность и читаемость для этой задачи. Единственного самого быстрого решения для всех размеров входа и всех компьютеров может не быть.</p>
+<h3>Материалы</h3><ul><li><a href="https://pythontutor.ru/lessons/ifelse/problems/rook_move/" rel="noreferrer">Условие задачи на PythonTutor (старый курс)</a></li></ul>
+</article>
+
+
+
+		
+			<footer>
+                <p>Разработка и поддержка учебника: <a href="https://t.me/thingsiread">Виталий Павленко</a>, Владимир Соломатин (2014), команда Pythontutor (2016)<br>
+                Автор первоначального текста большинства уроков, задач и тестов: Д. П. Кириенко (см. <a href="https://informatics.msk.ru/moodle/course/view.php?id=156">оригинальный курс</a>)<br>
+                Идея учебника: В. М. Гуровиц<br>
+                Разработчик визуализатора: <a href="https://www.pgbovine.net/">Philip Guo</a> (см. <a href="https://pythontutor.com/">сайт визуализатора</a>)<br>
+                Родилось в 2012</p>
+                <p class="local-links"><a href="/pythontutor-selfhost/knowledge/">База знаний</a> · <a href="/pythontutor-selfhost/">Уроки</a> · <a href="/pythontutor-selfhost/visualizer/">Визуализатор</a> · <a href="/pythontutor-selfhost/images/">OpenCV</a> · <a href="https://github.com/Behnisch/pythontutor-ru">Публичный архив</a></p>
+
+			</footer>
+		
+	</div>
+
+</body>
+</html>

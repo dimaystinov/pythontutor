@@ -1,0 +1,1 @@
+{"tests": [{"stdin": "Harry", "answer": "Hello, Harry!"}, {"stdin": "Mr. Potter", "answer": "Hello, Mr. Potter!"}, {"stdin": "Lord Voldemort", "answer": "Hello, Lord Voldemort!"}]}

@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<!--
+
+Online Python Tutor
+https://github.com/pgbovine/OnlinePythonTutor/
+
+Copyright (C) 2010-2012 Philip J. Guo (philip@pgbovine.net)
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+-->
+
+<!--
+
+Онлайн учебник Python
+
+Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
+
+-->
+
+
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="execution-mode" content="browser">
+<meta name="local-page" content="yes">
+<meta name="learner-id" content="local">
+<link rel="manifest" href="/pythontutor-selfhost/manifest.webmanifest">
+<meta name="theme-color" content="#e3ebf1">
+<link rel="apple-touch-icon" href="/pythontutor-selfhost/static/pwa/icon-192.png">
+<script defer src="/pythontutor-selfhost/static/pwa/app.js?v=2"></script>
+<script src="/pythontutor-selfhost/static/pwa/storage.js?v=2"></script>
+<meta name="csrf-token" content="7Ed9nDXSthodv1xFmB58cMblGILnvJsDU4FjHpV3RALa9xWPEL5fy2JjeVSRiDOc">
+
+	<title>Интерактивный учебник языка Python</title>
+
+
+	
+	
+	
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/jquery-3.7.1.min.js"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/pythontutor-selfhost/static/js/site.js?v=5"></script>
+    <script src="/pythontutor-selfhost/static/js/browser-execution.js?v=5"></script>
+    <script>window.MathJax = {options: {enableMenu: false}, loader: {load: []}, tex: {packages: {'[-]': ['autoload', 'require']}}, svg: {fontCache: 'local'}};</script>
+    <script defer src="/pythontutor-selfhost/static/vendor/mathjax/tex-svg.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/pythontutor.css">
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/pythontutor-sidebar.css">
+
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/visualizer.css">
+
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/ace-editor/ace.js"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/jquery.jsPlumb-1.6.4-min.js"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/visualizer.js?v=browser1"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/lesson.js"></script>
+
+	<script type="text/javascript">
+		var lesson_name = '';
+	</script>
+
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/lesson.css?v=menu2">
+
+<link rel="stylesheet" href="/pythontutor-selfhost/static/css/selfhost.css?v=hints2">
+<meta name="static-site" content="yes"></head>
+<body>
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Открыть меню</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/pythontutor-selfhost/">Питонтьютор</a>
+			</div>
+			<div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/pythontutor-selfhost/pwa/">Офлайн-приложение</a></li>
+                    <li><button id="pwa-install-nav" type="button" class="btn btn-link navbar-btn">Установить приложение</button></li>
+                    <li><a class="original-en" href="https://snakify.org/">En</a></li>
+                    
+                </ul>
+				<div class="navbar-text navbar-right">
+					<span>Локальная версия · <a href="/pythontutor-selfhost/pwa/">Мой прогресс</a></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<div id="tutor-workspace">
+	<div id="tutor-content" class="container-fluid">
+		
+        
+	<div class="row">
+		<div class="col-sm-3 col-md-2 sidebar">
+			
+	
+			
+	<ul class="nav nav-sidebar">
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/inout_and_arithmetic_operations/">1. Ввод и вывод данных</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/ifelse/">2. Условия</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/int_and_float/">3. Вычисления</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/for_loop/">4. Цикл for</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/str/">5. Строки</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/while/">6. Цикл while</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/lists/">7. Списки</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/functions/">8. Функции и рекурсия</a>
+				
+			</li>
+		
+			<li class="active">
+				<a href="/pythontutor-selfhost/lessons/2d_arrays/">9. Двумерные массивы</a>
+				
+					
+	<ul class="lesson_sections">
+		
+			<li class="section_menuitem" data-section-id="1">
+	<div class="position_spin"></div>
+	<a href="#section_1">1. Обработка и вывод вложенных списков</a>
+	
+</li>
+<li class="section_menuitem" data-section-id="2">
+	<div class="position_spin"></div>
+	<a href="#section_2">2. Создание вложенных списков</a>
+	
+</li>
+<li class="section_menuitem" data-section-id="3">
+	<div class="position_spin"></div>
+	<a href="#section_3">3. Ввод двумерного массива</a>
+	
+</li>
+<li class="section_menuitem" data-section-id="4">
+	<div class="position_spin"></div>
+	<a href="#section_4">4. Пример обработки двумерного массива</a>
+	
+</li>
+<li class="section_menuitem" data-section-id="5">
+	<div class="position_spin"></div>
+	<a href="#section_5">5. Вложенные генераторы двумерных массивов</a>
+	
+</li>
+
+		
+		<li class="problems_link">
+			<a href="#problems">Задачи</a>
+            <ul><li><a href="/pythontutor-selfhost/lessons/2d_arrays/problems/2d_max/">Максимум</a></li><li><a href="/pythontutor-selfhost/lessons/2d_arrays/problems/snowflake/">Снежинка</a></li><li><a href="/pythontutor-selfhost/lessons/2d_arrays/problems/chessboard/">Шахматная доска</a></li><li><a href="/pythontutor-selfhost/lessons/2d_arrays/problems/diagonals/">Диагонали, параллельные главной</a></li><li><a href="/pythontutor-selfhost/lessons/2d_arrays/problems/secondary_diagonal/">Побочная диагональ</a></li><li><a href="/pythontutor-selfhost/lessons/2d_arrays/problems/swap_columns/">Поменять столбцы</a></li></ul>
+		</li>
+	</ul>
+
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/sets/">10. Множества</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/dicts/">11. Словари</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/graphs/">12. Графы: определения и способы хранения</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/dfs/">13. Обход в глубину</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/file_io/">14. Файловый ввод-вывод</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/bfs/">15. Обход в ширину</a>
+				
+			</li>
+		
+	</ul>
+
+		</div>
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			
+	
+			
+
+	
+	<h3 class="page-header"><button type="button" class="sidebar-toggle btn btn-default" aria-label="Скрыть меню уроков" aria-expanded="true"><i class="fa fa-angle-left" aria-hidden="true"></i></button>Занятие 9. Двумерные массивы</h3>
+
+	<div id="section_1" class="section" data-section-id="1">
+	
+	<h3>1. Обработка и вывод вложенных списков</h3>
+	
+Часто в задачах приходится хранить прямоугольные таблицы с данными.
+Такие таблицы называются матрицами или двумерными массивами. В языке
+программирования Питон таблицу можно представить в виде списка строк,
+каждый элемент которого является в свою очередь списком, например, чисел.
+Например, приведём программу, в которой создаётся числовая таблица из двух строк и трех столбцов, с которой производятся различные действия.
+
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">a = [[1, 2, 3], [4, 5, 6]]
+print(a[0])
+print(a[1])
+b = a[0]
+print(b)
+print(a[0][2])
+a[0][1] = 7
+print(a)
+print(b)
+b[2] = 9
+print(a[0])
+print(b)</pre>
+</div>
+
+
+<p>Здесь первая строка списка <code>a[0]</code> является списком из чисел
+<code>[1, 2, 3]</code>. То есть <code>a[0][0] == 1</code>, значение
+<code>a[0][1] == 2</code>, <code>a[0][2] == 3</code>,
+<code>a[1][0] == 4</code>, <code>a[1][1] == 5</code>,
+<code>a[1][2] == 6</code>.
+
+<p>Для обработки и вывода списка, как правило, используют два вложенных
+цикла. Первый цикл перебирает номер строки, второй цикл бежит по элементам внутри строки.
+Например, вывести двумерный числовой список на экран построчно,
+разделяя числа пробелами внутри одной строки, можно так:
+
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">a = [[1, 2, 3, 4], [5, 6], [7, 8, 9]]
+for i in range(len(a)):
+    for j in range(len(a[i])):
+        print(a[i][j], end=&#x27; &#x27;)
+    print()</pre>
+</div>
+
+
+<p><div class="smartsnippet">
+<p>Однажды мы уже пытались объяснить, что переменная цикла for в Питоне может перебирать не только диапазон, создаваемый с помощью функции <code>range()</code>, но и вообще перебирать любые элементы любой последовательности. Последовательностями в Питоне являются списки, строки, а также некоторые другие объекты, с которыми мы пока не встречались. Продемонстрируем, как выводить двумерный массив, используя это удобное свойство цикла <code>for</code>:
+
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">a = [[1, 2, 3, 4], [5, 6], [7, 8, 9]]
+for row in a:
+    for elem in row:
+        print(elem, end=&#x27; &#x27;)
+    print()</pre>
+</div>
+
+</div></p>
+
+<p>Естественно, для вывода одной строки можно воспользоваться
+методом <code>join()</code>:
+
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code">for row in a:
+    print(&#x27; &#x27;.join([str(elem) for elem in row]))</pre>
+</div>
+
+
+<p>Используем два вложенных цикла для подсчета суммы всех
+чисел в списке:
+
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">a = [[1, 2, 3, 4], [5, 6], [7, 8, 9]]
+s = 0
+for i in range(len(a)):
+    for j in range(len(a[i])):
+        s += a[i][j]
+print(s)</pre>
+</div>
+
+
+<p>Или то же самое с циклом не по индексу, а по значениям строк:
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">a = [[1, 2, 3, 4], [5, 6], [7, 8, 9]]
+s = 0
+for row in a:
+    for elem in row:
+        s += elem
+print(s)</pre>
+</div>
+
+
+</div>
+<div id="section_2" class="section" data-section-id="2">
+	
+	<h3>2. Создание вложенных списков</h3>
+	
+<p>Пусть даны два числа: количество строк <code>n</code> и количество столбцов
+<code>m</code>. Необходимо создать список размером <code>n</code>&times;<code>m</code>, заполненный нулями.
+
+<p>Очевидное решение оказывается неверным:
+
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code">a = [[0] * m] * n</pre>
+</div>
+
+
+<p>В этом легко убедиться, если присвоить элементу <code>a[0][0]</code>
+значение <code>5</code>, а потом вывести значение другого элемента <code>a[1][0]</code>&nbsp;&mdash; оно тоже будет равно 5. Дело в том, что
+<code>[0] * m</code> возвращает ccылку на список из <code>m</code> нулей.
+Но последующее повторение этого элемента создает список из <code>n</code>
+элементов, которые являются ссылкой на один и тот же список (точно
+так же, как выполнение операции <code>b&nbsp;=&nbsp;a</code> для списков не создает
+новый список), поэтому все строки результирующего списка на самом деле
+являются одной и той же строкой.
+<p>В визуализаторе обратите внимание на номер id у списков. Если у двух списков id совпадает, то это на самом деле один и тот же список в памяти.
+
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">n = 3
+m = 4
+a = [[0] * m] * n
+a[0][0] = 5
+print(a[1][0])</pre>
+</div>
+
+
+<p>Таким образом, двумерный список нельзя создавать при помощи операции
+повторения одной строки. Что же делать?
+
+<p>Первый способ: сначала создадим список из <code>n</code> элементов
+(для начала просто из <code>n</code> нулей). Затем сделаем каждый
+элемент списка ссылкой на другой одномерный список из <code>m</code>
+элементов:
+
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">n = 3
+m = 4
+a = [0] * n
+for i in range(n):
+    a[i] = [0] * m</pre>
+</div>
+
+
+<p>Другой (но похожий) способ: создать пустой список, потом <code>n</code>
+раз добавить в него новый элемент, являющийся списком-строкой:
+
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">n = 3
+m = 4
+a = []
+for i in range(n):
+    a.append([0] * m)</pre>
+</div>
+
+
+<p>Но еще проще воспользоваться генератором: создать список из
+<code>n</code> элементов, каждый из которых будет списком,
+состоящих из <code>m</code> нулей:
+
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">n = 3
+m = 4
+a = [[0] * m for i in range(n)]</pre>
+</div>
+
+
+<p>В этом случае каждый элемент создается независимо от остальных
+(заново конструируется список <code>[0] * m</code> для заполнения очередного
+элемента списка), а не копируются ссылки на один и тот же список.
+
+</div>
+<div id="section_3" class="section" data-section-id="3">
+	
+	<h3>3. Ввод двумерного массива</h3>
+	
+<p>Пусть программа получает на вход двумерный массив в виде
+<code>n</code> строк, каждая из которых содержит <code>m</code>
+чисел, разделенных пробелами. Как их считать? Например, так:
+
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;">3
+1 2 3 4
+5 6
+7 8 9</pre>
+	<pre class="code"># в первой строке ввода идёт количество строк массива
+n = int(input()) 
+a = []
+for i in range(n):
+    a.append([int(j) for j in input().split()])</pre>
+</div>
+
+
+<P>Или, без использования сложных вложенных вызовов функций:
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;">3
+1 2 3 4
+5 6
+7 8 9</pre>
+	<pre class="code"># в первой строке ввода идёт количество строк массива
+n = int(input()) 
+a = []
+for i in range(n):
+    row = input().split()
+    for i in range(len(row)):
+        row[i] = int(row[i])
+    a.append(row)</pre>
+</div>
+
+
+<p>Можно сделать то же самое и при помощи генератора:
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;">3
+1 2 3 4
+5 6
+7 8 9</pre>
+	<pre class="code"># в первой строке ввода идёт количество строк массива
+n = int(input()) 
+a = [[int(j) for j in input().split()] for i in range(n)]</pre>
+</div>
+
+
+</div>
+<div id="section_4" class="section" data-section-id="4">
+	
+	<h3>4. Пример обработки двумерного массива</h3>
+	
+<p>Пусть дан квадратный массив из <code>n</code> строк и <code>n</code> столбцов. 
+Необходимо элементам, находящимся на главной диагонали, проходящей из левого верхнего угла в правый
+нижний (то есть тем элементам <code>a[i][j]</code>, для которых <code>i==j</code>)
+присвоить значение <code>1</code>, элементам,
+находящимся выше главной диагонали&nbsp;<!-- /@w -->&ndash; значение 0, элементам, находящимся ниже главной диагонали&nbsp;<!-- /@w -->&ndash; значение 2. То есть необходимо получить такой массив
+(пример для <code>n==4</code>):
+
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code">1 0 0 0
+2 1 0 0
+2 2 1 0
+2 2 2 1</pre>
+</div>
+
+   <p>Рассмотрим несколько способов решения этой задачи. Элементы, которые лежат выше главной диагонали&nbsp;&ndash; это элементы
+<code>a[i][j]</code>, для которых <code>i&lt;j</code>, а для элементов ниже главной диагонали <code>i&gt;j</code>. Таким образом, мы можем
+сравнивать значения <code>i</code> и <code>j</code> и по ним определять значение <code>A[i][j]</code>. Получаем следующий алгоритм:
+
+
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">n = 4
+a = [[0] * n for i in range(n)]
+for i in range(n):
+    for j in range(n):
+        if i &lt; j:
+            a[i][j] = 0
+        elif i &gt; j:
+            a[i][j] = 2
+        else:
+            a[i][j] = 1
+for row in a:
+    print(&#x27; &#x27;.join([str(elem) for elem in row]))</pre>
+</div>
+
+   <p>Данный алгоритм плох, поскольку выполняет одну или две инструкции <code>if</code> для обработки каждого элемента. 
+Если мы усложним алгоритм, то мы сможем обойтись вообще без условных инструкций.
+
+   <p>Сначала заполним главную диагональ, для чего нам понадобится один цикл:
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code">for i in range(n):
+    a[i][i] = 1</pre>
+</div>
+
+   <p>Затем заполним значением <code>0</code> все элементы выше главной диагонали, для чего нам понадобится в каждой из строк
+с номером <code>i</code> присвоить значение элементам <code>a[i][j]</code> для <code>j</code>=<code>i+1</code>, ..., <code>n-1</code>. Здесь нам
+понадобятся вложенные циклы:
+
+
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code">for i in range(n):
+    for j in range(i + 1, n):
+        a[i][j] = 0</pre>
+</div>
+
+   <p>Аналогично присваиваем значение <code>2</code> элементам <code>a[i][j]</code> для <code>j</code>=<code>0</code>, ..., <code>i-1</code>:
+
+
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code">for i in range(n):
+    for j in range(0, i):
+        a[i][j] = 2</pre>
+</div>
+
+
+<p>Можно также внешние циклы объединить в один и получить еще одно, более компактное решение:
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">n = 4
+a = [[0] * n for i in range(n)]
+for i in range(n):
+    for j in range(0, i):
+        a[i][j] = 2
+    a[i][i] = 1
+    for j in range(i + 1, n):
+        a[i][j] = 0
+for row in a:
+    print(&#x27; &#x27;.join([str(elem) for elem in row]))</pre>
+</div>
+
+
+<p>А вот такое решение использует операцию повторения списков для построения очередной
+строки списка. <code>i</code>-я строка списка состоит из <code>i</code> чисел
+<code>2</code>, затем идет одно число <code>1</code>, затем идет <code>n-i-1</code>
+
+число <code>0</code>:
+
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">n = 4
+a = [0] * n
+for i in range(n):
+    a[i] = [2] * i + [1] + [0] * (n - i - 1)
+for row in a:
+    print(&#x27; &#x27;.join([str(elem) for elem in row]))</pre>
+</div>
+
+
+<p>А можно заменить цикл на генератор:
+
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">n = 4
+a = [0] * n
+a = [[2] * i + [1] + [0] * (n - i - 1) for i in range(n)]
+for row in a:
+    print(&#x27; &#x27;.join([str(elem) for elem in row]))</pre>
+</div>
+
+
+</div>
+<div id="section_5" class="section" data-section-id="5">
+	
+	<h3>5. Вложенные генераторы двумерных массивов</h3>
+	
+<p>Для создания двумерных массивов можно использовать вложенные генераторы, разместив
+генератор списка, являющегося строкой, внутри генератора всех строк. Напомним, что сделать список из <code>n</code> строк и <code>m</code> столбцов можно при помощи генератора,
+создающего список из <code>n</code> элементов, каждый элемент которого является списком из
+
+<code>m</code> нулей:
+
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code">[[0] * m for i in range(n)]</pre>
+</div>
+
+
+<p>Но при этом внутренний список также можно создать при помощи, например, такого генератора:
+<code>[0 for j in range(m)]</code>. Вложив один генератор в другой, получим вложенные генераторы:
+
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code">[[0 for j in range(m)] for i in range(n)]</pre>
+</div>
+
+
+<p>Но если число 0 заменить на некоторое выражение, зависящее от <code>i</code>
+
+(номер строки) и <code>j</code> (номер столбца), то можно получить список, заполненный
+по некоторой формуле.
+
+<p>Например, пусть нужно задать следующий массив (для удобства добавлены дополнительные пробелы между элементами):
+
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code">0  0  0  0  0  0
+0  1  2  3  4  5
+0  2  4  6  8 10
+0  3  6  9 12 15
+0  4  8 12 16 20</pre>
+</div>
+
+
+<p>В этом массиве <code>n = 5</code> строк, <code>m = 6</code> столбцов, и элемент
+в строке <code>i</code> и столбце <code>j</code> вычисляется по формуле:
+
+<code>a[i][j] = i * j</code>.
+
+<p>Для создания такого массива можно использовать генератор:
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code">[[i * j for j in range(m)] for i in range(n)]</pre>
+</div>
+
+
+</div>
+
+
+	
+		<hr>
+		<div id="problems">
+			<h2>Задачи:</h2>
+			<ol class="lesson_problems">
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/2d_arrays/problems/2d_max/"><span class="unsubmittedProblemLink">Максимум</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/2d_arrays/problems/snowflake/"><span class="unsubmittedProblemLink">Снежинка</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/2d_arrays/problems/chessboard/"><span class="unsubmittedProblemLink">Шахматная доска</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/2d_arrays/problems/diagonals/"><span class="unsubmittedProblemLink">Диагонали, параллельные главной</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/2d_arrays/problems/secondary_diagonal/"><span class="unsubmittedProblemLink">Побочная диагональ</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/2d_arrays/problems/swap_columns/"><span class="unsubmittedProblemLink">Поменять столбцы</span></a>
+						
+					</li>
+				
+			</ol>
+		</div>
+	
+	
+		<h4><a href="http://informatics.mccme.ru/moodle/mod/statements/view.php?id=6410">Внешний контест с задачами</a></h4>
+	
+
+
+
+		</div>
+	</div>
+
+
+		
+			<footer>
+                <p>Разработка и поддержка учебника: <a href="https://t.me/thingsiread">Виталий Павленко</a>, Владимир Соломатин (2014), команда Pythontutor (2016)<br>
+                Автор первоначального текста большинства уроков, задач и тестов: Д. П. Кириенко (см. <a href="https://informatics.msk.ru/moodle/course/view.php?id=156">оригинальный курс</a>)<br>
+                Идея учебника: В. М. Гуровиц<br>
+                Разработчик визуализатора: <a href="https://www.pgbovine.net/">Philip Guo</a> (см. <a href="https://pythontutor.com/">сайт визуализатора</a>)<br>
+                Родилось в 2012</p>
+                <p class="local-links"><a href="/pythontutor-selfhost/knowledge/">База знаний</a> · <a href="/pythontutor-selfhost/">Уроки</a> · <a href="/pythontutor-selfhost/visualizer/">Визуализатор</a> · <a href="/pythontutor-selfhost/images/">OpenCV</a> · <a href="https://github.com/Behnisch/pythontutor-ru">Публичный архив</a></p>
+
+			</footer>
+		
+	</div>
+<link rel="stylesheet" href="/pythontutor-selfhost/static/css/assistant.css?v=9">
+<script defer src="/pythontutor-selfhost/static/pwa/local-ai.js?v=learning2"></script>
+<script defer src="/pythontutor-selfhost/static/pwa/local-voice.js?v=1"></script>
+<script defer src="/pythontutor-selfhost/static/js/assistant.js?v=learning2"></script>
+<button id="tutor-launcher" type="button" aria-expanded="false" aria-controls="tutor-panel" aria-label="ИИ-помощник" title="ИИ-помощник"><span aria-hidden="true">🐍</span></button>
+<div id="tutor-divider" role="separator" aria-label="Ширина помощника" aria-orientation="vertical" aria-valuemin="28" aria-valuemax="60" aria-valuenow="42" tabindex="0" hidden></div>
+<aside id="tutor-panel" hidden aria-label="ИИ-помощник по текущей задаче" data-url="/pythontutor-selfhost/assistant/lesson/2d_arrays/" data-kind="lesson" data-learning-context="Мы в интерактивном учебнике Python: 15 уроков и 134 основные задачи. Ученик пишет код в редакторе на этой странице; Python, тесты и пошаговый запуск уже работают в браузере. Устанавливать Python или IDE для этих занятий не нужно. Основной способ обучения — последовательно решать задачи: прочитать условие, попробовать самому, запустить пример, проверить все тесты, при необходимости раскрыть подсказку, затем перейти к следующей задаче. После успешного решения можно обсудить разбор и улучшение. Цель прохождения курса с самостоятельной практикой — база начинающего Python-разработчика. Если спрашивают, как учиться или с чего начать, предложи посильный шаг в текущей задаче этого курса, а не установку программ, сторонние курсы или длинный общий план. Учитывай тему текущего урока и не вводи ещё не изученные конструкции. Это фон беседы: не повторяй описание курса и не навязывай решение задачи в ответ на каждое приветствие." data-user="" data-stt="/pythontutor-selfhost/assistant/speech/transcribe/" data-worklet="/pythontutor-selfhost/static/js/tutor-audio-worklet.js" data-auth="no">
+    <header class="tutor-header"><span class="tutor-avatar" aria-hidden="true">🐍</span><div class="tutor-toolbar"><button id="tutor-text-mode" type="button" aria-label="Текстовый чат" aria-pressed="true">☷</button><button id="tutor-voice-mode" type="button" aria-label="Голосовой режим" aria-pressed="false">🎙</button><button id="tutor-expand" type="button" aria-label="Развернуть на весь экран" aria-pressed="false">⛶</button><button id="tutor-close" type="button" aria-label="Свернуть чат">⌄</button></div></header>
+    <h2>Давай поговорим</h2>
+    <p class="tutor-context" id="tutor-context">Помощник по текущей задаче</p>
+    
+    <details id="tutor-settings"><summary>Настройки</summary><div class="tutor-local-options">
+      <label for="tutor-model">Модель помощника</label>
+      <select id="tutor-model" class="form-control"><option value="Qwen2.5-Coder-0.5B-Instruct-q4f16_1-MLC">Qwen Coder 0.5B · минимальная</option><option value="Qwen2.5-Coder-1.5B-Instruct-q4f16_1-MLC" selected>Qwen Coder 1.5B · рекомендуется</option><option value="Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC">Qwen Coder 7B · мощный компьютер</option><option value="Qwen3-1.7B-q4f16_1-MLC">Qwen3 1.7B · универсальная</option></select>
+      <p id="tutor-model-info" class="tutor-fineprint"></p>
+      
+      
+      
+    </div>
+    <div class="tutor-code-access"><label><input id="tutor-include-code" type="checkbox" checked> Помощник видит мой код</label><span id="tutor-code-status">Код считывается из редактора</span></div>
+    </details>
+    <div id="tutor-voice-view" hidden><div class="tutor-voice-orb" aria-hidden="true">🐍</div><h3>Голосовой разговор</h3><p id="tutor-voice-status" role="status">Готовлю разговор… При первом запуске браузер попросит доступ к микрофону.</p><button id="tutor-call" type="button">Начать разговор</button><button id="tutor-interrupt" type="button" hidden>Отправить реплику</button><p class="tutor-fineprint">После паузы вопрос отправится автоматически. Ответ прозвучит вслух и останется в текстовом чате. Одна реплика — до 60 секунд.</p></div>
+    <div id="tutor-messages" role="log" aria-live="polite" aria-relevant="additions"><div class="tutor-welcome"><span aria-hidden="true">🐍</span><p>Привет, я Питоныч. Можем просто поговорить или вместе разобраться с задачей. О чём хочешь поговорить?</p></div></div>
+    <div id="tutor-quick"><button type="button" data-question="Объясни условие простыми словами, без готового решения.">Объясни условие</button><button type="button" data-question="Дай небольшую подсказку, с чего начать. Не выдавай решение целиком.">Дай подсказку</button><button type="button" data-question="Посмотри мой текущий код: помоги найти ошибку и понять её причину.">Проверь мой код</button></div>
+    <p id="tutor-status" role="status" aria-live="polite"></p>
+    <form id="tutor-form"><label class="sr-only" for="tutor-question">Вопрос помощнику</label><textarea id="tutor-question" rows="3" maxlength="3000" placeholder="Напиши или надиктуй вопрос"></textarea><div id="tutor-attachment" hidden><span></span><button type="button" id="tutor-remove-image" aria-label="Убрать изображение">×</button></div><div class="tutor-composer-tools"><label class="tutor-attach" title="Прикрепить изображение"><span aria-hidden="true">📎</span><span class="sr-only">Прикрепить изображение</span><input id="tutor-image" type="file" accept="image/png,image/jpeg" aria-label="Прикрепить изображение"></label><button id="tutor-dictate" type="button" aria-label="Начать голосовой ввод" title="Надиктовать вопрос">🎙</button><button id="tutor-stop-model" type="button" aria-label="Остановить ответ" title="Остановить ответ" hidden>■</button><button id="tutor-send" type="submit" aria-label="Отправить вопрос">↑</button></div></form>
+    <p class="tutor-fineprint">По отправке вопроса ИИ получает материал и включённый код. В локальном режиме вопросы, код и речь остаются на устройстве. ИИ может ошибаться.</p>
+    
+</aside>
+</div>
+</body>
+</html>

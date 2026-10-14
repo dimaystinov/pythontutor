@@ -1,0 +1,1 @@
+{"tests": [{"stdin": "2012", "answer": "YES"}, {"stdin": "2011", "answer": "NO"}, {"stdin": "1492", "answer": "YES"}, {"stdin": "1861", "answer": "NO"}, {"stdin": "1600", "answer": "YES"}, {"stdin": "1700", "answer": "NO"}, {"stdin": "1800", "answer": "NO"}, {"stdin": "1900", "answer": "NO"}, {"stdin": "2000", "answer": "YES"}]}

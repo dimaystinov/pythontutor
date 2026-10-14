@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<!--
+
+Online Python Tutor
+https://github.com/pgbovine/OnlinePythonTutor/
+
+Copyright (C) 2010-2012 Philip J. Guo (philip@pgbovine.net)
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+-->
+
+<!--
+
+Онлайн учебник Python
+
+Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
+
+-->
+
+
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="execution-mode" content="browser">
+<meta name="local-page" content="yes">
+<meta name="learner-id" content="local">
+<link rel="manifest" href="/pythontutor-selfhost/manifest.webmanifest">
+<meta name="theme-color" content="#e3ebf1">
+<link rel="apple-touch-icon" href="/pythontutor-selfhost/static/pwa/icon-192.png">
+<script defer src="/pythontutor-selfhost/static/pwa/app.js?v=2"></script>
+<script src="/pythontutor-selfhost/static/pwa/storage.js?v=2"></script>
+<meta name="csrf-token" content="neFiBRmKQhcbxlJHdwe4j8Coh8rUqOgLCWjD312jOiarETlK3gtfi4VWvMZ1udvG">
+
+	<title>Интерактивный учебник языка Python</title>
+
+
+	
+	
+	
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/jquery-3.7.1.min.js"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/pythontutor-selfhost/static/js/site.js?v=5"></script>
+    <script src="/pythontutor-selfhost/static/js/browser-execution.js?v=5"></script>
+    <script>window.MathJax = {options: {enableMenu: false}, loader: {load: []}, tex: {packages: {'[-]': ['autoload', 'require']}}, svg: {fontCache: 'local'}};</script>
+    <script defer src="/pythontutor-selfhost/static/vendor/mathjax/tex-svg.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/pythontutor.css">
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/pythontutor-sidebar.css">
+
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/visualizer.css">
+
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/ace-editor/ace.js"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/jquery.jsPlumb-1.6.4-min.js"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/visualizer.js?v=browser1"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/lesson.js"></script>
+
+	<script type="text/javascript">
+		var lesson_name = '';
+	</script>
+
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/lesson.css?v=menu2">
+
+<link rel="stylesheet" href="/pythontutor-selfhost/static/css/selfhost.css?v=hints2">
+<meta name="static-site" content="yes"></head>
+<body>
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Открыть меню</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/pythontutor-selfhost/">Питонтьютор</a>
+			</div>
+			<div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/pythontutor-selfhost/pwa/">Офлайн-приложение</a></li>
+                    <li><button id="pwa-install-nav" type="button" class="btn btn-link navbar-btn">Установить приложение</button></li>
+                    <li><a class="original-en" href="https://snakify.org/">En</a></li>
+                    
+                </ul>
+				<div class="navbar-text navbar-right">
+					<span>Локальная версия · <a href="/pythontutor-selfhost/pwa/">Мой прогресс</a></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<div id="tutor-workspace">
+	<div id="tutor-content" class="container-fluid">
+		
+        
+	<div class="row">
+		<div class="col-sm-3 col-md-2 sidebar">
+			
+	
+			
+	<ul class="nav nav-sidebar">
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/inout_and_arithmetic_operations/">1. Ввод и вывод данных</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/ifelse/">2. Условия</a>
+				
+			</li>
+		
+			<li class="active">
+				<a href="/pythontutor-selfhost/lessons/int_and_float/">3. Вычисления</a>
+				
+					
+	<ul class="lesson_sections">
+		
+			<li class="section_menuitem" data-section-id="1">
+	<div class="position_spin"></div>
+	<a href="#section_1">1. Целочисленная арифметика</a>
+	
+</li>
+<li class="section_menuitem" data-section-id="2">
+	<div class="position_spin"></div>
+	<a href="#section_2">2. Действительные числа</a>
+	
+</li>
+<li class="section_menuitem" data-section-id="3">
+	<div class="position_spin"></div>
+	<a href="#section_3">3. Библиотека math</a>
+	
+</li>
+
+		
+		<li class="problems_link">
+			<a href="#problems">Задачи</a>
+            <ul><li><a href="/pythontutor-selfhost/lessons/int_and_float/problems/last_digit/">Последняя цифра числа</a></li><li><a href="/pythontutor-selfhost/lessons/int_and_float/problems/mkad/">МКАД</a></li><li><a href="/pythontutor-selfhost/lessons/int_and_float/problems/fractional_part/">Дробная часть</a></li><li><a href="/pythontutor-selfhost/lessons/int_and_float/problems/digit_after_separator/">Первая цифра после точки</a></li><li><a href="/pythontutor-selfhost/lessons/int_and_float/problems/konec_urokov/">Конец уроков</a></li><li><a href="/pythontutor-selfhost/lessons/int_and_float/problems/motor_rally/">Автопробег</a></li><li><a href="/pythontutor-selfhost/lessons/int_and_float/problems/purchase_price/">Стоимость покупки</a></li><li><a href="/pythontutor-selfhost/lessons/int_and_float/problems/raznost_vremen/">Разность времен</a></li><li><a href="/pythontutor-selfhost/lessons/int_and_float/problems/ulitka/">Улитка</a></li><li><a href="/pythontutor-selfhost/lessons/int_and_float/problems/tens_digit/">Число десятков</a></li><li><a href="/pythontutor-selfhost/lessons/int_and_float/problems/sum_of_digits/">Сумма цифр</a></li><li><a href="/pythontutor-selfhost/lessons/int_and_float/problems/hypot/">Гипотенуза</a></li><li><a href="/pythontutor-selfhost/lessons/int_and_float/problems/watch_1/">Часы - 1</a></li><li><a href="/pythontutor-selfhost/lessons/int_and_float/problems/watch_2/">Часы - 2</a></li><li><a href="/pythontutor-selfhost/lessons/int_and_float/problems/watch_3/">Часы - 3</a></li><li><a href="/pythontutor-selfhost/lessons/int_and_float/problems/percents/">Проценты</a></li><li><a href="/pythontutor-selfhost/lessons/int_and_float/problems/russian_round/">Округление по российским правилам</a></li><li><a href="/pythontutor-selfhost/lessons/int_and_float/problems/compound_interest/">Сложные проценты</a></li></ul>
+		</li>
+	</ul>
+
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/for_loop/">4. Цикл for</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/str/">5. Строки</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/while/">6. Цикл while</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/lists/">7. Списки</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/functions/">8. Функции и рекурсия</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/2d_arrays/">9. Двумерные массивы</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/sets/">10. Множества</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/dicts/">11. Словари</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/graphs/">12. Графы: определения и способы хранения</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/dfs/">13. Обход в глубину</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/file_io/">14. Файловый ввод-вывод</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/bfs/">15. Обход в ширину</a>
+				
+			</li>
+		
+	</ul>
+
+		</div>
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			
+	
+			
+
+	
+	<h3 class="page-header"><button type="button" class="sidebar-toggle btn btn-default" aria-label="Скрыть меню уроков" aria-expanded="true"><i class="fa fa-angle-left" aria-hidden="true"></i></button>Занятие 3. Вычисления</h3>
+
+	<div id="section_1" class="section" data-section-id="1">
+	
+	<h3>1. Целочисленная арифметика</h3>
+	
+<p>Для целых чисел определены операции
+<code>+</code>, <code>-</code>, <code>*</code> и <code>**</code>. Операция
+деления <code>/</code> для целых чисел возвращает вещественное число (значение типа <code>float</code>).
+Также функция возведения в степень возвращает значение типа <code>float</code>,
+если показатель степени&nbsp;&mdash; отрицательное число.
+ 
+<p>Но есть и специальная операция целочисленного деления, выполняющегося с отбрасыванием
+дробной части, которая обозначается <code>//</code> (она соответствует операции <code>div</code> в Паскале). 
+Она возвращает целое число: целую часть частного. Другая близкая ей операция &minus; это операция взятия остатка от деления, 
+обозначаемая <code>%</code> (она соответствует операции <code>mod</code> в Паскале).
+Например:
+ 
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">print(17 / 3)   # выведет 5.66666666667
+print(17 // 3)  # выведет 5
+print(17 % 3)   # выведет 2</pre>
+</div>
+
+
+
+</div>
+<div id="section_2" class="section" data-section-id="2">
+	
+	<h3>2. Действительные числа</h3>
+	
+<p>В этом разделе речь пойдет о действительных числах, имеющих тип <code>float</code>.
+ 
+<p>Обратите внимание, что если вы хотите считать с клавиатуры действительное
+число, то результат, возращаемый функцией <code>input()</code> необходимо
+преобразовывать к типу <code>float</code>:
+ 
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;">1.492</pre>
+	<pre class="code">x = float(input())
+print(x)</pre>
+</div>
+
+ 
+<p>Действительные (вещественные) числа представляются в виде чисел с десятичной точкой (а не запятой, как принято
+при записи десятичных дробей в русский текстах). Для записи очень больших или очень маленьких
+по модулю чисел используется так называемая запись &laquo;с плавающей точкой&raquo;
+(также называемая &laquo;научная&raquo; запись). В этом случае число представляется в виде
+некоторой десятичной дроби, называемой <i>мантиссой</i>, умноженной на целочисленную степень десяти
+(<i>порядок</i>). Например, расстояние от Земли
+до Солнца равно 1.496&middot;10<sup>11</sup>, а масса молекулы воды 2.99&middot;10<sup>-23</sup>.
+ 
+ 
+<p>Числа с плавающей точкой в программах на языке Питон, а также при вводе и выводе записываются так:
+сначала пишется мантисса, затем пишется буква <code>e</code>, затем пишется порядок. Пробелы внутри этой
+записи не ставятся. Например, указанные выше константы можно записать в виде
+<code>1.496e11</code> и <code>2.99e-23</code>. Перед самим числом также может стоять знак минус.
+ 
+<p>Напомним, что результатом операции деления <code>/</code> всегда является действительное число (<code>float</code>),
+в то время как результатом операции <code>//</code> является целое число (<code>int</code>).
+ 
+<p>Преобразование действительных чисел к целому производится с округлением
+в сторону нуля, то есть <code>int(1.7) == 1</code>, <code>int(-1.7) == -1</code>.
+
+</div>
+<div id="section_3" class="section" data-section-id="3">
+	
+	<h3>3. Библиотека math</h3>
+	
+<p>Для проведения вычислений с действительными числами язык Питон содержит много
+дополнительных функций, собранных в библиотеку (модуль), которая называется <code>math</code>.
+ 
+ 
+<p>Для использования этих функций в начале программы необходимо подключить математическую
+библиотеку, что делается командой
+<pre>import math
+</pre> 
+ 
+<p>Например, пусть мы хотим округлять вещественные числа до ближайшего целого числа <i>вверх</i>. 
+Соответствующая функция <code>ceil</code> от одного аргумента вызывается, например, так: <code>math.ceil(x)</code> 
+(то есть явно указывается, что из модуля <code>math</code> используется функция <code>ceil</code>).
+Вместо числа <code>x</code> может быть любое число, переменная или выражение.
+Функция возращает значение, которое можно вывести на экран, присвоить
+другой переменной или использовать в выражении:
+ 
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">import math
+
+x = math.ceil(4.2)
+y = math.ceil(4.8)
+print(x)
+print(y)</pre>
+</div>
+
+</pre> 
+ 
+<p>Другой способ использовать функции из библиотеки <code>math</code>, при котором не нужно будет
+при каждом использовании функции из модуля <code>math</code> указывать название
+этого модуля, выглядит так:
+ 
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">from math import ceil
+ 
+x = 7 / 2
+y = ceil(x)
+print(y)</pre>
+</div>
+
+
+или так:
+
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">from math import *
+ 
+x = 7 / 2
+y = ceil(x)
+print(y)</pre>
+</div>
+
+
+ 
+<p>Ниже приведен список основных функций модуля <code>math</code>. Более подробное описание
+этих функций можно найти на <a href="http://docs.python.org/py3k/library/math.html">сайте с документацией языка Питон</a>.
+ 
+<p>Некоторые из перечисленных функций (<code>int</code>, <code>round</code>, <code>abs</code>)
+являются стандартными и не требуют подключения модуля <code>math</code> для использования.
+ 
+<table border="1" cellpadding="4"> 
+<tr> 
+<th>Функция</th> 
+<th>Описание</th> 
+</tr> 
+<tr> 
+<td colspan=2>Округление</td> 
+</tr> 
+<tr> 
+<td><b><code>int(x)<code></b></td> 
+<td>Округляет число в сторону нуля. Это стандартная функция, для ее использования не нужно подключать
+    модуль <code>math</code>.</td> 
+</tr> 
+<tr> 
+<td><b><code>round(x)</code></b></td> 
+<td>Округляет число до ближайшего целого. Если дробная часть числа равна 0.5, то число округляется 
+    до ближайшего четного числа.</td> 
+</tr> 
+<tr> 
+<td><b><code>round(x, n)</code></b></td> 
+<td>Округляет число <code>x</code> 
+    до <code>n</code> знаков после точки. Это стандартная функция, для ее использования не нужно подключать
+            модуль <code>math</code>.</td> 
+</tr> 
+<tr> 
+<td><b><code>floor(x)</code></b></td> 
+<td>Округляет число вниз (&laquo;пол&raquo;), при этом <code>floor(1.5)&nbsp;==&nbsp;1</code>, <code>floor(-1.5)&nbsp;==&nbsp;-2</code></td> 
+</tr> 
+<tr> 
+<td><b><code>ceil(x)</code></b></td> 
+<td>Округляет число вверх (&laquo;потолок&raquo;), при этом <code>ceil(1.5)&nbsp;==&nbsp;2</code>, <code>ceil(-1.5)&nbsp;==&nbsp;-1</code></td> 
+</tr> 
+<tr> 
+<td><b><code>abs(x)</code></b></td> 
+<td>Модуль (абсолютная величина). Это &mdash; стандартная функция.</code></td> 
+</tr> 
+<tr> 
+<td colspan=2>Корни, логарифмы</td> 
+</tr> 
+<tr> 
+<td><b><code>sqrt(x)</code></b></td> 
+<td>Квадратный корень. Использование: <code>sqrt(x)</code></td> 
+</tr> 
+<tr> 
+<td><b><code>log(x)</code></b></td> 
+<td>Натуральный логарифм. При вызове в виде <code>log(x, b)</code> возвращает логарифм по основанию <code>b</code>.</td> 
+</tr> 
+<tr> 
+<td><b><code>e</code></b></td> 
+<td>Основание натуральных логарифмов e = 2,71828...</td> 
+</tr> 
+<tr> 
+<td colspan=2>Тригонометрия</td> 
+</tr> 
+<td><b><code>sin(x)</code></b></td> 
+<td>Синус угла, задаваемого в радианах</td> 
+</tr> 
+<tr> 
+<td><b><code>cos(x)</code></b></td> 
+<td>Косинус угла, задаваемого в радианах</td> 
+</tr> 
+<tr> 
+<td><b><code>tan(x)</code></b></td> 
+<td>Тангенс угла, задаваемого в радианах</td> 
+</tr> 
+<tr> 
+<td><b><code>asin(x)</code></b></td> 
+<td>Арксинус, возвращает значение в радианах</td> 
+</tr> 
+<tr> 
+<td><b><code>acos(x)</code></b></td> 
+<td>Арккосинус, возвращает значение в радианах</td> 
+</tr> 
+<tr> 
+<td><b><code>atan(x)</code></b></td> 
+<td>Арктангенс, возвращает значение в радианах</td> 
+</tr> 
+<tr> 
+<td><b><nobr><code>atan2(y, x)</code></nobr></b></td> 
+<td>Полярный угол (в радианах) точки с координатами (x, y).</td> 
+</tr> 
+<tr> 
+<tr> 
+<td><b><code>degrees(x)</code></b></td> 
+<td>Преобразует угол, заданный в радианах, в градусы.</td> 
+</tr> 
+<tr> 
+<td><b><code>radians(x)</code></b></td> 
+<td>Преобразует угол, заданный в градусах, в радианы.</td> 
+</tr> 
+<tr> 
+<td><b><code>pi</code></b></td> 
+<td>Константа <i>&pi;</i> = 3.1415...</td> 
+</tr> 
+</table> 
+
+</div>
+
+
+	
+		<hr>
+		<div id="problems">
+			<h2>Задачи:</h2>
+			<ol class="lesson_problems">
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/int_and_float/problems/last_digit/"><span class="unsubmittedProblemLink">Последняя цифра числа</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/int_and_float/problems/mkad/"><span class="unsubmittedProblemLink">МКАД</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/int_and_float/problems/fractional_part/"><span class="unsubmittedProblemLink">Дробная часть</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/int_and_float/problems/digit_after_separator/"><span class="unsubmittedProblemLink">Первая цифра после точки</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/int_and_float/problems/konec_urokov/"><span class="unsubmittedProblemLink">Конец уроков</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/int_and_float/problems/motor_rally/"><span class="unsubmittedProblemLink">Автопробег</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/int_and_float/problems/purchase_price/"><span class="unsubmittedProblemLink">Стоимость покупки</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/int_and_float/problems/raznost_vremen/"><span class="unsubmittedProblemLink">Разность времен</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/int_and_float/problems/ulitka/"><span class="unsubmittedProblemLink">Улитка</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/int_and_float/problems/tens_digit/"><span class="unsubmittedProblemLink">Число десятков</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/int_and_float/problems/sum_of_digits/"><span class="unsubmittedProblemLink">Сумма цифр</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/int_and_float/problems/hypot/"><span class="unsubmittedProblemLink">Гипотенуза</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/int_and_float/problems/watch_1/"><span class="unsubmittedProblemLink">Часы - 1</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/int_and_float/problems/watch_2/"><span class="unsubmittedProblemLink">Часы - 2</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/int_and_float/problems/watch_3/"><span class="unsubmittedProblemLink">Часы - 3</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/int_and_float/problems/percents/"><span class="unsubmittedProblemLink">Проценты</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/int_and_float/problems/russian_round/"><span class="unsubmittedProblemLink">Округление по российским правилам</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/int_and_float/problems/compound_interest/"><span class="unsubmittedProblemLink">Сложные проценты</span></a>
+						
+					</li>
+				
+			</ol>
+		</div>
+	
+	
+
+
+
+		</div>
+	</div>
+
+
+		
+			<footer>
+                <p>Разработка и поддержка учебника: <a href="https://t.me/thingsiread">Виталий Павленко</a>, Владимир Соломатин (2014), команда Pythontutor (2016)<br>
+                Автор первоначального текста большинства уроков, задач и тестов: Д. П. Кириенко (см. <a href="https://informatics.msk.ru/moodle/course/view.php?id=156">оригинальный курс</a>)<br>
+                Идея учебника: В. М. Гуровиц<br>
+                Разработчик визуализатора: <a href="https://www.pgbovine.net/">Philip Guo</a> (см. <a href="https://pythontutor.com/">сайт визуализатора</a>)<br>
+                Родилось в 2012</p>
+                <p class="local-links"><a href="/pythontutor-selfhost/knowledge/">База знаний</a> · <a href="/pythontutor-selfhost/">Уроки</a> · <a href="/pythontutor-selfhost/visualizer/">Визуализатор</a> · <a href="/pythontutor-selfhost/images/">OpenCV</a> · <a href="https://github.com/Behnisch/pythontutor-ru">Публичный архив</a></p>
+
+			</footer>
+		
+	</div>
+<link rel="stylesheet" href="/pythontutor-selfhost/static/css/assistant.css?v=9">
+<script defer src="/pythontutor-selfhost/static/pwa/local-ai.js?v=learning2"></script>
+<script defer src="/pythontutor-selfhost/static/pwa/local-voice.js?v=1"></script>
+<script defer src="/pythontutor-selfhost/static/js/assistant.js?v=learning2"></script>
+<button id="tutor-launcher" type="button" aria-expanded="false" aria-controls="tutor-panel" aria-label="ИИ-помощник" title="ИИ-помощник"><span aria-hidden="true">🐍</span></button>
+<div id="tutor-divider" role="separator" aria-label="Ширина помощника" aria-orientation="vertical" aria-valuemin="28" aria-valuemax="60" aria-valuenow="42" tabindex="0" hidden></div>
+<aside id="tutor-panel" hidden aria-label="ИИ-помощник по текущей задаче" data-url="/pythontutor-selfhost/assistant/lesson/int_and_float/" data-kind="lesson" data-learning-context="Мы в интерактивном учебнике Python: 15 уроков и 134 основные задачи. Ученик пишет код в редакторе на этой странице; Python, тесты и пошаговый запуск уже работают в браузере. Устанавливать Python или IDE для этих занятий не нужно. Основной способ обучения — последовательно решать задачи: прочитать условие, попробовать самому, запустить пример, проверить все тесты, при необходимости раскрыть подсказку, затем перейти к следующей задаче. После успешного решения можно обсудить разбор и улучшение. Цель прохождения курса с самостоятельной практикой — база начинающего Python-разработчика. Если спрашивают, как учиться или с чего начать, предложи посильный шаг в текущей задаче этого курса, а не установку программ, сторонние курсы или длинный общий план. Учитывай тему текущего урока и не вводи ещё не изученные конструкции. Это фон беседы: не повторяй описание курса и не навязывай решение задачи в ответ на каждое приветствие." data-user="" data-stt="/pythontutor-selfhost/assistant/speech/transcribe/" data-worklet="/pythontutor-selfhost/static/js/tutor-audio-worklet.js" data-auth="no">
+    <header class="tutor-header"><span class="tutor-avatar" aria-hidden="true">🐍</span><div class="tutor-toolbar"><button id="tutor-text-mode" type="button" aria-label="Текстовый чат" aria-pressed="true">☷</button><button id="tutor-voice-mode" type="button" aria-label="Голосовой режим" aria-pressed="false">🎙</button><button id="tutor-expand" type="button" aria-label="Развернуть на весь экран" aria-pressed="false">⛶</button><button id="tutor-close" type="button" aria-label="Свернуть чат">⌄</button></div></header>
+    <h2>Давай поговорим</h2>
+    <p class="tutor-context" id="tutor-context">Помощник по текущей задаче</p>
+    
+    <details id="tutor-settings"><summary>Настройки</summary><div class="tutor-local-options">
+      <label for="tutor-model">Модель помощника</label>
+      <select id="tutor-model" class="form-control"><option value="Qwen2.5-Coder-0.5B-Instruct-q4f16_1-MLC">Qwen Coder 0.5B · минимальная</option><option value="Qwen2.5-Coder-1.5B-Instruct-q4f16_1-MLC" selected>Qwen Coder 1.5B · рекомендуется</option><option value="Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC">Qwen Coder 7B · мощный компьютер</option><option value="Qwen3-1.7B-q4f16_1-MLC">Qwen3 1.7B · универсальная</option></select>
+      <p id="tutor-model-info" class="tutor-fineprint"></p>
+      
+      
+      
+    </div>
+    <div class="tutor-code-access"><label><input id="tutor-include-code" type="checkbox" checked> Помощник видит мой код</label><span id="tutor-code-status">Код считывается из редактора</span></div>
+    </details>
+    <div id="tutor-voice-view" hidden><div class="tutor-voice-orb" aria-hidden="true">🐍</div><h3>Голосовой разговор</h3><p id="tutor-voice-status" role="status">Готовлю разговор… При первом запуске браузер попросит доступ к микрофону.</p><button id="tutor-call" type="button">Начать разговор</button><button id="tutor-interrupt" type="button" hidden>Отправить реплику</button><p class="tutor-fineprint">После паузы вопрос отправится автоматически. Ответ прозвучит вслух и останется в текстовом чате. Одна реплика — до 60 секунд.</p></div>
+    <div id="tutor-messages" role="log" aria-live="polite" aria-relevant="additions"><div class="tutor-welcome"><span aria-hidden="true">🐍</span><p>Привет, я Питоныч. Можем просто поговорить или вместе разобраться с задачей. О чём хочешь поговорить?</p></div></div>
+    <div id="tutor-quick"><button type="button" data-question="Объясни условие простыми словами, без готового решения.">Объясни условие</button><button type="button" data-question="Дай небольшую подсказку, с чего начать. Не выдавай решение целиком.">Дай подсказку</button><button type="button" data-question="Посмотри мой текущий код: помоги найти ошибку и понять её причину.">Проверь мой код</button></div>
+    <p id="tutor-status" role="status" aria-live="polite"></p>
+    <form id="tutor-form"><label class="sr-only" for="tutor-question">Вопрос помощнику</label><textarea id="tutor-question" rows="3" maxlength="3000" placeholder="Напиши или надиктуй вопрос"></textarea><div id="tutor-attachment" hidden><span></span><button type="button" id="tutor-remove-image" aria-label="Убрать изображение">×</button></div><div class="tutor-composer-tools"><label class="tutor-attach" title="Прикрепить изображение"><span aria-hidden="true">📎</span><span class="sr-only">Прикрепить изображение</span><input id="tutor-image" type="file" accept="image/png,image/jpeg" aria-label="Прикрепить изображение"></label><button id="tutor-dictate" type="button" aria-label="Начать голосовой ввод" title="Надиктовать вопрос">🎙</button><button id="tutor-stop-model" type="button" aria-label="Остановить ответ" title="Остановить ответ" hidden>■</button><button id="tutor-send" type="submit" aria-label="Отправить вопрос">↑</button></div></form>
+    <p class="tutor-fineprint">По отправке вопроса ИИ получает материал и включённый код. В локальном режиме вопросы, код и речь остаются на устройстве. ИИ может ошибаться.</p>
+    
+</aside>
+</div>
+</body>
+</html>

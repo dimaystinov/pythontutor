@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<!--
+
+Online Python Tutor
+https://github.com/pgbovine/OnlinePythonTutor/
+
+Copyright (C) 2010-2012 Philip J. Guo (philip@pgbovine.net)
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+-->
+
+<!--
+
+Онлайн учебник Python
+
+Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
+
+-->
+
+
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="execution-mode" content="browser">
+<meta name="local-page" content="yes">
+<meta name="learner-id" content="local">
+<link rel="manifest" href="/pythontutor-selfhost/manifest.webmanifest">
+<meta name="theme-color" content="#e3ebf1">
+<link rel="apple-touch-icon" href="/pythontutor-selfhost/static/pwa/icon-192.png">
+<script defer src="/pythontutor-selfhost/static/pwa/app.js?v=2"></script>
+<script src="/pythontutor-selfhost/static/pwa/storage.js?v=2"></script>
+<meta name="csrf-token" content="l6Vjaxem4BypgN1933YeVZn2y4AmqCM1PlIzVqXZ2lyqi5fxLobRnEqvuSBE4wLG">
+
+	<title>Интерактивный учебник языка Python</title>
+
+
+<script defer src="/pythontutor-selfhost/static/js/task-writing.js?v=1"></script>
+	
+	
+	
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/jquery-3.7.1.min.js"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/pythontutor-selfhost/static/js/site.js?v=5"></script>
+    <script src="/pythontutor-selfhost/static/js/browser-execution.js?v=5"></script>
+    <script>window.MathJax = {options: {enableMenu: false}, loader: {load: []}, tex: {packages: {'[-]': ['autoload', 'require']}}, svg: {fontCache: 'local'}};</script>
+    <script defer src="/pythontutor-selfhost/static/vendor/mathjax/tex-svg.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/pythontutor.css">
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/pythontutor-sidebar.css">
+
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/visualizer.css">
+
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/ace-editor/ace.js"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/jquery.jsPlumb-1.6.4-min.js"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/visualizer.js?v=browser1"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/lesson.js"></script>
+
+	<script type="text/javascript">
+		var lesson_name = '';
+	</script>
+
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/lesson.css?v=menu2">
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/problem.css">
+
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/problem.js?v=beginner1"></script>
+
+	<script type="text/javascript">
+		var problem_name = 'lineup';
+	</script>
+
+<link rel="stylesheet" href="/pythontutor-selfhost/static/css/selfhost.css?v=hints2">
+<meta name="static-site" content="yes"></head>
+<body>
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Открыть меню</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/pythontutor-selfhost/">Питонтьютор</a>
+			</div>
+			<div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/pythontutor-selfhost/pwa/">Офлайн-приложение</a></li>
+                    <li><button id="pwa-install-nav" type="button" class="btn btn-link navbar-btn">Установить приложение</button></li>
+                    <li><a class="original-en" href="https://snakify.org/">En</a></li>
+                    
+                </ul>
+				<div class="navbar-text navbar-right">
+					<span>Локальная версия · <a href="/pythontutor-selfhost/pwa/">Мой прогресс</a></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<div id="tutor-workspace">
+	<div id="tutor-content" class="container-fluid">
+		
+        
+	<div class="row">
+		<div class="col-sm-3 col-md-2 sidebar">
+			
+	
+			
+	<ul class="nav nav-sidebar">
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/inout_and_arithmetic_operations/">1. Ввод и вывод данных</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/ifelse/">2. Условия</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/int_and_float/">3. Вычисления</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/for_loop/">4. Цикл for</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/str/">5. Строки</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/while/">6. Цикл while</a>
+				
+			</li>
+		
+			<li class="active">
+				<a href="/pythontutor-selfhost/lessons/lists/">7. Списки</a>
+				
+					
+	<ul class="lesson_sections">
+		<li class="problems_link">
+			<a href="/pythontutor-selfhost/lessons/lists/#problems">Задачи</a>
+			<ul>
+				
+					<li class=""><a href="/pythontutor-selfhost/lessons/lists/problems/even_indices/">Четные индексы</a></li>
+				
+					<li class=""><a href="/pythontutor-selfhost/lessons/lists/problems/even_elements/">Четные элементы</a></li>
+				
+					<li class=""><a href="/pythontutor-selfhost/lessons/lists/problems/increasing_neighbours/">Больше предыдущего</a></li>
+				
+					<li class=""><a href="/pythontutor-selfhost/lessons/lists/problems/same_sign_neighbours/">Соседи одного знака</a></li>
+				
+					<li class=""><a href="/pythontutor-selfhost/lessons/lists/problems/more_than_neighbours/">Больше своих соседей</a></li>
+				
+					<li class=""><a href="/pythontutor-selfhost/lessons/lists/problems/maximal_element/">Наибольший элемент</a></li>
+				
+					<li class=""><a class="active" href="/pythontutor-selfhost/lessons/lists/problems/lineup/">Шеренга</a></li>
+				
+					<li class=""><a href="/pythontutor-selfhost/lessons/lists/problems/num_distinct/">Количество различных элементов</a></li>
+				
+					<li class=""><a href="/pythontutor-selfhost/lessons/lists/problems/swap_neighbours/">Переставить соседние</a></li>
+				
+					<li class=""><a href="/pythontutor-selfhost/lessons/lists/problems/swap_min_and_max/">Переставить min и max</a></li>
+				
+					<li class=""><a href="/pythontutor-selfhost/lessons/lists/problems/remove_element/">Удалить элемент</a></li>
+				
+					<li class=""><a href="/pythontutor-selfhost/lessons/lists/problems/insert_element/">Вставить элемент</a></li>
+				
+					<li class=""><a href="/pythontutor-selfhost/lessons/lists/problems/num_equal_pairs/">Количество совпадающих пар</a></li>
+				
+					<li class=""><a href="/pythontutor-selfhost/lessons/lists/problems/unique_elements/">Уникальные элементы</a></li>
+				
+					<li class=""><a href="/pythontutor-selfhost/lessons/lists/problems/kegelbahn/">Кегельбан</a></li>
+				
+					<li class=""><a href="/pythontutor-selfhost/lessons/lists/problems/lists_queens/">Ферзи</a></li>
+				
+			</ul>
+		</li>
+	</ul>
+
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/functions/">8. Функции и рекурсия</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/2d_arrays/">9. Двумерные массивы</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/sets/">10. Множества</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/dicts/">11. Словари</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/graphs/">12. Графы: определения и способы хранения</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/dfs/">13. Обход в глубину</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/file_io/">14. Файловый ввод-вывод</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/bfs/">15. Обход в ширину</a>
+				
+			</li>
+		
+	</ul>
+
+		</div>
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			
+	
+			
+
+	
+	<h3 class="lesson_name"><button type="button" class="sidebar-toggle btn btn-default" aria-label="Скрыть меню уроков" aria-expanded="true"><i class="fa fa-angle-left" aria-hidden="true"></i></button><a href="/pythontutor-selfhost/lessons/lists/">Занятие 7</a>. Списки</h3>
+	<h3 class="problem_name">Задача &laquo;Шеренга&raquo;</h3>
+	<hr>
+
+	<h4 class="statement-title">Условие</h4>
+	Петя перешёл в другую школу. На уроке физкультуры ему понадобилось определить своё место в строю. Помогите ему это сделать.  <p>Программа получает на вход невозрастающую последовательность натуральных чисел, означающих рост каждого человека в строю. После этого вводится число X – рост Пети. Все числа во входных данных натуральные и не превышают 200.  <p>Выведите номер, под которым Петя должен встать в строй. Если в строю есть люди с одинаковым ростом, таким же, как у Пети, то он должен встать после них.
+    
+
+	<hr>
+	<p id="task-writing-notice" class="text-muted" role="status" aria-live="polite"></p>
+<div id="visualizer" data-draft-user-id=""></div>
+
+    
+    <div class="submit_solution">
+		<button type="button" class="btn btn-primary btn-lg">Проверить решение на всех тестах</button>
+	</div>
+    
+
+	<p id="submission-status" class="submission-status" role="status" aria-live="polite"></p>
+	<div id="knowledge-unlock" class="alert alert-success" hidden>
+        Задача решена. <a href="/pythontutor-selfhost/knowledge/lineup/">Посмотреть рекомендуемое решение и другие способы</a>
+    </div>
+    <div class="table-responsive">
+	<h3>Тесты</h3>
+	<table id="example_tests" class="table table-condensed">
+		<thead><tr>
+			<th class="debug_me"></th>
+			<th scope="col">Входные данные</th>
+
+			<th scope="col">Правильный ответ</th>
+			<th class="test_result">Результат</th>
+		</tr></thead>
+		<tbody>
+			
+			<tr>
+				<td class="debug_me"><button type="button" class="btn btn-default btn-sm" title="Отладить код, используя эти входные данные">Запустить тест 1</button></td>
+				<td><pre class="input">165 163 160 160 157 157 155 154
+162</pre></td>
+
+				<td><pre class="output">3</pre></td>
+				<td class="test_result"></td>
+			</tr>
+			
+			<tr>
+				<td class="debug_me"><button type="button" class="btn btn-default btn-sm" title="Отладить код, используя эти входные данные">Запустить тест 2</button></td>
+				<td><pre class="input">165 163 160 160 157 157 155 154
+160</pre></td>
+
+				<td><pre class="output">5</pre></td>
+				<td class="test_result"></td>
+			</tr>
+			
+			<tr>
+				<td class="debug_me"><button type="button" class="btn btn-default btn-sm" title="Отладить код, используя эти входные данные">Запустить тест 3</button></td>
+				<td><pre class="input">39 35 32 32 31 28 28 27 25 24 20 16 16 12 10
+40</pre></td>
+
+				<td><pre class="output">1</pre></td>
+				<td class="test_result"></td>
+			</tr>
+			
+			<tr>
+				<td class="debug_me"><button type="button" class="btn btn-default btn-sm" title="Отладить код, используя эти входные данные">Запустить тест 4</button></td>
+				<td><pre class="input">36 34 34 34 34 31 31 29 25 22 19 17 16 14 14 11
+19</pre></td>
+
+				<td><pre class="output">12</pre></td>
+				<td class="test_result"></td>
+			</tr>
+			
+			<tr>
+				<td class="debug_me"><button type="button" class="btn btn-default btn-sm" title="Отладить код, используя эти входные данные">Запустить тест 5</button></td>
+				<td><pre class="input">105 105 104 101 98 96 96 92 89 88 84 82 82 80 77 73 73 72 70 66 65 62 61 61 61 58 56 56 53 53 49 48 46 44 43 43 43 42 42 41 41 39 38 34 31 28 25 22 21 20 16 14
+108</pre></td>
+
+				<td><pre class="output">1</pre></td>
+				<td class="test_result"></td>
+			</tr>
+			
+			<tr>
+				<td class="debug_me"><button type="button" class="btn btn-default btn-sm" title="Отладить код, используя эти входные данные">Запустить тест 6</button></td>
+				<td><pre class="input">182 182 181 179 175 174 172 172 171 171 168 166 162 161 159 155 154 152 150 150 149 147 146 145 145 143 143 139 138 136 133 133 132 132 129 126 124 121 121 119 116 113 112 110 108 106 103 103 102 99 95 95 94 93 89 87 84 82 78 76 73 72 69 67 67 66 64 64 64 62 60 58 54 54 53 53 52 52 50 48 47 44 42 42 38 34 33 32 28 24 24 22 18
+183</pre></td>
+
+				<td><pre class="output">1</pre></td>
+				<td class="test_result"></td>
+			</tr>
+			
+			<tr>
+				<td class="debug_me"><button type="button" class="btn btn-default btn-sm" title="Отладить код, используя эти входные данные">Запустить тест 7</button></td>
+				<td><pre class="input">151 149 148 148 146 142 142 141 139 137 135 132 132 130 129 126 123 123 123 121 121 121 117 115 113 112 112 111 111 111 111 107 104 101 97 93 90 90 88 88 87 83 82 79 79 77 73 73 72 70 67 65 64 61 60 60 59 55 55 54 52 51 47 47 43 41 39 37 35 31 28 25 23 23 22 19
+117</pre></td>
+
+				<td><pre class="output">24</pre></td>
+				<td class="test_result"></td>
+			</tr>
+			
+			<tr>
+				<td class="debug_me"><button type="button" class="btn btn-default btn-sm" title="Отладить код, используя эти входные данные">Запустить тест 8</button></td>
+				<td><pre class="input">24 23 21 17 14 14 14 13 13
+11</pre></td>
+
+				<td><pre class="output">10</pre></td>
+				<td class="test_result"></td>
+			</tr>
+			
+			<tr>
+				<td class="debug_me"><button type="button" class="btn btn-default btn-sm" title="Отладить код, используя эти входные данные">Запустить тест 9</button></td>
+				<td><pre class="input">139 139 135 134 130 127 126 125 123 121 117 116 113 112 109 108 104 100 96 92 92 91 88 88 85 81 81 78 77 73 73 70 69 69 69 66 63 63 59 59 56 56 56 53 53 52 50 47 47 46 46 44 42 40 36 32 32 29 25 24 21 17 17
+100</pre></td>
+
+				<td><pre class="output">19</pre></td>
+				<td class="test_result"></td>
+			</tr>
+			
+			<tr>
+				<td class="debug_me"><button type="button" class="btn btn-default btn-sm" title="Отладить код, используя эти входные данные">Запустить тест 10</button></td>
+				<td><pre class="input">49 46 45 45 45 45 42 42 40 40 38 38 37 33 29 25 21 20 18 16 14
+22</pre></td>
+
+				<td><pre class="output">17</pre></td>
+				<td class="test_result"></td>
+			</tr>
+			
+			<tr>
+				<td class="debug_me"><button type="button" class="btn btn-default btn-sm" title="Отладить код, используя эти входные данные">Запустить тест 11</button></td>
+				<td><pre class="input">131 129 125 122 120 118 117 117 117 115 113 109 109 107 106 104 100 96 93 90 87 84 82 79 78 77 76 73 72 68 64 62 62 59 55 55 55 52 49 46 46 44 41 41 39 37 33 33 31 28 24 20 18 15 13
+15</pre></td>
+
+				<td><pre class="output">55</pre></td>
+				<td class="test_result"></td>
+			</tr>
+			
+			<tr>
+				<td class="debug_me"><button type="button" class="btn btn-default btn-sm" title="Отладить код, используя эти входные данные">Запустить тест 12</button></td>
+				<td><pre class="input">42 41 41 37 36 36 33 31 27 26 26 26 25 25 22 22 20 18 17
+42</pre></td>
+
+				<td><pre class="output">2</pre></td>
+				<td class="test_result"></td>
+			</tr>
+			
+			<tr>
+				<td class="debug_me"><button type="button" class="btn btn-default btn-sm" title="Отладить код, используя эти входные данные">Запустить тест 13</button></td>
+				<td><pre class="input">138 137 133 133 132 130 128 125 123 119 118 117 117 116 114 111 107 103 99 99 95 94 93 91 87 83 83 80 76 74 73 73 72 68 66 62 62 59 58 56 56 54 53 53 52 50 49 45 42 38 36 35 34 30 27 27 24 20 17
+28</pre></td>
+
+				<td><pre class="output">55</pre></td>
+				<td class="test_result"></td>
+			</tr>
+			
+			<tr>
+				<td class="debug_me"><button type="button" class="btn btn-default btn-sm" title="Отладить код, используя эти входные данные">Запустить тест 14</button></td>
+				<td><pre class="input">110 107 107 107 106 102 101 98 95 94 90 86 83 83 81 78 77 77 74 73 69 65 61 59 55 55 53 50 48 48 48 45 45 42 41 38 34 30 28 25 22 20 19 19 19 17 15 11
+20</pre></td>
+
+				<td><pre class="output">43</pre></td>
+				<td class="test_result"></td>
+			</tr>
+			
+			<tr>
+				<td class="debug_me"><button type="button" class="btn btn-default btn-sm" title="Отладить код, используя эти входные данные">Запустить тест 15</button></td>
+				<td><pre class="input">118 117 115 115 113 112 112 108 106 104 100 99 95 92 90 87 85 84 81 79 75 72 71 70 66 63 62 59 59 59 59 59 55 55 55 54 53 51 49 48 48 47 44 40 40 38 36 32 31 30 28 27 26 24 20 19
+86</pre></td>
+
+				<td><pre class="output">17</pre></td>
+				<td class="test_result"></td>
+			</tr>
+			
+			<tr>
+				<td class="debug_me"><button type="button" class="btn btn-default btn-sm" title="Отладить код, используя эти входные данные">Запустить тест 16</button></td>
+				<td><pre class="input">106 105 105 102 98 98 98 96 93 92 91 91 90 87 83 80 77 74 70 68 68 65 63 59 59 56 52 51 50 47 46 43 41 37 33 31 29 28 27 27 24 24 23 23 22 19
+10</pre></td>
+
+				<td><pre class="output">47</pre></td>
+				<td class="test_result"></td>
+			</tr>
+			
+			<tr>
+				<td class="debug_me"><button type="button" class="btn btn-default btn-sm" title="Отладить код, используя эти входные данные">Запустить тест 17</button></td>
+				<td><pre class="input">167 165 161 158 158 158 154 152 148 146 142 142 140 140 139 137 133 132 130 130 129 128 128 124 120 120 116 114 114 110 107 104 102 99 99 95 92 91 89 87 87 84 80 78 74 73 71 70 68 66 62 60 58 57 56 52 49 48 48 45 45 41 40 39 37 33 33 33 29 25 21 17 17
+35</pre></td>
+
+				<td><pre class="output">66</pre></td>
+				<td class="test_result"></td>
+			</tr>
+			
+			<tr>
+				<td class="debug_me"><button type="button" class="btn btn-default btn-sm" title="Отладить код, используя эти входные данные">Запустить тест 18</button></td>
+				<td><pre class="input">194 194 193 191 188 187 187 185 183 182 178 176 176 172 168 165 163 160 156 152 150 148 148 147 146 146 143 140 138 136 132 129 127 125 125 124 123 123 119 116 114 112 110 110 106 102 99 95 95 92 89 86 82 82 79 79 77 73 73 70 70 70 66 65 65 63 62 60 58 58 55 55 51 47 47 47 44 42 39 36 36 34 31 31 31 28 28 27 27 23 21 19 16 14 13 11
+94</pre></td>
+
+				<td><pre class="output">50</pre></td>
+				<td class="test_result"></td>
+			</tr>
+			
+			<tr>
+				<td class="debug_me"><button type="button" class="btn btn-default btn-sm" title="Отладить код, используя эти входные данные">Запустить тест 19</button></td>
+				<td><pre class="input">1
+1</pre></td>
+
+				<td><pre class="output">2</pre></td>
+				<td class="test_result"></td>
+			</tr>
+			
+			<tr>
+				<td class="debug_me"><button type="button" class="btn btn-default btn-sm" title="Отладить код, используя эти входные данные">Запустить тест 20</button></td>
+				<td><pre class="input">1
+2</pre></td>
+
+				<td><pre class="output">1</pre></td>
+				<td class="test_result"></td>
+			</tr>
+			
+		</tbody>
+	</table>
+	</div>
+<section class="task-hints" aria-label="Подсказки к задаче">
+  <h3>Нужна подсказка?</h3>
+  
+  <details class="task-hint">
+    <summary>Подсказка 1</summary>
+    <p>Петя встаёт после всех, чей рост не меньше его роста.</p>
+    
+  </details>
+  
+  <details class="task-hint">
+    <summary>Подсказка 2</summary>
+    <p>Равный рост нужно пропускать вместе с большими значениями.</p>
+    
+  </details>
+  
+</section>
+
+<nav class="next-task-navigation" aria-label="Переход к следующей задаче" style="margin:28px 0 20px;padding-top:20px;border-top:1px solid #ddd;text-align:right">
+
+    <a class="btn btn-primary" href="/pythontutor-selfhost/lessons/lists/problems/num_distinct/">Следующая задача <span aria-hidden="true">→</span></a>
+    <p class="text-muted" style="margin:8px 0 0;overflow-wrap:anywhere">Количество различных элементов</p>
+
+</nav>
+
+
+
+
+		</div>
+	</div>
+
+
+		
+			<footer>
+                <p>Разработка и поддержка учебника: <a href="https://t.me/thingsiread">Виталий Павленко</a>, Владимир Соломатин (2014), команда Pythontutor (2016)<br>
+                Автор первоначального текста большинства уроков, задач и тестов: Д. П. Кириенко (см. <a href="https://informatics.msk.ru/moodle/course/view.php?id=156">оригинальный курс</a>)<br>
+                Идея учебника: В. М. Гуровиц<br>
+                Разработчик визуализатора: <a href="https://www.pgbovine.net/">Philip Guo</a> (см. <a href="https://pythontutor.com/">сайт визуализатора</a>)<br>
+                Родилось в 2012</p>
+                <p class="local-links"><a href="/pythontutor-selfhost/knowledge/">База знаний</a> · <a href="/pythontutor-selfhost/">Уроки</a> · <a href="/pythontutor-selfhost/visualizer/">Визуализатор</a> · <a href="/pythontutor-selfhost/images/">OpenCV</a> · <a href="https://github.com/Behnisch/pythontutor-ru">Публичный архив</a></p>
+
+			</footer>
+		
+	</div>
+<link rel="stylesheet" href="/pythontutor-selfhost/static/css/assistant.css?v=9">
+<script defer src="/pythontutor-selfhost/static/pwa/local-ai.js?v=learning2"></script>
+<script defer src="/pythontutor-selfhost/static/pwa/local-voice.js?v=1"></script>
+<script defer src="/pythontutor-selfhost/static/js/assistant.js?v=learning2"></script>
+<button id="tutor-launcher" type="button" aria-expanded="false" aria-controls="tutor-panel" aria-label="ИИ-помощник" title="ИИ-помощник"><span aria-hidden="true">🐍</span></button>
+<div id="tutor-divider" role="separator" aria-label="Ширина помощника" aria-orientation="vertical" aria-valuemin="28" aria-valuemax="60" aria-valuenow="42" tabindex="0" hidden></div>
+<aside id="tutor-panel" hidden aria-label="ИИ-помощник по текущей задаче" data-url="/pythontutor-selfhost/assistant/problem/lineup/" data-kind="problem" data-learning-context="Мы в интерактивном учебнике Python: 15 уроков и 134 основные задачи. Ученик пишет код в редакторе на этой странице; Python, тесты и пошаговый запуск уже работают в браузере. Устанавливать Python или IDE для этих занятий не нужно. Основной способ обучения — последовательно решать задачи: прочитать условие, попробовать самому, запустить пример, проверить все тесты, при необходимости раскрыть подсказку, затем перейти к следующей задаче. После успешного решения можно обсудить разбор и улучшение. Цель прохождения курса с самостоятельной практикой — база начинающего Python-разработчика. Если спрашивают, как учиться или с чего начать, предложи посильный шаг в текущей задаче этого курса, а не установку программ, сторонние курсы или длинный общий план. Учитывай тему текущего урока и не вводи ещё не изученные конструкции. Это фон беседы: не повторяй описание курса и не навязывай решение задачи в ответ на каждое приветствие." data-user="" data-stt="/pythontutor-selfhost/assistant/speech/transcribe/" data-worklet="/pythontutor-selfhost/static/js/tutor-audio-worklet.js" data-auth="no">
+    <header class="tutor-header"><span class="tutor-avatar" aria-hidden="true">🐍</span><div class="tutor-toolbar"><button id="tutor-text-mode" type="button" aria-label="Текстовый чат" aria-pressed="true">☷</button><button id="tutor-voice-mode" type="button" aria-label="Голосовой режим" aria-pressed="false">🎙</button><button id="tutor-expand" type="button" aria-label="Развернуть на весь экран" aria-pressed="false">⛶</button><button id="tutor-close" type="button" aria-label="Свернуть чат">⌄</button></div></header>
+    <h2>Давай поговорим</h2>
+    <p class="tutor-context" id="tutor-context">Помощник по текущей задаче</p>
+    
+    <details id="tutor-settings"><summary>Настройки</summary><div class="tutor-local-options">
+      <label for="tutor-model">Модель помощника</label>
+      <select id="tutor-model" class="form-control"><option value="Qwen2.5-Coder-0.5B-Instruct-q4f16_1-MLC">Qwen Coder 0.5B · минимальная</option><option value="Qwen2.5-Coder-1.5B-Instruct-q4f16_1-MLC" selected>Qwen Coder 1.5B · рекомендуется</option><option value="Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC">Qwen Coder 7B · мощный компьютер</option><option value="Qwen3-1.7B-q4f16_1-MLC">Qwen3 1.7B · универсальная</option></select>
+      <p id="tutor-model-info" class="tutor-fineprint"></p>
+      
+      
+      
+    </div>
+    <div class="tutor-code-access"><label><input id="tutor-include-code" type="checkbox" checked> Помощник видит мой код</label><span id="tutor-code-status">Код считывается из редактора</span></div>
+    </details>
+    <div id="tutor-voice-view" hidden><div class="tutor-voice-orb" aria-hidden="true">🐍</div><h3>Голосовой разговор</h3><p id="tutor-voice-status" role="status">Готовлю разговор… При первом запуске браузер попросит доступ к микрофону.</p><button id="tutor-call" type="button">Начать разговор</button><button id="tutor-interrupt" type="button" hidden>Отправить реплику</button><p class="tutor-fineprint">После паузы вопрос отправится автоматически. Ответ прозвучит вслух и останется в текстовом чате. Одна реплика — до 60 секунд.</p></div>
+    <div id="tutor-messages" role="log" aria-live="polite" aria-relevant="additions"><div class="tutor-welcome"><span aria-hidden="true">🐍</span><p>Привет, я Питоныч. Можем просто поговорить или вместе разобраться с задачей. О чём хочешь поговорить?</p></div></div>
+    <div id="tutor-quick"><button type="button" data-question="Объясни условие простыми словами, без готового решения.">Объясни условие</button><button type="button" data-question="Дай небольшую подсказку, с чего начать. Не выдавай решение целиком.">Дай подсказку</button><button type="button" data-question="Посмотри мой текущий код: помоги найти ошибку и понять её причину.">Проверь мой код</button></div>
+    <p id="tutor-status" role="status" aria-live="polite"></p>
+    <form id="tutor-form"><label class="sr-only" for="tutor-question">Вопрос помощнику</label><textarea id="tutor-question" rows="3" maxlength="3000" placeholder="Напиши или надиктуй вопрос"></textarea><div id="tutor-attachment" hidden><span></span><button type="button" id="tutor-remove-image" aria-label="Убрать изображение">×</button></div><div class="tutor-composer-tools"><label class="tutor-attach" title="Прикрепить изображение"><span aria-hidden="true">📎</span><span class="sr-only">Прикрепить изображение</span><input id="tutor-image" type="file" accept="image/png,image/jpeg" aria-label="Прикрепить изображение"></label><button id="tutor-dictate" type="button" aria-label="Начать голосовой ввод" title="Надиктовать вопрос">🎙</button><button id="tutor-stop-model" type="button" aria-label="Остановить ответ" title="Остановить ответ" hidden>■</button><button id="tutor-send" type="submit" aria-label="Отправить вопрос">↑</button></div></form>
+    <p class="tutor-fineprint">По отправке вопроса ИИ получает материал и включённый код. В локальном режиме вопросы, код и речь остаются на устройстве. ИИ может ошибаться.</p>
+    
+</aside>
+</div>
+</body>
+</html>

@@ -1,0 +1,1 @@
+{"tests": [{"stdin": "Hello, world!", "answer": "world! Hello,"}, {"stdin": "A B", "answer": "B A"}, {"stdin": "Q WERRTYUIOP", "answer": "WERRTYUIOP Q"}, {"stdin": "QWERTYUIOP M", "answer": "M QWERTYUIOP"}, {"stdin": "sadfahsjkldfhasjkdfhaklsjdfhjkl asdlkfhasdjklfhaslkdfjhalskdfgalsdf", "answer": "asdlkfhasdjklfhaslkdfjhalskdfgalsdf sadfahsjkldfhasjkdfhaklsjdfhjkl"}]}

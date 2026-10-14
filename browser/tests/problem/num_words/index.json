@@ -1,0 +1,1 @@
+{"tests": [{"stdin": "Hello world", "answer": "2"}, {"stdin": "Hello", "answer": "1"}, {"stdin": "q w e", "answer": "3"}, {"stdin": "In the hole in the ground there lived a hobbit", "answer": "10"}, {"stdin": "One two three four five", "answer": "5"}]}

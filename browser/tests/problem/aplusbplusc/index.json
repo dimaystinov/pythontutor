@@ -1,0 +1,1 @@
+{"tests": [{"stdin": "2\n3\n6", "answer": "11"}, {"stdin": "0\n20\n300", "answer": "320"}, {"stdin": "-5\n180\n-17", "answer": "158"}]}

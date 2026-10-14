@@ -1,0 +1,12 @@
+.app-tutorial.model-userprofile #content h1 { margin-bottom: 16px; }
+.app-tutorial.model-userprofile .object-tools { float: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; padding: 0; }
+.app-tutorial.model-userprofile .object-tools li { float: none; height: auto; padding: 0; }
+.app-tutorial.model-userprofile .object-tools a { white-space: normal; }
+.app-tutorial.model-userprofile #changelist .results { overflow-x: auto; }
+.app-tutorial.model-userprofile #changelist-filter { flex-basis: 190px; }
+@media (max-width: 1100px) { .app-tutorial.model-userprofile #changelist { flex-direction: column; } .app-tutorial.model-userprofile #changelist-filter { width: auto; flex-basis: auto; order: -1; } }
+.app-tutorial.model-userprofile .changelist-form-container { min-width: 0; width: 100%; }
+@media (max-width: 1100px) {
+    .app-tutorial.model-userprofile #changelist-filter { align-self: stretch; margin-left: 0; width: 100%; }
+    .app-tutorial.model-userprofile #changelist-filter details { display: inline-block; vertical-align: top; padding-right: 16px; }
+}

@@ -1,0 +1,1 @@
+{"tests": [{"stdin": "3", "answer": "11 35"}, {"stdin": "2", "answer": "10 35"}, {"stdin": "1", "answer": "9 45"}, {"stdin": "4", "answer": "12 25"}, {"stdin": "5", "answer": "13 25"}, {"stdin": "6", "answer": "14 15"}, {"stdin": "7", "answer": "15 15"}, {"stdin": "8", "answer": "16 5"}, {"stdin": "9", "answer": "17 5"}, {"stdin": "10", "answer": "17 55"}]}

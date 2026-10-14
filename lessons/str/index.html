@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<!--
+
+Online Python Tutor
+https://github.com/pgbovine/OnlinePythonTutor/
+
+Copyright (C) 2010-2012 Philip J. Guo (philip@pgbovine.net)
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+-->
+
+<!--
+
+Онлайн учебник Python
+
+Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
+
+-->
+
+
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="execution-mode" content="browser">
+<meta name="local-page" content="yes">
+<meta name="learner-id" content="local">
+<link rel="manifest" href="/pythontutor-selfhost/manifest.webmanifest">
+<meta name="theme-color" content="#e3ebf1">
+<link rel="apple-touch-icon" href="/pythontutor-selfhost/static/pwa/icon-192.png">
+<script defer src="/pythontutor-selfhost/static/pwa/app.js?v=2"></script>
+<script src="/pythontutor-selfhost/static/pwa/storage.js?v=2"></script>
+<meta name="csrf-token" content="VQHNvdG2WRAwBtpQP2R1np7aiBSTmQ0Fz1KhfiwRolVFFlFnTQg0p7A6x6XSL06x">
+
+	<title>Интерактивный учебник языка Python</title>
+
+
+	
+	
+	
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/jquery-3.7.1.min.js"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/pythontutor-selfhost/static/js/site.js?v=5"></script>
+    <script src="/pythontutor-selfhost/static/js/browser-execution.js?v=5"></script>
+    <script>window.MathJax = {options: {enableMenu: false}, loader: {load: []}, tex: {packages: {'[-]': ['autoload', 'require']}}, svg: {fontCache: 'local'}};</script>
+    <script defer src="/pythontutor-selfhost/static/vendor/mathjax/tex-svg.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/pythontutor.css">
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/pythontutor-sidebar.css">
+
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/visualizer.css">
+
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/ace-editor/ace.js"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/jquery.jsPlumb-1.6.4-min.js"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/visualizer.js?v=browser1"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/lesson.js"></script>
+
+	<script type="text/javascript">
+		var lesson_name = '';
+	</script>
+
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/lesson.css?v=menu2">
+
+<link rel="stylesheet" href="/pythontutor-selfhost/static/css/selfhost.css?v=hints2">
+<meta name="static-site" content="yes"></head>
+<body>
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Открыть меню</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/pythontutor-selfhost/">Питонтьютор</a>
+			</div>
+			<div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/pythontutor-selfhost/pwa/">Офлайн-приложение</a></li>
+                    <li><button id="pwa-install-nav" type="button" class="btn btn-link navbar-btn">Установить приложение</button></li>
+                    <li><a class="original-en" href="https://snakify.org/">En</a></li>
+                    
+                </ul>
+				<div class="navbar-text navbar-right">
+					<span>Локальная версия · <a href="/pythontutor-selfhost/pwa/">Мой прогресс</a></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<div id="tutor-workspace">
+	<div id="tutor-content" class="container-fluid">
+		
+        
+	<div class="row">
+		<div class="col-sm-3 col-md-2 sidebar">
+			
+	
+			
+	<ul class="nav nav-sidebar">
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/inout_and_arithmetic_operations/">1. Ввод и вывод данных</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/ifelse/">2. Условия</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/int_and_float/">3. Вычисления</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/for_loop/">4. Цикл for</a>
+				
+			</li>
+		
+			<li class="active">
+				<a href="/pythontutor-selfhost/lessons/str/">5. Строки</a>
+				
+					
+	<ul class="lesson_sections">
+		
+			<li class="section_menuitem" data-section-id="1">
+	<div class="position_spin"></div>
+	<a href="#section_1">1. Строки</a>
+	
+</li>
+<li class="section_menuitem" data-section-id="2">
+	<div class="position_spin"></div>
+	<a href="#section_2">2. Срезы (slices)</a>
+	
+</li>
+<li class="section_menuitem" data-section-id="3">
+	<div class="position_spin"></div>
+	<a href="#section_3">3. Методы</a>
+	
+		<ul>
+			<li class="section_menuitem" data-section-id="3.1">
+	<div class="position_spin"></div>
+	<a href="#section_3.1">3.1. Методы find и rfind</a>
+	
+</li>
+<li class="section_menuitem" data-section-id="3.2">
+	<div class="position_spin"></div>
+	<a href="#section_3.2">3.2. Метод replace</a>
+	
+</li>
+<li class="section_menuitem" data-section-id="3.3">
+	<div class="position_spin"></div>
+	<a href="#section_3.3">3.3. Метод count</a>
+	
+</li>
+
+		</ul>
+	
+</li>
+
+		
+		<li class="problems_link">
+			<a href="#problems">Задачи</a>
+            <ul><li><a href="/pythontutor-selfhost/lessons/str/problems/slices/">Делаем срезы</a></li><li><a href="/pythontutor-selfhost/lessons/str/problems/num_words/">Количество слов</a></li><li><a href="/pythontutor-selfhost/lessons/str/problems/two_halves/">Две половинки</a></li><li><a href="/pythontutor-selfhost/lessons/str/problems/swap_two_words/">Переставить два слова</a></li><li><a href="/pythontutor-selfhost/lessons/str/problems/first_and_last_occurences/">Первое и последнее вхождения</a></li><li><a href="/pythontutor-selfhost/lessons/str/problems/second_occurence/">Второе вхождение</a></li><li><a href="/pythontutor-selfhost/lessons/str/problems/delete_chunk/">Удаление фрагмента</a></li><li><a href="/pythontutor-selfhost/lessons/str/problems/reverse_chunk/">Обращение фрагмента</a></li><li><a href="/pythontutor-selfhost/lessons/str/problems/replace_substring/">Замена подстроки</a></li><li><a href="/pythontutor-selfhost/lessons/str/problems/delete_char/">Удаление символа</a></li><li><a href="/pythontutor-selfhost/lessons/str/problems/replace_in_chunk/">Замена внутри фрагмента</a></li><li><a href="/pythontutor-selfhost/lessons/str/problems/delete_every_third_char/">Удалить каждый третий символ</a></li></ul>
+		</li>
+	</ul>
+
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/while/">6. Цикл while</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/lists/">7. Списки</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/functions/">8. Функции и рекурсия</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/2d_arrays/">9. Двумерные массивы</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/sets/">10. Множества</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/dicts/">11. Словари</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/graphs/">12. Графы: определения и способы хранения</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/dfs/">13. Обход в глубину</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/file_io/">14. Файловый ввод-вывод</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/bfs/">15. Обход в ширину</a>
+				
+			</li>
+		
+	</ul>
+
+		</div>
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			
+	
+			
+
+	
+	<h3 class="page-header"><button type="button" class="sidebar-toggle btn btn-default" aria-label="Скрыть меню уроков" aria-expanded="true"><i class="fa fa-angle-left" aria-hidden="true"></i></button>Занятие 5. Строки</h3>
+
+	<div id="section_1" class="section" data-section-id="1">
+	
+	<h3>1. Строки</h3>
+	
+<p>Строка считывается со стандартного ввода функцией <code>input()</code>. Напомним,
+что для двух строк определена операция сложения (конкатенации), также определена
+операция умножения строки на число.
+ 
+<p>Строка состоит из последовательности символов. Узнать количество символов (длину строки)
+можно при помощи функции <code>len</code>. 
+
+<p>Любой другой объект в Питоне можно перевести к строке, которая ему соответствуюет. 
+Для этого нужно вызвать функцию <code>str()</code>, передав ей в качестве параметра объект,
+переводимый в строку. 
+
+<p><div class="smartsnippet">
+На самом деле каждая строка, с точки зрения Питона, &mdash; это объект
+класса str. Чтобы получить по объекту другой объект другого класса, как-то ему соответствующий,
+можно использовать функцию приведения. Имя этой функции совпадает с именем класса, к которому мы приводим объект.
+(Для знатоков: эта функция &mdash; это конструктор объектов данного класса.) Пример: int &mdash; класс
+для целых чисел. Перевод строки в число осуществляется функцией <code>int()</code>.
+</div></p>
+
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;">What is the answer?
+42</pre>
+	<pre class="code">s = input()
+print(len(s))
+t = input()
+number = int(t)
+u = str(number)
+print(s * 3)
+print(s + &#x27; &#x27; + u)</pre>
+</div>
+
+
+</div>
+<div id="section_2" class="section" data-section-id="2">
+	
+	<h3>2. Срезы (slices)</h3>
+	
+<p>Срез (slice)&nbsp;&mdash; извлечение из данной строки одного символа или некоторого фрагмента 
+подстроки или подпоследовательности.
+ 
+<p>Есть три формы срезов. Самая простая форма среза: взятие одного символа
+строки, а именно, <code>S[i]</code>&nbsp;&mdash; это срез, состоящий из одного символа,
+который имеет номер <code>i</code>. При этом считается, что нумерация начинается
+с числа 0. То есть если <code><nobr>S = 'Hello'</nobr></code>, то
+<code><nobr>S[0] == 'H'</nobr></code>, <code><nobr>S[1] == 'e'</nobr></code>, <code><nobr>S[2] == 'l'</nobr></code>,
+<code><nobr>S[3] == 'l'</nobr></code>, <code><nobr>S[4] == 'o'</nobr></code>.
+
+<p><div class="smartsnippet">
+Заметим, что в Питоне нет отдельного типа для символов строки. Каждый объект, который получается
+в результате среза <code>S[i]</code>&nbsp;&mdash; это тоже строка типа str.
+</div></p>
+ 
+<p>Номера символов в строке (а также в других структурах данных: списках, кортежах)
+называются <em>индексом</em>.
+ 
+<p>Если указать отрицательное значение индекса, то номер будет отсчитываться
+с конца, начиная с номера <code>-1</code>. То есть <code><nobr>S[-1] == 'o'</nobr></code>,
+<code><nobr>S[-2] == 'l'</nobr></code>, <code><nobr>S[-3] == 'l'</nobr></code>, <code><nobr>S[-4] == 'e'</nobr></code>,
+<code><nobr>S[-5] == 'H'</nobr></code>. 
+ 
+<p>Или в виде таблицы:
+ 
+<table border='1' cellspacing="0" cellpadding="3"> 
+<tr> 
+<td>Строка S</td> 
+<td align="center">H</td> 
+<td align="center">e</td> 
+<td align="center">l</td> 
+<td align="center">l</td> 
+<td align="center">o</td> 
+</tr> 
+<tr> 
+<td>Индекс</td> 
+<td align="center">S[0]</td> 
+<td align="center">S[1]</td> 
+<td align="center">S[2]</td> 
+<td align="center">S[3]</td> 
+<td align="center">S[4]</td> 
+</tr> 
+<tr> 
+<td>Индекс</td> 
+<td align="center">S[-5]</td> 
+<td align="center">S[-4]</td> 
+<td align="center">S[-3]</td> 
+<td align="center">S[-2]</td> 
+<td align="center">S[-1]</td> 
+</tr> 
+</table> 
+ 
+<p>Если же номер символа в срезе строки <code>S</code> больше либо равен <code>len(S)</code>,
+или меньше, чем <code>-len(S)</code>, то при обращении к этому символу строки произойдет
+ошибка <code>IndexError: string index out of range</code>.
+ 
+<p>Срез с двумя параметрами: <code>S[a:b]</code> 
+возвращает подстроку из <code>b - a</code> символов,
+начиная с символа c индексом <code>a</code>,
+то есть до символа с индексом </code>b</code>, не включая его.
+Например, <code>S[1:4] == 'ell'</code>, то же самое получится
+если написать <code>S[-4:-1]</code>. Можно использовать как положительные,
+так и отрицательные индексы в одном срезе, например, <code>S[1:-1]</code>&nbsp;&mdash;
+это строка без первого и последнего символа (срез начинается с символа с индексом 1 и 
+заканчиватеся индексом -1, не включая его).
+ 
+<p>При использовании такой формы среза ошибки <code>IndexError</code> 
+никогда не возникает. Например, срез <code>S[1:5]</code> 
+вернет строку <code>'ello'</code>, таким же будет результат,
+если сделать второй индекс очень большим, например,
+<code>S[1:100]</code> (если в строке не более 100 символов).
+ 
+<p>Если опустить второй параметр (но поставить двоеточие),
+то срез берется до конца строки. Например, чтобы удалить
+из строки первый символ (его индекс равен 0), можно
+взять срез <code>S[1:]</code>. Аналогично
+если опустить первый параметр, то можно взять срез от начала строки.
+То есть удалить из строки последний символ можно при помощи среза
+<code>S[:-1]</code>. Срез <code>S[:]</code> совпадает с самой строкой
+<code>S</code>.
+
+<p><div class="smartsnippet">
+<p>
+Любые операции среза со строкой создают новые строки и никогда не меняют исходную строку.
+В Питоне строки вообще являются неизменяемыми, их невозможно изменить. Можно
+лишь в старую переменную присвоить новую строку.
+
+<p>На самом деле в питоне нет и переменных. Есть лишь имена, которые связаны с какими-нибудь объектами.
+Можно сначала связать имя с одним объектом, а потом &mdash; с другим. Можно несколько имён
+связать с одним и тем же объектом.</p>
+</div></p>
+ 
+<p>Если задать срез с тремя параметрами <code>S[a:b:d]</code>,
+то третий параметр задает шаг, как в случае с функцией
+<code>range</code>, то есть будут взяты символы с индексами
+<code>a</code>, <nobr><code>a + d</code></nobr>, <nobr><code>a + 2 * d</code></nobr> и т.&nbsp;д.
+При задании значения третьего параметра, равному 2, в срез попадет
+кажый второй символ, а если взять значение среза, равное
+<code>-1</code>, то символы будут идти в обратном порядке. 
+Например, можно перевернуть строку срезом <code>S[::-1]</code>.
+
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">s = &#x27;abcdefg&#x27;
+print(s[1])
+print(s[-1])
+print(s[1:3])
+print(s[1:-1])
+print(s[:3])
+print(s[2:])
+print(s[:-1])
+print(s[::2])
+print(s[1::2])
+print(s[::-1])</pre>
+</div>
+
+
+</div>
+
+
+<p><div class="smartsnippet">
+Обратите внимание на то, как похож третий параметр среза на третий параметр функции range():
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">s = &#x27;abcdefghijklm&#x27;
+print(s[0:10:2])
+for i in range(0, 10, 2):
+    print(i, s[i])</pre>
+</div>
+
+</div></p>
+
+<div id="section_3" class="section" data-section-id="3">
+	
+	<h3>3. Методы</h3>
+	
+<p>Метод &mdash; это функция, применяемая к объекту, в данном случае &mdash; к строке.
+Метод вызывается в виде <code>Имя_объекта.Имя_метода(параметры)</code>.
+Например, <code>S.find(&quot;e&quot;)</code>&nbsp;&mdash; это применение к строке <code>S</code> 
+метода <code>find</code> с одним параметром <code>&quot;e&quot;</code>.
+
+<div id="section_3.1" class="section" data-section-id="3.1">
+	
+	<h4>3.1. Методы find и rfind</h4>
+	
+<p>Метод <code>find</code> находит в данной строке (к которой применяется  метод)
+данную подстроку (которая передается в качестве параметра).
+Функция возвращает индекс первого вхождения искомой подстроки.
+Если же подстрока не найдена, то метод возвращает значение -1. 
+ 
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">S = &#x27;Hello&#x27;
+print(S.find(&#x27;e&#x27;))
+# вернёт 1
+print(S.find(&#x27;ll&#x27;))
+# вернёт 2
+print(S.find(&#x27;L&#x27;))
+# вернёт -1</pre>
+</div>
+
+ 
+<p>Аналогично, метод <code>rfind</code> возвращает индекс последнего вхождения
+данной строки (&ldquo;поиск справа&rdquo;).
+ 
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">S = &#x27;Hello&#x27;
+print(S.find(&#x27;l&#x27;))
+# вернёт 2
+print(S.rfind(&#x27;l&#x27;))
+# вернёт 3</pre>
+</div>
+
+ 
+<p>Если вызвать метод <code>find</code> с тремя параметрами
+<code>S.find(T, a, b)</code>, то поиск будет осуществляться
+в срезе <code>S[a:b]</code>. Если указать только два параметра
+<code>S.find(T, a)</code>, то поиск будет осуществляться
+в срезе <code>S[a:]</code>, то есть начиная с символа с индексом
+<code>a</code> и до конца строки. Метод <code>S.find(T, a, b)</code> 
+возращает индекс в строке <code>S</code>, а не индекс относительно среза.
+
+</div>
+<div id="section_3.2" class="section" data-section-id="3.2">
+	
+	<h4>3.2. Метод replace</h4>
+	
+<p>Метод <code>replace</code> заменяет все вхождения одной строки на другую. Формат:
+<code>S.replace(old, new)</code>&nbsp;&mdash; заменить в строке <code>S</code> 
+все вхождения подстроки <code>old</code> на подстроку <code>new</code>. Пример:
+ 
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">print(&#x27;Hello&#x27;.replace(&#x27;l&#x27;, &#x27;L&#x27;))
+# вернёт &#x27;HeLLo&#x27;</pre>
+</div>
+
+  
+<p>Если методу <code>replace</code> задать еще один параметр: <code>S.replace(old, new, count)</code>,
+то заменены будут не все вхождения, а только не больше, чем первые <code>count</code> из них.
+ 
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">print(&#x27;Abrakadabra&#x27;.replace(&#x27;a&#x27;, &#x27;A&#x27;, 2))
+# вернёт &#x27;AbrAkAdabra&#x27;</pre>
+</div>
+
+
+</div>
+<div id="section_3.3" class="section" data-section-id="3.3">
+	
+	<h4>3.3. Метод count</h4>
+	
+<p>Подсчитывает количество вхождений одной строки в другую строку. Простейшая
+форма вызова <code>S.count(T)</code>&nbsp; возвращает число вхождений строки
+<code>T</code> внутри строки <code>S</code>. При этом подсчитываются только
+непересекающиеся вхождения, например:
+ 
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">print(&#x27;Abracadabra&#x27;.count(&#x27;a&#x27;))
+# вернёт 4
+print((&#x27;a&#x27; * 10).count(&#x27;aa&#x27;))
+# вернёт 5</pre>
+</div>
+
+ 
+ 
+<p>При указании трех параметров <code><nobr>S.count(T, a, b)</nobr></code>,
+будет выполнен подсчет числа вхождений строки <code>T</code> 
+в срезе <code>S[a:b]</code>.
+
+</div>
+
+</div>
+
+
+	
+		<hr>
+		<div id="problems">
+			<h2>Задачи:</h2>
+			<ol class="lesson_problems">
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/str/problems/slices/"><span class="unsubmittedProblemLink">Делаем срезы</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/str/problems/num_words/"><span class="unsubmittedProblemLink">Количество слов</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/str/problems/two_halves/"><span class="unsubmittedProblemLink">Две половинки</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/str/problems/swap_two_words/"><span class="unsubmittedProblemLink">Переставить два слова</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/str/problems/first_and_last_occurences/"><span class="unsubmittedProblemLink">Первое и последнее вхождения</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/str/problems/second_occurence/"><span class="unsubmittedProblemLink">Второе вхождение</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/str/problems/delete_chunk/"><span class="unsubmittedProblemLink">Удаление фрагмента</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/str/problems/reverse_chunk/"><span class="unsubmittedProblemLink">Обращение фрагмента</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/str/problems/replace_substring/"><span class="unsubmittedProblemLink">Замена подстроки</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/str/problems/delete_char/"><span class="unsubmittedProblemLink">Удаление символа</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/str/problems/replace_in_chunk/"><span class="unsubmittedProblemLink">Замена внутри фрагмента</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/str/problems/delete_every_third_char/"><span class="unsubmittedProblemLink">Удалить каждый третий символ</span></a>
+						
+					</li>
+				
+			</ol>
+		</div>
+	
+	
+
+
+
+		</div>
+	</div>
+
+
+		
+			<footer>
+                <p>Разработка и поддержка учебника: <a href="https://t.me/thingsiread">Виталий Павленко</a>, Владимир Соломатин (2014), команда Pythontutor (2016)<br>
+                Автор первоначального текста большинства уроков, задач и тестов: Д. П. Кириенко (см. <a href="https://informatics.msk.ru/moodle/course/view.php?id=156">оригинальный курс</a>)<br>
+                Идея учебника: В. М. Гуровиц<br>
+                Разработчик визуализатора: <a href="https://www.pgbovine.net/">Philip Guo</a> (см. <a href="https://pythontutor.com/">сайт визуализатора</a>)<br>
+                Родилось в 2012</p>
+                <p class="local-links"><a href="/pythontutor-selfhost/knowledge/">База знаний</a> · <a href="/pythontutor-selfhost/">Уроки</a> · <a href="/pythontutor-selfhost/visualizer/">Визуализатор</a> · <a href="/pythontutor-selfhost/images/">OpenCV</a> · <a href="https://github.com/Behnisch/pythontutor-ru">Публичный архив</a></p>
+
+			</footer>
+		
+	</div>
+<link rel="stylesheet" href="/pythontutor-selfhost/static/css/assistant.css?v=9">
+<script defer src="/pythontutor-selfhost/static/pwa/local-ai.js?v=learning2"></script>
+<script defer src="/pythontutor-selfhost/static/pwa/local-voice.js?v=1"></script>
+<script defer src="/pythontutor-selfhost/static/js/assistant.js?v=learning2"></script>
+<button id="tutor-launcher" type="button" aria-expanded="false" aria-controls="tutor-panel" aria-label="ИИ-помощник" title="ИИ-помощник"><span aria-hidden="true">🐍</span></button>
+<div id="tutor-divider" role="separator" aria-label="Ширина помощника" aria-orientation="vertical" aria-valuemin="28" aria-valuemax="60" aria-valuenow="42" tabindex="0" hidden></div>
+<aside id="tutor-panel" hidden aria-label="ИИ-помощник по текущей задаче" data-url="/pythontutor-selfhost/assistant/lesson/str/" data-kind="lesson" data-learning-context="Мы в интерактивном учебнике Python: 15 уроков и 134 основные задачи. Ученик пишет код в редакторе на этой странице; Python, тесты и пошаговый запуск уже работают в браузере. Устанавливать Python или IDE для этих занятий не нужно. Основной способ обучения — последовательно решать задачи: прочитать условие, попробовать самому, запустить пример, проверить все тесты, при необходимости раскрыть подсказку, затем перейти к следующей задаче. После успешного решения можно обсудить разбор и улучшение. Цель прохождения курса с самостоятельной практикой — база начинающего Python-разработчика. Если спрашивают, как учиться или с чего начать, предложи посильный шаг в текущей задаче этого курса, а не установку программ, сторонние курсы или длинный общий план. Учитывай тему текущего урока и не вводи ещё не изученные конструкции. Это фон беседы: не повторяй описание курса и не навязывай решение задачи в ответ на каждое приветствие." data-user="" data-stt="/pythontutor-selfhost/assistant/speech/transcribe/" data-worklet="/pythontutor-selfhost/static/js/tutor-audio-worklet.js" data-auth="no">
+    <header class="tutor-header"><span class="tutor-avatar" aria-hidden="true">🐍</span><div class="tutor-toolbar"><button id="tutor-text-mode" type="button" aria-label="Текстовый чат" aria-pressed="true">☷</button><button id="tutor-voice-mode" type="button" aria-label="Голосовой режим" aria-pressed="false">🎙</button><button id="tutor-expand" type="button" aria-label="Развернуть на весь экран" aria-pressed="false">⛶</button><button id="tutor-close" type="button" aria-label="Свернуть чат">⌄</button></div></header>
+    <h2>Давай поговорим</h2>
+    <p class="tutor-context" id="tutor-context">Помощник по текущей задаче</p>
+    
+    <details id="tutor-settings"><summary>Настройки</summary><div class="tutor-local-options">
+      <label for="tutor-model">Модель помощника</label>
+      <select id="tutor-model" class="form-control"><option value="Qwen2.5-Coder-0.5B-Instruct-q4f16_1-MLC">Qwen Coder 0.5B · минимальная</option><option value="Qwen2.5-Coder-1.5B-Instruct-q4f16_1-MLC" selected>Qwen Coder 1.5B · рекомендуется</option><option value="Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC">Qwen Coder 7B · мощный компьютер</option><option value="Qwen3-1.7B-q4f16_1-MLC">Qwen3 1.7B · универсальная</option></select>
+      <p id="tutor-model-info" class="tutor-fineprint"></p>
+      
+      
+      
+    </div>
+    <div class="tutor-code-access"><label><input id="tutor-include-code" type="checkbox" checked> Помощник видит мой код</label><span id="tutor-code-status">Код считывается из редактора</span></div>
+    </details>
+    <div id="tutor-voice-view" hidden><div class="tutor-voice-orb" aria-hidden="true">🐍</div><h3>Голосовой разговор</h3><p id="tutor-voice-status" role="status">Готовлю разговор… При первом запуске браузер попросит доступ к микрофону.</p><button id="tutor-call" type="button">Начать разговор</button><button id="tutor-interrupt" type="button" hidden>Отправить реплику</button><p class="tutor-fineprint">После паузы вопрос отправится автоматически. Ответ прозвучит вслух и останется в текстовом чате. Одна реплика — до 60 секунд.</p></div>
+    <div id="tutor-messages" role="log" aria-live="polite" aria-relevant="additions"><div class="tutor-welcome"><span aria-hidden="true">🐍</span><p>Привет, я Питоныч. Можем просто поговорить или вместе разобраться с задачей. О чём хочешь поговорить?</p></div></div>
+    <div id="tutor-quick"><button type="button" data-question="Объясни условие простыми словами, без готового решения.">Объясни условие</button><button type="button" data-question="Дай небольшую подсказку, с чего начать. Не выдавай решение целиком.">Дай подсказку</button><button type="button" data-question="Посмотри мой текущий код: помоги найти ошибку и понять её причину.">Проверь мой код</button></div>
+    <p id="tutor-status" role="status" aria-live="polite"></p>
+    <form id="tutor-form"><label class="sr-only" for="tutor-question">Вопрос помощнику</label><textarea id="tutor-question" rows="3" maxlength="3000" placeholder="Напиши или надиктуй вопрос"></textarea><div id="tutor-attachment" hidden><span></span><button type="button" id="tutor-remove-image" aria-label="Убрать изображение">×</button></div><div class="tutor-composer-tools"><label class="tutor-attach" title="Прикрепить изображение"><span aria-hidden="true">📎</span><span class="sr-only">Прикрепить изображение</span><input id="tutor-image" type="file" accept="image/png,image/jpeg" aria-label="Прикрепить изображение"></label><button id="tutor-dictate" type="button" aria-label="Начать голосовой ввод" title="Надиктовать вопрос">🎙</button><button id="tutor-stop-model" type="button" aria-label="Остановить ответ" title="Остановить ответ" hidden>■</button><button id="tutor-send" type="submit" aria-label="Отправить вопрос">↑</button></div></form>
+    <p class="tutor-fineprint">По отправке вопроса ИИ получает материал и включённый код. В локальном режиме вопросы, код и речь остаются на устройстве. ИИ может ошибаться.</p>
+    
+</aside>
+</div>
+</body>
+</html>

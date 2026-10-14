@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<!--
+
+Online Python Tutor
+https://github.com/pgbovine/OnlinePythonTutor/
+
+Copyright (C) 2010-2012 Philip J. Guo (philip@pgbovine.net)
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+-->
+
+<!--
+
+Онлайн учебник Python
+
+Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
+
+-->
+
+
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="execution-mode" content="browser">
+<meta name="local-page" content="yes">
+<meta name="learner-id" content="local">
+<link rel="manifest" href="/pythontutor-selfhost/manifest.webmanifest">
+<meta name="theme-color" content="#e3ebf1">
+<link rel="apple-touch-icon" href="/pythontutor-selfhost/static/pwa/icon-192.png">
+<script defer src="/pythontutor-selfhost/static/pwa/app.js?v=2"></script>
+<script src="/pythontutor-selfhost/static/pwa/storage.js?v=2"></script>
+<meta name="csrf-token" content="Bm2rbbmqJkN0FGqhE0uBBzyCJjjxwwdfeHAAWjF5CrQ0QAAiPGEpfjy5JpDCDAVi">
+
+	<title>Интерактивный учебник языка Python</title>
+
+
+	
+	
+	
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/jquery-3.7.1.min.js"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/pythontutor-selfhost/static/js/site.js?v=5"></script>
+    <script src="/pythontutor-selfhost/static/js/browser-execution.js?v=5"></script>
+    <script>window.MathJax = {options: {enableMenu: false}, loader: {load: []}, tex: {packages: {'[-]': ['autoload', 'require']}}, svg: {fontCache: 'local'}};</script>
+    <script defer src="/pythontutor-selfhost/static/vendor/mathjax/tex-svg.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/pythontutor.css">
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/pythontutor-sidebar.css">
+
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/visualizer.css">
+
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/ace-editor/ace.js"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/jquery.jsPlumb-1.6.4-min.js"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/visualizer.js?v=browser1"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/lesson.js"></script>
+
+	<script type="text/javascript">
+		var lesson_name = '';
+	</script>
+
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/lesson.css?v=menu2">
+
+<link rel="stylesheet" href="/pythontutor-selfhost/static/css/selfhost.css?v=hints2">
+<meta name="static-site" content="yes"></head>
+<body>
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Открыть меню</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/pythontutor-selfhost/">Питонтьютор</a>
+			</div>
+			<div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/pythontutor-selfhost/pwa/">Офлайн-приложение</a></li>
+                    <li><button id="pwa-install-nav" type="button" class="btn btn-link navbar-btn">Установить приложение</button></li>
+                    <li><a class="original-en" href="https://snakify.org/">En</a></li>
+                    
+                </ul>
+				<div class="navbar-text navbar-right">
+					<span>Локальная версия · <a href="/pythontutor-selfhost/pwa/">Мой прогресс</a></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<div id="tutor-workspace">
+	<div id="tutor-content" class="container-fluid">
+		
+        
+	<div class="row">
+		<div class="col-sm-3 col-md-2 sidebar">
+			
+	
+			
+	<ul class="nav nav-sidebar">
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/inout_and_arithmetic_operations/">1. Ввод и вывод данных</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/ifelse/">2. Условия</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/int_and_float/">3. Вычисления</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/for_loop/">4. Цикл for</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/str/">5. Строки</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/while/">6. Цикл while</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/lists/">7. Списки</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/functions/">8. Функции и рекурсия</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/2d_arrays/">9. Двумерные массивы</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/sets/">10. Множества</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/dicts/">11. Словари</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/graphs/">12. Графы: определения и способы хранения</a>
+				
+			</li>
+		
+			<li class="active">
+				<a href="/pythontutor-selfhost/lessons/dfs/">13. Обход в глубину</a>
+				
+					
+	<ul class="lesson_sections">
+		
+			<li class="section_menuitem" data-section-id="1">
+	<div class="position_spin"></div>
+	<a href="#section_1">1. Количество вершин в данной компоненте связности</a>
+	
+</li>
+<li class="section_menuitem" data-section-id="2">
+	<div class="position_spin"></div>
+	<a href="#section_2">2. Подсчет количества компонент связности</a>
+	
+</li>
+<li class="section_menuitem" data-section-id="3">
+	<div class="position_spin"></div>
+	<a href="#section_3">3. Проверка наличия пути между двумя вершинами</a>
+	
+</li>
+<li class="section_menuitem" data-section-id="4">
+	<div class="position_spin"></div>
+	<a href="#section_4">4. Обход в глубину на неявных графах</a>
+	
+</li>
+<li class="section_menuitem" data-section-id="5">
+	<div class="position_spin"></div>
+	<a href="#section_5">5. Вывод пути до вершины, поиск циклов</a>
+	
+</li>
+<li class="section_menuitem" data-section-id="6">
+	<div class="position_spin"></div>
+	<a href="#section_6">6. Двудольные графы</a>
+	
+</li>
+<li class="section_menuitem" data-section-id="7">
+	<div class="position_spin"></div>
+	<a href="#section_7">7. Ограничение на глубину рекурсии в Питоне</a>
+	
+</li>
+
+		
+		<li class="problems_link">
+			<a href="#problems">Задачи</a>
+            <ul></ul>
+		</li>
+	</ul>
+
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/file_io/">14. Файловый ввод-вывод</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/bfs/">15. Обход в ширину</a>
+				
+			</li>
+		
+	</ul>
+
+		</div>
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			
+	
+			
+
+	
+	<h3 class="page-header"><button type="button" class="sidebar-toggle btn btn-default" aria-label="Скрыть меню уроков" aria-expanded="true"><i class="fa fa-angle-left" aria-hidden="true"></i></button>Занятие 13. Обход в глубину</h3>
+
+	<div id="section_1" class="section" data-section-id="1">
+	
+	<h3>1. Количество вершин в данной компоненте связности</h3>
+	
+
+<p>В прошлом занятии мы обсудили способы хранения графов. В этом занятии мы начнём изучать алгоритмы на графах. Договоримся, что мы рассматриваем исключительно неориентированные графы без петель и кратных рёбер. 
+
+<p>Поставим следующую задачу. Дан граф, в котором выделена вершина s. Требуется найти все вершины, лежащие в одной компоненте связности с ней. Иными словами, нужно понять, до каких вершин можно добраться из s. Будем считать, что граф задан списками смежности:
+
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code">#
+#   2--0--6--7   1--9   5
+#   |  |  |
+#   3--4  8 
+#
+n = 10  # количество вершин
+adj_list = [[2, 4, 6],
+            [9],
+            [0, 3],
+            [2, 4],
+            [0, 3],
+            [],
+            [0, 7, 8],
+            [6],
+            [6],
+            [1]]
+s = 0</pre>
+</div>
+
+
+<p>Наш алгоритм будет основан на рекурсии. Опишем его идею. Встанем в вершину s и посмотрим на всех её соседей. Посетим каждого такого соседа. Когда будем посещать соседа, посмотрим на его соседей, и так далее. Когда мы посещаем вершину, мы вызываем функцию dfs(v), передавая в качестве параметра v номер этой вершины. Эскиз кода таков:
+
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code">def dfs(v):  # dfs is an acronym for &quot;depth-first search&quot;
+    for w in adj_list[v]:  # переменная w пробегает всех соседей вершины v
+        dfs(w)
+
+dfs(s)</pre>
+</div>
+
+
+<p>Давайте подумаем, почему этот код не работает. Сначала вызовется функция dfs(0). Внутри функции переменная w примет значение 2, и вызовется функция dfs(2). При просмотре соседей вершины 2 мы увидим соседа 0 и опять вызовем dfs(0). Мы вошли в вечную рекурсию. Функции dfs(0) и dfs(2) будут продолжать вызывать друг друга, создавая новые фреймы в стеке вызовов функций, пока не будет превышен лимит интерпретатора на глубину рекурсии. *очень много страшных слов*
+
+<p>Как же исправить это недоразумение? Надо как-то помечать вершины, в которых мы были, и не ходить ещё раз в уже посещённые вершины.
+
+<p>Давайте заведём массив visited размера n, по ячейке на каждую вершину. В ячейке visited[v] будет лежать значение False, если вершина v пока не была посещена алгоритмом, и True, если вершина v была посещена. При первом заходе в вершину v мы меняем значение visited[v] с False на True.
+
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">#
+#   2--0--6--7   1--9   5
+#   |  |  |
+#   3--4  8 
+#
+n = 10
+adj_list = [[2, 4, 6],
+            [9],
+            [0, 3],
+            [2, 4],
+            [0, 3],
+            [],
+            [0, 7, 8],
+            [6],
+            [6],
+            [1]]
+s = 0
+
+visited = [False] * n  # массив &quot;посещена ли вершина?&quot;
+
+def dfs(v):
+    visited[v] = True
+    for w in adj_list[v]:
+        if visited[w] == False:  # посещён ли текущий сосед?
+            dfs(w)
+
+dfs(s)</pre>
+</div>
+
+
+<p>Теперь наш код работает. Посмотрите в визуализаторе, в каком порядке dfs() посещает вершины. Обратите также внимание на стек вызовов функций. Заметьте, что значения локальных переменных v, которые лежат в стеке вызовов, в точности соответствуют вершинам пути, по которому мы пришли в текущую вершину из стартовой вершины s. Это замечание нам потом пригодится.
+
+<p>Вспомним же, наконец, какую задачу мы решали. Мы хотели посчитать количество вершин, которые достижимы из v. Но это ровно те вершины, которые были посещены функцией dfs(). А у них в массиве visited стоит метка True. Ответ получаем моментально:
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code">print(visited.count(True))</pre>
+</div>
+
+
+<p><div class="smartsnippet">
+Одна маленькая ремарка про стиль программирования. Строчка 
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code">if visited[w] == False:</pre>
+</div>
+
+выдает в нас начинающего программиста на Питоне. Тру-программист написал бы
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code">if not visited[w]:</pre>
+</div>
+
+Напомним, что not &mdash; это логический унарный оператор, который работает так:
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code">not True == False
+not False == True</pre>
+</div>
+
+Заметьте, что операция not позволяет писать код, который неплохо согласован с английским языком. &laquo;if not visited&raquo; пословно переводится как &laquo;если не посещена&raquo;.
+</div></p>
+
+
+</div>
+<div id="section_2" class="section" data-section-id="2">
+	
+	<h3>2. Подсчет количества компонент связности</h3>
+	
+Теперь поставим перед собой другую задачу: подсчитать количество компонент связности в графе.
+Эта задача оказывается довольно лёгкой. Действительно, запустим dfs() от вершины с номером 0. Если в результате весь граф будет обойдён, т. е. окажется, что в массиве visited все элементы равны True, то это будет значить, что в графе имеется только одна компонента связности. 
+
+<p>Пусть, однако, это не так, и для некоторых вершин visited[v] == False. Выберем среди таких вершин произвольную и запустим dfs() уже от неё. Запущенный обход в глубину посетит все вершины второй компоненты связности.
+
+<p>Такие действия надо производить до тех пор, пока в массиве visited остаются значения False. На практике делают один проход по всем вершинам, и каждый раз от непосещённых вершин запускается новый обход в глубину.
+
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code">visited = [False] * n
+for v in range(n):
+    if not visited[v]:
+        dfs(v)</pre>
+</div>
+
+
+<p>Лёгко добавить в этот код переменную, которая будет считать количество компонент связности. Проделайте это.
+
+<p>Оценим суммарное время работы программы, которая подсчитывает количество компонент связности. Оценку произведём в обозначениях &laquo;О-большое&raquo;. При этом буквой V мы обозначаем количество вершин в графе, а буквой E &mdash; количество рёбер. 
+
+<p>Функция dfs() вызывается один раз от каждой вершины. Таким образом, только на её вызов и на константные по времени действия в ней (вроде изменения ячейки visited[v]) тратится O(V) действий. Далее, в цикле по переменной w каждый сосед каждой вершины будет просмотрен ровно один раз. Рассмотрим, например, ребро (0, 2). Его наличие означает, что внутри вызова dfs(0) в цикле по соседям вершины 0 переменная w в какой-то момент примет значение 2. Аналогично, при вызове dfs(2) переменная w ровно один раз примет значение 0. Таким образом, эти операции вносят суммарный вклад 2E = O(E) в общее время работы программы. Других действий в программе нет, так что суммарная сложность алгоритма получается O(V + E).
+
+</div>
+<div id="section_3" class="section" data-section-id="3">
+	
+	<h3>3. Проверка наличия пути между двумя вершинами</h3>
+	
+Пусть теперь мы хотим научиться быстро отвечать на запросы вида &laquo;лежат ли вершины v и w в одной компоненте связности?&raquo;. Чтобы отвечать на эти запросы, неплохо бы для каждой вершины запомнить номер её компоненты связности.
+Давайте для начала заведём переменную, которая будет считать количество компомент связности:
+
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code">num_components = 0
+visited = [False] * n
+for v in range(n):
+    if not visited[v]:
+        dfs(v)
+        num_components += 1</pre>
+</div>
+
+
+<p>Теперь можно завести массив component, в которой для каждой вершины мы запишем номер её компоненты. Как это можно сделать? Заметим, что пока мы посещаем вершины одной и той же компоненты связности, значение переменной num_components не меняется. А при переходе к рассмотрению новой компоненты связности значение этой переменной увеличивается. Значит, значение переменной num_components в тот момент, когда мы вызывали функцию dfs(v), логично считать номером компоненты связности для вершины v. Давайте запоминать это значение в массиве component. Приведём окончательный код.
+
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">#
+#   2--0--6--7   1--9   5
+#   |  |  |
+#   3--4  8 
+#
+n = 10
+adj_list = [[2, 4, 6],
+            [9],
+            [0, 3],
+            [2, 4],
+            [0, 3],
+            [],
+            [0, 7, 8],
+            [6],
+            [6],
+            [1]]
+
+visited = [False] * n
+component = [-1] * n  # для каждой вершины храним номер её компоненты
+num_components = 0
+
+def dfs(v):
+    component[v] = num_components
+    visited[v] = True
+    for w in adj_list[v]:
+        if visited[w] == False:
+            dfs(w)
+
+visited = [False] * n
+for v in range(n):
+    if not visited[v]:
+        dfs(v)
+        num_components += 1</pre>
+</div>
+
+
+<p>Теперь представим, что нам дают номера двух вершин v и w, и спрашивают, есть ли путь между ними. Мы проверяем, равны ли значения component[v] и component[w]. Если они равны, то вершины v и w лежат в одной компоненте связности, и между ними существует путь. В противном случае такого пути нет.
+
+<p>В задаче, которую мы научились решать, есть две фазы: фаза подготовки (фаза предподсчёта) и фаза ответов на запросы (фаза ответов на запросы в коде не представлена). Сложность задач, которые состоят из этих двух фаз, принято оценивать отдельно по каждой фазе. В нашем случае время предподсчёта составляет O(V + E), а время ответа на запрос составляет O(1) (оно никак не зависит от размера графа).
+
+</div>
+<div id="section_4" class="section" data-section-id="4">
+	
+	<h3>4. Обход в глубину на неявных графах</h3>
+	
+<p>До сих пор мы предполагали, что граф хранится в списке смежности, а вершины графа занумерованы числами 0, 1, 2 и т. д. На практике графы могут храниться по-другому, и у вершин могут быть не номера, а названия. Наконец, граф может не храниться вовсе. Рассмотрим лабиринт, нарисованный на клетчатой бумаге. Например, чёрные клетки могут означать наличие пространства в лабиринте, а белые &mdash; его отсутствие (стены). 
+
+<p align="center"><img src="/pythontutor-selfhost/static/images/lesson_images/1534/11_dfs/Noisy_binary_image.png" width="%"></p>
+
+<p>Пусть мы хотим рассматривать этот лабиринт как граф. Вершинами будут чёрные клетки (пространство), а две клетки-вершины соединены ребром тогда, когда они соединены по стороне. Тогда каждая вершина естественно обозначается не одним номером, а парой чисел &mdash; координатами клетки. 
+
+<p>На таком графе можно запустить обход в глубину, который может искать путь между двумя клетками. В частности, с помощью обхода в глубину можно найти выход из лабиринта. При этом не нужно явно строить граф, записывая все рёбра между вершинами в списки смежности. Для обхода в глубину достаточно уметь по вершине получать список её соседей.
+
+<p>Пусть мы стоим в клетке с координатами (x, y). Соседями данной клетки являются клетки (x - 1, y), (x, y - 1), (x, y + 1) и (x + 1, y), если только получившиеся координаты неотрицательны.
+
+<p align="center"><img src="/pythontutor-selfhost/static/images/lesson_images/1534/11_dfs/N4-connectivity.svg.png" width="%"></p>
+
+<p>Покажем эскиз кода, который позволит элегантно перебрать всех соседей клетки (x, y) в языке Питон. При этом используется вариация <a href="/pythontutor-selfhost/lessons/while/#2">множественного присваивания</a> для счетчика цикла for.
+
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code">def dfs(x, y):
+    for dx, dy in [[-1, 0], [0, -1], [0, 1], [1, 0]]:
+        dfs(x + dx, y + dy)</pre>
+</div>
+
+
+
+</div>
+<div id="section_5" class="section" data-section-id="5">
+	
+	<h3>5. Вывод пути до вершины, поиск циклов</h3>
+	
+Мы уже умеем проверять, если ли путь между двумя вершинами. Пусть между вершинами s и t есть путь. Давайте научимся его выводить.
+
+<p>Запустим dfs() от вершины s. Заметим, что в тот момент, когда мы дойдём до вершины t, в стеке вызовов функций будут последовательно лежать вызовы функции dfs() от всех вершин интересующего нас пути. Наш путь уже лежит где-то в памяти программы, но он лежит там, откуда вытащить его непросто. А нам надо легко его получать. Значит, придётся нам хранить его самостоятельно.
+
+<p>Для этого давайте заведём глобальный список path, в котором всегда будет поддерживаться путь от вершины s до той вершины, которую мы сейчас посещаем. При заходе в вершину мы кладём её номер в конец списка path. При выходе из вершины не забывайте свои номера. О номерах, оставленных другими вершинами, сообщайте машинисту.
+
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code">path = []  # список для хранения текущего пути
+
+def dfs(v):
+    path.append(v)
+
+    # всякие другие действия
+
+    path.pop()  # удаляем последний элемент списка</pre>
+</div>
+
+
+<p>Надеюсь, вы без труда допишете код, который будет выводить искомый путь в нужный момент.
+
+
+</div>
+<div id="section_6" class="section" data-section-id="6">
+	
+	<h3>6. Двудольные графы</h3>
+	
+<p>Наконец, последнее, о чём хочется поговорить в этом занятии &mdash; это о двудольных графах. Граф называется двудольным, если все его вершины можно разбить на две группы, при этом все рёбра должны обязательно идти из одной группы в другую, и запрещены рёбра, соединяющие две вершины из одной группы. На примере внизу двумя группами являются группа b и группа g.
+
+<p align="center"><img src="/pythontutor-selfhost/static/images/lesson_images/1534/11_dfs/15_1.gif" width="%"></p>
+
+<p>Можно смотреть на двудольные графы как на графы, вершины которого раскрашены в два цвета. При этом раскраска является правильной, т. е. каждое ребро соединяет вершины разных цветов. На рисунке приведены несколько двудольных графов.
+
+<p align="center"><img src="/pythontutor-selfhost/static/images/lesson_images/1534/11_dfs/BipartiteConnectedGraphs_851.gif" width="%"></p>
+
+<p>Некоторые графы нельзя правильно раскрасить в два цвета. Например, граф-треугольник нельзя раскрасить в два цвета: хотя бы одно ребро всегда будет соединять вершины одного цвета. На самом деле, можно доказать такую теорему.
+
+<p><b>Теорема. </b>
+Граф является двудольным тогда и только тогда, когда в нём нет циклов нечётной длины.
+</p>
+
+<p>Но давайте не будем обсуждать доказательство этой теоремы. Вместо этого научимся по графу понимать, можно ли его вершины правильно раскрасить в два цвета.
+
+<p>Я хочу дать лишь намёки на решение этой задачи. В решении стоит использовать обход в глубину, который будет ходить по вершинам и красить их. Вам понадобится глобальный массив color, в котором для каждой уже покрашенной вершины записывается её цвет. Наконец, стоит помнить текущий цвет, которым мы красим вершины. Лучше всего текущий цвет передавать в функцию dfs: тогда объявление функции будет выглядеть как dfs(v, curr_color). При вызове функции для соседа текущей вершины текущий цвет надо менять на противоположный.
+
+
+</div>
+<div id="section_7" class="section" data-section-id="7">
+	
+	<h3>7. Ограничение на глубину рекурсии в Питоне</h3>
+	
+В Питоне существует искуственное ограничение на количество вложенных рекурсивных вызовов, которое по умолчанию равно 1000 вызовам. Если ваша программа превысит это ограничение, то она будет остановлена с ошибкой выполнения. Чтобы изменить это ограничение, можно использовать функцию setrecursionlimit(max_depth) из модуля sys.
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code"># добавьте эти строки в начало программы
+from sys import setrecursionlimit
+setrecursionlimit(100000)  # глубина стала 100 000 вызовов</pre>
+</div>
+
+<p>Рекомендуем не думать над размером стека, который вам реально понадобится, и ставить этой функцией какое-нибудь большое число (10<sup>6</sup> или 10<sup>9</sup>).
+
+
+</div>
+
+
+	
+	
+		<h4><a href="http://informatics.mccme.ru/moodle/mod/statements/view.php?id=6583">Внешний контест с задачами</a></h4>
+	
+
+
+
+		</div>
+	</div>
+
+
+		
+			<footer>
+                <p>Разработка и поддержка учебника: <a href="https://t.me/thingsiread">Виталий Павленко</a>, Владимир Соломатин (2014), команда Pythontutor (2016)<br>
+                Автор первоначального текста большинства уроков, задач и тестов: Д. П. Кириенко (см. <a href="https://informatics.msk.ru/moodle/course/view.php?id=156">оригинальный курс</a>)<br>
+                Идея учебника: В. М. Гуровиц<br>
+                Разработчик визуализатора: <a href="https://www.pgbovine.net/">Philip Guo</a> (см. <a href="https://pythontutor.com/">сайт визуализатора</a>)<br>
+                Родилось в 2012</p>
+                <p class="local-links"><a href="/pythontutor-selfhost/knowledge/">База знаний</a> · <a href="/pythontutor-selfhost/">Уроки</a> · <a href="/pythontutor-selfhost/visualizer/">Визуализатор</a> · <a href="/pythontutor-selfhost/images/">OpenCV</a> · <a href="https://github.com/Behnisch/pythontutor-ru">Публичный архив</a></p>
+
+			</footer>
+		
+	</div>
+<link rel="stylesheet" href="/pythontutor-selfhost/static/css/assistant.css?v=9">
+<script defer src="/pythontutor-selfhost/static/pwa/local-ai.js?v=learning2"></script>
+<script defer src="/pythontutor-selfhost/static/pwa/local-voice.js?v=1"></script>
+<script defer src="/pythontutor-selfhost/static/js/assistant.js?v=learning2"></script>
+<button id="tutor-launcher" type="button" aria-expanded="false" aria-controls="tutor-panel" aria-label="ИИ-помощник" title="ИИ-помощник"><span aria-hidden="true">🐍</span></button>
+<div id="tutor-divider" role="separator" aria-label="Ширина помощника" aria-orientation="vertical" aria-valuemin="28" aria-valuemax="60" aria-valuenow="42" tabindex="0" hidden></div>
+<aside id="tutor-panel" hidden aria-label="ИИ-помощник по текущей задаче" data-url="/pythontutor-selfhost/assistant/lesson/dfs/" data-kind="lesson" data-learning-context="Мы в интерактивном учебнике Python: 15 уроков и 134 основные задачи. Ученик пишет код в редакторе на этой странице; Python, тесты и пошаговый запуск уже работают в браузере. Устанавливать Python или IDE для этих занятий не нужно. Основной способ обучения — последовательно решать задачи: прочитать условие, попробовать самому, запустить пример, проверить все тесты, при необходимости раскрыть подсказку, затем перейти к следующей задаче. После успешного решения можно обсудить разбор и улучшение. Цель прохождения курса с самостоятельной практикой — база начинающего Python-разработчика. Если спрашивают, как учиться или с чего начать, предложи посильный шаг в текущей задаче этого курса, а не установку программ, сторонние курсы или длинный общий план. Учитывай тему текущего урока и не вводи ещё не изученные конструкции. Это фон беседы: не повторяй описание курса и не навязывай решение задачи в ответ на каждое приветствие." data-user="" data-stt="/pythontutor-selfhost/assistant/speech/transcribe/" data-worklet="/pythontutor-selfhost/static/js/tutor-audio-worklet.js" data-auth="no">
+    <header class="tutor-header"><span class="tutor-avatar" aria-hidden="true">🐍</span><div class="tutor-toolbar"><button id="tutor-text-mode" type="button" aria-label="Текстовый чат" aria-pressed="true">☷</button><button id="tutor-voice-mode" type="button" aria-label="Голосовой режим" aria-pressed="false">🎙</button><button id="tutor-expand" type="button" aria-label="Развернуть на весь экран" aria-pressed="false">⛶</button><button id="tutor-close" type="button" aria-label="Свернуть чат">⌄</button></div></header>
+    <h2>Давай поговорим</h2>
+    <p class="tutor-context" id="tutor-context">Помощник по текущей задаче</p>
+    
+    <details id="tutor-settings"><summary>Настройки</summary><div class="tutor-local-options">
+      <label for="tutor-model">Модель помощника</label>
+      <select id="tutor-model" class="form-control"><option value="Qwen2.5-Coder-0.5B-Instruct-q4f16_1-MLC">Qwen Coder 0.5B · минимальная</option><option value="Qwen2.5-Coder-1.5B-Instruct-q4f16_1-MLC" selected>Qwen Coder 1.5B · рекомендуется</option><option value="Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC">Qwen Coder 7B · мощный компьютер</option><option value="Qwen3-1.7B-q4f16_1-MLC">Qwen3 1.7B · универсальная</option></select>
+      <p id="tutor-model-info" class="tutor-fineprint"></p>
+      
+      
+      
+    </div>
+    <div class="tutor-code-access"><label><input id="tutor-include-code" type="checkbox" checked> Помощник видит мой код</label><span id="tutor-code-status">Код считывается из редактора</span></div>
+    </details>
+    <div id="tutor-voice-view" hidden><div class="tutor-voice-orb" aria-hidden="true">🐍</div><h3>Голосовой разговор</h3><p id="tutor-voice-status" role="status">Готовлю разговор… При первом запуске браузер попросит доступ к микрофону.</p><button id="tutor-call" type="button">Начать разговор</button><button id="tutor-interrupt" type="button" hidden>Отправить реплику</button><p class="tutor-fineprint">После паузы вопрос отправится автоматически. Ответ прозвучит вслух и останется в текстовом чате. Одна реплика — до 60 секунд.</p></div>
+    <div id="tutor-messages" role="log" aria-live="polite" aria-relevant="additions"><div class="tutor-welcome"><span aria-hidden="true">🐍</span><p>Привет, я Питоныч. Можем просто поговорить или вместе разобраться с задачей. О чём хочешь поговорить?</p></div></div>
+    <div id="tutor-quick"><button type="button" data-question="Объясни условие простыми словами, без готового решения.">Объясни условие</button><button type="button" data-question="Дай небольшую подсказку, с чего начать. Не выдавай решение целиком.">Дай подсказку</button><button type="button" data-question="Посмотри мой текущий код: помоги найти ошибку и понять её причину.">Проверь мой код</button></div>
+    <p id="tutor-status" role="status" aria-live="polite"></p>
+    <form id="tutor-form"><label class="sr-only" for="tutor-question">Вопрос помощнику</label><textarea id="tutor-question" rows="3" maxlength="3000" placeholder="Напиши или надиктуй вопрос"></textarea><div id="tutor-attachment" hidden><span></span><button type="button" id="tutor-remove-image" aria-label="Убрать изображение">×</button></div><div class="tutor-composer-tools"><label class="tutor-attach" title="Прикрепить изображение"><span aria-hidden="true">📎</span><span class="sr-only">Прикрепить изображение</span><input id="tutor-image" type="file" accept="image/png,image/jpeg" aria-label="Прикрепить изображение"></label><button id="tutor-dictate" type="button" aria-label="Начать голосовой ввод" title="Надиктовать вопрос">🎙</button><button id="tutor-stop-model" type="button" aria-label="Остановить ответ" title="Остановить ответ" hidden>■</button><button id="tutor-send" type="submit" aria-label="Отправить вопрос">↑</button></div></form>
+    <p class="tutor-fineprint">По отправке вопроса ИИ получает материал и включённый код. В локальном режиме вопросы, код и речь остаются на устройстве. ИИ может ошибаться.</p>
+    
+</aside>
+</div>
+</body>
+</html>

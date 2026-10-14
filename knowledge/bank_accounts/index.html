@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<!--
+
+Online Python Tutor
+https://github.com/pgbovine/OnlinePythonTutor/
+
+Copyright (C) 2010-2012 Philip J. Guo (philip@pgbovine.net)
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+-->
+
+<!--
+
+Онлайн учебник Python
+
+Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
+
+-->
+
+
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="execution-mode" content="browser">
+<meta name="local-page" content="yes">
+<meta name="learner-id" content="local">
+<link rel="manifest" href="/pythontutor-selfhost/manifest.webmanifest">
+<meta name="theme-color" content="#e3ebf1">
+<link rel="apple-touch-icon" href="/pythontutor-selfhost/static/pwa/icon-192.png">
+<script defer src="/pythontutor-selfhost/static/pwa/app.js?v=2"></script>
+<script src="/pythontutor-selfhost/static/pwa/storage.js?v=2"></script>
+<meta name="csrf-token" content="l5jAhHbvOGsALmDQsGP162jINXA8HlaSIL4Eb27JMHBXIfaHygjCo8GxZE20831A">
+
+	<title>Интерактивный учебник языка Python</title>
+
+
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/jquery-3.7.1.min.js"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/pythontutor-selfhost/static/js/site.js?v=5"></script>
+    <script src="/pythontutor-selfhost/static/js/browser-execution.js?v=5"></script>
+    <script>window.MathJax = {options: {enableMenu: false}, loader: {load: []}, tex: {packages: {'[-]': ['autoload', 'require']}}, svg: {fontCache: 'local'}};</script>
+    <script defer src="/pythontutor-selfhost/static/vendor/mathjax/tex-svg.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/pythontutor.css">
+
+<link rel="stylesheet" href="/pythontutor-selfhost/static/css/selfhost.css?v=hints2">
+<meta name="static-site" content="yes"></head>
+<body>
+	<div class="navbar navbar-default navbar-static-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Открыть меню</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/pythontutor-selfhost/">Питонтьютор</a>
+			</div>
+			<div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/pythontutor-selfhost/pwa/">Офлайн-приложение</a></li>
+                    <li><button id="pwa-install-nav" type="button" class="btn btn-link navbar-btn">Установить приложение</button></li>
+                    <li><a class="original-en" href="https://snakify.org/">En</a></li>
+                    
+                </ul>
+				<div class="navbar-text navbar-right">
+					<span>Локальная версия · <a href="/pythontutor-selfhost/pwa/">Мой прогресс</a></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div  class="container">
+		
+        
+	
+		
+
+	
+<p id="local-knowledge-notice">Разбор откроется после решения задачи на этом устройстве. <a href="/pythontutor-selfhost/lessons/dicts/problems/bank_accounts/">К задаче</a></p>
+<article class="knowledge-article" hidden data-local-article="problem" data-slug="bank_accounts">
+<p><a href="/pythontutor-selfhost/lessons/dicts/problems/bank_accounts/">← К задаче</a> · <a href="/pythontutor-selfhost/knowledge/">База знаний</a></p>
+<h2>Банковские счета</h2>
+<p class="text-success">Вы решили задачу. Теперь можно сравнить подходы.</p>
+<p>Словарь связывает имя клиента с целочисленным балансом.</p>
+<p class="knowledge-origin">Авторский разбор для локальной версии на основе условия задачи. Это не выгрузка чужих посылок и не официальное решение исходного сайта.</p>
+<details><summary>Ваше принятое решение</summary><pre><code id="knowledge-own-code"></code></pre></details>
+<section><h3>Рекомендуемое решение: Словарь балансов</h3>
+<p>Обычные операции меняют один-два баланса. Для INCOME обходим открытые счета; целочисленная формула не теряет точность. Перевод самому себе тоже работает.</p>
+<pre><code>import sys
+accounts = {}
+for line in sys.stdin:
+    parts = line.split()
+    if not parts:
+        continue
+    command = parts[0]
+    if command == &#x27;BALANCE&#x27;:
+        print(accounts.get(parts[1], &#x27;ERROR&#x27;))
+    elif command == &#x27;INCOME&#x27;:
+        p = int(parts[1])
+        for name, balance in accounts.items():
+            if balance &gt; 0:
+                accounts[name] += balance * p // 100
+    elif command == &#x27;TRANSFER&#x27;:
+        source, target, amount = parts[1], parts[2], int(parts[3])
+        accounts[source] = accounts.get(source, 0) - amount
+        accounts[target] = accounts.get(target, 0) + amount
+    else:
+        name, amount = parts[1], int(parts[2])
+        if command == &#x27;WITHDRAW&#x27;:
+            amount = -amount
+        accounts[name] = accounts.get(name, 0) + amount
+</code></pre>
+<p><strong>Время:</strong> Ожидаемое O(Q + IC), Q — число команд, I — число начислений, C — число клиентов. <strong>Память:</strong> O(C + L), L — длина текущей команды.</p>
+</section>
+<section><h3>Другой способ: Список счетов и линейный поиск</h3><p>Параллельные списки демонстрируют тот же учёт без хеш-таблицы. Поиск имени требует линейного прохода, поэтому для больших данных предпочтителен словарь.</p><pre><code>import sys
+names, balances = [], []
+def account(name):
+    if name not in names:
+        names.append(name)
+        balances.append(0)
+    return names.index(name)
+for line in sys.stdin:
+    p = line.split()
+    if not p:
+        continue
+    if p[0] == &#x27;BALANCE&#x27;:
+        print(balances[names.index(p[1])] if p[1] in names else &#x27;ERROR&#x27;)
+    elif p[0] == &#x27;INCOME&#x27;:
+        rate = int(p[1])
+        for i in range(len(names)):
+            if balances[i] &gt; 0:
+                balances[i] += balances[i] * rate // 100
+    elif p[0] == &#x27;TRANSFER&#x27;:
+        i, j = account(p[1]), account(p[2])
+        balances[i] -= int(p[3])
+        balances[j] += int(p[3])
+    else:
+        i = account(p[1])
+        balances[i] += int(p[2]) * (1 if p[0] == &#x27;DEPOSIT&#x27; else -1)
+</code></pre><p><strong>Время:</strong> O(QC). <strong>Память:</strong> O(C + L).</p></section>
+<h3>На что обратить внимание</h3><ul><li>BALANCE не создаёт счёт.</li><li>Проценты начисляются только положительным балансам.</li></ul>
+<p>Рекомендация учитывает сложность и читаемость для этой задачи. Единственного самого быстрого решения для всех размеров входа и всех компьютеров может не быть.</p>
+<h3>Материалы</h3><ul><li><a href="https://github.com/Behnisch/pythontutor-ru/tree/1a9193f/problems" rel="noreferrer">Публичный архив PythonTutor 2017 года</a></li></ul>
+</article>
+
+
+
+		
+			<footer>
+                <p>Разработка и поддержка учебника: <a href="https://t.me/thingsiread">Виталий Павленко</a>, Владимир Соломатин (2014), команда Pythontutor (2016)<br>
+                Автор первоначального текста большинства уроков, задач и тестов: Д. П. Кириенко (см. <a href="https://informatics.msk.ru/moodle/course/view.php?id=156">оригинальный курс</a>)<br>
+                Идея учебника: В. М. Гуровиц<br>
+                Разработчик визуализатора: <a href="https://www.pgbovine.net/">Philip Guo</a> (см. <a href="https://pythontutor.com/">сайт визуализатора</a>)<br>
+                Родилось в 2012</p>
+                <p class="local-links"><a href="/pythontutor-selfhost/knowledge/">База знаний</a> · <a href="/pythontutor-selfhost/">Уроки</a> · <a href="/pythontutor-selfhost/visualizer/">Визуализатор</a> · <a href="/pythontutor-selfhost/images/">OpenCV</a> · <a href="https://github.com/Behnisch/pythontutor-ru">Публичный архив</a></p>
+
+			</footer>
+		
+	</div>
+
+</body>
+</html>

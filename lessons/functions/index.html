@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<!--
+
+Online Python Tutor
+https://github.com/pgbovine/OnlinePythonTutor/
+
+Copyright (C) 2010-2012 Philip J. Guo (philip@pgbovine.net)
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+-->
+
+<!--
+
+Онлайн учебник Python
+
+Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
+
+-->
+
+
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="execution-mode" content="browser">
+<meta name="local-page" content="yes">
+<meta name="learner-id" content="local">
+<link rel="manifest" href="/pythontutor-selfhost/manifest.webmanifest">
+<meta name="theme-color" content="#e3ebf1">
+<link rel="apple-touch-icon" href="/pythontutor-selfhost/static/pwa/icon-192.png">
+<script defer src="/pythontutor-selfhost/static/pwa/app.js?v=2"></script>
+<script src="/pythontutor-selfhost/static/pwa/storage.js?v=2"></script>
+<meta name="csrf-token" content="olUdok44VXxXA91L4MyKKe87uPQAkxO5aDuLQCFbApJmViUGFYH4Sk3TCSUaXSba">
+
+	<title>Интерактивный учебник языка Python</title>
+
+
+	
+	
+	
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/jquery-3.7.1.min.js"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/pythontutor-selfhost/static/js/site.js?v=5"></script>
+    <script src="/pythontutor-selfhost/static/js/browser-execution.js?v=5"></script>
+    <script>window.MathJax = {options: {enableMenu: false}, loader: {load: []}, tex: {packages: {'[-]': ['autoload', 'require']}}, svg: {fontCache: 'local'}};</script>
+    <script defer src="/pythontutor-selfhost/static/vendor/mathjax/tex-svg.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/pythontutor.css">
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/pythontutor-sidebar.css">
+
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/visualizer.css">
+
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/ace-editor/ace.js"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/jquery.jsPlumb-1.6.4-min.js"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/visualizer.js?v=browser1"></script>
+	<script type="text/javascript" src="/pythontutor-selfhost/static/js/lesson.js"></script>
+
+	<script type="text/javascript">
+		var lesson_name = '';
+	</script>
+
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor-selfhost/static/css/lesson.css?v=menu2">
+
+<link rel="stylesheet" href="/pythontutor-selfhost/static/css/selfhost.css?v=hints2">
+<meta name="static-site" content="yes"></head>
+<body>
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Открыть меню</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/pythontutor-selfhost/">Питонтьютор</a>
+			</div>
+			<div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/pythontutor-selfhost/pwa/">Офлайн-приложение</a></li>
+                    <li><button id="pwa-install-nav" type="button" class="btn btn-link navbar-btn">Установить приложение</button></li>
+                    <li><a class="original-en" href="https://snakify.org/">En</a></li>
+                    
+                </ul>
+				<div class="navbar-text navbar-right">
+					<span>Локальная версия · <a href="/pythontutor-selfhost/pwa/">Мой прогресс</a></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<div id="tutor-workspace">
+	<div id="tutor-content" class="container-fluid">
+		
+        
+	<div class="row">
+		<div class="col-sm-3 col-md-2 sidebar">
+			
+	
+			
+	<ul class="nav nav-sidebar">
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/inout_and_arithmetic_operations/">1. Ввод и вывод данных</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/ifelse/">2. Условия</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/int_and_float/">3. Вычисления</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/for_loop/">4. Цикл for</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/str/">5. Строки</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/while/">6. Цикл while</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/lists/">7. Списки</a>
+				
+			</li>
+		
+			<li class="active">
+				<a href="/pythontutor-selfhost/lessons/functions/">8. Функции и рекурсия</a>
+				
+					
+	<ul class="lesson_sections">
+		
+			<li class="section_menuitem" data-section-id="1">
+	<div class="position_spin"></div>
+	<a href="#section_1">1. Функции</a>
+	
+</li>
+<li class="section_menuitem" data-section-id="2">
+	<div class="position_spin"></div>
+	<a href="#section_2">2. Локальные и глобальные переменные</a>
+	
+</li>
+<li class="section_menuitem" data-section-id="3">
+	<div class="position_spin"></div>
+	<a href="#section_3">3. Рекурсия</a>
+	
+</li>
+
+		
+		<li class="problems_link">
+			<a href="#problems">Задачи</a>
+            <ul><li><a href="/pythontutor-selfhost/lessons/functions/problems/length_of_segment/">Длина отрезка</a></li><li><a href="/pythontutor-selfhost/lessons/functions/problems/negative_power/">Отрицательная степень</a></li><li><a href="/pythontutor-selfhost/lessons/functions/problems/capitalize/">Большие буквы</a></li><li><a href="/pythontutor-selfhost/lessons/functions/problems/power_rec/">Возведение в степень</a></li><li><a href="/pythontutor-selfhost/lessons/functions/problems/reverse_rec/">Разворот последовательности</a></li><li><a href="/pythontutor-selfhost/lessons/functions/problems/fibonacci_rec/">Числа Фибоначчи</a></li></ul>
+		</li>
+	</ul>
+
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/2d_arrays/">9. Двумерные массивы</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/sets/">10. Множества</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/dicts/">11. Словари</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/graphs/">12. Графы: определения и способы хранения</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/dfs/">13. Обход в глубину</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/file_io/">14. Файловый ввод-вывод</a>
+				
+			</li>
+		
+			<li>
+				<a href="/pythontutor-selfhost/lessons/bfs/">15. Обход в ширину</a>
+				
+			</li>
+		
+	</ul>
+
+		</div>
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			
+	
+			
+
+	
+	<h3 class="page-header"><button type="button" class="sidebar-toggle btn btn-default" aria-label="Скрыть меню уроков" aria-expanded="true"><i class="fa fa-angle-left" aria-hidden="true"></i></button>Занятие 8. Функции и рекурсия</h3>
+
+	<div id="section_1" class="section" data-section-id="1">
+	
+	<h3>1. Функции</h3>
+	
+<p>Напомним, что в математике факториал числа n определяется как <nobr>n! = 1 &sdot; 2  &sdot; ... &sdot; n.</nobr>
+Например, <nobr>5! = 1 &sdot; 2 &sdot; 3 &sdot; 4 &sdot; 5 = 120.</nobr>
+Ясно, что факториал можно легко посчитать, воспользовавшись циклом for.
+Представим, что нам нужно в нашей программе вычислять факториал разных чисел несколько раз (или в разных местах кода).
+Конечно, можно написать вычисление факториала один раз, а затем используя Copy-Paste вставить его везде, где это будет нужно.
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code"># вычислим 3!
+res = 1
+for i in range(1, 4):
+    res *= i
+print(res)
+
+# вычислим 5!
+res = 1
+for i in range(1, 6):
+    res *= i
+print(res)</pre>
+</div>
+
+
+<p>Однако, если мы ошибёмся один раз в начальном коде, то потом эта ошибка попадёт в код во все места, куда мы скопировали вычисление факториала. Да и вообще, код занимает больше места, чем мог бы. Чтобы избежать повторного написания одной и той же логики, в языках программирования существуют функции.
+
+<p>Функции &mdash; это такие участки кода, которые изолированы от остальный программы и выполняются только тогда, когда вызываются.
+Вы уже встречались с функциями sqrt(), len() и print(). Они все обладают общим свойством: они могут принимать параметры (ноль, один или несколько), и они могут возвращать значение (хотя могут и не возвращать). Например, функция sqrt() принимает один параметр и возвращает значение (корень числа). Функция print() принимает переменное число параметров и ничего не возвращает. 
+
+<p>Покажем, как написать функцию factorial(), которая принимает один параметр &mdash; число, и возвращает значение &mdash; факториал этого числа.
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">def factorial(n):
+    res = 1
+    for i in range(1, n + 1):
+        res *= i
+    return res
+
+print(factorial(3))
+print(factorial(5))</pre>
+</div>
+
+
+<p>Дадим несколько объяснений. Во-первых, код функции должен размещаться в начале программы, вернее, до того места, где мы захотим воспользоваться функцией factorial(). Первая строчка этого примера является описанием нашей функции. factorial — идентификатор, то есть имя нашей функции. После идентификатора в круглых скобках идет список параметров, которые получает наша функция. Список состоит из перечисленных через запятую идентификаторов параметров. В нашем случае список состоит из одной величины n. В конце строки ставится двоеточие.
+
+<p>Далее идет тело функции, оформленное в виде блока, то есть с отступом. Внутри функции вычисляется значение факториала числа n и оно сохраняется в переменной res. Функция завершается инструкцией return res, которая завершает работу функции и возвращает значение переменной res. 
+
+<p>Инструкция return может встречаться в произвольном месте функции, ее исполнение завершает работу функции и возвращает указанное значение в место вызова. Если функция не возвращает значения, то инструкция return используется без возвращаемого значения. В функциях, которым не нужно  возвращать значения, инструкция return может отсутствовать.
+
+<p>Приведём ещё один пример. Напишем функцию max(), которая принимает два числа и возвращает максимальное из них (на самом деле, такая функция уже встроена в Питон).
+
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;">10
+20</pre>
+	<pre class="code">def max(a, b):
+    if a &gt; b:
+        return a
+    else:
+        return b
+
+print(max(3, 5))
+print(max(5, 3))
+print(max(int(input()), int(input())))</pre>
+</div>
+
+
+<p>Теперь можно написать функцию max3(), которая принимает три числа и возвращает максимальное их них.
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">def max(a, b):
+    if a &gt; b:
+        return a
+    else:
+        return b
+
+def max3(a, b, c):
+    return max(max(a, b), c)
+
+print(max3(3, 5, 4))</pre>
+</div>
+
+
+<p><div class="smartsnippet">
+Встроенная функция max() в Питоне может принимать переменное число аргументов и возвращать максимум из них. Приведём пример того, как такая функция может быть написана.
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">def max(*a):
+    res = a[0]
+    for val in a[1:]:
+        if val &gt; res:
+            res = val
+    return res
+
+print(max(3, 5, 4))</pre>
+</div>
+
+Все переданные в эту функцию параметры соберутся в один кортеж с именем a, на что указывает звёздочка в строке объявления функции.
+</div></p>
+
+</div>
+<div id="section_2" class="section" data-section-id="2">
+	
+	<h3>2. Локальные и глобальные переменные</h3>
+	
+<p>Внутри функции можно использовать переменные, объявленные вне этой функции
+ 
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">def f():
+    print(a)
+
+a = 1
+f()</pre>
+</div>
+
+ 
+<p>Здесь переменной <code>a</code> присваивается значение 1, и функция <code>f()</code> 
+печатает это значение, несмотря на то, что до объявления функции <code>f</code> эта переменная 
+не инициализируется. В момент вызова функции <code>f()</code> переменной <code>a</code> 
+уже присвоено значение, поэтому функция <code>f()</code> может вывести его на экран.
+ 
+<p>Такие переменные (объявленные вне функции, но доступные внутри функции)
+называются <em>глобальными</em>.
+ 
+<p>Но если инициализировать какую-то переменную внутри функции,
+использовать эту переменную вне функции не удастся. Например:
+ 
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">def f():
+    a = 1
+
+f()
+print(a)</pre>
+</div>
+
+ 
+<p>Получим ошибку <code>NameError: name 'a' is not defined</code>. Такие переменные, объявленные внутри функции,
+называются <em>локальными</em>. Эти переменные становятся недоступными после выхода из функции.
+ 
+<p>Интересным получится результат, если попробовать изменить значение глобальной переменной внутри функции:
+ 
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">def f():
+    a = 1
+    print(a)
+
+a = 0
+f()
+print(a)</pre>
+</div>
+
+ 
+<p>Будут выведены числа 1 и 0. Несмотря на то, что значение переменной <code>a</code> 
+изменилось внутри функции, вне функции оно осталось прежним! Это сделано в целях
+&ldquo;защиты&rdquo; глобальных переменных от случайного изменения из функции.
+Например, если функция будет вызвана из цикла по переменной <code>i</code>, а в этой функции
+будет использована переменная <code>i</code> также для организации цикла, то эти переменные должны
+быть различными. Если вы не поняли последнее предложение, то посмотрите на следующий код и подумайте, как бы он работал,
+если бы внутри функции изменялась переменная i.
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">def factorial(n):
+    res = 1
+    for i in range(1, n + 1):
+        res *= i
+    return res
+
+for i in range(1, 6):
+    print(i, &#x27;! = &#x27;, factorial(i), sep=&#x27;&#x27;)</pre>
+</div>
+
+
+Если бы глобальная переменная i изменялась внутри функции, то мы бы получили вот что:
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code">5! = 1
+5! = 2
+5! = 6
+5! = 24
+5! = 120</pre>
+</div>
+
+
+Итак, если внутри функции модифицируется значение некоторой переменной,
+то переменная с таким именем становится локальной переменной, и ее модификация не приведет
+к изменению глобальной переменной с таким же именем.
+ 
+<p>Более формально: интерпретатор Питон считает переменную локальной для данной функции, если в её коде
+ есть хотя бы одна инструкция, модифицирующая значение переменной, то эта переменная считается локальной
+и не может быть использована до инициализации. Инструкция, модифицирующая значение переменной &mdash; это операторы <code>=</code>, <code>+=</code>, а также использование переменной в качестве параметра цикла <code>for</code>.
+При этом даже если инструкция,
+модицифицирующая переменную никогда не будет выполнена, интерпретатор это проверить
+не может, и переменная все равно считается локальной. Пример:
+ 
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">def f():
+    print(a)
+    if False:
+        a = 0
+
+a = 1
+f()</pre>
+</div>
+
+
+<p>Возникает ошибка: <code>UnboundLocalError: local variable 'a' referenced before assignment</code>.
+А именно, в функции <code>f()</code> идентификатор <code>a</code> становится локальной переменной,
+т.к. в функции есть команда, модифицирующая переменную <code>a</code>, пусть даже никогда и 
+не выполняющийся (но интерпретатор не может это отследить). Поэтому вывод переменной <code>a</code> 
+приводит к обращению к неинициализированной локальной переменной.
+ 
+<p>Чтобы функция могла изменить значение глобальной переменной, необходимо объявить эту переменную
+внутри функции, как глобальную, при помощи ключевого слова <code>global</code>:
+ 
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">def f():
+    global a
+    a = 1
+    print(a)
+
+a = 0
+f()
+print(a)</pre>
+</div>
+
+ 
+ 
+<p>В этом примере на экран будет выведено 1 1, так как переменная <code>a</code> объявлена, как глобальная,
+и ее изменение внутри функции приводит к тому, что и вне функции переменная
+будет доступна.
+ 
+<p>Тем не менее, лучше не изменять значения глобальных переменных внутри функции. Если ваша функция должна поменять
+какую-то переменную, пусть лучше она вернёт это значением, и вы сами при вызове функции явно присвоите в переменную это значение.
+Если следовать этим правилам, то функции получаются независимыми от кода, и их можно легко копировать из одной программы в другую.
+ 
+<p>Например, пусть ваша программа должна посчитать факториал вводимого числа, который вы потом захотите сохранить в переменной f.
+Вот как это <u>не стоит</u> делать:
+
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;">5</pre>
+	<pre class="code">def factorial(n):
+    global f
+    res = 1
+    for i in range(2, n + 1):
+        res *= i
+    f = res
+
+n = int(input())
+factorial(n)
+# дальше всякие действия с переменной f</pre>
+</div>
+
+
+<p>Этот код написан плохо, потому что его трудно использовать ещё один раз. Если вам завтра понадобится в другой программе использовать функцию &laquo;факториал&raquo;, то вы не сможете просто скопировать эту функцию отсюда и вставить в вашу новую программу. Вам придётся поменять то, как она возвращает посчитанное значение.
+
+<p>Гораздо лучше переписать этот пример так:
+
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;">5</pre>
+	<pre class="code"># начало куска кода, который можно копировать из программы в программу
+def factorial(n):
+    res = 1
+    for i in range(2, n + 1):
+        res *= i
+    return res
+# конец куска кода
+
+n = int(input())
+f = factorial(n)
+# дальше всякие действия с переменной f</pre>
+</div>
+
+
+<p>Если нужно, чтобы функция вернула не одно значение, а два или более, то
+для этого функция может вернуть список из двух или нескольких значений:
+ 
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code">return [a, b]</pre>
+</div>
+
+ 
+<p>Тогда результат вызова функции можно будет использовать во множественном присваивании:
+ 
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code">n, m = f(a, b)</pre>
+</div>
+
+
+
+</div>
+<div id="section_3" class="section" data-section-id="3">
+	
+	<h3>3. Рекурсия</h3>
+	
+
+<div style="padding-left: 20%;">
+<div class="lesson_code" data-executable="false" data-dataviz="true">
+	
+	<pre class="code">def short_story():
+    print(&quot;У попа была собака, он ее любил.&quot;)
+    print(&quot;Она съела кусок мяса, он ее убил,&quot;)
+    print(&quot;В землю закопал и надпись написал:&quot;)
+    short_story()</pre>
+</div>
+
+</div>
+
+   <p>Как мы видели выше, функция может вызывать другую функцию. Но функция также может вызывать и саму себя! 
+Рассмотрим это на примере функции вычисления факториала. Хорошо известно, что 0!=1, 1!=1. 
+А как вычислить величину n! для большого n? Если бы мы могли вычислить величину (n-1)!,
+то тогда мы легко вычислим n!, поскольку n!=n&sdot;(n-1)!. Но как вычислить (n-1)!? Если бы
+мы вычислили (n-2)!, то мы сможем вычисли и (n-1)!=(n-1)&sdot;(n-2)!. А как вычислить (n-2)!? 
+Если бы... В конце концов, мы дойдем до величины 0!, которая равна 1. Таким образом, для вычисления факториала
+мы можем использовать значение факториала для меньшего числа. Это можно сделать и в программе на Питоне:
+ 
+<div class="lesson_code" data-executable="true" data-dataviz="true">
+	<pre class="stdin" style="display: none;"></pre>
+	<pre class="code">def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n - 1)
+
+print(factorial(5))</pre>
+</div>
+
+ 
+<p>Подобный прием  (вызов функцией самой себя) называется рекурсией, а сама функция называется рекурсивной.
+ 
+   <p>Рекурсивные функции являются мощным механизмом в программировании. К сожалению, они не всегда эффективны. Также часто использование рекурсии приводит к ошибкам. Наиболее распространенная
+из таких ошибок&nbsp;<!-- /@w -->&ndash; бесконечная рекурсия, когда цепочка вызовов функций никогда не завершается и продолжается,
+пока не кончится свободная память в компьютере. Пример бесконечной рекурсии приведен в эпиграфе к этому разделу. 
+Две наиболее распространенные причины для бесконечной рекурсии:
+ 
+     <ol type=1 start=1> 
+<li>Неправильное оформление выхода из рекурсии. Например, если мы в программе вычисления факториала
+забудем поставить проверку <code>if n == 0</code>, то <code>factorial(0)</code> вызовет <code>factorial(-1)</code>,
+тот вызовет <code>factorial(-2)</code> и т. д. 
+<li>Рекурсивный вызов с неправильными параметрами. Например, если функция <code>factorial(n)</code> будет
+вызывать <code>factorial(n)</code>, то также получится бесконечная цепочка.
+        </ol> 
+ 
+   <p>Поэтому при разработке рекурсивной функции необходимо прежде всего оформлять условия завершения рекурсии
+и думать, почему рекурсия когда-либо завершит работу.
+ 
+
+
+</div>
+
+
+	
+		<hr>
+		<div id="problems">
+			<h2>Задачи:</h2>
+			<ol class="lesson_problems">
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/functions/problems/length_of_segment/"><span class="unsubmittedProblemLink">Длина отрезка</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/functions/problems/negative_power/"><span class="unsubmittedProblemLink">Отрицательная степень</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/functions/problems/capitalize/"><span class="unsubmittedProblemLink">Большие буквы</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/functions/problems/power_rec/"><span class="unsubmittedProblemLink">Возведение в степень</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/functions/problems/reverse_rec/"><span class="unsubmittedProblemLink">Разворот последовательности</span></a>
+						
+					</li>
+				
+					<li>
+						<a href="/pythontutor-selfhost/lessons/functions/problems/fibonacci_rec/"><span class="unsubmittedProblemLink">Числа Фибоначчи</span></a>
+						
+					</li>
+				
+			</ol>
+		</div>
+	
+	
+
+
+
+		</div>
+	</div>
+
+
+		
+			<footer>
+                <p>Разработка и поддержка учебника: <a href="https://t.me/thingsiread">Виталий Павленко</a>, Владимир Соломатин (2014), команда Pythontutor (2016)<br>
+                Автор первоначального текста большинства уроков, задач и тестов: Д. П. Кириенко (см. <a href="https://informatics.msk.ru/moodle/course/view.php?id=156">оригинальный курс</a>)<br>
+                Идея учебника: В. М. Гуровиц<br>
+                Разработчик визуализатора: <a href="https://www.pgbovine.net/">Philip Guo</a> (см. <a href="https://pythontutor.com/">сайт визуализатора</a>)<br>
+                Родилось в 2012</p>
+                <p class="local-links"><a href="/pythontutor-selfhost/knowledge/">База знаний</a> · <a href="/pythontutor-selfhost/">Уроки</a> · <a href="/pythontutor-selfhost/visualizer/">Визуализатор</a> · <a href="/pythontutor-selfhost/images/">OpenCV</a> · <a href="https://github.com/Behnisch/pythontutor-ru">Публичный архив</a></p>
+
+			</footer>
+		
+	</div>
+<link rel="stylesheet" href="/pythontutor-selfhost/static/css/assistant.css?v=9">
+<script defer src="/pythontutor-selfhost/static/pwa/local-ai.js?v=learning2"></script>
+<script defer src="/pythontutor-selfhost/static/pwa/local-voice.js?v=1"></script>
+<script defer src="/pythontutor-selfhost/static/js/assistant.js?v=learning2"></script>
+<button id="tutor-launcher" type="button" aria-expanded="false" aria-controls="tutor-panel" aria-label="ИИ-помощник" title="ИИ-помощник"><span aria-hidden="true">🐍</span></button>
+<div id="tutor-divider" role="separator" aria-label="Ширина помощника" aria-orientation="vertical" aria-valuemin="28" aria-valuemax="60" aria-valuenow="42" tabindex="0" hidden></div>
+<aside id="tutor-panel" hidden aria-label="ИИ-помощник по текущей задаче" data-url="/pythontutor-selfhost/assistant/lesson/functions/" data-kind="lesson" data-learning-context="Мы в интерактивном учебнике Python: 15 уроков и 134 основные задачи. Ученик пишет код в редакторе на этой странице; Python, тесты и пошаговый запуск уже работают в браузере. Устанавливать Python или IDE для этих занятий не нужно. Основной способ обучения — последовательно решать задачи: прочитать условие, попробовать самому, запустить пример, проверить все тесты, при необходимости раскрыть подсказку, затем перейти к следующей задаче. После успешного решения можно обсудить разбор и улучшение. Цель прохождения курса с самостоятельной практикой — база начинающего Python-разработчика. Если спрашивают, как учиться или с чего начать, предложи посильный шаг в текущей задаче этого курса, а не установку программ, сторонние курсы или длинный общий план. Учитывай тему текущего урока и не вводи ещё не изученные конструкции. Это фон беседы: не повторяй описание курса и не навязывай решение задачи в ответ на каждое приветствие." data-user="" data-stt="/pythontutor-selfhost/assistant/speech/transcribe/" data-worklet="/pythontutor-selfhost/static/js/tutor-audio-worklet.js" data-auth="no">
+    <header class="tutor-header"><span class="tutor-avatar" aria-hidden="true">🐍</span><div class="tutor-toolbar"><button id="tutor-text-mode" type="button" aria-label="Текстовый чат" aria-pressed="true">☷</button><button id="tutor-voice-mode" type="button" aria-label="Голосовой режим" aria-pressed="false">🎙</button><button id="tutor-expand" type="button" aria-label="Развернуть на весь экран" aria-pressed="false">⛶</button><button id="tutor-close" type="button" aria-label="Свернуть чат">⌄</button></div></header>
+    <h2>Давай поговорим</h2>
+    <p class="tutor-context" id="tutor-context">Помощник по текущей задаче</p>
+    
+    <details id="tutor-settings"><summary>Настройки</summary><div class="tutor-local-options">
+      <label for="tutor-model">Модель помощника</label>
+      <select id="tutor-model" class="form-control"><option value="Qwen2.5-Coder-0.5B-Instruct-q4f16_1-MLC">Qwen Coder 0.5B · минимальная</option><option value="Qwen2.5-Coder-1.5B-Instruct-q4f16_1-MLC" selected>Qwen Coder 1.5B · рекомендуется</option><option value="Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC">Qwen Coder 7B · мощный компьютер</option><option value="Qwen3-1.7B-q4f16_1-MLC">Qwen3 1.7B · универсальная</option></select>
+      <p id="tutor-model-info" class="tutor-fineprint"></p>
+      
+      
+      
+    </div>
+    <div class="tutor-code-access"><label><input id="tutor-include-code" type="checkbox" checked> Помощник видит мой код</label><span id="tutor-code-status">Код считывается из редактора</span></div>
+    </details>
+    <div id="tutor-voice-view" hidden><div class="tutor-voice-orb" aria-hidden="true">🐍</div><h3>Голосовой разговор</h3><p id="tutor-voice-status" role="status">Готовлю разговор… При первом запуске браузер попросит доступ к микрофону.</p><button id="tutor-call" type="button">Начать разговор</button><button id="tutor-interrupt" type="button" hidden>Отправить реплику</button><p class="tutor-fineprint">После паузы вопрос отправится автоматически. Ответ прозвучит вслух и останется в текстовом чате. Одна реплика — до 60 секунд.</p></div>
+    <div id="tutor-messages" role="log" aria-live="polite" aria-relevant="additions"><div class="tutor-welcome"><span aria-hidden="true">🐍</span><p>Привет, я Питоныч. Можем просто поговорить или вместе разобраться с задачей. О чём хочешь поговорить?</p></div></div>
+    <div id="tutor-quick"><button type="button" data-question="Объясни условие простыми словами, без готового решения.">Объясни условие</button><button type="button" data-question="Дай небольшую подсказку, с чего начать. Не выдавай решение целиком.">Дай подсказку</button><button type="button" data-question="Посмотри мой текущий код: помоги найти ошибку и понять её причину.">Проверь мой код</button></div>
+    <p id="tutor-status" role="status" aria-live="polite"></p>
+    <form id="tutor-form"><label class="sr-only" for="tutor-question">Вопрос помощнику</label><textarea id="tutor-question" rows="3" maxlength="3000" placeholder="Напиши или надиктуй вопрос"></textarea><div id="tutor-attachment" hidden><span></span><button type="button" id="tutor-remove-image" aria-label="Убрать изображение">×</button></div><div class="tutor-composer-tools"><label class="tutor-attach" title="Прикрепить изображение"><span aria-hidden="true">📎</span><span class="sr-only">Прикрепить изображение</span><input id="tutor-image" type="file" accept="image/png,image/jpeg" aria-label="Прикрепить изображение"></label><button id="tutor-dictate" type="button" aria-label="Начать голосовой ввод" title="Надиктовать вопрос">🎙</button><button id="tutor-stop-model" type="button" aria-label="Остановить ответ" title="Остановить ответ" hidden>■</button><button id="tutor-send" type="submit" aria-label="Отправить вопрос">↑</button></div></form>
+    <p class="tutor-fineprint">По отправке вопроса ИИ получает материал и включённый код. В локальном режиме вопросы, код и речь остаются на устройстве. ИИ может ошибаться.</p>
+    
+</aside>
+</div>
+</body>
+</html>
