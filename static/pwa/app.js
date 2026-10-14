@@ -31,11 +31,20 @@ async function restoreProgress(){
  if(article){const record=await TutorDevice.get(article.dataset.localArticle,article.dataset.slug);if(record?.solved){article.hidden=false;$('local-knowledge-notice').hidden=true;$('knowledge-own-code').textContent=record.acceptedCode||record.code;}}
  for(const r of entries.filter(r=>r.solved)){
   const ending=r.kind==='image'?'/pythontutor/images/'+r.slug+'/':'/problems/'+r.slug+'/';
-  for(const a of document.querySelectorAll('a[href]'))if(a.getAttribute('href').endsWith(ending))a.classList.add('text-success');
+  for(const a of document.querySelectorAll('a[href]')){
+   if(!a.getAttribute('href').endsWith(ending))continue;
+   a.classList.remove('text-success');
+   if(a.matches('.lesson_sections .problems_link li > a')){
+    a.parentElement.classList.remove('unsolved','accepted');
+    a.parentElement.classList.add('solved');
+    a.title='Задача решена';
+   }
+  }
   const slug=window.problem_name||document.getElementById('image-task')?.dataset.slug;
   if(slug===r.slug&&$('knowledge-unlock'))$('knowledge-unlock').hidden=false;
  }
 }
 restoreProgress().catch(()=>{});
+window.addEventListener('tutor-progress-changed',()=>restoreProgress().catch(()=>{}));
 if(local){document.querySelectorAll('a[href^="/accounts"],a.original-teacher').forEach(a=>{a.title='Нужен интернет';});}
 })();

@@ -8,7 +8,6 @@
 	color: #fff;
 }
 
-.lesson_sections .problems_link li.solved { background: rgba(128, 252, 92, 0.3); }
 .lesson_sections .problems_link li.accepted { background: rgba(255, 250, 7, 0.3); }
 .lesson_sections .problems_link li.unsolved { background: rgba(252, 168, 132, 0.3); }
 
