@@ -191,3 +191,10 @@ hr { margin-top: 16px; margin-bottom: 16px; }
 @media(max-width:600px) { .settings-section { padding:18px 16px; } .settings-actions .btn { white-space:normal; } }
 
 .settings-actions label:focus-within { outline:2px solid #337ab7; outline-offset:2px; }
+
+.settings-progress-summary { font-size:22px; font-weight:600; }
+.settings-progress-groups { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:20px; }
+.settings-progress-groups h3 { margin:8px 0 12px; }
+.settings-progress-groups ul { list-style:none; padding:0; margin:0; max-height:300px; overflow:auto; }
+.settings-progress-groups li { padding:7px 0; }
+@media(max-width:600px) { .settings-progress-groups { grid-template-columns:1fr; gap:12px; } }
