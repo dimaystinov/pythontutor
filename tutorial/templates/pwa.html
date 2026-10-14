@@ -1,33 +1,42 @@
 {% extends '_base_basic.html' %}
 {% block body %}
+<div class="settings-page">
 <h1 id="settings">Настройки</h1>
-<h2>Офлайн-приложение</h2>
-<p>Скачайте весь курс один раз: 15 уроков, 134 задачи, 14 заданий OpenCV, тесты и среду Python. После загрузки можно закрыть браузер и продолжить без работающего сервера.</p>
-<p>Проверка полностью выполняется на устройстве. Локальные решения хранятся в этом браузере отдельно от учётной записи. Локальные Qwen и голосовой ввод Whisper скачиваются отдельно в помощнике. Облачный ИИ, регистрация и кабинет преподавателя требуют сети.</p>
-<p><button id="pwa-download" class="btn btn-primary">Скачать для работы без интернета</button> <button id="pwa-open" class="btn btn-default" disabled>Открыть локальную версию</button> <button id="pwa-online" class="btn btn-default">Вернуться на сайт</button></p>
-<p><button id="pwa-install" class="btn btn-default">Установить приложение</button></p>
-<p id="pwa-status" role="status">Проверяем доступность офлайн-режима…</p>
-<progress id="pwa-progress" value="0" max="100" hidden style="width:100%"></progress>
-<p>Для установки используйте кнопку установки в браузере. На iPhone/iPad: «Поделиться» → «На экран Домой». Для размещения на сервере нужен HTTPS; на этом компьютере подходит localhost.</p>
-<h2 id="progress">Мой прогресс</h2><div id="pwa-results"></div>
-<p><button id="pwa-export" class="btn btn-default">Скачать резервную копию решений</button> <label class="btn btn-default">Восстановить из копии <input id="pwa-import" type="file" accept="application/json" hidden></label></p>
-<p>Очистка данных сайта удаляет локальные решения и скачанный курс. Сохраните резервную копию перед очисткой или сменой устройства.</p>
-<h2>Помощник и данные</h2>
-<script defer src="/static/pwa/model-assets.js?v=1"></script>
-<h3>Локальный помощник</h3>
-<p>Qwen Coder 7B работает на устройстве с WebGPU и достаточной памятью. Подготовьте модель один раз; пакеты можно передать другим ученикам на флешке.</p>
-<button class="btn btn-default" data-model-group="qwen7b">Подготовить ИИ</button>
-<button class="btn btn-default" data-model-group="whisper-tiny">Подготовить голосовой ввод</button>
-<div id="pwa-model-setup" hidden></div>
-<p>За этим компьютером будет заниматься другой ученик? Можно начать обучение с чистого листа.</p>
-<button id="pwa-reset" class="btn btn-default">Начать обучение заново</button>
-<div id="pwa-reset-confirm" hidden role="region" aria-label="Подтверждение очистки прогресса" style="margin-top:16px;padding:16px;border:1px solid #ddd;border-radius:4px">
- <h3>Очистить прогресс на этом устройстве?</h3>
- <p>Будут удалены решения, отметки в меню, черновики Python и OpenCV, переписка с помощником в текущем локальном профиле. Отменить очистку можно только восстановлением резервной копии.</p>
- <p>Курс, среда Python и скачанные модели останутся на устройстве. Открытые вкладки учебника перезагрузятся.</p>
- <p>Чтобы сохранить работу, сначала нажмите «Скачать резервную копию решений» выше.</p>
- <button id="pwa-reset-cancel" class="btn btn-default">Отмена</button>
- <button id="pwa-reset-accept" class="btn btn-danger">Очистить прогресс</button>
- <p id="pwa-reset-message" role="status"></p>
+<section class="settings-section" aria-labelledby="progress">
+ <h2 id="progress">Мой прогресс</h2>
+ <p>Сохраните свою работу, чтобы продолжить на другом компьютере.</p>
+ <details class="settings-solutions"><summary>Мои решения</summary><div id="pwa-results"></div></details>
+ <div class="settings-actions"><button id="pwa-export" class="btn btn-default">Сохранить копию</button> <label class="btn btn-default">Загрузить копию <input id="pwa-import" type="file" accept="application/json" hidden></label></div>
+ <p id="pwa-data-status" role="status"></p>
+</section>
+<section class="settings-section" aria-labelledby="settings-app">
+ <h2 id="settings-app">Приложение</h2>
+ <p>Установите учебник, чтобы открывать его как обычное приложение.</p>
+ <div class="settings-actions"><button id="pwa-install" class="btn btn-primary">Установить приложение</button></div>
+ <h3>Заниматься без интернета</h3>
+ <p>Скачайте курс один раз, пока есть интернет.</p>
+ <div class="settings-actions"><button id="pwa-download" class="btn btn-default">Скачать курс</button> <button id="pwa-open" class="btn btn-default" disabled>Открыть скачанный курс</button> <button id="pwa-online" class="btn btn-link">Открыть сайт</button></div>
+ <p id="pwa-status" role="status">Проверяем, скачан ли курс…</p>
+ <progress id="pwa-progress" value="0" max="100" hidden style="width:100%"></progress>
+</section>
+<section class="settings-section" aria-labelledby="settings-assistant">
+ <h2 id="settings-assistant">Помощник</h2>
+ <p>Скачайте помощника и голосовой ввод, если хотите пользоваться ими без интернета.</p>
+ <div class="settings-actions"><button class="btn btn-default" data-model-group="qwen7b">Настроить помощника</button> <button class="btn btn-default" data-model-group="whisper-tiny">Настроить голосовой ввод</button></div>
+ <div id="pwa-model-setup" hidden></div>
+</section>
+<section class="settings-section settings-reset" aria-labelledby="settings-data">
+ <h2 id="settings-data">Очистка данных</h2>
+ <p>Для нового ученика или начала обучения с нуля. Решения, черновики и переписка будут удалены. Скачанный курс и помощник останутся.</p>
+ <button id="pwa-reset" class="btn btn-default">Начать обучение заново</button>
+ <div id="pwa-reset-confirm" hidden role="region" aria-label="Подтверждение очистки прогресса" class="settings-confirm">
+  <h3>Удалить прогресс и начать заново?</h3>
+  <p>Удалятся все отметки задач, решения, черновики и переписка с помощником на этом устройстве. Для восстановления понадобится сохранённая копия.</p>
+  <p>Курс и помощник останутся доступны без интернета. Открытые страницы учебника перезагрузятся.</p>
+  <div class="settings-actions"><button id="pwa-reset-cancel" class="btn btn-default">Отмена</button> <button id="pwa-reset-accept" class="btn btn-danger">Удалить данные ученика</button></div>
+  <p id="pwa-reset-message" role="status"></p>
+ </div>
+</section>
 </div>
+<script defer src="/static/pwa/model-assets.js?v=1"></script>
 {% endblock %}
