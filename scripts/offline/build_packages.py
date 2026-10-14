@@ -15,6 +15,9 @@ release = None
 if token:
     releases = api('/releases')
     release = next((r for r in releases if r['tag_name'] == lock['release']), None)
+    if release is None:
+        drafts = [r for r in releases if r['draft'] and r['name'] == 'PythonTutor 1.1 — автономный учебник и локальный ИИ']
+        release = max(drafts, key=lambda r: len(r['assets']), default=None)
     if release and not release['draft']:
         raise SystemExit('Refusing to modify a published release')
     if not release:
