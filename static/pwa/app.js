@@ -19,22 +19,52 @@ $('pwa-download')?.addEventListener('click',async()=>{
 $('pwa-open')?.addEventListener('click',async()=>{await message({type:'mode',local:true});location.href='/pythontutor/';});
 $('pwa-online')?.addEventListener('click',async()=>{await message({type:'mode',local:false});location.href='/pythontutor/';});
 async function progress(){
- if(!$('pwa-results'))return;
+ const results=$('pwa-results');
+ if(!results)return;
  const tasks=JSON.parse($('pwa-task-catalog')?.textContent||'{}');
  const entries=await TutorDevice.list();
- $('pwa-results').textContent=entries.length?'':'Вы пока не проверяли решения.';
- for(const r of entries){
-  const row=document.createElement('p');
-  row.append(document.createTextNode(r.solved?'✓ Решено: ':'В работе: '));
-  const task=tasks[r.kind+':'+r.slug];
-  if(task){
-   const link=document.createElement('a');
-   link.href=task.url;
-   link.textContent=task.title;
-   row.append(link);
-  }else row.append(document.createTextNode('Задача больше не доступна в курсе'));
-  row.append(document.createTextNode(' · '+new Date(r.time).toLocaleString('ru-RU')));
-  $('pwa-results').append(row);
+ const states=new Map(entries.filter(r=>tasks[r.kind+':'+r.slug]).map(r=>[r.kind+':'+r.slug,r]));
+ // Include drafts that have not yet been submitted for checking.
+ try{
+  for(const kind of ['problem','image']){
+   const prefix=kind+'-draft:'+TutorDevice.owner()+':';
+   for(let i=0;i<localStorage.length;i++){
+    const key=localStorage.key(i);
+    if(!key.startsWith(prefix))continue;
+    const slug=key.slice(prefix.length),id=kind+':'+slug;
+    if(!tasks[id]||states.has(id))continue;
+    try{
+     const raw=localStorage.getItem(key);
+     const started=kind==='image'?!!raw?.trim():!!JSON.parse(raw)?.started;
+     if(started)states.set(id,{kind,slug,solved:false});
+    }catch(e){ /* Ignore damaged drafts. */ }
+   }
+  }
+ }catch(e){ /* Saved submissions remain available when drafts cannot be read. */ }
+ const solved=[...states.values()].filter(r=>r.solved);
+ const started=[...states.values()].filter(r=>!r.solved);
+ $('pwa-progress-summary').textContent='Решено '+solved.length+' из '+Object.keys(tasks).length;
+ results.replaceChildren();
+ for(const [title,records,empty] of [
+  ['Решённые',solved,'Пока нет решённых задач.'],
+  ['Начатые',started,'Нет начатых задач.']
+ ]){
+  const section=document.createElement('section');
+  const heading=document.createElement('h3');
+  heading.textContent=title+' · '+records.length;
+  section.append(heading);
+  if(!records.length){const p=document.createElement('p');p.textContent=empty;section.append(p);}
+  else{
+   const list=document.createElement('ul');
+   for(const r of records){
+    const item=document.createElement('li'),link=document.createElement('a');
+    const task=tasks[r.kind+':'+r.slug];
+    link.href=task.url;link.textContent=task.title;
+    item.append(link);list.append(item);
+   }
+   section.append(list);
+  }
+  results.append(section);
  }
 }
 progress().catch(()=>say('Хранилище браузера недоступно. Разрешите сохранение данных сайта.'));

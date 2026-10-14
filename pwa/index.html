@@ -49,9 +49,9 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 <link rel="manifest" href="/pythontutor/manifest.webmanifest">
 <meta name="theme-color" content="#e3ebf1">
 <link rel="apple-touch-icon" href="/pythontutor/static/pwa/icon-192.png">
-<script defer src="/pythontutor/static/pwa/app.js?v=progress3"></script>
+<script defer src="/pythontutor/static/pwa/app.js?v=progress4"></script>
 <script src="/pythontutor/static/pwa/storage.js?v=reset7"></script>
-<meta name="csrf-token" content="Ze0wLSpA0C6IzZvsYU1kIQpGKoaGT27pSvCitZAFx7BpkTsCHNyEoLaMPtcaCeHy">
+<meta name="csrf-token" content="hZw5ohXY2AqHSkLfKnw5YH1jzrJOOKS6ujPlSihfEgfqG5phvF7Bw0dvyWxHkYVs">
 
 	<title>Интерактивный учебник языка Python</title>
 
@@ -67,7 +67,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 	<link rel="stylesheet" type="text/css" href="/pythontutor/static/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="/pythontutor/static/css/pythontutor.css">
 
-<link rel="stylesheet" href="/pythontutor/static/css/selfhost.css?v=settings2">
+<link rel="stylesheet" href="/pythontutor/static/css/selfhost.css?v=progress4">
 <meta name="static-site" content="yes"></head>
 <body>
 	<div class="navbar navbar-default navbar-static-top" role="navigation">
@@ -106,7 +106,8 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 <section class="settings-section" aria-labelledby="progress">
  <h2 id="progress">Мой прогресс</h2>
  <p>Сохраните свою работу, чтобы продолжить на другом компьютере.</p>
- <details class="settings-solutions"><summary>Мои решения</summary><div id="pwa-results"></div></details>
+ <p id="pwa-progress-summary" class="settings-progress-summary" role="status"></p>
+ <div id="pwa-results" class="settings-progress-groups"></div>
  <div class="settings-actions"><button id="pwa-export" class="btn btn-default">Сохранить копию</button> <label class="btn btn-default">Загрузить копию <input id="pwa-import" type="file" accept="application/json" class="sr-only"></label></div>
  <p id="pwa-data-status" role="status"></p>
 </section>
