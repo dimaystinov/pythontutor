@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<!--
+
+Online Python Tutor
+https://github.com/pgbovine/OnlinePythonTutor/
+
+Copyright (C) 2010-2012 Philip J. Guo (philip@pgbovine.net)
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+-->
+
+<!--
+
+Онлайн учебник Python
+
+Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
+
+-->
+
+
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="execution-mode" content="browser">
+<meta name="local-page" content="yes">
+<meta name="learner-id" content="local">
+<link rel="manifest" href="/pythontutor/manifest.webmanifest">
+<meta name="theme-color" content="#e3ebf1">
+<link rel="apple-touch-icon" href="/pythontutor/static/pwa/icon-192.png">
+<script defer src="/pythontutor/static/pwa/app.js?v=2"></script>
+<script src="/pythontutor/static/pwa/storage.js?v=2"></script>
+<meta name="csrf-token" content="7UyCo4ZSIWxnh20EkP8G949xNRxRPdgko1F8RsGOSQFKcQ9XXBb9I7DdfrPcOwAU">
+
+	<title>Интерактивный учебник языка Python</title>
+
+
+<script defer src="/pythontutor/static/js/task-writing.js?v=1"></script>
+
+	<script type="text/javascript" src="/pythontutor/static/js/jquery-3.7.1.min.js"></script>
+	<script type="text/javascript" src="/pythontutor/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/pythontutor/static/js/site.js?v=5"></script>
+    <script src="/pythontutor/static/js/browser-execution.js?v=5"></script>
+    <script>window.MathJax = {options: {enableMenu: false}, loader: {load: []}, tex: {packages: {'[-]': ['autoload', 'require']}}, svg: {fontCache: 'local'}};</script>
+    <script defer src="/pythontutor/static/vendor/mathjax/tex-svg.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor/static/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/pythontutor/static/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/pythontutor/static/css/pythontutor.css">
+
+<link rel="stylesheet" href="/pythontutor/static/css/images.css">
+<script src="/pythontutor/static/js/ace-editor/ace.js"></script>
+<script defer src="/pythontutor/static/js/image-task.js?v=pwa1"></script>
+
+<link rel="stylesheet" href="/pythontutor/static/css/selfhost.css?v=hints2">
+<meta name="static-site" content="yes"></head>
+<body>
+	<div class="navbar navbar-default navbar-static-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Открыть меню</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/pythontutor/">Питонтьютор</a>
+			</div>
+			<div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/pythontutor/pwa/">Офлайн-приложение</a></li>
+                    <li><button id="pwa-install-nav" type="button" class="btn btn-link navbar-btn">Установить приложение</button></li>
+                    <li><a class="original-en" href="https://snakify.org/">En</a></li>
+                    
+                </ul>
+				<div class="navbar-text navbar-right">
+					<span>Локальная версия · <a href="/pythontutor/pwa/">Мой прогресс</a></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<div id="tutor-workspace">
+	<div id="tutor-content" class="container">
+		
+        
+	
+		
+
+	
+<p><a href="/pythontutor/static/hsv/index.html">Лаборатория HSV — подобрать цвет и маску</a> · <a href="/pythontutor/static/hsv/theory.html">Теория: HSV и ползунки</a></p>
+<p><a href="/pythontutor/images/">← Все задачи с изображениями</a> · </p>
+<section data-tutor-material><h1>HSV: синий колпачок</h1>
+<p>Выделите синие участки колпачка маркера на фотографии стола. Прочитайте input.png и преобразуйте BGR в HSV (OpenCV: H от 0 до 179, S и V от 0 до 255). Диапазоны: H=100…140, S=100…255, V=50…255. Все границы включительны. Сохраните одноканальную маску uint8: подходящий пиксель — 255, остальные — 0 в output.png без изменения размеров. Проверка сравнивает пиксели на трёх версиях фотографии. На своём изображении можно экспериментировать отдельно.</p></section>
+<p>Прочитайте входной файл через <code>cv2.imread('input.png')</code> и сохраните результат командой <code>cv2.imwrite('output.png', result)</code>. Используйте также <code>numpy</code> и <code>PIL</code>. Результат появится ниже; <code>cv2.imshow()</code> в этой среде не используется.</p>
+<div id="image-task" data-slug="hsv-blue" data-run-url="/pythontutor/images/hsv-blue/run/" data-submit-url="/pythontutor/images/hsv-blue/submit/">
+    <h2 class="h4" id="image-code-label">Код Python</h2>
+<p id="task-writing-notice" class="text-muted" role="status" aria-live="polite"></p>
+    <pre id="image-code" aria-labelledby="image-code-label">import cv2
+import numpy as np
+
+image = cv2.imread(&#x27;input.png&#x27;)
+
+# Выделите нужные пиксели и сохраните output.png
+</pre>
+    <div class="image-actions">
+        <button type="button" class="btn btn-primary" id="image-run">Запустить на изображении</button>
+        <button type="button" class="btn btn-success" id="image-submit">Проверить решение</button>
+    </div>
+    <p>Запуск использует выбранное изображение. Проверка решения всегда выполняется на учебных тестах.</p>
+    <p id="image-status" role="status" aria-live="polite"></p>
+    <div class="row">
+        <div class="col-sm-6">
+            <h2 class="h4">Входное изображение</h2>
+            <label for="image-upload">Своя картинка (PNG или JPEG, до 2 МБ и 4 млн пикселей)</label>
+            <input id="image-upload" type="file" accept="image/png,image/jpeg" aria-describedby="image-upload-help">
+            <p id="image-upload-help" class="help-block">Файл используется для запуска, но не заменяет учебные тесты.</p>
+            <button type="button" id="image-reset" class="btn btn-default btn-sm">Вернуть учебное изображение</button>
+            <div class="image-preview"><img id="image-input" src="/pythontutor/images/hsv-blue/input/0/input.png" alt="Входное изображение для обработки"></div>
+        </div>
+        <div class="col-sm-6">
+            <h2 class="h4">Результат обработки</h2>
+            <p id="image-output-empty">Запустите код, чтобы увидеть результат.</p>
+            <div class="image-preview" id="image-output-wrap" hidden><img id="image-output" alt="Изображение, созданное вашей программой"></div>
+            <a id="image-download" class="btn btn-default btn-sm" download="output.png" hidden>Скачать PNG</a>
+        </div>
+    </div>
+    <h2 class="h4">Вывод программы</h2>
+    <pre id="image-stdout" aria-label="Вывод программы"></pre>
+    <pre id="image-error" class="text-danger" role="alert" hidden></pre>
+    <div id="image-knowledge-unlock" class="alert alert-success" hidden>Задача решена. <a href="/pythontutor/knowledge/images/hsv-blue/">Рекомендуемое решение и другие способы</a></div>
+    <div id="image-test-results" aria-live="polite"></div>
+<section class="task-hints" aria-label="Подсказки к задаче">
+  <h3>Нужна подсказка?</h3>
+  
+  <details class="task-hint">
+    <summary>Подсказка 1</summary>
+    <p>cv2.imread возвращает BGR. Сначала переведите фотографию в HSV через cv2.COLOR_BGR2HSV.</p>
+    
+  </details>
+  
+  <details class="task-hint">
+    <summary>Подсказка 2</summary>
+    <p>cv2.inRange получает нижнюю и верхнюю границы сразу для трёх каналов. Результат уже является маской 0/255.</p>
+    
+  </details>
+  
+</section>
+
+<nav class="next-task-navigation" aria-label="Переход к следующей задаче" style="margin:28px 0 20px;padding-top:20px;border-top:1px solid #ddd;text-align:right">
+
+    <a class="btn btn-primary" href="/pythontutor/images/hsv-moon/">Следующая задача <span aria-hidden="true">→</span></a>
+    <p class="text-muted" style="margin:8px 0 0;overflow-wrap:anywhere">HSV: Луна на вечернем небе</p>
+
+</nav>
+
+</div>
+
+
+
+		
+			<footer>
+                <p>Разработка и поддержка учебника: <a href="https://t.me/thingsiread">Виталий Павленко</a>, Владимир Соломатин (2014), команда Pythontutor (2016)<br>
+                Автор первоначального текста большинства уроков, задач и тестов: Д. П. Кириенко (см. <a href="https://informatics.msk.ru/moodle/course/view.php?id=156">оригинальный курс</a>)<br>
+                Идея учебника: В. М. Гуровиц<br>
+                Разработчик визуализатора: <a href="https://www.pgbovine.net/">Philip Guo</a> (см. <a href="https://pythontutor.com/">сайт визуализатора</a>)<br>
+                Родилось в 2012</p>
+                <p class="local-links"><a href="/pythontutor/knowledge/">База знаний</a> · <a href="/pythontutor/">Уроки</a> · <a href="/pythontutor/visualizer/">Визуализатор</a> · <a href="/pythontutor/images/">OpenCV</a> · <a href="https://github.com/Behnisch/pythontutor-ru">Публичный архив</a></p>
+
+			</footer>
+		
+	</div>
+<link rel="stylesheet" href="/pythontutor/static/css/assistant.css?v=9">
+<script defer src="/pythontutor/static/pwa/local-ai.js?v=task-context3"></script>
+<script defer src="/pythontutor/static/pwa/local-voice.js?v=1"></script>
+<script defer src="/pythontutor/static/js/assistant.js?v=task-context3"></script>
+<button id="tutor-launcher" type="button" aria-expanded="false" aria-controls="tutor-panel" aria-label="ИИ-помощник" title="ИИ-помощник"><span aria-hidden="true">🐍</span></button>
+<div id="tutor-divider" role="separator" aria-label="Ширина помощника" aria-orientation="vertical" aria-valuemin="28" aria-valuemax="60" aria-valuenow="42" tabindex="0" hidden></div>
+<aside id="tutor-panel" hidden aria-label="ИИ-помощник по текущей задаче" data-url="/pythontutor/assistant/image/hsv-blue/" data-kind="image" data-learning-context="Мы в интерактивном учебнике Python: 15 уроков и 134 основные задачи. Ученик пишет код в редакторе на этой странице; Python, тесты и пошаговый запуск уже работают в браузере. Устанавливать Python или IDE для этих занятий не нужно. Основной способ обучения — последовательно решать задачи: прочитать условие, попробовать самому, запустить пример, проверить все тесты, при необходимости раскрыть подсказку, затем перейти к следующей задаче. После успешного решения можно обсудить разбор и улучшение. Цель прохождения курса с самостоятельной практикой — база начинающего Python-разработчика. Если спрашивают, как учиться или с чего начать, предложи посильный шаг в текущей задаче этого курса, а не установку программ, сторонние курсы или длинный общий план. Учитывай тему текущего урока и не вводи ещё не изученные конструкции. Это фон беседы: не повторяй описание курса и не навязывай решение задачи в ответ на каждое приветствие." data-user="" data-stt="/pythontutor/assistant/speech/transcribe/" data-worklet="/pythontutor/static/js/tutor-audio-worklet.js" data-auth="no">
+    <header class="tutor-header"><span class="tutor-avatar" aria-hidden="true">🐍</span><div class="tutor-toolbar"><button id="tutor-text-mode" type="button" aria-label="Текстовый чат" aria-pressed="true">☷</button><button id="tutor-voice-mode" type="button" aria-label="Голосовой режим" aria-pressed="false">🎙</button><button id="tutor-expand" type="button" aria-label="Развернуть на весь экран" aria-pressed="false">⛶</button><button id="tutor-close" type="button" aria-label="Свернуть чат">⌄</button></div></header>
+    <h2>Давай поговорим</h2>
+    <p class="tutor-context" id="tutor-context">Помощник по текущей задаче</p>
+    
+    <details id="tutor-settings"><summary>Настройки</summary><div class="tutor-local-options">
+      <label for="tutor-model">Модель помощника</label>
+      <select id="tutor-model" class="form-control"><option value="Qwen2.5-Coder-0.5B-Instruct-q4f16_1-MLC">Qwen Coder 0.5B · минимальная</option><option value="Qwen2.5-Coder-1.5B-Instruct-q4f16_1-MLC" selected>Qwen Coder 1.5B · рекомендуется</option><option value="Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC">Qwen Coder 7B · мощный компьютер</option><option value="Qwen3-1.7B-q4f16_1-MLC">Qwen3 1.7B · универсальная</option></select>
+      <p id="tutor-model-info" class="tutor-fineprint"></p>
+      
+      
+      
+    </div>
+    <div class="tutor-code-access"><label><input id="tutor-include-code" type="checkbox" checked> Помощник видит мой код</label><span id="tutor-code-status">Код считывается из редактора</span></div>
+    </details>
+    <div id="tutor-voice-view" hidden><div class="tutor-voice-orb" aria-hidden="true">🐍</div><h3>Голосовой разговор</h3><p id="tutor-voice-status" role="status">Готовлю разговор… При первом запуске браузер попросит доступ к микрофону.</p><button id="tutor-call" type="button">Начать разговор</button><button id="tutor-interrupt" type="button" hidden>Отправить реплику</button><p class="tutor-fineprint">После паузы вопрос отправится автоматически. Ответ прозвучит вслух и останется в текстовом чате. Одна реплика — до 60 секунд.</p></div>
+    <div id="tutor-messages" role="log" aria-live="polite" aria-relevant="additions"><div class="tutor-welcome"><span aria-hidden="true">🐍</span><p>Привет, я Питоныч. Можем просто поговорить или вместе разобраться с задачей. О чём хочешь поговорить?</p></div></div>
+    <div id="tutor-quick"><button type="button" data-question="Объясни условие простыми словами, без готового решения.">Объясни условие</button><button type="button" data-question="Дай небольшую подсказку, с чего начать. Не выдавай решение целиком.">Дай подсказку</button><button type="button" data-question="Посмотри мой текущий код: помоги найти ошибку и понять её причину.">Проверь мой код</button></div>
+    <p id="tutor-status" role="status" aria-live="polite"></p>
+    <form id="tutor-form"><label class="sr-only" for="tutor-question">Вопрос помощнику</label><textarea id="tutor-question" rows="3" maxlength="3000" placeholder="Напиши или надиктуй вопрос"></textarea><div id="tutor-attachment" hidden><span></span><button type="button" id="tutor-remove-image" aria-label="Убрать изображение">×</button></div><div class="tutor-composer-tools"><label class="tutor-attach" title="Прикрепить изображение"><span aria-hidden="true">📎</span><span class="sr-only">Прикрепить изображение</span><input id="tutor-image" type="file" accept="image/png,image/jpeg" aria-label="Прикрепить изображение"></label><button id="tutor-dictate" type="button" aria-label="Начать голосовой ввод" title="Надиктовать вопрос">🎙</button><button id="tutor-stop-model" type="button" aria-label="Остановить ответ" title="Остановить ответ" hidden>■</button><button id="tutor-send" type="submit" aria-label="Отправить вопрос">↑</button></div></form>
+    <p class="tutor-fineprint">По отправке вопроса ИИ получает материал и включённый код. В локальном режиме вопросы, код и речь остаются на устройстве. ИИ может ошибаться.</p>
+    
+</aside>
+</div>
+</body>
+</html>

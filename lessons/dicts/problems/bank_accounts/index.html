@@ -51,7 +51,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 <link rel="apple-touch-icon" href="/pythontutor/static/pwa/icon-192.png">
 <script defer src="/pythontutor/static/pwa/app.js?v=2"></script>
 <script src="/pythontutor/static/pwa/storage.js?v=2"></script>
-<meta name="csrf-token" content="dYt1HpEdWUgCDbJkgI7WI5LvaB01mVs2HenRHYt6zk4vnZL7XtpY3lMZU4pzxp70">
+<meta name="csrf-token" content="K1tJV8P9GQxbIcReX1IdtccS2VJRCbEgyqZWT8ZLOJdc32rqnl8VYfGMDvCvP7GL">
 
 	<title>Интерактивный учебник языка Python</title>
 
@@ -262,11 +262,13 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 
 	
 	<h3 class="lesson_name"><button type="button" class="sidebar-toggle btn btn-default" aria-label="Скрыть меню уроков" aria-expanded="true"><i class="fa fa-angle-left" aria-hidden="true"></i></button><a href="/pythontutor/lessons/dicts/">Занятие 11</a>. Словари</h3>
+	<section data-tutor-material>
 	<h3 class="problem_name">Задача &laquo;Банковские счета&raquo;</h3>
 	<hr>
 
 	<h4 class="statement-title">Условие</h4>
 	<p>Некоторый банк хочет внедрить систему управления счетами клиентов, поддерживающую следующие операции:</p>  <ol> <li>Пополнение счета клиента. <li>Снятие денег со счета. <li>Запрос остатка средств на счете. <li>Перевод денег между счетами клиентов. <li>Начисление процентов всем клиентам. </ol>  <p>Вам необходимо реализовать такую систему. Клиенты банка идентифицируются именами (уникальная строка, не содержащая пробелов). Первоначально у банка нет ни одного клиента. Как только для клиента проводится операция пололнения, снятия или перевода денег, ему заводится счет с нулевым балансом. Все дальнейшие операции проводятся только с этим счетом. Сумма на счету может быть как положительной, так и отрицательной, при этом всегда является целым числом.</p>  <p> Входной файл содержит последовательность операций. Возможны следующие операции: </p><p> DEPOSIT name sum - зачислить сумму sum на счет клиента name. Если у клиента нет счета, то счет создается. </p><p> WITHDRAW name sum - снять сумму sum со счета клиента name. Если у клиента нет счета, то счет создается. </p><p> BALANCE name - узнать остаток средств на счету клиента name. </p><p> TRANSFER name1 name2 sum - перевести сумму sum со счета клиента name1 на счет клиента name2. Если у какого-либо клиента нет счета, то ему создается счет. </p><p> INCOME p - начислить всем клиентам, у которых открыты счета, p% от суммы счета. Проценты начисляются только клиентам с положительным остатком на счету, если у клиента остаток отрицательный, то его счет не меняется. После начисления процентов сумма на счету остается целой, то есть начисляется только целое число денежных единиц. Дробная часть начисленных процентов отбрасывается. </p>  <p> Для каждого запроса BALANCE программа должна вывести остаток на счету данного клиента. Если же у клиента с запрашиваемым именем не открыт счет в банке, выведите ERROR. </p>
+    </section>
     
 
 	<hr>
@@ -427,9 +429,9 @@ ERROR
 		
 	</div>
 <link rel="stylesheet" href="/pythontutor/static/css/assistant.css?v=9">
-<script defer src="/pythontutor/static/pwa/local-ai.js?v=learning2"></script>
+<script defer src="/pythontutor/static/pwa/local-ai.js?v=task-context3"></script>
 <script defer src="/pythontutor/static/pwa/local-voice.js?v=1"></script>
-<script defer src="/pythontutor/static/js/assistant.js?v=learning2"></script>
+<script defer src="/pythontutor/static/js/assistant.js?v=task-context3"></script>
 <button id="tutor-launcher" type="button" aria-expanded="false" aria-controls="tutor-panel" aria-label="ИИ-помощник" title="ИИ-помощник"><span aria-hidden="true">🐍</span></button>
 <div id="tutor-divider" role="separator" aria-label="Ширина помощника" aria-orientation="vertical" aria-valuemin="28" aria-valuemax="60" aria-valuenow="42" tabindex="0" hidden></div>
 <aside id="tutor-panel" hidden aria-label="ИИ-помощник по текущей задаче" data-url="/pythontutor/assistant/problem/bank_accounts/" data-kind="problem" data-learning-context="Мы в интерактивном учебнике Python: 15 уроков и 134 основные задачи. Ученик пишет код в редакторе на этой странице; Python, тесты и пошаговый запуск уже работают в браузере. Устанавливать Python или IDE для этих занятий не нужно. Основной способ обучения — последовательно решать задачи: прочитать условие, попробовать самому, запустить пример, проверить все тесты, при необходимости раскрыть подсказку, затем перейти к следующей задаче. После успешного решения можно обсудить разбор и улучшение. Цель прохождения курса с самостоятельной практикой — база начинающего Python-разработчика. Если спрашивают, как учиться или с чего начать, предложи посильный шаг в текущей задаче этого курса, а не установку программ, сторонние курсы или длинный общий план. Учитывай тему текущего урока и не вводи ещё не изученные конструкции. Это фон беседы: не повторяй описание курса и не навязывай решение задачи в ответ на каждое приветствие." data-user="" data-stt="/pythontutor/assistant/speech/transcribe/" data-worklet="/pythontutor/static/js/tutor-audio-worklet.js" data-auth="no">
