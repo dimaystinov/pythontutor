@@ -1,7 +1,7 @@
 (function(){
 'use strict';
 if(document.querySelector('meta[name=execution-mode]')?.content!=='browser')return;
-function status(text){document.querySelectorAll('[data-browser-status]').forEach(e=>e.textContent=text);}
+function status(text){document.querySelectorAll('[data-browser-status]').forEach(e=>{e.textContent=text;e.hidden=!text;});}
 function runJob(job){return new Promise((resolve,reject)=>{
  const worker=new Worker('/browser/worker/',{type:'module'});
  let timer,index=0;
@@ -18,7 +18,7 @@ function runJob(job){return new Promise((resolve,reject)=>{
   if(data.phase==='loading'){status('Загружаем Python в браузер…');return;}
   if(data.phase==='executing'){index=data.index;status('Выполняется в вашем браузере'+(job.tests?' · тест '+(index+1)+'/'+data.total:''));deadline(8000,true);return;}
   if(data.error){fail('Ошибка среды Python: '+data.error);return;}
-  if(data.result){dispose();status('Python выполняется на вашем устройстве.');resolve(data.result);}
+  if(data.result){dispose();status('');resolve(data.result);}
  }
  worker.onmessage=receive;worker.onerror=e=>fail(e.message||'Не удалось запустить среду Python.');deadline(120000);worker.postMessage(job);
 });}
@@ -57,7 +57,7 @@ async function submit(kind,slug,code){
 window.BrowserPython={run,submit,lastRun:()=>window.TutorDevice?.isCurrent?.()===false?null:lastRun};
 document.addEventListener('DOMContentLoaded',()=>{
  if(!document.querySelector('#visualizer,.visualizer,#image-task'))return;
- const note=document.createElement('p');note.dataset.browserStatus='';note.setAttribute('role','status');note.className='text-muted';note.textContent='Python выполняется на вашем устройстве. При первом запуске загрузится среда Python.';
+ const note=document.createElement('p');note.dataset.browserStatus='';note.setAttribute('role','status');note.className='text-muted';note.hidden=true;
  const target=document.querySelector('#visualizer,#image-task');
  if(target)target.before(note);else document.querySelector('.main')?.prepend(note);
 });
