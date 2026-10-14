@@ -24,24 +24,48 @@ const backupKey=key=>/^(problem-draft:|image-draft:|tutor-local-chat:)/.test(key
 function localBackup(){const data={};for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(backupKey(key))data[key]=localStorage.getItem(key);}return data;}
 $('pwa-export')?.addEventListener('click',async()=>{const url=URL.createObjectURL(new Blob([JSON.stringify({version:2,solutions:await TutorDevice.list(),preferences:localBackup()},null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='pythontutor-progress.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
 $('pwa-import')?.addEventListener('change',async event=>{try{const file=event.target.files[0];if(!file)return;if(file.size>32*1024*1024)throw Error('Копия больше 32 МБ.');const data=JSON.parse(await file.text());if(![1,2].includes(data.version)||!Array.isArray(data.solutions)||data.solutions.length>1000)throw Error('Неверный формат копии.');for(const r of data.solutions){if(!['problem','image'].includes(r.kind)||!/^[-\w]+$/.test(r.slug)||typeof r.code!=='string'||r.code.length>65536||!['ok','error'].includes(r.result?.status))throw Error('Некорректное решение.');}if(data.version===2){if(!data.preferences||typeof data.preferences!=='object'||Array.isArray(data.preferences))throw Error('Неверные настройки копии.');for(const [key,value] of Object.entries(data.preferences)){if(!backupKey(key)||typeof value!=='string'||value.length>2000000)throw Error('Некорректные локальные данные.');}}for(const r of data.solutions)await TutorDevice.save(r.kind,r.slug,r.code,r.result,typeof r.acceptedCode==='string'?r.acceptedCode:'');if(data.version===2)for(const [key,value] of Object.entries(data.preferences))localStorage.setItem(key,value);await progress();say('Данные восстановлены в текущий локальный профиль.');}catch(e){say(e.message);}});
+// Other open task tabs must stop autosaving the previous student's drafts.
+window.addEventListener('storage',event=>{
+ if(event.key==='tutor-progress-reset:'+TutorDevice.owner())location.reload();
+});
+$('pwa-reset')?.addEventListener('click',()=>{$('pwa-reset-confirm').hidden=false;$('pwa-reset-cancel').focus();});
+$('pwa-reset-cancel')?.addEventListener('click',()=>{$('pwa-reset-confirm').hidden=true;$('pwa-reset').focus();});
+$('pwa-reset-accept')?.addEventListener('click',async()=>{
+ $('pwa-reset-accept').disabled=true;
+ try{await TutorDevice.reset();location.reload();}
+ catch(e){$('pwa-reset-message').textContent='Не удалось полностью очистить прогресс: '+e.message;$('pwa-reset-accept').disabled=false;}
+});
 const local=document.querySelector('meta[name=local-page]')?.content==='yes';
 async function restoreProgress(){
- const entries=await TutorDevice.list();
+ const entries=await TutorDevice.list().catch(()=>[]);
+ const states=new Map(entries.map(r=>[r.kind+':'+r.slug,r]));
+ try {
+  const prefix='problem-draft:'+TutorDevice.owner()+':';
+  for(let i=0;i<localStorage.length;i++){
+   const key=localStorage.key(i);
+   if(!key.startsWith(prefix))continue;
+   try {
+    const draft=JSON.parse(localStorage.getItem(key)),slug=key.slice(prefix.length);
+    if(draft?.started&&!states.has('problem:'+slug))states.set('problem:'+slug,{kind:'problem',slug,solved:false});
+   } catch(e) { /* Ignore a damaged draft without losing other progress. */ }
+  }
+ } catch(e) { /* Browser storage may be disabled. */ }
  const article=document.querySelector('[data-local-article]');
  if(article){const record=await TutorDevice.get(article.dataset.localArticle,article.dataset.slug);if(record?.solved){article.hidden=false;$('local-knowledge-notice').hidden=true;$('knowledge-own-code').textContent=record.acceptedCode||record.code;}}
- for(const r of entries.filter(r=>r.solved)){
+ for(const r of states.values()){
   const ending=r.kind==='image'?'/images/'+r.slug+'/':'/problems/'+r.slug+'/';
   for(const a of document.querySelectorAll('a[href]')){
    if(!a.getAttribute('href').endsWith(ending))continue;
    a.classList.remove('text-success');
    if(a.matches('.lesson_sections .problems_link li > a')){
+    const solved=r.solved||a.parentElement.classList.contains('solved');
     a.parentElement.classList.remove('unsolved','accepted');
-    a.parentElement.classList.add('solved');
-    a.title='Задача решена';
+    a.parentElement.classList.add(solved?'solved':'unsolved');
+    a.title=solved?'Задача решена':'Задача начата, но ещё не решена';
    }
   }
   const slug=window.problem_name||document.getElementById('image-task')?.dataset.slug;
-  if(slug===r.slug&&$('knowledge-unlock'))$('knowledge-unlock').hidden=false;
+  if(r.solved&&slug===r.slug&&$('knowledge-unlock'))$('knowledge-unlock').hidden=false;
  }
 }
 restoreProgress().catch(()=>{});

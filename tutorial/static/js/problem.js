@@ -23,6 +23,10 @@ $(function() {
 	var draftUserId = $('#visualizer').attr('data-draft-user-id') || 'local';
 	var draftKey = draftUserId ? 'problem-draft:' + draftUserId + ':' + problem_name : null;
 
+	var resetKey = 'tutor-progress-reset:' + draftUserId;
+    var draftGeneration;
+    try { draftGeneration = localStorage.getItem(resetKey); } catch (error) {}
+	var starterCode = $('#visualizer').text().trim();
 	var problem_saved = null;
 	try { if (draftKey) problem_saved = JSON.parse(localStorage.getItem(draftKey)); } catch (error) { /* Storage may be unavailable or stale. */ }
 	if(problem_saved !== null && problem_saved.solution !== undefined) {
@@ -41,20 +45,29 @@ $(function() {
 
 	visualizer.focusCodeEditor();
 
-	visualizer.on('change_code', function() {
-		$('.submit_solution').toggle(visualizer.code.trim() != '');
-	});
-
-
-	setInterval(function() {
-		if (!draftKey) return;
-		try { localStorage.setItem(draftKey, JSON.stringify({
-			solution: {
-				code: visualizer.code,
-				stdin: visualizer.stdin
-			},
-		})); } catch (error) { /* Editing works without browser storage. */ }
-	}, 1000);
+	var draftStarted = !!(problem_saved && (problem_saved.started ||
+        (problem_saved.solution && problem_saved.solution.code.trim() !== starterCode)));
+    function saveDraft() {
+        if (!draftKey) return;
+        try {
+            if (localStorage.getItem(resetKey) !== draftGeneration) return;
+            localStorage.setItem(draftKey, JSON.stringify({
+                started: draftStarted,
+                solution: {code: visualizer.code, stdin: visualizer.stdin}
+            }));
+        } catch (error) { /* Editing works without browser storage. */ }
+    }
+    visualizer.on('change_code', function() {
+        $('.submit_solution').toggle(visualizer.code.trim() != '');
+        if (!draftStarted) {
+            draftStarted = true;
+            saveDraft();
+            window.dispatchEvent(new Event('tutor-progress-changed'));
+        }
+    });
+    saveDraft();
+    setInterval(saveDraft, 1000);
+    window.addEventListener('pagehide', saveDraft);
 
 
 	$('.submit_solution').toggle(visualizer.code.trim() != '');

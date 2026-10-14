@@ -1,7 +1,7 @@
 {% extends '_base_basic.html' %}
 {% block body %}
 <h1>Питонтьютор без интернета</h1>
-<p>Скачайте весь курс один раз: 15 уроков, 134 задачи, 8 заданий OpenCV, тесты и среду Python. После загрузки можно закрыть браузер и продолжить без работающего сервера.</p>
+<p>Скачайте весь курс один раз: 15 уроков, 134 задачи, 14 заданий OpenCV, тесты и среду Python. После загрузки можно закрыть браузер и продолжить без работающего сервера.</p>
 <p>Проверка полностью выполняется на устройстве. Локальные решения хранятся в этом браузере отдельно от учётной записи. Локальные Qwen и голосовой ввод Whisper скачиваются отдельно в помощнике. Облачный ИИ, регистрация и кабинет преподавателя требуют сети.</p>
 <p><button id="pwa-download" class="btn btn-primary">Скачать для работы без интернета</button> <button id="pwa-open" class="btn btn-default" disabled>Открыть локальную версию</button> <button id="pwa-online" class="btn btn-default">Вернуться на сайт</button></p>
 <p><button id="pwa-install" class="btn btn-default">Установить приложение</button></p>
@@ -11,4 +11,16 @@
 <h2>Локальный прогресс</h2><div id="pwa-results"></div>
 <p><button id="pwa-export" class="btn btn-default">Скачать резервную копию решений</button> <label class="btn btn-default">Восстановить из копии <input id="pwa-import" type="file" accept="application/json" hidden></label></p>
 <p>Очистка данных сайта удаляет локальные решения и скачанный курс. Сохраните резервную копию перед очисткой или сменой устройства.</p>
+<h2 id="settings">Настройки</h2>
+<p>За этим компьютером будет заниматься другой ученик? Можно начать обучение с чистого листа.</p>
+<button id="pwa-reset" class="btn btn-default">Начать обучение заново</button>
+<div id="pwa-reset-confirm" hidden role="region" aria-label="Подтверждение очистки прогресса" style="margin-top:16px;padding:16px;border:1px solid #ddd;border-radius:4px">
+ <h3>Очистить прогресс на этом устройстве?</h3>
+ <p>Будут удалены решения, отметки в меню, черновики Python и OpenCV, переписка с помощником в текущем локальном профиле. Отменить очистку можно только восстановлением резервной копии.</p>
+ <p>Курс, среда Python и скачанные модели останутся на устройстве. Открытые вкладки учебника перезагрузятся.</p>
+ <p>Чтобы сохранить работу, сначала нажмите «Скачать резервную копию решений» выше.</p>
+ <button id="pwa-reset-cancel" class="btn btn-default">Отмена</button>
+ <button id="pwa-reset-accept" class="btn btn-danger">Очистить прогресс</button>
+ <p id="pwa-reset-message" role="status"></p>
+</div>
 {% endblock %}

@@ -15,8 +15,10 @@ storage.set('problem[aplusb]', draft('legacy secret'));
 function openPage(userId, problem = 'aplusb') {
     let autosave;
     let editor;
+    let change;
+    let notifications = 0;
     const element = {
-        text: () => 'sample input',
+        text: () => 'server draft',
         attr: name => name === 'data-draft-user-id' ? userId : undefined,
         toggle() {},
         click() {},
@@ -29,11 +31,13 @@ function openPage(userId, problem = 'aplusb') {
         this.code = code === undefined ? 'server draft' : code;
         this.stdin = stdin;
         this.focusCodeEditor = () => {};
-        this.on = () => {};
+        this.on = (event, handler) => { if (event === 'change_code') change = handler; };
         editor = this;
     }
     const context = vm.createContext({
         $, Visualizer, problem_name: problem,
+        Event: class { constructor(type) { this.type = type; } },
+        window: {addEventListener() {}, dispatchEvent() { notifications++; }},
         localStorage: {
             getItem(key) { reads.push(key); return storage.get(key) ?? null; },
             setItem(key, value) { writes.push(key); storage.set(key, value); },
@@ -41,7 +45,7 @@ function openPage(userId, problem = 'aplusb') {
         setInterval(callback) { autosave = callback; },
     });
     vm.runInContext(source, context);
-    return {editor, save: () => autosave()};
+    return {editor, save: () => autosave(), change: () => change(), notifications: () => notifications};
 }
 
 const first = openPage('101');
@@ -67,3 +71,17 @@ assert.ok(writes.at(-1).startsWith('problem-draft:local:'),'Offline drafts have 
 assert.equal(openPage('').editor.code,'offline draft','Offline draft survives reload');
 assert.equal(openPage('101').editor.code,'first user secret','Offline writes never overwrite account drafts');
 console.log('Problem drafts isolate users, local profile and tasks.');
+
+const untouched = openPage('fresh');
+untouched.save();
+assert.equal(JSON.parse(storage.get('problem-draft:fresh:aplusb')).started, false);
+assert.equal(JSON.parse(storage.get('problem-draft:fresh:aplusb')).started, false);
+const reopened = openPage('fresh');
+assert.equal(JSON.parse(storage.get('problem-draft:fresh:aplusb')).started, false, 'Viewing the starter twice does not mark a task as started');
+reopened.editor.code = 'print(0)';
+reopened.change();
+assert.equal(JSON.parse(storage.get('problem-draft:fresh:aplusb')).started, true);
+assert.equal(reopened.notifications(), 1, 'First edit updates menu immediately');
+openPage('fresh');
+assert.equal(JSON.parse(storage.get('problem-draft:fresh:aplusb')).started, true, 'Started state survives reload');
+console.log('Untouched starters remain neutral; real edits persist started state.');

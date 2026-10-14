@@ -7,5 +7,19 @@ async function query(mode,action){const d=await db();return new Promise((resolve
 async function get(kind,slug){return query('readonly',s=>s.get(owner()+':'+kind+':'+slug));}
 async function save(kind,slug,code,result,acceptedCode){const previous=await get(kind,slug);const item={key:owner()+':'+kind+':'+slug,owner:owner(),kind,slug,code,result,solved:previous?.solved||result.status==='ok'||!!acceptedCode,acceptedCode:result.status==='ok'?code:(previous?.acceptedCode||acceptedCode||''),time:new Date().toISOString()};await query('readwrite',s=>s.put(item));window.dispatchEvent(new Event('tutor-progress-changed'));return item;}
 async function list(){return (await query('readonly',s=>s.getAll())).filter(r=>r.owner===owner());}
-window.TutorDevice={owner,get,save,list};
+async function reset(){
+ const records=await list();
+ const d=await db();
+ await new Promise((resolve,reject)=>{
+  const tx=d.transaction('solutions','readwrite'),s=tx.objectStore('solutions');
+  for(const r of records)s.delete(r.key);
+  tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error);
+ });
+ const prefixes=['problem-draft:','image-draft:','tutor-local-chat:'].map(p=>p+owner()+':');
+ const keys=[];
+ for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(prefixes.some(p=>key.startsWith(p)))keys.push(key);}
+ keys.forEach(key=>localStorage.removeItem(key));
+ localStorage.setItem('tutor-progress-reset:'+owner(),String(Date.now()));
+}
+window.TutorDevice={owner,get,save,list,reset};
 })();
