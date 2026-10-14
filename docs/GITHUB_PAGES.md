@@ -1,6 +1,6 @@
 # Статический учебник
 
-Рабочий сайт: https://dimaystinov.github.io/pythontutor-selfhost/
+Рабочий сайт: https://dimaystinov.github.io/pythontutor/
 
 На хостинге нужны только статические файлы: Python, проверка, изображения и локальный ИИ работают у ученика. Django нужен только сборщику и в опубликованный сайт не входит.
 
@@ -9,7 +9,7 @@
 Установите зависимости из requirements.lock в отдельное Python-окружение и выполните:
 
 ```sh
-python scripts/build_pages.py --base /pythontutor-selfhost/
+python scripts/build_pages.py --base /pythontutor/
 ```
 
 Результат: `dist/pages/`. Для корня собственного домена используйте `--base /`.

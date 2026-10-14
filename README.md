@@ -2,7 +2,7 @@
 
 Основной режим: **статический сайт без сервера и регистрации**.
 
-[Открыть учебник](https://dimaystinov.github.io/pythontutor-selfhost/) · [Сборка для GitHub Pages](docs/GITHUB_PAGES.md) · [Релиз v1.0.0](docs/releases/v1.0.0.md)
+[Открыть учебник](https://dimaystinov.github.io/pythontutor/) · [Сборка для GitHub Pages](docs/GITHUB_PAGES.md) · [Релиз v1.0.0](docs/releases/v1.0.0.md)
 
 Python и тесты исполняются на устройстве. Прогресс, черновики и диалоги сохраняются локально; доступна резервная копия. Ниже сохранены инструкции для дополнительного Django-режима.
 

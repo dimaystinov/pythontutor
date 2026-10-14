@@ -4,7 +4,7 @@ from html.parser import HTMLParser
 from urllib.parse import urlsplit, unquote
 import json
 ROOT=Path(__file__).resolve().parents[1]/'dist/pages'
-base='/pythontutor-selfhost/'
+base='/pythontutor/'
 class Links(HTMLParser):
  def __init__(self): super().__init__();self.urls=[]
  def handle_starttag(self,tag,attrs):

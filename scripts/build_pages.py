@@ -6,7 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 p = argparse.ArgumentParser()
-p.add_argument('--base', default='/pythontutor-selfhost/')
+p.add_argument('--base', default='/pythontutor/')
 p.add_argument('--output', default='dist/pages')
 args = p.parse_args()
 base = '/' + args.base.strip('/') + '/' if args.base.strip('/') else '/'
