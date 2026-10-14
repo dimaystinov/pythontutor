@@ -81,6 +81,8 @@ $(function() {
 			$('#submission-status').toggleClass('is-solved', result.status === 'ok').text(result.status === 'ok' ? 'Правильное решение, поздравляем.' + (result.storage_error ? ' Не удалось сохранить прогресс на устройстве.' : '') : 'Неправильное решение. На одном из тестов ниже программа неправильно работает.');
             $('#submission-next-task').prop('hidden', result.status !== 'ok');
 			$('#example_tests .test_result').show();
+            $('#example_tests .test_output').toggle(Array.isArray(result.outputs));
+            var testOutputs = result.outputs || [];
             if (result.status === 'ok') $('#knowledge-unlock').prop('hidden', false);
 
 			$.each(result.tests, function(id, result) {
@@ -99,15 +101,17 @@ $(function() {
 				} else if(result == 'wrong_answer') {
 					clazz = 'warning';
 					image = 'error';
-					text = 'Неверный ответ :(';
+					text = 'неправильно';
 				} else {
 					clazz = 'danger';
 					image = 'error';
-					text = 'Ошибка... :(';
+					text = 'ошибка выполнения';
 				}
 
 				test_rows[id].addClass(clazz);
-				test_rows[id].find('.test_result').html((image ? '<img alt="" src="/static/images/test_' + image + '.png"><br>' : '') + text);
+				test_rows[id].find('.test_output pre').text(testOutputs[id] || '');
+                test_rows[id].find('.test_result').text(text);
+                if(image)test_rows[id].find('.test_result').append($('<img>', {src:'/static/images/test_' + image + '.png?v=snakes5',alt:'',class:'test-snake'}));
 			});
 		});
 
@@ -116,7 +120,8 @@ $(function() {
 		                      .removeClass('danger')
 		                      .removeClass('active');
 
-		$('#example_tests .test_result').hide();
+		$('#example_tests .test_result, #example_tests .test_output').hide();
+        $('#example_tests .test_output pre').empty();
 	});
 
 	$('#example_tests .debug_me').click(function() {

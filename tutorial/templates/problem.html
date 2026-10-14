@@ -6,9 +6,9 @@
 	{{ block.super }}
 
 	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/lesson.css?v=solved3">
-	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/problem.css?v=verdict4">
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/problem.css?v=snakes5">
 
-	<script type="text/javascript" src="{{ STATIC_URL }}js/problem.js?v=verdict4"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/problem.js?v=snakes5"></script>
 
 	<script type="text/javascript">
 		var problem_name = '{{ problem.urlname|escapejs }}';
@@ -64,6 +64,7 @@
 			<th scope="col">Входные данные</th>
 
 			<th scope="col">Правильный ответ</th>
+			<th class="test_output">Что вывела программа</th>
 			<th class="test_result">Результат</th>
 		</tr></thead>
 		<tbody>
@@ -73,6 +74,7 @@
 				<td><pre class="input">{{ test.input }}</pre></td>
 
 				<td><pre class="output">{{ test.output }}</pre></td>
+				<td class="test_output"><pre></pre></td>
 				<td class="test_result"></td>
 			</tr>
 			{% endfor %}
