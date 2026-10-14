@@ -1,0 +1,23 @@
+name: Offline model packages
+on:
+  workflow_dispatch:
+  push:
+    branches: [codex/github-offline-bundle]
+    paths: ['scripts/offline/**', '.github/workflows/offline-release.yml']
+permissions:
+  contents: write
+concurrency:
+  group: offline-model-release
+  cancel-in-progress: false
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/offline/build_packages.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

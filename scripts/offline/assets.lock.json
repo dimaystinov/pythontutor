@@ -1,0 +1,986 @@
+{
+  "version": 1,
+  "release": "v1.1.0",
+  "files": [
+    {
+      "path": "qwen7b/mlc-chat-config.json",
+      "size": 2045,
+      "sha256": "563f6976ea9d0733894bab96baf7af24ae3dfe630c67d94011dd9a603b9d9662",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/mlc-chat-config.json",
+      "group": "qwen7b",
+      "cache": "webllm/config"
+    },
+    {
+      "path": "qwen7b/ndarray-cache.json",
+      "size": 138311,
+      "sha256": "ebc3a37894e42bcbd87fe73d0881096f36a6f18a4367acd4681813379598e65b",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/ndarray-cache.json",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_0.bin",
+      "size": 272498688,
+      "sha256": "a74eff723f730cc71abfb86742f80cabea222253adb2560b026afd51a0fec799",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_0.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_1.bin",
+      "size": 34062336,
+      "sha256": "4b4ca0f24625a867e6889be9050fb75e2ca699f0130bb942924309023fddffea",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_1.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_10.bin",
+      "size": 67895296,
+      "sha256": "b44c0ca2808fecfd2c62be9985d4e9b9eb238d296d6c10477dddd16378f5df83",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_10.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_11.bin",
+      "size": 29268992,
+      "sha256": "dc0ec0154290557f8d0aad3cdd8c8708602cec91b02aa21d15e0126eb1e0f0a6",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_11.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_12.bin",
+      "size": 33947648,
+      "sha256": "cdc22c6885b6436c27080d8063afa178363ff00f45d393e6414c7bf9fbf4d852",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_12.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_13.bin",
+      "size": 67895296,
+      "sha256": "4a7ef1271961c76caa208820e7b17e14f5fdc9982bcf23ed2fdcfec4f3c45c77",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_13.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_14.bin",
+      "size": 29268992,
+      "sha256": "93be007d9b35eb9410b4297f1de93f465297239721a8b68fdf676bc43d596456",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_14.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_15.bin",
+      "size": 33947648,
+      "sha256": "b88a7800d112a08f4113e3f1b4a3e6cea0599b286b48a76fe8007cd5b8338826",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_15.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_16.bin",
+      "size": 67895296,
+      "sha256": "75069407ef88d208af451937cb3a8ac84dae3a1cee68ccccb9869ea0454f6a74",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_16.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_17.bin",
+      "size": 29268992,
+      "sha256": "4ee035717123b24d076242a1866341dc15f2c435b87174183a124065223f715b",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_17.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_18.bin",
+      "size": 33947648,
+      "sha256": "5b1d446d04849f9b1867eaf318118f1f6936fe68fca4e191eff8df585eacd8d4",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_18.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_19.bin",
+      "size": 67895296,
+      "sha256": "8c4b061f58bfab61a1b20004b9288d0f504537adb295391d6f80ce0985415477",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_19.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_2.bin",
+      "size": 272498688,
+      "sha256": "08d10960b43fef666cb598930bd377015aad49006b0ac8af97490609a1eb598e",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_2.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_20.bin",
+      "size": 29268992,
+      "sha256": "124c15d8794abc87e6b627660d5c855686fd287ac4269a37c6e918a641608a02",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_20.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_21.bin",
+      "size": 33947648,
+      "sha256": "3fef2fc9851451e9af2143871cff4ec537755b80439239ffbaa8ab2b12d95218",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_21.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_22.bin",
+      "size": 67895296,
+      "sha256": "4210ed7f0c05be0857a2f61c94e25f6e1f67723f913a4726f533304f2795fc56",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_22.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_23.bin",
+      "size": 29268992,
+      "sha256": "52094edd7f2b8c46fb9bbc748e23e2190f02e38863411eb8925fff0d7b3945a6",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_23.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_24.bin",
+      "size": 33947648,
+      "sha256": "36aa327ac62b710325794b729dbc6a2fd4039579e095835990de66608ef21335",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_24.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_25.bin",
+      "size": 67895296,
+      "sha256": "a27f8cae4fef5e0cbfc7bbea87198416deb96d0fa80dbb912a4b779e05e68908",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_25.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_26.bin",
+      "size": 29268992,
+      "sha256": "5cd384e2896482f8b695f3298e5c668508688aacf9f214d250667f3761c7407e",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_26.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_27.bin",
+      "size": 33285120,
+      "sha256": "71711bf03548249ea6da40a30267941551aac36de6f6170a51d4ce29df214ed5",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_27.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_28.bin",
+      "size": 33947648,
+      "sha256": "536d6705ef18bc437c3eb1aefcb50405312b4a8c6bed28c38e56bc0c7327c990",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_28.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_29.bin",
+      "size": 67895296,
+      "sha256": "e507997d851cbdbeb15b2251d83f7b113680654e9692b322022f05e04deb59e2",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_29.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_3.bin",
+      "size": 34062336,
+      "sha256": "d5883dfbb144b5e4687c5862fb2e2787e3ea20a21d681a4eb05fad71daa0194a",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_3.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_30.bin",
+      "size": 30301184,
+      "sha256": "b2186e8601fcce8c030874ef38ee0cce602c73590eaee4ada89f575581a7793f",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_30.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_31.bin",
+      "size": 33947648,
+      "sha256": "06bd775604b21d1f53565503b1f622c6a370e2fd6d0b0c5f3bfa7db5b959529b",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_31.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_32.bin",
+      "size": 67895296,
+      "sha256": "89c167f44d4fb25a44be664b7479399806b06ff3f9cf682587a4fafcbe19c8c0",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_32.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_33.bin",
+      "size": 29268992,
+      "sha256": "620b3fee8e3f504fa12c875061dbaf0cad8429332d88b7fc1b10a72547048603",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_33.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_34.bin",
+      "size": 33947648,
+      "sha256": "25a053360d2f28f3034c15f6026a360935054978bc110b057c5a3a5533aad6bc",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_34.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_35.bin",
+      "size": 67895296,
+      "sha256": "a447c9243c0e2e60548a3a58f19b87a39106101e84ee3a0e06e702252e0a5c31",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_35.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_36.bin",
+      "size": 29268992,
+      "sha256": "fd9c1d3c762cac1102e50967ec22c8d3f09829b4613ef490deda8d5e9a374c5e",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_36.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_37.bin",
+      "size": 33947648,
+      "sha256": "c4a31bd2b3a3599d97a4ec004b21dc1588e321e53fa714eb4cf7881b02545567",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_37.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_38.bin",
+      "size": 67895296,
+      "sha256": "fa72c7fa0f9caf16912118aba3533ab675f3ce2e8dee1dd4df9501e8e8fe6e9f",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_38.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_39.bin",
+      "size": 29268992,
+      "sha256": "c0a88c429f0c59cf7da20ab74ec9a3d885f6b29f00ed9cf5b350b0bd43545313",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_39.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_4.bin",
+      "size": 33947648,
+      "sha256": "2be035418bf6199dc50430e6ca9ff556b145daab2d74dffb70d74a525546c094",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_4.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_40.bin",
+      "size": 33947648,
+      "sha256": "9cb3d741573788b34057d7613010d04b49612712c4482e908a23c09e89989e35",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_40.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_41.bin",
+      "size": 67895296,
+      "sha256": "bd3b02cb124529c8103472116f38ee0088dc8c50ab10d36f83ec35f45005fba3",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_41.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_42.bin",
+      "size": 29268992,
+      "sha256": "705c7334853cea6da5c30749f59161c665d69d6d9ffc724190314b769278ba0c",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_42.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_43.bin",
+      "size": 33947648,
+      "sha256": "bbf443436403db26ca2fccb06c29349ee7a6fc06e5104fb4f61e30a57f055a2d",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_43.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_44.bin",
+      "size": 67895296,
+      "sha256": "563771956f6c0007f39967bc5edeabc02604ef12c63179341dce31669e28fd8a",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_44.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_45.bin",
+      "size": 29268992,
+      "sha256": "ae94072134a2bd4138bb865d680dc8e18e18ab28be515d4ed551185eef72474d",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_45.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_46.bin",
+      "size": 33947648,
+      "sha256": "427714e7509910c06ab677aa90528f29522d7c61fc35bb0ae8f8453b8c70dc1c",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_46.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_47.bin",
+      "size": 67895296,
+      "sha256": "bda387bee7f05058d32f23ac7e4c3d2a4b2cbc93c8db46641749a82fac504320",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_47.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_48.bin",
+      "size": 29268992,
+      "sha256": "d86d71ca65a913fc31d34964cad9e6680530e5611bf3e7705b189930d36fb146",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_48.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_49.bin",
+      "size": 33947648,
+      "sha256": "2235f6b8e8efbbd1475f2cee8a8f2efc20d9848c92dd7b4e2cfb923d2213ac47",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_49.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_5.bin",
+      "size": 67895296,
+      "sha256": "cdaeef2d17055f76251c277e81b963918bc30179176276a5cd88aecbc157b840",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_5.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_50.bin",
+      "size": 67895296,
+      "sha256": "8b9dec2018539220f902364c92cd41478ee2cb421a53725ab3634ea0b57a6be1",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_50.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_51.bin",
+      "size": 29268992,
+      "sha256": "d9c67bf0b10b9de3aca4cde356668e79a7ca49e319660ebe1a6ee26b287b8c57",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_51.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_52.bin",
+      "size": 67895296,
+      "sha256": "928a6ecd903e1e72334f3f5c368a531c7e5ebbc1dba9c8dcc214d71208e3b967",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_52.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_53.bin",
+      "size": 33947648,
+      "sha256": "02e7124527875d8135faba09af4ce29f43aaaabb1e0354d9adaa035856df1abe",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_53.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_54.bin",
+      "size": 32243712,
+      "sha256": "2075bbc21786b8b1661631402642ac3184d5e999d8b30650d22bb2db751f36f2",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_54.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_55.bin",
+      "size": 67895296,
+      "sha256": "5d7b92ae15784ee0cbb819641a592576b5e429bf5af2fc650ff4a51650d68eed",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_55.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_56.bin",
+      "size": 33947648,
+      "sha256": "7fc5b7a580fe0950f5c1891ee59a410e5a5cca74d696112e04f2c55e6c6b5d73",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_56.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_57.bin",
+      "size": 67895296,
+      "sha256": "6cf4f32e04944ab22e7da9a8bb688ea6c2b825bb8ace1e12fc5f34beb5e86571",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_57.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_58.bin",
+      "size": 25491456,
+      "sha256": "994ac5ee151075c627e8b60b1b10c4d55bcd1d7a93280698336bc4e7d5e52380",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_58.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_59.bin",
+      "size": 33947648,
+      "sha256": "b2a87af0a0b5388aac96a54b954c265b650f68efad898db7d2344e014b080c06",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_59.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_6.bin",
+      "size": 33947648,
+      "sha256": "82e8d742671db0931ca42ee271d7761f3340bdeaa82a892bff6c4f34ec845dff",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_6.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_60.bin",
+      "size": 33947648,
+      "sha256": "dd0b91d3955fa816e297c1b8a5df6a721f319dd46e4a3b3f83579f7a06808a23",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_60.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_61.bin",
+      "size": 67895296,
+      "sha256": "51cdd550cb435821984e432a20be488511c79278ffc3d0672cfa78fd0553b141",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_61.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_62.bin",
+      "size": 33526784,
+      "sha256": "5e184492cad5ac371e63ab455ed3854fa4e19a82f98947aabe525b5a7d94e800",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_62.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_63.bin",
+      "size": 33947648,
+      "sha256": "97fdb9630507b25c4a819f395fe0378e56a55f42b0af2fcf1f28d5600d82ffcb",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_63.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_64.bin",
+      "size": 67895296,
+      "sha256": "ae6046739b559904eaf4e47a47967b1535ea2e27b0e466c61885b7b03b2379b9",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_64.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_65.bin",
+      "size": 29268992,
+      "sha256": "7d1220e5f6034fc302ed704f9f51522c079c99521732d193274793255447d8a5",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_65.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_66.bin",
+      "size": 33947648,
+      "sha256": "1b93507ff8c1e4cc1345fb4f9a3a4404a3a801f7aee10eab4097b1c35fedbedf",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_66.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_67.bin",
+      "size": 67895296,
+      "sha256": "53640688a5aab968c7bf46f85d9970cf41a8fa96d731486000a014cce92e702a",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_67.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_68.bin",
+      "size": 29268992,
+      "sha256": "4b5373c0bd5aec3b2f1a4077f655cc6ab97d91690bb5deb63b537dbfd79576b6",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_68.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_69.bin",
+      "size": 33947648,
+      "sha256": "9f26027bfeb31d572c4cdf08ca6855b60440811628752d3c7652dbb2a927daef",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_69.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_7.bin",
+      "size": 67895296,
+      "sha256": "e9ac029c6e57fbc6cb568e32ee575a30463ca6248c89c6164ad19a2f0b9a54d1",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_7.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_70.bin",
+      "size": 67895296,
+      "sha256": "fba08782fe9962515af42348c22b39fc92ca6c715a28b8b000f609e3a257e87f",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_70.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_71.bin",
+      "size": 29268992,
+      "sha256": "549c245e9e8342d38bc52ed98f18e658fe7796efb4f1ab59d1ad500ac3fb18cf",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_71.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_72.bin",
+      "size": 33947648,
+      "sha256": "6cfda1560f18d1b9a21b45f4604640749db4355d096528833aee38d418136f53",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_72.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_73.bin",
+      "size": 67895296,
+      "sha256": "0211ab9e737471e421a322371219effddea68f0693f15d43ccdfbb783803cf1d",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_73.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_74.bin",
+      "size": 29268992,
+      "sha256": "3161d3e00ca88df681d1a4f10dd941c7417ff3c8f725cf3c82d6b3060d8687e1",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_74.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_75.bin",
+      "size": 33947648,
+      "sha256": "61c03f7a58fbe6d4ebef5e8cf67c6c3c23dcb7652bcadf7c58dbec790ddf35ac",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_75.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_76.bin",
+      "size": 67895296,
+      "sha256": "ef10ec8d96899e3c65da7d63c0dedec2a5311d33047314269631a34921d0f6d2",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_76.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_77.bin",
+      "size": 29268992,
+      "sha256": "bc63cefc306aac973e99e2e3a0c5ee90ee84a9a38e2e887de0288fbaf9bfc569",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_77.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_78.bin",
+      "size": 33947648,
+      "sha256": "247ef62d4c85e92aff373efe3efa0b9835ffdb7661f89e3e68bb5eaa33c1bc36",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_78.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_79.bin",
+      "size": 67895296,
+      "sha256": "3747393e4f610438fc9e366bf6046809c4174986b667669877b78864200a7a0e",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_79.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_8.bin",
+      "size": 33519616,
+      "sha256": "ca448ee5db3767ab6b4f3283d74d5ab99651a680230f8c41070eed831d0bcba5",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_8.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_80.bin",
+      "size": 29268992,
+      "sha256": "2e38976bf5ebffe94e1fd752ffc383f8730b2bd936a4c249dbfbbf56d18f066a",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_80.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_81.bin",
+      "size": 33947648,
+      "sha256": "bae4e95cc6072fbdeb41aa696956dada93142d1b80f34b95399de42781b9e255",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_81.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_82.bin",
+      "size": 67895296,
+      "sha256": "de32558f4cb8c00011bf820a5499f2f5083e4079c01a446da78432a8c90faa1e",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_82.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_83.bin",
+      "size": 29268992,
+      "sha256": "34f6f74da61693911dfa38b632fbe1421c2d662db21f929924f159279abaecd4",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_83.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_84.bin",
+      "size": 33947648,
+      "sha256": "f9134f39b6c74460702307963ef4956948a5223aefc586109bd6f46e6521d8cf",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_84.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_85.bin",
+      "size": 67895296,
+      "sha256": "8a50597da889038739db62fded9a904bf23ee1bfcb62fcec0fa6ee7ca7052d4c",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_85.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_86.bin",
+      "size": 29268992,
+      "sha256": "530303313e602e4b07f828ef75c5455903cc6a210e38e6b272c8ff55b638a820",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_86.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_87.bin",
+      "size": 16522240,
+      "sha256": "6199bc3c8eebf1d36c79100f031baf138a335c8bb18a8b0c31f3ed67b8626a5d",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_87.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/params_shard_9.bin",
+      "size": 33947648,
+      "sha256": "f013f35178889a65e218fdf5ce9474c2544ec5dcb519b6add7bbf7fa063f75a4",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/params_shard_9.bin",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "qwen7b/tokenizer.json",
+      "size": 7031645,
+      "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+      "source": "https://huggingface.co/mlc-ai/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/resolve/56dea5411b44b2a45cf0ceb16ead4c1f30141f49/tokenizer.json",
+      "group": "qwen7b",
+      "cache": "webllm/model"
+    },
+    {
+      "path": "whisper-tiny/added_tokens.json",
+      "size": 2082,
+      "sha256": "ce949fe720c14311cb6c446e69cfe340dc669d7b006077a6feed6ae571dd7e88",
+      "source": "https://huggingface.co/Xenova/whisper-tiny/resolve/5332fcc35e32a33b86612b9a57a89be7906102b1/added_tokens.json",
+      "group": "whisper-tiny",
+      "cache": "transformers-cache"
+    },
+    {
+      "path": "whisper-tiny/config.json",
+      "size": 2248,
+      "sha256": "2b2e4e519084e0ea028b19b153f95202735a971870d6844aa26e559edd292e94",
+      "source": "https://huggingface.co/Xenova/whisper-tiny/resolve/5332fcc35e32a33b86612b9a57a89be7906102b1/config.json",
+      "group": "whisper-tiny",
+      "cache": "transformers-cache"
+    },
+    {
+      "path": "whisper-tiny/generation_config.json",
+      "size": 3716,
+      "sha256": "68ac791fcb4999461a313472125042934656240ba1cba7d1c2627fcbb19ac24c",
+      "source": "https://huggingface.co/Xenova/whisper-tiny/resolve/5332fcc35e32a33b86612b9a57a89be7906102b1/generation_config.json",
+      "group": "whisper-tiny",
+      "cache": "transformers-cache"
+    },
+    {
+      "path": "whisper-tiny/merges.txt",
+      "size": 493869,
+      "sha256": "2df2990a395e35e8dfbc7511e08c12d56018d8d04691e0133e5d63b21e154dc6",
+      "source": "https://huggingface.co/Xenova/whisper-tiny/resolve/5332fcc35e32a33b86612b9a57a89be7906102b1/merges.txt",
+      "group": "whisper-tiny",
+      "cache": "transformers-cache"
+    },
+    {
+      "path": "whisper-tiny/normalizer.json",
+      "size": 52666,
+      "sha256": "bf1c507dc8724ca9cf9903640dacfb69dae2f00edee4f21ceba106a7392f26dd",
+      "source": "https://huggingface.co/Xenova/whisper-tiny/resolve/5332fcc35e32a33b86612b9a57a89be7906102b1/normalizer.json",
+      "group": "whisper-tiny",
+      "cache": "transformers-cache"
+    },
+    {
+      "path": "whisper-tiny/onnx/decoder_model_merged_quantized.onnx",
+      "size": 30727765,
+      "sha256": "6c0c125986b007d2e3734bec84c18bda0152071b90b87fadac6d7764499927a0",
+      "source": "https://huggingface.co/Xenova/whisper-tiny/resolve/5332fcc35e32a33b86612b9a57a89be7906102b1/onnx/decoder_model_merged_quantized.onnx",
+      "group": "whisper-tiny",
+      "cache": "transformers-cache"
+    },
+    {
+      "path": "whisper-tiny/onnx/encoder_model_quantized.onnx",
+      "size": 10124910,
+      "sha256": "fd9d995b9dcb0520f0dbf6cf68651af639fc385f594d9d876e69ca2802dc438e",
+      "source": "https://huggingface.co/Xenova/whisper-tiny/resolve/5332fcc35e32a33b86612b9a57a89be7906102b1/onnx/encoder_model_quantized.onnx",
+      "group": "whisper-tiny",
+      "cache": "transformers-cache"
+    },
+    {
+      "path": "whisper-tiny/preprocessor_config.json",
+      "size": 339,
+      "sha256": "a6a76d28c93edb273669eb9e0b0636a2bddbb1272c3261e47b7ca6dfdbac1b8d",
+      "source": "https://huggingface.co/Xenova/whisper-tiny/resolve/5332fcc35e32a33b86612b9a57a89be7906102b1/preprocessor_config.json",
+      "group": "whisper-tiny",
+      "cache": "transformers-cache"
+    },
+    {
+      "path": "whisper-tiny/quant_config.json",
+      "size": 2840,
+      "sha256": "757dc2d96699ce44e209c63c79ee4d41758a4baff39de9c5bc59ad90de454e81",
+      "source": "https://huggingface.co/Xenova/whisper-tiny/resolve/5332fcc35e32a33b86612b9a57a89be7906102b1/quant_config.json",
+      "group": "whisper-tiny",
+      "cache": "transformers-cache"
+    },
+    {
+      "path": "whisper-tiny/quantize_config.json",
+      "size": 2840,
+      "sha256": "5be0072d627cc8094c2051c38629aed10a509844f562de6d17277756ff0a602c",
+      "source": "https://huggingface.co/Xenova/whisper-tiny/resolve/5332fcc35e32a33b86612b9a57a89be7906102b1/quantize_config.json",
+      "group": "whisper-tiny",
+      "cache": "transformers-cache"
+    },
+    {
+      "path": "whisper-tiny/special_tokens_map.json",
+      "size": 2194,
+      "sha256": "e67ae3a0aaa99abcd9f187138e12db1f65c16a14761c50ef10eef2c174a7a691",
+      "source": "https://huggingface.co/Xenova/whisper-tiny/resolve/5332fcc35e32a33b86612b9a57a89be7906102b1/special_tokens_map.json",
+      "group": "whisper-tiny",
+      "cache": "transformers-cache"
+    },
+    {
+      "path": "whisper-tiny/tokenizer.json",
+      "size": 2480466,
+      "sha256": "27fc476bfe7f17299480be2273fc0608e4d5a99aba2ab5dec5374b4482d1a566",
+      "source": "https://huggingface.co/Xenova/whisper-tiny/resolve/5332fcc35e32a33b86612b9a57a89be7906102b1/tokenizer.json",
+      "group": "whisper-tiny",
+      "cache": "transformers-cache"
+    },
+    {
+      "path": "whisper-tiny/tokenizer_config.json",
+      "size": 282683,
+      "sha256": "2a4c4281cf9f51ac6ccc406fdc711a087afe6530f671fa7b80953edc498275ce",
+      "source": "https://huggingface.co/Xenova/whisper-tiny/resolve/5332fcc35e32a33b86612b9a57a89be7906102b1/tokenizer_config.json",
+      "group": "whisper-tiny",
+      "cache": "transformers-cache"
+    },
+    {
+      "path": "whisper-tiny/vocab.json",
+      "size": 1036584,
+      "sha256": "50d6a919f0a0601d56a04eb583c780d18553aa388254ba3158eb6a00f13e2c1a",
+      "source": "https://huggingface.co/Xenova/whisper-tiny/resolve/5332fcc35e32a33b86612b9a57a89be7906102b1/vocab.json",
+      "group": "whisper-tiny",
+      "cache": "transformers-cache"
+    },
+    {
+      "path": "qwen7b/model.wasm",
+      "source": "https://raw.githubusercontent.com/mlc-ai/binary-mlc-llm-libs/025bcaf3780fa8254f5e5efd3bfea0a5397248f4/web-llm-models/v0_2_84/base/Qwen2-7B-Instruct-q4f16_1_cs1k-webgpu.wasm",
+      "group": "qwen7b",
+      "cache": "webllm/wasm",
+      "size": 5339669,
+      "sha256": "2aa567bea574b72ac250a25fa3524487fd28a218dad49eac8650eda2771396a3"
+    }
+  ],
+  "packages": [
+    {
+      "name": "qwen7b-part-1.tar",
+      "group": "qwen7b",
+      "files": [
+        "qwen7b/mlc-chat-config.json",
+        "qwen7b/model.wasm",
+        "qwen7b/ndarray-cache.json",
+        "qwen7b/params_shard_0.bin",
+        "qwen7b/params_shard_1.bin",
+        "qwen7b/params_shard_10.bin",
+        "qwen7b/params_shard_11.bin",
+        "qwen7b/params_shard_12.bin",
+        "qwen7b/params_shard_13.bin",
+        "qwen7b/params_shard_14.bin",
+        "qwen7b/params_shard_15.bin",
+        "qwen7b/params_shard_16.bin",
+        "qwen7b/params_shard_17.bin",
+        "qwen7b/params_shard_18.bin",
+        "qwen7b/params_shard_19.bin",
+        "qwen7b/params_shard_2.bin",
+        "qwen7b/params_shard_20.bin",
+        "qwen7b/params_shard_21.bin",
+        "qwen7b/params_shard_22.bin",
+        "qwen7b/params_shard_23.bin",
+        "qwen7b/params_shard_24.bin",
+        "qwen7b/params_shard_25.bin",
+        "qwen7b/params_shard_26.bin",
+        "qwen7b/params_shard_27.bin",
+        "qwen7b/params_shard_28.bin",
+        "qwen7b/params_shard_29.bin"
+      ]
+    },
+    {
+      "name": "qwen7b-part-2.tar",
+      "group": "qwen7b",
+      "files": [
+        "qwen7b/params_shard_3.bin",
+        "qwen7b/params_shard_30.bin",
+        "qwen7b/params_shard_31.bin",
+        "qwen7b/params_shard_32.bin",
+        "qwen7b/params_shard_33.bin",
+        "qwen7b/params_shard_34.bin",
+        "qwen7b/params_shard_35.bin",
+        "qwen7b/params_shard_36.bin",
+        "qwen7b/params_shard_37.bin",
+        "qwen7b/params_shard_38.bin",
+        "qwen7b/params_shard_39.bin",
+        "qwen7b/params_shard_4.bin",
+        "qwen7b/params_shard_40.bin",
+        "qwen7b/params_shard_41.bin",
+        "qwen7b/params_shard_42.bin",
+        "qwen7b/params_shard_43.bin",
+        "qwen7b/params_shard_44.bin",
+        "qwen7b/params_shard_45.bin",
+        "qwen7b/params_shard_46.bin",
+        "qwen7b/params_shard_47.bin",
+        "qwen7b/params_shard_48.bin",
+        "qwen7b/params_shard_49.bin",
+        "qwen7b/params_shard_5.bin",
+        "qwen7b/params_shard_50.bin",
+        "qwen7b/params_shard_51.bin",
+        "qwen7b/params_shard_52.bin",
+        "qwen7b/params_shard_53.bin",
+        "qwen7b/params_shard_54.bin",
+        "qwen7b/params_shard_55.bin",
+        "qwen7b/params_shard_56.bin",
+        "qwen7b/params_shard_57.bin",
+        "qwen7b/params_shard_58.bin",
+        "qwen7b/params_shard_59.bin",
+        "qwen7b/params_shard_6.bin"
+      ]
+    },
+    {
+      "name": "qwen7b-part-3.tar",
+      "group": "qwen7b",
+      "files": [
+        "qwen7b/params_shard_60.bin",
+        "qwen7b/params_shard_61.bin",
+        "qwen7b/params_shard_62.bin",
+        "qwen7b/params_shard_63.bin",
+        "qwen7b/params_shard_64.bin",
+        "qwen7b/params_shard_65.bin",
+        "qwen7b/params_shard_66.bin",
+        "qwen7b/params_shard_67.bin",
+        "qwen7b/params_shard_68.bin",
+        "qwen7b/params_shard_69.bin",
+        "qwen7b/params_shard_7.bin",
+        "qwen7b/params_shard_70.bin",
+        "qwen7b/params_shard_71.bin",
+        "qwen7b/params_shard_72.bin",
+        "qwen7b/params_shard_73.bin",
+        "qwen7b/params_shard_74.bin",
+        "qwen7b/params_shard_75.bin",
+        "qwen7b/params_shard_76.bin",
+        "qwen7b/params_shard_77.bin",
+        "qwen7b/params_shard_78.bin",
+        "qwen7b/params_shard_79.bin",
+        "qwen7b/params_shard_8.bin",
+        "qwen7b/params_shard_80.bin",
+        "qwen7b/params_shard_81.bin",
+        "qwen7b/params_shard_82.bin",
+        "qwen7b/params_shard_83.bin",
+        "qwen7b/params_shard_84.bin",
+        "qwen7b/params_shard_85.bin",
+        "qwen7b/params_shard_86.bin",
+        "qwen7b/params_shard_87.bin",
+        "qwen7b/params_shard_9.bin",
+        "qwen7b/tokenizer.json"
+      ]
+    },
+    {
+      "name": "whisper-tiny-part-1.tar",
+      "group": "whisper-tiny",
+      "files": [
+        "whisper-tiny/added_tokens.json",
+        "whisper-tiny/config.json",
+        "whisper-tiny/generation_config.json",
+        "whisper-tiny/merges.txt",
+        "whisper-tiny/normalizer.json",
+        "whisper-tiny/onnx/decoder_model_merged_quantized.onnx",
+        "whisper-tiny/onnx/encoder_model_quantized.onnx",
+        "whisper-tiny/preprocessor_config.json",
+        "whisper-tiny/quant_config.json",
+        "whisper-tiny/quantize_config.json",
+        "whisper-tiny/special_tokens_map.json",
+        "whisper-tiny/tokenizer.json",
+        "whisper-tiny/tokenizer_config.json",
+        "whisper-tiny/vocab.json"
+      ]
+    }
+  ]
+}
