@@ -39,6 +39,7 @@ async function submit(kind,slug,code){
    if(saved.ok&&!saved.redirected)result.synced=true;
   }catch(_){}
  }
+ result.outputs=results.map(r=>typeof r.stdout==='string'?r.stdout:'');
  return result;
 }
 window.BrowserPython={run,submit};

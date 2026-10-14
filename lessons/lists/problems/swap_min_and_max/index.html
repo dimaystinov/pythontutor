@@ -51,7 +51,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 <link rel="apple-touch-icon" href="/pythontutor/static/pwa/icon-192.png">
 <script defer src="/pythontutor/static/pwa/app.js?v=solved3"></script>
 <script src="/pythontutor/static/pwa/storage.js?v=solved3"></script>
-<meta name="csrf-token" content="4TcFuQcPJ2OFsNy5FMDNXbyUBRmI4bMu5IqA0xbIzrXP42WU2h2r9i4sTHdj7xzg">
+<meta name="csrf-token" content="LeDatBJ5ZrmWPFCIgjX0yr5TUoeznCOGeXo2vYfxGzjsMt1vheOQxjB5f8cxr3o2">
 
 	<title>Интерактивный учебник языка Python</title>
 
@@ -63,7 +63,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 	<script type="text/javascript" src="/pythontutor/static/js/jquery-3.7.1.min.js"></script>
 	<script type="text/javascript" src="/pythontutor/static/bootstrap/js/bootstrap.min.js"></script>
     <script src="/pythontutor/static/js/site.js?v=5"></script>
-    <script src="/pythontutor/static/js/browser-execution.js?v=5"></script>
+    <script src="/pythontutor/static/js/browser-execution.js?v=outputs6"></script>
     <script>window.MathJax = {options: {enableMenu: false}, loader: {load: []}, tex: {packages: {'[-]': ['autoload', 'require']}}, svg: {fontCache: 'local'}};</script>
     <script defer src="/pythontutor/static/vendor/mathjax/tex-svg.js"></script>
 
@@ -87,9 +87,9 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 
 
 	<link rel="stylesheet" type="text/css" href="/pythontutor/static/css/lesson.css?v=solved3">
-	<link rel="stylesheet" type="text/css" href="/pythontutor/static/css/problem.css?v=verdict4">
+	<link rel="stylesheet" type="text/css" href="/pythontutor/static/css/problem.css?v=snakes5">
 
-	<script type="text/javascript" src="/pythontutor/static/js/problem.js?v=verdict4"></script>
+	<script type="text/javascript" src="/pythontutor/static/js/problem.js?v=snakes5"></script>
 
 	<script type="text/javascript">
 		var problem_name = 'swap_min_and_max';
@@ -294,6 +294,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 			<th scope="col">Входные данные</th>
 
 			<th scope="col">Правильный ответ</th>
+			<th class="test_output">Что вывела программа</th>
 			<th class="test_result">Результат</th>
 		</tr></thead>
 		<tbody>
@@ -303,6 +304,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 				<td><pre class="input">3 4 5 2 1</pre></td>
 
 				<td><pre class="output">3 4 1 2 5</pre></td>
+				<td class="test_output"><pre></pre></td>
 				<td class="test_result"></td>
 			</tr>
 			
@@ -311,6 +313,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 				<td><pre class="input">1 5 4 3 2</pre></td>
 
 				<td><pre class="output">5 1 4 3 2</pre></td>
+				<td class="test_output"><pre></pre></td>
 				<td class="test_result"></td>
 			</tr>
 			
@@ -319,6 +322,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 				<td><pre class="input">-30000 30000</pre></td>
 
 				<td><pre class="output">30000 -30000</pre></td>
+				<td class="test_output"><pre></pre></td>
 				<td class="test_result"></td>
 			</tr>
 			
@@ -327,6 +331,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 				<td><pre class="input">1</pre></td>
 
 				<td><pre class="output">1</pre></td>
+				<td class="test_output"><pre></pre></td>
 				<td class="test_result"></td>
 			</tr>
 			
@@ -335,6 +340,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 				<td><pre class="input">2147483647 -2147483648</pre></td>
 
 				<td><pre class="output">-2147483648 2147483647</pre></td>
+				<td class="test_output"><pre></pre></td>
 				<td class="test_result"></td>
 			</tr>
 			
@@ -343,6 +349,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 				<td><pre class="input">1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 17 16 15 14</pre></td>
 
 				<td><pre class="output">18 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 1 17 16 15 14</pre></td>
+				<td class="test_output"><pre></pre></td>
 				<td class="test_result"></td>
 			</tr>
 			
@@ -351,6 +358,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 				<td><pre class="input">1 2 3 4 5 6 7 8 9 10</pre></td>
 
 				<td><pre class="output">10 2 3 4 5 6 7 8 9 1</pre></td>
+				<td class="test_output"><pre></pre></td>
 				<td class="test_result"></td>
 			</tr>
 			
@@ -359,6 +367,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 				<td><pre class="input">10 9 8 7 6 5 4 3 2 1</pre></td>
 
 				<td><pre class="output">1 9 8 7 6 5 4 3 2 10</pre></td>
+				<td class="test_output"><pre></pre></td>
 				<td class="test_result"></td>
 			</tr>
 			

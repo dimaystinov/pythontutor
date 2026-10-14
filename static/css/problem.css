@@ -62,3 +62,22 @@
 }
 
 .submission-status.is-solved { color: green; font-weight: bold; }
+
+/* Result table follows the original: airy white rows, real stdout and snake verdicts. */
+#example_tests { width:100%; margin-top:15px; border-collapse:collapse; }
+#example_tests > thead > tr > th,
+#example_tests > tbody > tr > td { padding:12px; border-top:1px solid #eceeef; border-bottom:0; vertical-align:top; }
+#example_tests > tbody > tr.success > td,
+#example_tests > tbody > tr.warning > td,
+#example_tests > tbody > tr.danger > td,
+#example_tests > tbody > tr.active > td { background:#fff; }
+#example_tests pre { background:transparent; border:0; border-radius:0; padding:0; margin:10px 0 0; color:#373a3c; font-size:14px; line-height:1.5; max-height:260px; overflow:auto; }
+#example_tests td.debug_me { width:165px; text-align:left; }
+#example_tests td.debug_me button { padding:8px 12px; font-size:16px; white-space:nowrap; background:#fff; border:1px solid #ccc; border-radius:4px; }
+#example_tests .debug_me button:hover { background:#f3f6f8; }
+#example_tests .test_output { display:none; min-width:110px; }
+#example_tests .test_result { width:110px; min-width:95px; }
+#example_tests .test-snake { display:block; width:4em; height:auto; margin:8px auto 0; }
+#example_tests tr.success .test_result { color:#7b895d; }
+#example_tests tr.warning .test_result, #example_tests tr.danger .test_result { color:#a94442; }
+#example_tests tr.active .test_result { color:#777; }
