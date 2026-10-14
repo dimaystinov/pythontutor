@@ -53,8 +53,8 @@
 
 	<p id="submission-status" class="submission-status" role="status" aria-live="polite"></p>
 	{% if next_task %}<p id="submission-next-task" hidden>Следующая задача: <a href="{{ next_task.url }}">{{ next_task.title }}</a></p>{% endif %}
-	<div id="knowledge-unlock" class="alert alert-success" {% if not knowledge_unlocked %}hidden{% endif %}>
-        Задача решена. <a href="{% url 'knowledge_problem' problem.urlname %}">Посмотреть рекомендуемое решение и другие способы</a>
+	<div id="knowledge-unlock" class="knowledge-unlock" {% if not knowledge_unlocked %}hidden{% endif %}>
+        <a href="{% url 'knowledge_problem' problem.urlname %}">Посмотреть рекомендуемое решение и другие способы</a>
     </div>
     <div class="table-responsive">
 	<h3>Тесты</h3>
