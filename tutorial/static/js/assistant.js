@@ -124,16 +124,14 @@
     layout();
     function setOpen(open){
         panel.hidden=!open;divider.hidden=!open;launcher.hidden=open;
-        try{sessionStorage.setItem('tutor-panel-open',open?'yes':'no');}catch(_){}launcher.setAttribute('aria-expanded',String(open));document.body.classList.toggle('tutor-open',open);window.dispatchEvent(new Event('resize'));
+        launcher.setAttribute('aria-expanded',String(open));document.body.classList.toggle('tutor-open',open);window.dispatchEvent(new Event('resize'));
         if(open){updateCode();if(question&&!loaded)history();if(question)question.focus();}
         else {stopCall();if(recording)finishRecording(false);launcher.focus();}
     }
     launcher.addEventListener('click',()=>setOpen(true));$('tutor-close').addEventListener('click',()=>setOpen(false));
     $('tutor-expand').addEventListener('click',()=>{const full=panel.classList.toggle('fullscreen');$('tutor-expand').setAttribute('aria-pressed',String(full));$('tutor-expand').setAttribute('aria-label',full?'Вернуть боковую панель':'Развернуть на весь экран');});
     document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden)setOpen(false);});
-    let initiallyOpen=window.innerWidth>=900;
-    try{const saved=sessionStorage.getItem('tutor-panel-open');if(saved)initiallyOpen=saved==='yes';}catch(_){}
-    if(initiallyOpen)setOpen(true);
+    // Each page starts with the launcher only; opening requires a user click.
     if(!question)return;
     model?.addEventListener('change',()=>{if(busy)return;stopCall();window.TutorLocalAI.stop();loaded=false;try{localStorage.setItem('tutor-ai-model',model.value);}catch(_){}describeModel();history();});
     $('tutor-prepare-ai')?.addEventListener('click',()=>prepareModel().catch(e=>notice(e.message||String(e),true)));
