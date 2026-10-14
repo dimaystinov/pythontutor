@@ -83,3 +83,10 @@
 }
 .lesson_sections .problems_link li.solved > a:hover,
 .lesson_sections .problems_link li.solved > a:focus { background: rgba(0, 0, 0, 0.03); }
+
+/* Original unfinished-task colour, shared by lesson and task menus. */
+.lesson_sections .problems_link li.unsolved { background: rgba(252, 168, 132, 0.3); }
+.lesson_sections .problems_link li.unsolved > a,
+.lesson_sections .problems_link li.unsolved > a.active { color: #0275d8; background: transparent; }
+.lesson_sections .problems_link li.unsolved > a:hover,
+.lesson_sections .problems_link li.unsolved > a:focus { background: rgba(0, 0, 0, 0.03); }

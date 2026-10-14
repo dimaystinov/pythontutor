@@ -49,9 +49,9 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 <link rel="manifest" href="/pythontutor/manifest.webmanifest">
 <meta name="theme-color" content="#e3ebf1">
 <link rel="apple-touch-icon" href="/pythontutor/static/pwa/icon-192.png">
-<script defer src="/pythontutor/static/pwa/app.js?v=solved3"></script>
-<script src="/pythontutor/static/pwa/storage.js?v=solved3"></script>
-<meta name="csrf-token" content="I32Ex8Nr1WheeIyxhg4ToGDk6I4nfh8nPOty6Mtb5frpaXYsZ1hx7KEOqy1QOI3A">
+<script defer src="/pythontutor/static/pwa/app.js?v=progress6"></script>
+<script src="/pythontutor/static/pwa/storage.js?v=progress6"></script>
+<meta name="csrf-token" content="dmm3IqyyB0j0GizSs9gqsVr2QMIDmxNMV8c4wBcuQLSroZGZJTpvoCSVHQpETKpX">
 
 	<title>Интерактивный учебник языка Python</title>
 
@@ -89,7 +89,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
                     
                 </ul>
 				<div class="navbar-text navbar-right">
-					<span>Локальная версия · <a href="/pythontutor/pwa/">Мой прогресс</a></span>
+					<span>Локальная версия · <a href="/pythontutor/pwa/">Мой прогресс</a> · <a href="/pythontutor/pwa/#settings">Настройки</a></span>
 				</div>
 			</div>
 		</div>
@@ -104,7 +104,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 
 	
 <h1>Питонтьютор без интернета</h1>
-<p>Скачайте весь курс один раз: 15 уроков, 134 задачи, 8 заданий OpenCV, тесты и среду Python. После загрузки можно закрыть браузер и продолжить без работающего сервера.</p>
+<p>Скачайте весь курс один раз: 15 уроков, 134 задачи, 14 заданий OpenCV, тесты и среду Python. После загрузки можно закрыть браузер и продолжить без работающего сервера.</p>
 <p>Проверка полностью выполняется на устройстве. Решения, черновики и история помощника хранятся только в этом браузере. Qwen и Whisper загружаются автоматически при первом использовании соответствующей функции помощника. Все учебные функции работают на устройстве. Учётная запись не нужна.</p>
 <p><button id="pwa-download" class="btn btn-primary">Скачать для работы без интернета</button> <button id="pwa-open" class="btn btn-default" disabled>Открыть локальную версию</button> <button id="pwa-online" class="btn btn-default">Вернуться на сайт</button></p>
 <p><button id="pwa-install" class="btn btn-default">Установить приложение</button></p>
@@ -114,6 +114,18 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 <h2>Локальный прогресс</h2><div id="pwa-results"></div>
 <p><button id="pwa-export" class="btn btn-default">Скачать резервную копию данных</button> <label class="btn btn-default">Восстановить из копии <input id="pwa-import" type="file" accept="application/json" hidden></label></p>
 <p>Очистка данных сайта удаляет локальные решения и скачанный курс. Сохраните резервную копию перед очисткой или сменой устройства.</p>
+<h2 id="settings">Настройки</h2>
+<p>За этим компьютером будет заниматься другой ученик? Можно начать обучение с чистого листа.</p>
+<button id="pwa-reset" class="btn btn-default">Начать обучение заново</button>
+<div id="pwa-reset-confirm" hidden role="region" aria-label="Подтверждение очистки прогресса" style="margin-top:16px;padding:16px;border:1px solid #ddd;border-radius:4px">
+ <h3>Очистить прогресс на этом устройстве?</h3>
+ <p>Будут удалены решения, отметки в меню, черновики Python и OpenCV, переписка с помощником в текущем локальном профиле. Отменить очистку можно только восстановлением резервной копии.</p>
+ <p>Курс, среда Python и скачанные модели останутся на устройстве. Открытые вкладки учебника перезагрузятся.</p>
+ <p>Чтобы сохранить работу, сначала нажмите «Скачать резервную копию данных» выше.</p>
+ <button id="pwa-reset-cancel" class="btn btn-default">Отмена</button>
+ <button id="pwa-reset-accept" class="btn btn-danger">Очистить прогресс</button>
+ <p id="pwa-reset-message" role="status"></p>
+</div>
 
 
 
