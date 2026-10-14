@@ -1,0 +1,29 @@
+{
+  "slug": "hsv-red",
+  "title": "HSV: красный через два диапазона",
+  "origin": "authored",
+  "summary": "Выделите красно-оранжевые участки мяча. Красный находится по обе стороны границы шкалы H: одной маски недостаточно.",
+  "hints": [
+    "Постройте две маски через inRange: одну для начала шкалы оттенка, другую для её конца.",
+    "Объедините маски операцией cv2.bitwise_or. Не складывайте uint8-маски: при пересечении диапазонов возможно переполнение."
+  ],
+  "recommended": {
+    "title": "Цветовая маска HSV",
+    "code": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\nhsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)\nmask0 = cv2.inRange(hsv, (0, 120, 60), (15, 255, 255))\nmask1 = cv2.inRange(hsv, (170, 120, 60), (179, 255, 255))\nmask = cv2.bitwise_or(mask0, mask1)\nresult = mask\ncv2.imwrite('output.png', result)\n",
+    "explanation": "Преобразуем BGR в HSV, проверяем включительные границы каналов и сохраняем маску 0/255.",
+    "time_complexity": "O(H × W)",
+    "space_complexity": "O(H × W)"
+  },
+  "alternatives": [],
+  "pitfalls": [
+    "Не путайте RGB с BGR: cv2.imread возвращает BGR.",
+    "У OpenCV оттенок H заканчивается на 179, не на 255.",
+    "Цветовая маска выделяет пиксели, а не распознаёт предметы."
+  ],
+  "sources": [
+    {
+      "title": "Исходные учебные фотографии",
+      "url": "https://github.com/dimaystinov/dimaystinov.github.io"
+    }
+  ]
+}

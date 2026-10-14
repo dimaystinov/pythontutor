@@ -7,10 +7,10 @@
 <script defer src="{{ STATIC_URL }}js/image-task.js?v=pwa1"></script>
 {% endblock %}
 {% block body %}
-<p><a href="/static/hsv/index.html">Лаборатория HSV — подобрать цвет и маску</a></p>
+<p><a href="/static/hsv/index.html">Лаборатория HSV — подобрать цвет и маску</a> · <a href="/static/hsv/theory.html">Теория: HSV и ползунки</a></p>
 <p><a href="{% url 'image_index' %}">← Все задачи с изображениями</a> · <a href="{% url 'image_assignments' %}">Мои задания</a></p>
-<h1>{{ task.title }}</h1>
-<p>{{ task.statement }}</p>
+<section data-tutor-material><h1>{{ task.title }}</h1>
+<p>{{ task.statement }}</p></section>
 <p>Прочитайте входной файл через <code>cv2.imread('input.png')</code> и сохраните результат командой <code>cv2.imwrite('output.png', result)</code>. Используйте также <code>numpy</code> и <code>PIL</code>. Результат появится ниже; <code>cv2.imshow()</code> в этой среде не используется.</p>
 <div id="image-task" data-slug="{{ task.slug }}" data-run-url="{% url 'image_run' task.slug %}" data-submit-url="{% url 'image_submit' task.slug %}">
     <h2 class="h4" id="image-code-label">Код Python</h2>

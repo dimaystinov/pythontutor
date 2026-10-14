@@ -22,7 +22,7 @@
 {% block lesson_body %}
 	<h3 class="page-header">{% include "_sidebar_toggle.html" %}Занятие {{ lesson_in_course.order }}. {% include "_lesson_title.html" %}</h3>
 
-	{{ lesson|lesson_content }}
+	<section data-tutor-material>{{ lesson|lesson_content }}</section>
 
 	{% if problems %}
 		<hr>

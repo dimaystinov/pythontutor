@@ -27,9 +27,9 @@ for p in ROOT.rglob('*.html'):
   if not dest.is_file():missing.add((p.relative_to(ROOT).as_posix(),url))
 for item in sorted(missing): print('MISSING',*item)
 counts={};total=0
-for kind,expected in [('problem',134),('image',8)]:
+for kind,expected in [('problem',134),('image',14)]:
  files=list((ROOT/'browser/tests'/kind).glob('*/index.json'));assert len(files)==expected
  count=sum(len(json.loads(p.read_text())['tests']) for p in files);counts[kind]=count;total+=count
-assert counts=={'problem':1302,'image':24},counts
+assert counts=={'problem':1302,'image':42},counts
 assert not missing,f'{len(missing)} broken internal references'
-print('PASS 304 pages; 134 Python tasks/1302 tests; 8 OpenCV tasks/24 tests; internal links and assets exist')
+print('PASS 316 pages; 134 Python tasks/1302 tests; 14 OpenCV tasks/42 tests; internal links and assets exist')

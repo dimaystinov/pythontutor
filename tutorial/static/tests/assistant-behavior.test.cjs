@@ -13,3 +13,9 @@ const src=fs.readFileSync('tutorial/static/js/assistant.js','utf8');
  await mj.mathQueue;assert.equal(rendered.length,1);assert.ok(rendered[0].includes('frac'));
  console.log('PASS shared automatic loading; dynamic formulas; unsafe TeX remains plain text');
 })().catch(e=>{console.error(e);process.exit(1);});
+// A long sidebar must not replace the problem statement sent to the local model.
+const materialContext=vm.createContext({document:{querySelector:selector=>selector==='[data-tutor-material]'?{innerText:'  Задача «Площадь прямоугольного треугольника»\nСчитайте два катета. Выведите площадь.  '}: {innerText:'Меню '.repeat(500)}}});
+vm.runInContext(src.slice(src.indexOf('    function currentMaterial()'),src.indexOf('    async function send(')),materialContext);
+assert.equal(materialContext.currentMaterial(),'Задача «Площадь прямоугольного треугольника»\nСчитайте два катета. Выведите площадь.');
+materialContext.document.querySelector=()=>null;assert.equal(materialContext.currentMaterial(),'');
+console.log('PASS task context excludes sidebar and handles missing material');

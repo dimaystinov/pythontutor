@@ -1,0 +1,29 @@
+{
+  "slug": "hsv-apples",
+  "title": "HSV: зелёные участки яблок",
+  "origin": "authored",
+  "summary": "Получите маску зелёных и жёлто-зелёных участков яблок. Красные бока и тёмный фон останутся чёрными: цветовая маска не обязана выделять яблоко целиком.",
+  "hints": [
+    "Объект может содержать несколько цветов. Эта задача выделяет только участки заданного цвета, а не все яблоки целиком.",
+    "Нижняя граница V убирает тёмный фон; нижняя S убирает малонасыщенные участки. Соберите их вместе с диапазоном H."
+  ],
+  "recommended": {
+    "title": "Цветовая маска HSV",
+    "code": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\nhsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)\nmask0 = cv2.inRange(hsv, (25, 80, 40), (85, 255, 255))\nmask = mask0\nresult = mask\ncv2.imwrite('output.png', result)\n",
+    "explanation": "Преобразуем BGR в HSV, проверяем включительные границы каналов и сохраняем маску 0/255.",
+    "time_complexity": "O(H × W)",
+    "space_complexity": "O(H × W)"
+  },
+  "alternatives": [],
+  "pitfalls": [
+    "Не путайте RGB с BGR: cv2.imread возвращает BGR.",
+    "У OpenCV оттенок H заканчивается на 179, не на 255.",
+    "Цветовая маска выделяет пиксели, а не распознаёт предметы."
+  ],
+  "sources": [
+    {
+      "title": "Исходные учебные фотографии",
+      "url": "https://github.com/dimaystinov/dimaystinov.github.io"
+    }
+  ]
+}

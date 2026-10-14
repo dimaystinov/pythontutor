@@ -17,3 +17,8 @@ assert.ok(messages[0].content.includes('print(1)'),'Editor is background, not th
 console.log('PASS conversational context and complete natural answers');
 
 assert.equal(messages.filter(m=>m.role==='system').length,1,'WebLLM accepts system only at index zero');
+const taskMessages=context.window.TutorLocalAI.dialogueMessages('qwen',{question:'Объясни условие простыми словами',context:'Задача «Площадь прямоугольного треугольника». Считайте длины двух катетов. Выведите площадь.',turns:[{question:'Помоги',answer:'Какую задачу?'}]});
+assert.ok(taskMessages[0].content.includes('Считайте длины двух катетов'));
+assert.ok(taskMessages[0].content.includes('Не проси назвать задачу повторно'));
+assert.equal(taskMessages.at(-1).content,'Объясни условие простыми словами');
+console.log('PASS current statement accompanies follow-up questions despite stale chat history');

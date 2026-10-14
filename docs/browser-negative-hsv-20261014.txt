@@ -1,0 +1,13 @@
+PASS hsv-blue correct ["ok","ok","ok"]
+PASS hsv-blue blank ["wrong_answer","wrong_answer","wrong_answer"]
+PASS hsv-moon correct ["ok","ok","ok"]
+PASS hsv-moon blank ["wrong_answer","wrong_answer","wrong_answer"]
+PASS hsv-sky correct ["ok","ok","ok"]
+PASS hsv-sky blank ["wrong_answer","wrong_answer","wrong_answer"]
+PASS hsv-apples correct ["ok","ok","ok"]
+PASS hsv-apples blank ["wrong_answer","wrong_answer","wrong_answer"]
+PASS hsv-red correct ["ok","ok","ok"]
+PASS hsv-red blank ["wrong_answer","wrong_answer","wrong_answer"]
+PASS hsv-color correct ["ok","ok","ok"]
+PASS hsv-color blank ["wrong_answer","wrong_answer","wrong_answer"]
+DONE 36 checks, 0 failures

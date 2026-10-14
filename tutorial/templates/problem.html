@@ -30,11 +30,13 @@
 
 {% block lesson_body %}
 	<h3 class="lesson_name">{% include "_sidebar_toggle.html" %}<a href="{% url 'lesson_in_course' lesson.name %}">Занятие {{ lesson_in_course.order }}</a>. {% include "_lesson_title.html" %}</h3>
+	<section data-tutor-material>
 	<h3 class="problem_name">Задача &laquo;{{ problem.name }}&raquo;</h3>
 	<hr>
 
 	<h4 class="statement-title">Условие</h4>
 	{{ problem.statement | safe }}
+    </section>
     {% if figure %}<figure class="task-figure"><img src="{{ STATIC_URL }}{{ figure.src }}" alt="{{ figure.caption }}" width="480" height="220"><figcaption>{{ figure.caption }}</figcaption></figure>{% endif %}
 
 	<hr>

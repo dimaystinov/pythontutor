@@ -16,6 +16,8 @@ FIGURES = {
 
 def task_hints(slug, image=False):
     data = article(slug, image=image) or {}
+    if len(data.get('hints', [])) == 2:
+        return [{'text': text, 'example': ''} for text in data['hints']]
     beginner = None if image else guide(slug)
     first = beginner['hint'] if beginner else data.get('summary', 'Разберите входные данные и определите, что должно получиться на выходе.')
     pitfalls = data.get('pitfalls', [])

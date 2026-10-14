@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="{{ STATIC_URL }}css/assistant.css?v=9">
-<script defer src="/static/pwa/local-ai.js?v=learning2"></script>
+<script defer src="/static/pwa/local-ai.js?v=task-context3"></script>
 <script defer src="/static/pwa/local-voice.js?v=1"></script>
-<script defer src="{{ STATIC_URL }}js/assistant.js?v=learning2"></script>
+<script defer src="{{ STATIC_URL }}js/assistant.js?v=task-context3"></script>
 <button id="tutor-launcher" type="button" aria-expanded="false" aria-controls="tutor-panel" aria-label="ИИ-помощник" title="ИИ-помощник"><span aria-hidden="true">🐍</span></button>
 <div id="tutor-divider" role="separator" aria-label="Ширина помощника" aria-orientation="vertical" aria-valuemin="28" aria-valuemax="60" aria-valuenow="42" tabindex="0" hidden></div>
 <aside id="tutor-panel" hidden aria-label="ИИ-помощник по текущей задаче" data-url="{% url 'assistant_chat' ai_kind ai_slug %}" data-kind="{{ ai_kind }}" data-learning-context="{{ tutor_learning_context }}" data-user="{{ request.user.pk|default:'' }}" data-stt="{% url 'assistant_transcribe' %}" data-worklet="{{ STATIC_URL }}js/tutor-audio-worklet.js" data-auth="{{ request.user.is_authenticated|yesno:'yes,no' }}">

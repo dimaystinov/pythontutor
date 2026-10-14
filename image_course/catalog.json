@@ -166,5 +166,131 @@
         "expected": "expected/crop-2.png"
       }
     ]
+  },
+  {
+    "slug": "hsv-blue",
+    "title": "HSV: синий колпачок",
+    "statement": "Выделите синие участки колпачка маркера на фотографии стола. Прочитайте input.png и преобразуйте BGR в HSV (OpenCV: H от 0 до 179, S и V от 0 до 255). Диапазоны: H=100…140, S=100…255, V=50…255. Все границы включительны. Сохраните одноканальную маску uint8: подходящий пиксель — 255, остальные — 0 в output.png без изменения размеров. Проверка сравнивает пиксели на трёх версиях фотографии. На своём изображении можно экспериментировать отдельно.",
+    "starter": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\n\n# Выделите нужные пиксели и сохраните output.png\n",
+    "solution": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\nhsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)\nmask0 = cv2.inRange(hsv, (100, 100, 50), (140, 255, 255))\nmask = mask0\nresult = mask\ncv2.imwrite('output.png', result)\n",
+    "tests": [
+      {
+        "input": "fixtures/hsv-img-0.png",
+        "expected": "expected/hsv-blue-0.png"
+      },
+      {
+        "input": "fixtures/hsv-img-1.png",
+        "expected": "expected/hsv-blue-1.png"
+      },
+      {
+        "input": "fixtures/hsv-img-2.png",
+        "expected": "expected/hsv-blue-2.png"
+      }
+    ]
+  },
+  {
+    "slug": "hsv-moon",
+    "title": "HSV: Луна на вечернем небе",
+    "statement": "Отделите светлые малонасыщенные участки Луны от неба. Здесь важнее насыщенность S и яркость V, чем оттенок H. Прочитайте input.png и преобразуйте BGR в HSV (OpenCV: H от 0 до 179, S и V от 0 до 255). Диапазоны: H=0…179, S=0…90, V=120…255. Все границы включительны. Сохраните одноканальную маску uint8: подходящий пиксель — 255, остальные — 0 в output.png без изменения размеров. Проверка сравнивает пиксели на трёх версиях фотографии. На своём изображении можно экспериментировать отдельно.",
+    "starter": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\n\n# Выделите нужные пиксели и сохраните output.png\n",
+    "solution": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\nhsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)\nmask0 = cv2.inRange(hsv, (0, 0, 120), (179, 90, 255))\nmask = mask0\nresult = mask\ncv2.imwrite('output.png', result)\n",
+    "tests": [
+      {
+        "input": "fixtures/hsv-moon-0.png",
+        "expected": "expected/hsv-moon-0.png"
+      },
+      {
+        "input": "fixtures/hsv-moon-1.png",
+        "expected": "expected/hsv-moon-1.png"
+      },
+      {
+        "input": "fixtures/hsv-moon-2.png",
+        "expected": "expected/hsv-moon-2.png"
+      }
+    ]
+  },
+  {
+    "slug": "hsv-sky",
+    "title": "HSV: маска голубого неба",
+    "statement": "Выделите голубые и синие участки неба; белые облака с низкой насыщенностью не должны попасть в эту маску. Прочитайте input.png и преобразуйте BGR в HSV (OpenCV: H от 0 до 179, S и V от 0 до 255). Диапазоны: H=90…130, S=50…255, V=50…255. Все границы включительны. Сохраните одноканальную маску uint8: подходящий пиксель — 255, остальные — 0 в output.png без изменения размеров. Проверка сравнивает пиксели на трёх версиях фотографии. На своём изображении можно экспериментировать отдельно.",
+    "starter": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\n\n# Выделите нужные пиксели и сохраните output.png\n",
+    "solution": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\nhsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)\nmask0 = cv2.inRange(hsv, (90, 50, 50), (130, 255, 255))\nmask = mask0\nresult = mask\ncv2.imwrite('output.png', result)\n",
+    "tests": [
+      {
+        "input": "fixtures/hsv-sky-0.png",
+        "expected": "expected/hsv-sky-0.png"
+      },
+      {
+        "input": "fixtures/hsv-sky-1.png",
+        "expected": "expected/hsv-sky-1.png"
+      },
+      {
+        "input": "fixtures/hsv-sky-2.png",
+        "expected": "expected/hsv-sky-2.png"
+      }
+    ]
+  },
+  {
+    "slug": "hsv-apples",
+    "title": "HSV: зелёные участки яблок",
+    "statement": "Получите маску зелёных и жёлто-зелёных участков яблок. Красные бока и тёмный фон останутся чёрными: цветовая маска не обязана выделять яблоко целиком. Прочитайте input.png и преобразуйте BGR в HSV (OpenCV: H от 0 до 179, S и V от 0 до 255). Диапазоны: H=25…85, S=80…255, V=40…255. Все границы включительны. Сохраните одноканальную маску uint8: подходящий пиксель — 255, остальные — 0 в output.png без изменения размеров. Проверка сравнивает пиксели на трёх версиях фотографии. На своём изображении можно экспериментировать отдельно.",
+    "starter": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\n\n# Выделите нужные пиксели и сохраните output.png\n",
+    "solution": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\nhsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)\nmask0 = cv2.inRange(hsv, (25, 80, 40), (85, 255, 255))\nmask = mask0\nresult = mask\ncv2.imwrite('output.png', result)\n",
+    "tests": [
+      {
+        "input": "fixtures/hsv-apples-0.png",
+        "expected": "expected/hsv-apples-0.png"
+      },
+      {
+        "input": "fixtures/hsv-apples-1.png",
+        "expected": "expected/hsv-apples-1.png"
+      },
+      {
+        "input": "fixtures/hsv-apples-2.png",
+        "expected": "expected/hsv-apples-2.png"
+      }
+    ]
+  },
+  {
+    "slug": "hsv-red",
+    "title": "HSV: красный через два диапазона",
+    "statement": "Выделите красно-оранжевые участки мяча. Красный находится по обе стороны границы шкалы H: одной маски недостаточно. Прочитайте input.png и преобразуйте BGR в HSV (OpenCV: H от 0 до 179, S и V от 0 до 255). Диапазоны: H=0…15, S=120…255, V=60…255; H=170…179, S=120…255, V=60…255. Все границы включительны. Объедините два диапазона логическим ИЛИ. Сохраните одноканальную маску uint8: подходящий пиксель — 255, остальные — 0 в output.png без изменения размеров. Проверка сравнивает пиксели на трёх версиях фотографии. На своём изображении можно экспериментировать отдельно.",
+    "starter": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\n\n# Выделите нужные пиксели и сохраните output.png\n",
+    "solution": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\nhsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)\nmask0 = cv2.inRange(hsv, (0, 120, 60), (15, 255, 255))\nmask1 = cv2.inRange(hsv, (170, 120, 60), (179, 255, 255))\nmask = cv2.bitwise_or(mask0, mask1)\nresult = mask\ncv2.imwrite('output.png', result)\n",
+    "tests": [
+      {
+        "input": "fixtures/hsv-img-0.png",
+        "expected": "expected/hsv-red-0.png"
+      },
+      {
+        "input": "fixtures/hsv-img-1.png",
+        "expected": "expected/hsv-red-1.png"
+      },
+      {
+        "input": "fixtures/hsv-img-2.png",
+        "expected": "expected/hsv-red-2.png"
+      }
+    ]
+  },
+  {
+    "slug": "hsv-color",
+    "title": "HSV: яблоки на чёрном фоне",
+    "statement": "Сохраните исходные BGR-цвета зелёных участков яблок, а остальные пиксели сделайте чёрными. В этой задаче результат — цветная фотография, а не чёрно-белая маска. Прочитайте input.png и преобразуйте BGR в HSV (OpenCV: H от 0 до 179, S и V от 0 до 255). Диапазоны: H=25…85, S=80…255, V=40…255. Все границы включительны. Сохраните цветной результат в output.png без изменения размеров. Проверка сравнивает пиксели на трёх версиях фотографии. На своём изображении можно экспериментировать отдельно.",
+    "starter": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\n\n# Выделите нужные пиксели и сохраните output.png\n",
+    "solution": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\nhsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)\nmask0 = cv2.inRange(hsv, (25, 80, 40), (85, 255, 255))\nmask = mask0\nresult = cv2.bitwise_and(image, image, mask=mask)\ncv2.imwrite('output.png', result)\n",
+    "tests": [
+      {
+        "input": "fixtures/hsv-apples-0.png",
+        "expected": "expected/hsv-color-0.png"
+      },
+      {
+        "input": "fixtures/hsv-apples-1.png",
+        "expected": "expected/hsv-color-1.png"
+      },
+      {
+        "input": "fixtures/hsv-apples-2.png",
+        "expected": "expected/hsv-color-2.png"
+      }
+    ]
   }
 ]

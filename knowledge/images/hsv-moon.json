@@ -1,0 +1,29 @@
+{
+  "slug": "hsv-moon",
+  "title": "HSV: Луна на вечернем небе",
+  "origin": "authored",
+  "summary": "Отделите светлые малонасыщенные участки Луны от неба. Здесь важнее насыщенность S и яркость V, чем оттенок H.",
+  "hints": [
+    "У почти серого объекта насыщенность S мала, а яркость V заметно выше фона.",
+    "Разрешите весь диапазон H от 0 до 179, ограничьте S сверху, а V снизу. Границы включаются в маску."
+  ],
+  "recommended": {
+    "title": "Цветовая маска HSV",
+    "code": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\nhsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)\nmask0 = cv2.inRange(hsv, (0, 0, 120), (179, 90, 255))\nmask = mask0\nresult = mask\ncv2.imwrite('output.png', result)\n",
+    "explanation": "Преобразуем BGR в HSV, проверяем включительные границы каналов и сохраняем маску 0/255.",
+    "time_complexity": "O(H × W)",
+    "space_complexity": "O(H × W)"
+  },
+  "alternatives": [],
+  "pitfalls": [
+    "Не путайте RGB с BGR: cv2.imread возвращает BGR.",
+    "У OpenCV оттенок H заканчивается на 179, не на 255.",
+    "Цветовая маска выделяет пиксели, а не распознаёт предметы."
+  ],
+  "sources": [
+    {
+      "title": "Исходные учебные фотографии",
+      "url": "https://github.com/dimaystinov/dimaystinov.github.io"
+    }
+  ]
+}

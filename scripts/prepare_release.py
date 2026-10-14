@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Prepare a clean first-publication snapshot, never copy credentials or Git history."""
-import hashlib, json, shutil, subprocess, zipfile
+import argparse, hashlib, json, shutil, subprocess, zipfile
+parser=argparse.ArgumentParser()
+parser.add_argument("--snapshot-only", action="store_true")
+args=parser.parse_args()
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 out=ROOT/'dist/release-source'
@@ -14,6 +17,9 @@ for name in paths:
  if p.name.startswith('.env') and p.name!='.env.example':continue
  if p.parts[:2]==('docs','superpowers') or (p.parts[0]=='docs' and p.suffix in {'.png','.jpg'}):continue
  target=out/p;target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(ROOT/p,target)
+if args.snapshot_only:
+ print(out)
+ raise SystemExit(0)
 assets=ROOT/'dist/releases';assets.mkdir(exist_ok=True)
 for folder,name in [(out,'pythontutor-source-v1.0.0.zip'),(ROOT/'dist/pages','pythontutor-pages-v1.0.0.zip')]:
  with zipfile.ZipFile(assets/name,'w',zipfile.ZIP_DEFLATED) as z:

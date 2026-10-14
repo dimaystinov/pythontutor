@@ -141,6 +141,11 @@
     function clearImage(){attachment=null;$('tutor-image').value='';$('tutor-attachment').hidden=true;}
     $('tutor-remove-image').addEventListener('click',clearImage);
     $('tutor-image').addEventListener('change',()=>{const file=$('tutor-image').files[0];if(!file){clearImage();return;}if(!['image/png','image/jpeg'].includes(file.type)||file.size>2*1024*1024){clearImage();notice('Выберите PNG или JPEG до 2 МБ.',true);return;}attachment=file;$('tutor-attachment').hidden=false;panel.querySelector('#tutor-attachment span').textContent=file.name;});
+    function currentMaterial(){
+        // Navigation and chat history must never displace the current statement.
+        const material=document.querySelector('[data-tutor-material]');
+        return material ? material.innerText.trim() : '';
+    }
     async function send(text,fromVoice=false){
         if(busy)return null;text=text.trim();if(!text)return null;
         if(text.length>3000){notice('Сократите вопрос до 3000 символов.',true);return null;}
@@ -156,7 +161,7 @@
                 model.disabled=true;
                 const slug=panel.dataset.url.split('/').filter(Boolean).pop();
                 const record=await window.TutorDevice.get(panel.dataset.kind,slug);
-                const context=(document.querySelector('.main')||document.getElementById('tutor-content')).innerText;
+                const context=currentMaterial();
                 const answer=await window.TutorLocalAI.answer(model.value,{question:text,code,context,learningContext:panel.dataset.learningContext,turns:localHistory(),solved:!!record?.solved||document.getElementById('knowledge-unlock')?.hidden===false},notice);
                 const result={question:text,answer,id:'local-'+crypto.randomUUID()};
                 message('user',text);message('assistant',answer);
