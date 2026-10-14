@@ -1,0 +1,19 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const context=vm.createContext({window:{}});
+vm.runInContext(fs.readFileSync('tutorial/static/pwa/local-ai.js','utf8'),context);
+const {hintOnly,choices}=context.window.TutorLocalAI;
+const full='Вы складываете строку с числом. Как проверить тип? Вот исправленный код:\n```python\nprint(int(input())+1)\n```';
+assert.equal(hintOnly(full,false),'Вы складываете строку с числом. Как проверить тип?');
+assert.equal(hintOnly(full,true),full,'After success full explanation and code remain available');
+assert.ok(!hintOnly('```python\nprint(42)\n```',false).includes('print'));
+assert.ok(choices.some(m=>m.id==='Qwen2.5-Coder-1.5B-Instruct-q4f16_1-MLC'));
+console.log('PASS local hints hide ready code until success; solved explanations preserved');
+const conversational='Привет! Я помогу разобраться. Можно начать с условия. Потом посмотрим твой код.';
+assert.equal(hintOnly(conversational,false),conversational,'Normal conversation must not be cut to two sentences');
+const messages=context.window.TutorLocalAI.dialogueMessages('Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC',{question:'А почему?',code:'print(1)',context:'Урок',turns:[{question:'Что такое int?',answer:'Преобразование в целое число.'}],solved:false});
+assert.equal(messages.at(-1).content,'А почему?','Latest question must be the actual user message');
+assert.ok(messages.some(m=>m.role==='assistant'&&m.content.includes('Преобразование')),'Preserve dialogue context');
+assert.ok(messages[0].content.includes('print(1)'),'Editor is background, not the latest question');
+console.log('PASS conversational context and complete natural answers');
+
+assert.equal(messages.filter(m=>m.role==='system').length,1,'WebLLM accepts system only at index zero');

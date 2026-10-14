@@ -1,0 +1,31 @@
+{
+  "slug": "purchase_price",
+  "title": "Стоимость покупки",
+  "origin": "authored",
+  "summary": "Переводим цену в копейки и умножаем на количество.",
+  "recommended": {
+    "title": "Одна денежная единица",
+    "code": "a = int(input())\nb = int(input())\nn = int(input())\ntotal = (100 * a + b) * n\nprint(total // 100, total % 100)\n",
+    "explanation": "Деление на 100 даёт рубли, остаток — копейки.",
+    "time_complexity": "O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Перенос копеек",
+      "code": "a = int(input())\nb = int(input())\nn = int(input())\nrubles = a * n + b * n // 100\nkopecks = b * n % 100\nprint(rubles, kopecks)\n",
+      "explanation": "Отдельно умножаем рубли и копейки, затем переносим каждые 100 копеек в рубли.",
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "Нельзя выводить b*n без остатка: итоговых копеек должно быть меньше 100."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/int_and_float/problems/purchase_price/"
+    }
+  ]
+}

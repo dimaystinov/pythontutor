@@ -1,0 +1,32 @@
+{
+  "slug": "sets_intersection",
+  "title": "Пересечение множеств",
+  "origin": "authored",
+  "summary": "Множества удаляют повторы, а сортировка задаёт порядок вывода.",
+  "recommended": {
+    "title": "Пересечение множеств",
+    "code": "a = set(map(int, input().split()))\nb = set(map(int, input().split()))\nprint(*sorted(a & b))\n",
+    "explanation": "Оператор & оставляет элементы, присутствующие в обоих множествах.",
+    "time_complexity": "O(n+m+k log k) в среднем; k — размер пересечения",
+    "space_complexity": "O(n+m)"
+  },
+  "alternatives": [
+    {
+      "title": "Два указателя по отсортированным спискам",
+      "code": "a = sorted(map(int, input().split()))\nb = sorted(map(int, input().split()))\ni = j = 0\nlast = None\nwhile i < len(a) and j < len(b):\n    if a[i] < b[j]:\n        i += 1\n    elif a[i] > b[j]:\n        j += 1\n    else:\n        if a[i] != last:\n            print(a[i])\n            last = a[i]\n        i += 1\n        j += 1\n",
+      "explanation": "Меньший элемент не может совпасть с текущим большим, поэтому двигаем его указатель. Запоминаем последнее выведенное значение для удаления повторов.",
+      "time_complexity": "O(n log n + m log m)",
+      "space_complexity": "O(n+m)"
+    }
+  ],
+  "pitfalls": [
+    "Сортировать нужно числа, а не их текстовые записи.",
+    "Каждый общий элемент выводится один раз."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/sets/problems/sets_intersection/"
+    }
+  ]
+}

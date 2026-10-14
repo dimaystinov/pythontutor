@@ -1,0 +1,31 @@
+{
+  "slug": "rect_triangle_square",
+  "title": "Площадь прямоугольного треугольника",
+  "origin": "authored",
+  "summary": "Площадь равна половине произведения катетов.",
+  "recommended": {
+    "title": "Деление произведения",
+    "code": "a = int(input())\nb = int(input())\nprint(a * b / 2)\n",
+    "explanation": "Произведение сначала вычисляется точно в целых числах.",
+    "time_complexity": "O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Сохраняем площадь",
+      "code": "a = int(input())\nb = int(input())\narea = a * b / 2\nprint(area)\n",
+      "explanation": "Вычисление и вывод записаны отдельными строками.",
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "Оператор // потеряет половину единицы при нечётном произведении."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/inout_and_arithmetic_operations/problems/rect_triangle_square/"
+    }
+  ]
+}

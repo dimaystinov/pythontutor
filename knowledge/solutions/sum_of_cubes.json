@@ -1,0 +1,31 @@
+{
+  "slug": "sum_of_cubes",
+  "title": "Сумма кубов",
+  "origin": "authored",
+  "summary": "Сумма кубов первых n чисел равна квадрату их суммы.",
+  "recommended": {
+    "title": "Рекомендуемый подход",
+    "code": "n = int(input())\ns = n * (n + 1) // 2\nprint(s * s)\n",
+    "explanation": "Используем тождество 1³+…+n³ = (n(n+1)/2)². Целочисленное деление сохраняет точность.",
+    "time_complexity": "O(1) арифметических операций; стоимость зависит от длины целых",
+    "space_complexity": "O(1) числовых переменных, размер чисел зависит от n"
+  },
+  "alternatives": [
+    {
+      "title": "Другой способ",
+      "code": "n = int(input())\ntotal = 0\nfor i in range(1, n + 1):\n    total += i ** 3\nprint(total)\n",
+      "explanation": "Прямое суммирование буквально повторяет условие; полезно для понимания и проверки формулы.",
+      "time_complexity": "O(n) арифметических операций; стоимость зависит от длины целых",
+      "space_complexity": "O(1) числовых переменных, размер чисел зависит от n"
+    }
+  ],
+  "pitfalls": [
+    "При вычислении треугольного числа используйте //, а не /."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/for_loop/problems/sum_of_cubes/"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{% extends '_base_basic.html' %}
+{% block body %}
+<h1>Питонтьютор без интернета</h1>
+<p>Скачайте весь курс один раз: 15 уроков, 134 задачи, 8 заданий OpenCV, тесты и среду Python. После загрузки можно закрыть браузер и продолжить без работающего сервера.</p>
+<p>Проверка полностью выполняется на устройстве. Локальные решения хранятся в этом браузере отдельно от учётной записи. Локальные Qwen и голосовой ввод Whisper скачиваются отдельно в помощнике. Облачный ИИ, регистрация и кабинет преподавателя требуют сети.</p>
+<p><button id="pwa-download" class="btn btn-primary">Скачать для работы без интернета</button> <button id="pwa-open" class="btn btn-default" disabled>Открыть локальную версию</button> <button id="pwa-online" class="btn btn-default">Вернуться на сайт</button></p>
+<p><button id="pwa-install" class="btn btn-default">Установить приложение</button></p>
+<p id="pwa-status" role="status">Проверяем доступность офлайн-режима…</p>
+<progress id="pwa-progress" value="0" max="100" hidden style="width:100%"></progress>
+<p>Для установки используйте кнопку установки в браузере. На iPhone/iPad: «Поделиться» → «На экран Домой». Для размещения на сервере нужен HTTPS; на этом компьютере подходит localhost.</p>
+<h2>Локальный прогресс</h2><div id="pwa-results"></div>
+<p><button id="pwa-export" class="btn btn-default">Скачать резервную копию решений</button> <label class="btn btn-default">Восстановить из копии <input id="pwa-import" type="file" accept="application/json" hidden></label></p>
+<p>Очистка данных сайта удаляет локальные решения и скачанный курс. Сохраните резервную копию перед очисткой или сменой устройства.</p>
+{% endblock %}

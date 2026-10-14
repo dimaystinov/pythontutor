@@ -1,0 +1,32 @@
+{
+  "slug": "genealogy_level_count",
+  "title": "Родословная: подсчет уровней",
+  "origin": "authored",
+  "summary": "Высота ребёнка на единицу больше высоты родителя.",
+  "recommended": {
+    "title": "Обход от корня",
+    "code": "n = int(input())\nparent = {}\nchildren = {}\nfor _ in range(n - 1):\n    child, ancestor = input().split()\n    parent[child] = ancestor\n    children.setdefault(ancestor, []).append(child)\n    children.setdefault(child, [])\n\nroot = next(name for name in children if name not in parent)\nlevel = {root: 0}\norder = [root]\nfor name in order:\n    for child in children[name]:\n        level[child] = level[name] + 1\n        order.append(child)\nfor name in sorted(level):\n    print(name, level[name])\n",
+    "explanation": "Корень — имя, которое не встречается ребёнком. От него распространяем известные уровни на детей.",
+    "time_complexity": "O(n log n) с сортировкой вывода; обход O(n)",
+    "space_complexity": "O(n)"
+  },
+  "alternatives": [
+    {
+      "title": "Подсчёт длины каждой цепочки",
+      "code": "n = int(input())\nparent = {}\nchildren = {}\nfor _ in range(n - 1):\n    child, ancestor = input().split()\n    parent[child] = ancestor\n    children.setdefault(ancestor, []).append(child)\n    children.setdefault(child, [])\n\nfor name in sorted(children):\n    current = name\n    level = 0\n    while current in parent:\n        current = parent[current]\n        level += 1\n    print(name, level)\n",
+      "explanation": "Для каждого имени отдельно считаем переходы к родителям до корня. Это допустимый учебный O(n²) подход.",
+      "time_complexity": "O(nh + n log n), h — высота",
+      "space_complexity": "O(n)"
+    }
+  ],
+  "pitfalls": [
+    "Корню соответствует уровень 0.",
+    "Имена выводятся по алфавиту, а не по уровню."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/dicts/problems/genealogy_level_count/"
+    }
+  ]
+}

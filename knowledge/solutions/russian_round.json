@@ -1,0 +1,33 @@
+{
+  "slug": "russian_round",
+  "title": "Округление по российским правилам",
+  "origin": "authored",
+  "summary": "При половине единицы округляем вверх; обычный round использует другое правило.",
+  "recommended": {
+    "title": "Явное правило округления Decimal",
+    "code": "from decimal import Decimal, ROUND_HALF_UP\nx = Decimal(input())\nprint(x.to_integral_value(rounding=ROUND_HALF_UP))\n",
+    "explanation": "Конструктор сохраняет все цифры введённой записи. to_integral_value округляет непосредственно до целого по правилу половина вверх и, в отличие от quantize, не требует помещать все цифры результата в точность контекста.",
+    "time_complexity": "O(L + E), включая вывод; E — длина результата",
+    "space_complexity": "O(L + E), входная запись и результат"
+  },
+  "alternatives": [
+    {
+      "title": "Точная дробь и сравнение остатка",
+      "code": "from fractions import Fraction\nx = Fraction(input())\nwhole, remainder = divmod(x.numerator, x.denominator)\nprint(whole + (2 * remainder >= x.denominator))\n",
+      "explanation": "После целочисленного деления остаток задаёт дробную часть. Если удвоенный остаток не меньше знаменателя, добавляем единицу. Вычисления точные, но работа с большими целыми дороже ограниченной вещественной арифметики.",
+      "time_complexity": "Чтение O(L); стоимость деления и сокращения зависит от длины числителя и знаменателя",
+      "space_complexity": "O(B), B — суммарное число бит числителя, знаменателя и результата"
+    }
+  ],
+  "pitfalls": [
+    "round(2.5) возвращает 2.",
+    "int(float(x) + 0.5) может неверно округлить число очень близко к половине.",
+    "Дано неотрицательное число; правило для отрицательных чисел здесь не требуется."
+  ],
+  "sources": [
+    {
+      "title": "Публичный архив PythonTutor 2017 года",
+      "url": "https://github.com/Behnisch/pythontutor-ru/tree/1a9193f/problems"
+    }
+  ]
+}

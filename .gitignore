@@ -1,0 +1,73 @@
+*.py[cod]
+
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+__pycache__
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+# virtualenv
+venv
+
+# Logs
+logs/*.log
+
+# Database
+*.db
+
+# Backups
+*.bak
+
+# Vagrant locals
+.vagrant
+logs
+
+# Static files
+collected_static
+
+# IDEs
+.idea
+
+# Modern self-host runtime (never package secrets or user data)
+.venv/
+.venv314/
+.env
+.env.*
+!.env.example
+data/
+backups/
+.pytest_cache/
+*.sqlite3
+.private/
+
+node_modules/
+.DS_Store

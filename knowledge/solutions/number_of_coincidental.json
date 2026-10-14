@@ -1,0 +1,31 @@
+{
+  "slug": "number_of_coincidental",
+  "title": "Количество совпадающих чисел",
+  "origin": "authored",
+  "summary": "Пересечение множеств оставляет общие различные числа.",
+  "recommended": {
+    "title": "Пересечение",
+    "code": "a = set(map(int, input().split()))\nb = set(map(int, input().split()))\nprint(len(a & b))\n",
+    "explanation": "Повторы внутри списков не влияют на число общих значений.",
+    "time_complexity": "O(n+m) в среднем",
+    "space_complexity": "O(n+m)"
+  },
+  "alternatives": [
+    {
+      "title": "Два указателя",
+      "code": "a = sorted(set(map(int, input().split())))\nb = sorted(set(map(int, input().split())))\ni = j = count = 0\nwhile i < len(a) and j < len(b):\n    if a[i] == b[j]:\n        count += 1\n        i += 1\n        j += 1\n    elif a[i] < b[j]:\n        i += 1\n    else:\n        j += 1\nprint(count)\n",
+      "explanation": "В отсортированных списках сдвигаем указатель у меньшего значения, а при совпадении оба.",
+      "time_complexity": "O(n log n + m log m)",
+      "space_complexity": "O(n+m)"
+    }
+  ],
+  "pitfalls": [
+    "Считаются различные общие значения, а не пары вхождений."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/sets/problems/number_of_coincidental/"
+    }
+  ]
+}

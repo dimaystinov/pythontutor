@@ -1,0 +1,31 @@
+{
+  "slug": "hello_harry",
+  "title": "Hello, Harry!",
+  "origin": "authored",
+  "summary": "Вставляем всё введённое имя в шаблон приветствия.",
+  "recommended": {
+    "title": "Соединяем строки",
+    "code": "name = input()\nprint('Hello, ' + name + '!')\n",
+    "explanation": "Знак + соединяет текст приветствия, имя и восклицательный знак.",
+    "time_complexity": "O(L)",
+    "space_complexity": "O(L)"
+  },
+  "alternatives": [
+    {
+      "title": "Печать частей без разделителя",
+      "code": "name = input()\nprint('Hello, ', name, '!', sep='')\n",
+      "explanation": "Параметр sep убирает автоматические пробелы print; нужный пробел уже есть после запятой.",
+      "time_complexity": "O(L)",
+      "space_complexity": "O(L)"
+    }
+  ],
+  "pitfalls": [
+    "После запятой нужен один пробел, перед восклицательным знаком пробела нет."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/inout_and_arithmetic_operations/problems/hello_harry/"
+    }
+  ]
+}

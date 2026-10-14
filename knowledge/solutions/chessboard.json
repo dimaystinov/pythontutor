@@ -1,0 +1,31 @@
+{
+  "slug": "chessboard",
+  "title": "Шахматная доска",
+  "origin": "authored",
+  "summary": "Выбираем символ по чётности суммы индексов.",
+  "recommended": {
+    "title": "Формула для клетки",
+    "code": "n, m = map(int, input().split())\na = [['.' if (i + j) % 2 == 0 else '*' for j in range(m)] for i in range(n)]\nfor row in a:\n    print(*row)\n",
+    "explanation": "Индексы начинаются с нуля, поэтому в левом верхнем углу чётная сумма и точка.",
+    "time_complexity": "O(nm)",
+    "space_complexity": "O(nm), создана матрица по условию"
+  },
+  "alternatives": [
+    {
+      "title": "Чередование символов",
+      "code": "n, m = map(int, input().split())\na = []\nfirst = '.'\nfor i in range(n):\n    row = []\n    char = first\n    for j in range(m):\n        row.append(char)\n        char = '*' if char == '.' else '.'\n    a.append(row)\n    first = '*' if first == '.' else '.'\nfor row in a:\n    print(*row)\n",
+      "explanation": "Переключаем символ после каждой клетки, а начальный символ — после каждой строки.",
+      "time_complexity": "O(nm)",
+      "space_complexity": "O(nm)"
+    }
+  ],
+  "pitfalls": [
+    "Нечётная ширина не должна нарушать чередование начала строк."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/2d_arrays/problems/chessboard/"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "slug": "motor_rally",
+  "title": "Автопробег",
+  "origin": "authored",
+  "summary": "Число дней — округлённое вверх частное.",
+  "recommended": {
+    "title": "Целочисленная формула",
+    "code": "n = int(input())\nm = int(input())\nprint((m + n - 1) // n)\n",
+    "explanation": "Добавление n−1 обеспечивает округление вверх для неотрицательного пути и положительного дневного пробега.",
+    "time_complexity": "O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Частное и остаток",
+      "code": "n = int(input())\nm = int(input())\ndays, rest = divmod(m, n)\nprint(days + (rest != 0))\n",
+      "explanation": "Полные дни дают частное, ненулевой остаток требует ещё одного дня.",
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "Не используйте обычное округление round: любой остаток требует целого дня."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/int_and_float/problems/motor_rally/"
+    }
+  ]
+}

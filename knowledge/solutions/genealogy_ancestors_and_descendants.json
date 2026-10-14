@@ -1,0 +1,32 @@
+{
+  "slug": "genealogy_ancestors_and_descendants",
+  "title": "Родословная: предки и потомки",
+  "origin": "authored",
+  "summary": "Предок содержит всё поддерево потомка; это можно проверить временами обхода.",
+  "recommended": {
+    "title": "Интервалы итеративного обхода",
+    "code": "n = int(input())\nparent = {}\nchildren = {}\nfor _ in range(n - 1):\n    child, ancestor = input().split()\n    parent[child] = ancestor\n    children.setdefault(ancestor, []).append(child)\n    children.setdefault(child, [])\nq = int(input())\nqueries = [input().split() for _ in range(q)]\nfor a, b in queries:\n    children.setdefault(a, [])\n    children.setdefault(b, [])\n\nenter, leave = {}, {}\nif children:\n    root = next(name for name in children if name not in parent)\n    stack = [(root, False)]\n    clock = 0\n    while stack:\n        name, exiting = stack.pop()\n        if exiting:\n            leave[name] = clock\n        else:\n            enter[name] = clock\n            clock += 1\n            stack.append((name, True))\n            for child in children[name]:\n                stack.append((child, False))\ndef ancestor(a, b):\n    return a != b and enter[a] <= enter[b] < leave[a]\nfor a, b in queries:\n    print(1 if ancestor(a, b) else 2 if ancestor(b, a) else 0)\n",
+    "explanation": "Время входа любой вершины поддерева попадает в интервал от входа до выхода его корня. Явный стек обрабатывает глубокие цепочки без рекурсии. Предок здесь строгий: одинаковые имена дают 0. Для единственной вершины имя восстанавливается из запросов.",
+    "time_complexity": "Ожидаемое O(n + q) без учёта длины имён",
+    "space_complexity": "O(n + q) записей, включая сохранённые запросы"
+  },
+  "alternatives": [
+    {
+      "title": "Подъём по родителям",
+      "code": "n = int(input())\nparent = {}\nchildren = {}\nfor _ in range(n - 1):\n    child, ancestor = input().split()\n    parent[child] = ancestor\n    children.setdefault(ancestor, []).append(child)\n    children.setdefault(child, [])\nq = int(input())\nqueries = [input().split() for _ in range(q)]\nfor a, b in queries:\n    children.setdefault(a, [])\n    children.setdefault(b, [])\n\ndef ancestor(a, b):\n    while b in parent:\n        b = parent[b]\n        if b == a:\n            return True\n    return False\nfor a, b in queries:\n    print(1 if ancestor(a, b) else 2 if ancestor(b, a) else 0)\n",
+      "explanation": "Ищем первое имя среди строгих предков второго, затем проверяем обратное направление. Подготовка проста, но каждый запрос может пройти всю высоту дерева.",
+      "time_complexity": "Ожидаемое O(n + q(h + 1)), h — высота",
+      "space_complexity": "O(n + q) записей"
+    }
+  ],
+  "pitfalls": [
+    "Не путайте ответ 1 (первое имя — предок) и 2.",
+    "Порядок строк ввода не обязан совпадать с обходом дерева."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/dicts/problems/genealogy_ancestors_and_descendants/"
+    }
+  ]
+}

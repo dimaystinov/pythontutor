@@ -1,0 +1,33 @@
+{
+  "slug": "watch_3",
+  "title": "Часы - 3",
+  "origin": "authored",
+  "summary": "Переводим угол в полные секунды и раскладываем их на часы, минуты и секунды.",
+  "recommended": {
+    "title": "Рекомендуемый подход",
+    "code": "from decimal import Decimal\nangle = Decimal(input())\ntotal = int(angle * 120)\nh, remainder = divmod(total, 3600)\nm, s = divmod(remainder, 60)\nprint(h, m, s)\n",
+    "explanation": "Decimal предотвращает двоичную погрешность около целой секунды для обычной длины входа. int отбрасывает неполную секунду; divmod выделяет полные единицы времени.",
+    "time_complexity": "O(d) для чтения d цифр; десятичная арифметика зависит от точности контекста, здесь фиксированной",
+    "space_complexity": "O(d) для записи и чисел"
+  },
+  "alternatives": [
+    {
+      "title": "Другой способ",
+      "code": "from fractions import Fraction\nangle = Fraction(input())\ntotal = (angle * 120).__floor__()\nh = total // 3600\nm = total // 60 % 60\ns = total % 60\nprint(h, m, s)\n",
+      "explanation": "Рациональная арифметика точно хранит десятичный ввод любой длины. Целая часть произведения на 120 задаёт количество полных секунд.",
+      "time_complexity": "O(d) на чтение d цифр; рациональная арифметика зависит от длины числа",
+      "space_complexity": "O(d) для записи и чисел"
+    }
+  ],
+  "pitfalls": [
+    "Нужны полные секунды: округление до ближайшей секунды неверно.",
+    "Часы не следует брать по модулю 12: тесты включают значения больше 12 часов.",
+    "Decimal использует конечную точность контекста; для необычно длинного ввода подходит Fraction."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/int_and_float/problems/watch_3/"
+    }
+  ]
+}

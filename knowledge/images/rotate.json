@@ -1,0 +1,28 @@
+{
+  "slug": "rotate",
+  "title": "Поворот на 90°",
+  "origin": "authored",
+  "summary": "Разбор задачи обработки изображений. N = H × W — число пикселей. Сложность включает чтение и запись изображения.",
+  "recommended": {
+    "title": "Обработка массива без циклов Python",
+    "code": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\nresult = cv2.rotate(image, cv2.ROTATE_90_CLOCKWISE)\ncv2.imwrite('output.png', result)\n",
+    "explanation": "cv2.rotate переставляет пиксели при повороте на 90 градусов без интерполяции. Ширина и высота меняются местами.",
+    "time_complexity": "O(N) при фиксированных параметрах фильтра",
+    "space_complexity": "O(N), включая исходное и результирующее изображение"
+  },
+  "alternatives": [
+    {
+      "title": "Поворот массива NumPy",
+      "code": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\nresult = np.rot90(image, k=-1).copy()\ncv2.imwrite('output.png', result)\n",
+      "explanation": "np.rot90 с k=-1 поворачивает массив по часовой стрелке. copy создаёт непрерывный буфер перед записью PNG.",
+      "time_complexity": "O(N)",
+      "space_complexity": "O(N), включая копии массивов"
+    }
+  ],
+  "pitfalls": [
+    "OpenCV читает цветные изображения в порядке BGR, а Pillow — RGB.",
+    "Сохраните результат в output.png; печать массива в консоль не заменяет изображение.",
+    "Проверка использует фиксированные тестовые картинки, а не загруженный вами пример."
+  ],
+  "sources": []
+}

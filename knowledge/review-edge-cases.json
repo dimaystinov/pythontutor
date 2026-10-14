@@ -1,0 +1,130 @@
+{
+  "python": "3.14.3 (main, Feb  3 2026, 15:32:20) [Clang 17.0.0 (clang-1700.6.3.2)]",
+  "reviewed_slugs": [
+    "digit_after_separator",
+    "russian_round",
+    "fractional_part",
+    "genealogy_lca",
+    "genealogy_ancestors_and_descendants",
+    "kth_fibonacci",
+    "usa_elections_2",
+    "watch_3",
+    "sum_of_cubes"
+  ],
+  "total": 244,
+  "passed": 244,
+  "archive_runs": 197,
+  "edge_runs": 47,
+  "failures": [],
+  "edge_cases": {
+    "digit_after_separator": [
+      {
+        "input": "0.1999999999999999999999999999999",
+        "expected": "1"
+      },
+      {
+        "input": "1e-100",
+        "expected": "0"
+      },
+      {
+        "input": "12.3e1",
+        "expected": "0"
+      },
+      {
+        "input": "0.3",
+        "expected": "3"
+      },
+      {
+        "input": "999999999999999999999999999999.9",
+        "expected": "9"
+      }
+    ],
+    "russian_round": [
+      {
+        "input": "0.49999999999999999",
+        "expected": "0"
+      },
+      {
+        "input": "0.5",
+        "expected": "1"
+      },
+      {
+        "input": "999999999999999999999999999999.5",
+        "expected": "1000000000000000000000000000000"
+      }
+    ],
+    "fractional_part": [
+      {
+        "input": "10000000000000000.25",
+        "expected": "0.25"
+      },
+      {
+        "input": "123456789012345678901234567890.125",
+        "expected": "0.125"
+      },
+      {
+        "input": "0.1999999999999999999999999999999",
+        "expected": "0.1999999999999999999999999999999"
+      },
+      {
+        "input": "2e3",
+        "expected": "0"
+      }
+    ],
+    "genealogy_lca": [
+      {
+        "input": "1\n1\nSolo Solo",
+        "expected": "Solo"
+      },
+      {
+        "input": "1\n0",
+        "expected": ""
+      },
+      {
+        "input": "1200-node chain with ancestor, root and self queries",
+        "expected": "N600\nN0\nN999"
+      }
+    ],
+    "genealogy_ancestors_and_descendants": [
+      {
+        "input": "1\n1\nSolo Solo",
+        "expected": "0"
+      },
+      {
+        "input": "1\n0",
+        "expected": ""
+      },
+      {
+        "input": "1200-node chain with ancestor, root and self queries",
+        "expected": "2\n1\n0"
+      }
+    ],
+    "kth_fibonacci": [
+      {
+        "input": "0",
+        "expected": "0"
+      },
+      {
+        "input": "1",
+        "expected": "1"
+      },
+      {
+        "input": "100",
+        "expected": "354224848179261915075"
+      }
+    ],
+    "sum_of_cubes": [
+      {
+        "input": "100",
+        "expected": "25502500"
+      }
+    ]
+  },
+  "comparison": "Archive: whitespace tokens, float absolute tolerance < 1e-3, else exact strings, as tutorial/tester.py. Edge cases: exact Decimal numerical equality or exact string tokens.",
+  "changes": [
+    "Exact decimal digit extraction, rounding, and fractional part without float loss or default-context rounding.",
+    "LCA binary lifting with O((n+q)log n) arithmetic/table work; iterative ancestor intervals.",
+    "Single-node query trees supported, names inferred from queries.",
+    "Scalable Fibonacci alternative and per-variant complexity corrections."
+  ]
+}

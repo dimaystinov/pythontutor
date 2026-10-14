@@ -1,0 +1,75 @@
+.problem_user_and_ideal_solutions {
+	margin-bottom: 7px;
+}
+
+.problem_user_and_ideal_solutions tbody td {
+	width: 50%;
+}
+
+.problem_user_and_ideal_solutions .visualizer_code {
+	margin-bottom: 0;
+}
+
+.lesson_sections,
+.lesson_sections ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	background: rgba(66, 139, 202, 0.1);
+}
+
+.lesson_sections {
+	padding-left: 0;
+	border-bottom: solid 2px #428bca;
+}
+
+.lesson_sections li {
+	position: relative;
+}
+
+.lesson_sections li > a {
+	text-decoration: none !important;
+	padding: 5px 0;
+	display: block;
+}
+
+.lesson_sections li > a { padding-left: 30px; }
+.lesson_sections li li > a { padding-left: 50px; }
+.lesson_sections li li li > a { padding-left: 70px; }
+
+.lesson_sections li a:hover,
+.lesson_sections li a:focus {
+	background: rgba(0, 0, 0, 0.03);
+}
+
+.lesson_sections li > .position_spin {
+	background: #6CBAEE;
+	position: absolute;
+	top: 0px;
+	left: 20px;
+	width: 2px;
+	height: 0px;
+}
+
+
+.lesson_sections .problems_link {
+	border-top: solid 1px #6CBAEE;
+	background: rgba(255, 255, 255, 0.4);
+}
+
+
+.section > h2, .section > h3, .section > h4, .section > h5, .section > h6,
+#problems > h2 {
+	/* from http://nicolasgallagher.com/jump-links-and-viewport-positioning/demo/#method-D */
+	border-top: 60px solid transparent;
+	margin-top: -60px;
+	position: relative;
+	top: 0px;
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding;
+	background-clip: padding-box;
+}
+
+/* Task labels need room in the narrow lesson column. */
+.lesson_sections .problems_link > a { padding:5px 10px; }
+.lesson_sections .problems_link > ul > li > a { padding:5px 12px 5px 16px; overflow-wrap:anywhere; }

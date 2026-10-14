@@ -1,0 +1,32 @@
+{
+  "slug": "bank_interest",
+  "title": "Банковские проценты",
+  "origin": "authored",
+  "summary": "Храним вклад в копейках и моделируем ежегодное начисление.",
+  "recommended": {
+    "title": "Целые копейки",
+    "code": "x = int(input())\np = int(input())\ny = int(input())\nmoney = x * 100\nyears = 0\nwhile money < y * 100:\n    money = money * (100 + p) // 100\n    years += 1\nprint(years)\n",
+    "explanation": "После каждого года отбрасываем только дробь копейки. При x >= y ответ равен нулю.",
+    "time_complexity": "O(t), t — число лет",
+    "space_complexity": "O(1) целочисленных переменных"
+  },
+  "alternatives": [
+    {
+      "title": "Раздельный учёт рублей и копеек",
+      "code": "rubles = int(input())\np = int(input())\ntarget = int(input())\nkopecks = 0\nyears = 0\nwhile rubles < target:\n    interest = (rubles * 100 + kopecks) * p // 100\n    rubles += interest // 100\n    kopecks += interest % 100\n    rubles += kopecks // 100\n    kopecks %= 100\n    years += 1\nprint(years)\n",
+      "explanation": "Вычисляем целую прибавку в копейках, затем переносим каждые 100 копеек в рубли.",
+      "time_complexity": "O(t)",
+      "space_complexity": "O(1) целочисленных переменных"
+    }
+  ],
+  "pitfalls": [
+    "Округлять до целых рублей нельзя.",
+    "Вещественные вычисления могут ошибиться на границе копейки."
+  ],
+  "sources": [
+    {
+      "title": "Публичный архив PythonTutor 2017 года",
+      "url": "https://github.com/Behnisch/pythontutor-ru/tree/1a9193f/problems"
+    }
+  ]
+}

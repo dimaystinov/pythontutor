@@ -1,0 +1,32 @@
+{
+  "slug": "king_move",
+  "title": "Ход короля",
+  "origin": "authored",
+  "summary": "Король меняет каждую координату не более чем на единицу.",
+  "recommended": {
+    "title": "Максимум модулей разностей",
+    "code": "x1 = int(input())\ny1 = int(input())\nx2 = int(input())\ny2 = int(input())\nprint('YES' if max(abs(x1 - x2), abs(y1 - y2)) == 1 else 'NO')\n",
+    "explanation": "Максимум равен 1 ровно для восьми соседних клеток; совпадающие клетки исключены.",
+    "time_complexity": "O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Проверка восьми направлений",
+      "code": "x1 = int(input())\ny1 = int(input())\nx2 = int(input())\ny2 = int(input())\n\ndirections = {(dx, dy) for dx in (-1, 0, 1) for dy in (-1, 0, 1) if dx != 0 or dy != 0}\nprint('YES' if (x2 - x1, y2 - y1) in directions else 'NO')\n",
+      "explanation": "Явно создаём восемь разрешённых векторов хода и проверяем перемещение по множеству.",
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1), восемь направлений"
+    }
+  ],
+  "pitfalls": [
+    "Диагональный ход разрешён.",
+    "Нельзя проверять только сумму расстояний: диагональ меняет две координаты."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/ifelse/problems/king_move/"
+    }
+  ]
+}

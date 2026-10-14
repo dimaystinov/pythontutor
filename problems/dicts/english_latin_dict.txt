@@ -1,0 +1,188 @@
+Name:
+Англо-латинский словарь
+
+Statement:
+<p>Однажды, разбирая старые книги на чердаке, школьник Вася нашёл англо-латинский словарь.
+Английский он к тому времени знал в совершенстве, и его мечтой было изучить латынь.
+Поэтому попавшийся словарь был как раз кстати.</p>
+
+<p>К сожалению, для полноценного изучения языка недостаточно только одного словаря: кроме англо-латинского необходим
+латинско-английский. За неимением лучшего он решил сделать второй словарь из первого.</p>
+
+<p>Как известно, словарь состоит из переводимых слов, к каждому из которых приводится несколько слов-переводов.
+Для каждого латинского слова, встречающегося где-либо в словаре, Вася предлагает найти все его переводы
+(то есть все английские слова, для которых наше латинское встречалось в его списке переводов),
+и считать их и только их переводами этого латинского слова.</p>
+
+<p>Помогите Васе выполнить работу по созданию латинско-английского словаря из англо-латинского.</p>
+
+<p>
+В первой строке содержится единственное целое число <code>N</code> — количество английских слов в словаре. 
+Далее следует <code>N</code> описаний. 
+Каждое описание содержится в отдельной строке, в которой записано сначала английское слово, затем отделённый пробелами дефис, затем разделённые запятыми с пробелами переводы этого английского слова на латинский. 
+Все слова состоят только из маленьких латинских букв.
+Переводы отсортированы в лексикографическом порядке. 
+Порядок следования английских слов в словаре также лексикографический.
+</p>
+<p>
+Выведите соответствующий данному латинско-английский словарь, в точности соблюдая формат входных данных. 
+В частности, первым должен идти перевод лексикографически минимального латинского слова, далее — второго в этом порядке и т.д. Внутри перевода английские слова должны быть также отсортированы лексикографически.
+</p>
+
+Test:
+3
+apple - malum, pomum, popula
+fruit - baca, bacca, popum
+punishment - malum, multa
+
+Answer:
+7
+baca - fruit
+bacca - fruit
+malum - apple, punishment
+multa - punishment
+pomum - apple
+popula - apple
+popum - fruit
+
+
+Test:
+1
+school - schola
+
+Answer:
+1
+schola - school
+
+
+Test:
+3
+greet - empfangen, willkommen
+silicon - silicon
+welcome - willkommen
+
+Answer:
+3
+empfangen - greet
+silicon - silicon
+willkommen - greet, welcome
+
+
+Test:
+2
+mef - mqax, xkr
+wemu - mqax
+
+Answer:
+2
+mqax - mef, wemu
+xkr - mef
+
+
+Test:
+3
+gfk - whao
+icfx - nil, whao
+utzs - brh
+
+Answer:
+3
+brh - utzs
+nil - icfx
+whao - gfk, icfx
+
+
+Test:
+5
+casy - moxd, oosz, pfh, wfp
+cgsy - pfh
+dlx - fma, lyq
+vja - fma, lyq, moxd, oosz, pfh, wfp, xrwv
+zfq - fma, lyq, tnqq, xrwv
+
+Answer:
+8
+fma - dlx, vja, zfq
+lyq - dlx, vja, zfq
+moxd - casy, vja
+oosz - casy, vja
+pfh - casy, cgsy, vja
+tnqq - zfq
+wfp - casy, vja
+xrwv - vja, zfq
+
+
+Test:
+6
+drxpeycnkp - fgoezltv, fgqedltc, fgqezltc, fsqezltc, tgqehltc
+oaxpeycnkp - fgqedltc, pgqezltu, tgqehltc
+yaxpefcnkr - fgqedltc, fgqezljc, fgqezlqc, fgqezltc, tgqehltc
+yaxpeycnkp - fgqedltc, fgqezlqc, fsqezltc
+yaxpeycnks - fgqedltc, fsqezltc, pgqezltu
+yaxteyckp - fgqedltc, fgqezljc, fgqezlqc, fsqezltc, pgqezltu
+
+Answer:
+8
+fgoezltv - drxpeycnkp
+fgqedltc - drxpeycnkp, oaxpeycnkp, yaxpefcnkr, yaxpeycnkp, yaxpeycnks, yaxteyckp
+fgqezljc - yaxpefcnkr, yaxteyckp
+fgqezlqc - yaxpefcnkr, yaxpeycnkp, yaxteyckp
+fgqezltc - drxpeycnkp, yaxpefcnkr
+fsqezltc - drxpeycnkp, yaxpeycnkp, yaxpeycnks, yaxteyckp
+pgqezltu - oaxpeycnkp, yaxpeycnks, yaxteyckp
+tgqehltc - drxpeycnkp, oaxpeycnkp, yaxpefcnkr
+
+
+Test:
+5
+fnpa - kbyip
+kbyip - kbyip, ojawe, ysye
+ojawe - fnpa, kbyip
+uyjge - kbyip
+ysye - ojawe
+
+Answer:
+4
+fnpa - ojawe
+kbyip - fnpa, kbyip, ojawe, uyjge
+ojawe - kbyip, ysye
+ysye - kbyip
+
+
+Test:
+6
+ddf - ngyj, nrbb, nrkh, wryj
+deds - ngyj, nrbb, nrkh, nryj, wryj
+dpds - ngyj, nrkh, nryj
+dudm - ngyj, nrkh, nrni, nryj, wryj
+duds - ngyj, nrbb, nrkh, nryj
+dujs - ngyj, nrbb, nrkh, wryj
+
+Answer:
+6
+ngyj - ddf, deds, dpds, dudm, duds, dujs
+nrbb - ddf, deds, duds, dujs
+nrkh - ddf, deds, dpds, dudm, duds, dujs
+nrni - dudm
+nryj - deds, dpds, dudm, duds
+wryj - ddf, deds, dudm, dujs
+
+
+Test:
+6
+cdb - cdb, crke, meqb, pyk, uel
+crke - cdb, crke, meqb, pyk, uel
+fvl - crke, meqb
+meqb - cdb
+pyk - crke, meqb, uel
+uel - cdb, crke, fvl
+
+Answer:
+6
+cdb - cdb, crke, meqb, uel
+crke - cdb, crke, fvl, pyk, uel
+fvl - uel
+meqb - cdb, crke, fvl, pyk
+pyk - cdb, crke
+uel - cdb, crke, pyk
+

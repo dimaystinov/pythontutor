@@ -1,0 +1,31 @@
+{
+  "slug": "diagonals",
+  "title": "Диагонали, параллельные главной",
+  "origin": "authored",
+  "summary": "Значение клетки равно расстоянию между её индексами.",
+  "recommended": {
+    "title": "Модуль разности",
+    "code": "n = int(input())\na = [[abs(i - j) for j in range(n)] for i in range(n)]\nfor row in a:\n    print(*row)\n",
+    "explanation": "На главной диагонали индексы равны, на соседних отличаются на один.",
+    "time_complexity": "O(n²)",
+    "space_complexity": "O(n²)"
+  },
+  "alternatives": [
+    {
+      "title": "Заполнение симметричных диагоналей",
+      "code": "n = int(input())\na = [[0] * n for _ in range(n)]\nfor distance in range(1, n):\n    for i in range(n - distance):\n        a[i][i + distance] = distance\n        a[i + distance][i] = distance\nfor row in a:\n    print(*row)\n",
+      "explanation": "Для каждого расстояния заполняем две симметричные диагонали одним значением.",
+      "time_complexity": "O(n²)",
+      "space_complexity": "O(n²)"
+    }
+  ],
+  "pitfalls": [
+    "Не создавайте матрицу через [[0] * n] * n: строки будут общими."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/2d_arrays/problems/diagonals/"
+    }
+  ]
+}

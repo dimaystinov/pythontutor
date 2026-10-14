@@ -1,0 +1,33 @@
+{
+  "slug": "shoelace",
+  "title": "Шнурки",
+  "origin": "authored",
+  "summary": "Считаем горизонтальные и вертикальные участки шнурка и два свободных конца.",
+  "recommended": {
+    "title": "Формула длины",
+    "code": "a = int(input())\nb = int(input())\nl = int(input())\nn = int(input())\nprint((2 * n - 1) * a + 2 * (n - 1) * b + 2 * l)\n",
+    "explanation": "По схеме один горизонтальный участок соединяет нижние отверстия. На каждом из n−1 следующих уровней обе ветви добавляют по горизонтальному участку a и вертикальному участку b. Всего получается 2n−1 горизонталей, 2(n−1) вертикалей и два конца длиной l.",
+    "time_complexity": "O(1) арифметических операций",
+    "space_complexity": "O(1) числовых переменных"
+  },
+  "alternatives": [
+    {
+      "title": "Наращивание по уровням",
+      "code": "a = int(input())\nb = int(input())\nl = int(input())\nn = int(input())\nlength = a + 2 * l\nfor _ in range(n - 1):\n    length += 2 * (a + b)\nprint(length)\n",
+      "explanation": "Начинаем с нижней перемычки и свободных концов. Каждый дополнительный уровень отверстий удлиняет обе ветви на a+b. Цикл помогает проверить смысл формулы, но при большом n формула быстрее.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(1) числовых переменных"
+    }
+  ],
+  "pitfalls": [
+    "Два свободных конца дают 2l.",
+    "Между n отверстиями в одном ряду только n−1 промежутков.",
+    "При n=1 ответ равен a+2l."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/inout_and_arithmetic_operations/problems/shoelace/"
+    }
+  ]
+}

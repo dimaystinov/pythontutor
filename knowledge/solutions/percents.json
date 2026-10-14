@@ -1,0 +1,31 @@
+{
+  "slug": "percents",
+  "title": "Проценты",
+  "origin": "authored",
+  "summary": "Считаем всю сумму в целых копейках.",
+  "recommended": {
+    "title": "Общий множитель",
+    "code": "p = int(input())\nx = int(input())\ny = int(input())\ntotal = (100 * x + y) * (100 + p) // 100\nprint(total // 100, total % 100)\n",
+    "explanation": "Целочисленное деление отбрасывает дробную часть копейки после начисления процентов.",
+    "time_complexity": "O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Отдельное начисление",
+      "code": "p = int(input())\nx = int(input())\ny = int(input())\nkopecks = 100 * x + y\ninterest = kopecks * p // 100\nprint(*divmod(kopecks + interest, 100))\n",
+      "explanation": "Проценты считаются отдельно; исходная сумма уже целая, поэтому усечение даёт тот же результат.",
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "float может внести ошибку у границы копейки; все денежные действия здесь целочисленные."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/int_and_float/problems/percents/"
+    }
+  ]
+}

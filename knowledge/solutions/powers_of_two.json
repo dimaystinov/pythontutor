@@ -1,0 +1,31 @@
+{
+  "slug": "powers_of_two",
+  "title": "Степень двойки",
+  "origin": "authored",
+  "summary": "Удваиваем степень, пока следующее удвоение ещё допустимо.",
+  "recommended": {
+    "title": "Последовательное удвоение",
+    "code": "n = int(input())\npower, exponent = 1, 0\nwhile power * 2 <= n:\n    power *= 2\n    exponent += 1\nprint(exponent, power)\n",
+    "explanation": "Инвариант: power — степень двойки с показателем exponent.",
+    "time_complexity": "O(log N)",
+    "space_complexity": "O(1) целых чисел"
+  },
+  "alternatives": [
+    {
+      "title": "Длина двоичной записи",
+      "code": "n = int(input())\nk = n.bit_length() - 1\nprint(k, 1 << k)\n",
+      "explanation": "Старший единичный бит задаёт нужную степень. Сдвиг не использует операцию возведения в степень.",
+      "time_complexity": "O(log N) с учётом создания результата в битовой модели",
+      "space_complexity": "O(log N) бит"
+    }
+  ],
+  "pitfalls": [
+    "При N=1 показатель равен нулю, степень равна единице."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/while/problems/powers_of_two/"
+    }
+  ]
+}

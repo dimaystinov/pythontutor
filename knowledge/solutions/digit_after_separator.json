@@ -1,0 +1,32 @@
+{
+  "slug": "digit_after_separator",
+  "title": "Первая цифра после точки",
+  "origin": "authored",
+  "summary": "Извлекаем цифру десятых из точного десятичного представления.",
+  "recommended": {
+    "title": "Цифра в точной десятичной записи",
+    "code": "from decimal import Decimal\nparts = Decimal(input()).as_tuple()\nindex = len(parts.digits) + parts.exponent\nprint(parts.digits[index] if 0 <= index < len(parts.digits) else 0)\n",
+    "explanation": "Decimal точно читает десятичную запись без арифметического округления. В as_tuple цифры хранятся отдельно от показателя степени десяти. После сдвига десятичной точки цифра десятых имеет индекс len(digits) + exponent; за пределами значащих цифр стоит ноль. Поддерживается и экспоненциальная запись.",
+    "time_complexity": "O(L), L — длина входной записи",
+    "space_complexity": "O(L) для цифр и входа"
+  },
+  "alternatives": [
+    {
+      "title": "Развёрнутая запись числа",
+      "code": "from decimal import Decimal\ns = format(Decimal(input()), 'f')\nfraction = s.partition('.')[2]\nprint(fraction[0] if fraction else '0')\n",
+      "explanation": "Разворачиваем экспоненциальную запись в обычную, затем берём первую цифру дробной части. Этот вариант проще читать, но очень большой показатель степени может создать длинную строку.",
+      "time_complexity": "O(L + E), E — длина развёрнутой записи",
+      "space_complexity": "O(L + E)"
+    }
+  ],
+  "pitfalls": [
+    "Вещественное умножение или Decimal с ограниченной точностью могут округлить число перед выделением цифры.",
+    "Если дробной части нет, ответ 0."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/int_and_float/problems/digit_after_separator/"
+    }
+  ]
+}

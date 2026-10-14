@@ -1,0 +1,32 @@
+{
+  "slug": "swap_two_words",
+  "title": "Переставить два слова",
+  "origin": "authored",
+  "summary": "Разделяем строку по единственному пробелу и меняем части местами.",
+  "recommended": {
+    "title": "Рекомендуемый подход",
+    "code": "s = input()\np = s.find(' ')\nresult = s[p + 1:] + ' ' + s[:p]\nprint(result)\n",
+    "explanation": "Индекс пробела задаёт границу двух срезов; циклы и if не нужны.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(n) для входа и результата"
+  },
+  "alternatives": [
+    {
+      "title": "Другой способ",
+      "code": "first, second = input().split()\nresult = second + ' ' + first\nprint(result)\n",
+      "explanation": "split выделяет два слова, которые затем соединяются в обратном порядке.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n) для входа и результата"
+    }
+  ],
+  "pitfalls": [
+    "Условие гарантирует ровно два слова.",
+    "Пробел не должен попасть внутрь среза слова."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/str/problems/swap_two_words/"
+    }
+  ]
+}

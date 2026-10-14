@@ -1,0 +1,32 @@
+{
+  "slug": "sum_of_digits",
+  "title": "Сумма цифр",
+  "origin": "authored",
+  "summary": "Выделяем три десятичные цифры числа.",
+  "recommended": {
+    "title": "Рекомендуемый подход",
+    "code": "n = int(input())\nprint(n // 100 + n // 10 % 10 + n % 10)\n",
+    "explanation": "Деление на 100 даёт сотни, деление на 10 с остатком по 10 — десятки, остаток по 10 — единицы.",
+    "time_complexity": "O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Другой способ",
+      "code": "s = input()\nprint(sum(map(int, s)))\n",
+      "explanation": "Каждый символ трёхзначной записи — отдельная цифра, которую можно преобразовать и сложить.",
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "Формула рассчитана на положительное трёхзначное число.",
+    "n//10 само по себе не выделяет цифру десятков."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/int_and_float/problems/sum_of_digits/"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "slug": "lost_card",
+  "title": "Потерянная карточка",
+  "origin": "authored",
+  "summary": "Вычитаем известные номера из суммы всех карточек.",
+  "recommended": {
+    "title": "Сумма прогрессии",
+    "code": "n = int(input())\nmissing = n * (n + 1) // 2\nfor _ in range(n - 1):\n    missing -= int(input())\nprint(missing)\n",
+    "explanation": "Все присутствующие номера сокращаются; остаётся потерянный.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(1) целых чисел"
+  },
+  "alternatives": [
+    {
+      "title": "Побитовое исключающее ИЛИ",
+      "code": "n = int(input())\nmissing = 0\nfor i in range(1, n + 1):\n    missing ^= i\nfor _ in range(n - 1):\n    missing ^= int(input())\nprint(missing)\n",
+      "explanation": "x XOR x равен нулю, поэтому одинаковые номера взаимно уничтожаются.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(1) целых чисел"
+    }
+  ],
+  "pitfalls": [
+    "При N=1 других карточек нет; ответ сразу равен 1."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/for_loop/problems/lost_card/"
+    }
+  ]
+}

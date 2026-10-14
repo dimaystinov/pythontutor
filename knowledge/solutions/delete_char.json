@@ -1,0 +1,31 @@
+{
+  "slug": "delete_char",
+  "title": "Удаление символа",
+  "origin": "authored",
+  "summary": "Удаляем каждое вхождение символа @.",
+  "recommended": {
+    "title": "Замена подстроки",
+    "code": "s = input()\nprint(s.replace('@', ''))\n",
+    "explanation": "Пустая строка на месте каждого @ удаляет этот символ.",
+    "time_complexity": "O(L)",
+    "space_complexity": "O(L)"
+  },
+  "alternatives": [
+    {
+      "title": "Фильтрация символов",
+      "code": "s = input()\nprint(''.join(c for c in s if c != '@'))\n",
+      "explanation": "Сохраняем только символы, отличные от @, в прежнем порядке.",
+      "time_complexity": "O(L)",
+      "space_complexity": "O(L)"
+    }
+  ],
+  "pitfalls": [
+    "replace без ограничения заменяет все вхождения."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/str/problems/delete_char/"
+    }
+  ]
+}

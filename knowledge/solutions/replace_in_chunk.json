@@ -1,0 +1,31 @@
+{
+  "slug": "replace_in_chunk",
+  "title": "Замена внутри фрагмента",
+  "origin": "authored",
+  "summary": "Меняем h только между первым и последним вхождениями.",
+  "recommended": {
+    "title": "Срез и replace",
+    "code": "s = input()\nleft, right = s.find(\"h\"), s.rfind(\"h\")\nif left < right:\n    s = s[:left + 1] + s[left + 1:right].replace(\"h\", \"H\") + s[right:]\nprint(s)\n",
+    "explanation": "Граничные h сохраняются в неизменных срезах.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(n)"
+  },
+  "alternatives": [
+    {
+      "title": "Счётчик вхождений",
+      "code": "s = input()\nremaining = s.count(\"h\")\nseen = 0\nresult = []\nfor ch in s:\n    if ch == \"h\":\n        seen += 1\n        ch = \"H\" if 1 < seen < remaining else \"h\"\n    result.append(ch)\nprint(\"\".join(result))\n",
+      "explanation": "Нумеруем вхождения и заменяем все, кроме первого и последнего.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n)"
+    }
+  ],
+  "pitfalls": [
+    "Если h ровно две, строка остаётся прежней."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/str/problems/replace_in_chunk/"
+    }
+  ]
+}

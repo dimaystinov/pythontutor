@@ -1,0 +1,31 @@
+{
+  "slug": "list_of_squares",
+  "title": "Список квадратов",
+  "origin": "authored",
+  "summary": "Перебираем основания квадратов, пока квадрат не превышает N.",
+  "recommended": {
+    "title": "Умножение",
+    "code": "n = int(input())\ni = 1\nwhile i * i <= n:\n    print(i * i, end=\" \")\n    i += 1\n",
+    "explanation": "Следующий квадрат получается из следующего натурального основания.",
+    "time_complexity": "O(√N)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Сумма нечётных чисел",
+      "code": "n = int(input())\nsquare, step = 1, 3\nwhile square <= n:\n    print(square, end=\" \")\n    square += step\n    step += 2\n",
+      "explanation": "Разности соседних квадратов равны 3, 5, 7 и так далее.",
+      "time_complexity": "O(√N)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "Квадрат, равный N, включается; ноль не является квадратом натурального основания в этой задаче."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/while/problems/list_of_squares/"
+    }
+  ]
+}

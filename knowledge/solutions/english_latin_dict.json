@@ -1,0 +1,32 @@
+{
+  "slug": "english_latin_dict",
+  "title": "Англо-латинский словарь",
+  "origin": "authored",
+  "summary": "Переворачиваем каждую пару английское слово — латинский перевод.",
+  "recommended": {
+    "title": "Обратный словарь списков",
+    "code": "n = int(input())\nreverse = {}\nfor _ in range(n):\n    english, translations = input().split(' - ')\n    for latin in translations.split(', '):\n        reverse.setdefault(latin, []).append(english)\nprint(len(reverse))\nfor latin in sorted(reverse):\n    print(latin + ' - ' + ', '.join(reverse[latin]))\n",
+    "explanation": "Английские слова уже поступают по алфавиту, поэтому списки переводов автоматически упорядочены. Сортируем только латинские ключи.",
+    "time_complexity": "O(P + U log U) сравнений, P — число пар, U — число латинских слов; плюс чтение и вывод символов",
+    "space_complexity": "O(P) записей и памяти для слов"
+  },
+  "alternatives": [
+    {
+      "title": "Сортировка пар и группировка",
+      "code": "from itertools import groupby\nn = int(input())\npairs = []\nfor _ in range(n):\n    english, translations = input().split(' - ')\n    for latin in translations.split(', '):\n        pairs.append((latin, english))\npairs.sort()\ngroups = [(latin, [english for _, english in group]) for latin, group in groupby(pairs, key=lambda pair: pair[0])]\nprint(len(groups))\nfor latin, english in groups:\n    print(latin + ' - ' + ', '.join(english))\n",
+      "explanation": "Сортируем пары сначала по латинскому, потом по английскому слову, после чего объединяем соседние записи с одинаковым первым словом.",
+      "time_complexity": "O(P log P) сравнений плюс длина текста",
+      "space_complexity": "O(P) записей и слов"
+    }
+  ],
+  "pitfalls": [
+    "Соблюдайте разделители: пробелы вокруг дефиса и запятая с пробелом.",
+    "Первая строка — число латинских слов, а не число пар."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/dicts/problems/english_latin_dict/"
+    }
+  ]
+}

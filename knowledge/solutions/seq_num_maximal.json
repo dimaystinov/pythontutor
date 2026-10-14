@@ -1,0 +1,32 @@
+{
+  "slug": "seq_num_maximal",
+  "title": "Количество элементов, равных максимуму",
+  "origin": "authored",
+  "summary": "Одновременно поддерживаем максимум и число его появлений.",
+  "recommended": {
+    "title": "Один проход без хранения последовательности",
+    "code": "best = count = 0\nwhile True:\n    x = int(input())\n    if x == 0:\n        break\n    if x > best:\n        best, count = x, 1\n    elif x == best:\n        count += 1\nprint(count)\n",
+    "explanation": "Новый максимум сбрасывает счётчик в 1. Повтор текущего максимума увеличивает его.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(1) числовых переменных"
+  },
+  "alternatives": [
+    {
+      "title": "Сохранение и обработка списка",
+      "code": "a = []\nwhile True:\n    x = int(input())\n    if x == 0:\n        break\n    a.append(x)\nprint(a.count(max(a)))\n",
+      "explanation": "Сначала находим максимум списка, затем отдельно подсчитываем его частоту.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n) для сохранённой последовательности"
+    }
+  ],
+  "pitfalls": [
+    "При новом максимуме прежний счётчик нужно сбросить.",
+    "Считать требуется все вхождения, не только подряд."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/while/problems/seq_num_maximal/"
+    }
+  ]
+}

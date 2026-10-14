@@ -1,0 +1,267 @@
+{
+  "python": "Python 3.14.3",
+  "tasks": [
+    {
+      "slug": "russian_round",
+      "variants": 2,
+      "cases": 18,
+      "passed": 18
+    },
+    {
+      "slug": "sales",
+      "variants": 2,
+      "cases": 6,
+      "passed": 6
+    },
+    {
+      "slug": "same_sign_neighbours",
+      "variants": 2,
+      "cases": 30,
+      "passed": 30
+    },
+    {
+      "slug": "second_occurence",
+      "variants": 2,
+      "cases": 20,
+      "passed": 20
+    },
+    {
+      "slug": "secondary_diagonal",
+      "variants": 2,
+      "cases": 16,
+      "passed": 16
+    },
+    {
+      "slug": "seq_avg",
+      "variants": 2,
+      "cases": 18,
+      "passed": 18
+    },
+    {
+      "slug": "seq_increasing_neighbours",
+      "variants": 2,
+      "cases": 26,
+      "passed": 26
+    },
+    {
+      "slug": "seq_index_of_max",
+      "variants": 2,
+      "cases": 24,
+      "passed": 24
+    },
+    {
+      "slug": "seq_len",
+      "variants": 2,
+      "cases": 10,
+      "passed": 10
+    },
+    {
+      "slug": "seq_max",
+      "variants": 2,
+      "cases": 22,
+      "passed": 22
+    },
+    {
+      "slug": "seq_max_chunk_of_repetitions",
+      "variants": 2,
+      "cases": 22,
+      "passed": 22
+    },
+    {
+      "slug": "seq_num_even",
+      "variants": 2,
+      "cases": 20,
+      "passed": 20
+    },
+    {
+      "slug": "seq_num_maximal",
+      "variants": 2,
+      "cases": 26,
+      "passed": 26
+    },
+    {
+      "slug": "seq_second_max",
+      "variants": 2,
+      "cases": 50,
+      "passed": 50
+    },
+    {
+      "slug": "seq_sum",
+      "variants": 2,
+      "cases": 18,
+      "passed": 18
+    },
+    {
+      "slug": "series_1",
+      "variants": 2,
+      "cases": 8,
+      "passed": 8
+    },
+    {
+      "slug": "series_2",
+      "variants": 2,
+      "cases": 12,
+      "passed": 12
+    },
+    {
+      "slug": "series_3",
+      "variants": 2,
+      "cases": 12,
+      "passed": 12
+    },
+    {
+      "slug": "sets_intersection",
+      "variants": 2,
+      "cases": 6,
+      "passed": 6
+    },
+    {
+      "slug": "signum",
+      "variants": 2,
+      "cases": 8,
+      "passed": 8
+    },
+    {
+      "slug": "slices",
+      "variants": 2,
+      "cases": 8,
+      "passed": 8
+    },
+    {
+      "slug": "snowflake",
+      "variants": 2,
+      "cases": 12,
+      "passed": 12
+    },
+    {
+      "slug": "std_dev",
+      "variants": 2,
+      "cases": 14,
+      "passed": 14
+    },
+    {
+      "slug": "strikes",
+      "variants": 2,
+      "cases": 16,
+      "passed": 16
+    },
+    {
+      "slug": "sum_of_cubes",
+      "variants": 2,
+      "cases": 22,
+      "passed": 22
+    },
+    {
+      "slug": "sum_of_digits",
+      "variants": 2,
+      "cases": 12,
+      "passed": 12
+    },
+    {
+      "slug": "sum_of_factorials",
+      "variants": 2,
+      "cases": 20,
+      "passed": 20
+    },
+    {
+      "slug": "sum_of_n_numbers",
+      "variants": 2,
+      "cases": 22,
+      "passed": 22
+    },
+    {
+      "slug": "sum_of_ten_numbers",
+      "variants": 2,
+      "cases": 14,
+      "passed": 14
+    },
+    {
+      "slug": "swap_columns",
+      "variants": 2,
+      "cases": 22,
+      "passed": 22
+    },
+    {
+      "slug": "swap_min_and_max",
+      "variants": 2,
+      "cases": 16,
+      "passed": 16
+    },
+    {
+      "slug": "swap_neighbours",
+      "variants": 2,
+      "cases": 20,
+      "passed": 20
+    },
+    {
+      "slug": "swap_two_words",
+      "variants": 2,
+      "cases": 10,
+      "passed": 10
+    },
+    {
+      "slug": "synonym_dictionary",
+      "variants": 2,
+      "cases": 12,
+      "passed": 12
+    },
+    {
+      "slug": "tens_digit",
+      "variants": 2,
+      "cases": 36,
+      "passed": 36
+    },
+    {
+      "slug": "two_halves",
+      "variants": 2,
+      "cases": 12,
+      "passed": 12
+    },
+    {
+      "slug": "unique_elements",
+      "variants": 2,
+      "cases": 14,
+      "passed": 14
+    },
+    {
+      "slug": "usa_elections",
+      "variants": 2,
+      "cases": 10,
+      "passed": 10
+    },
+    {
+      "slug": "usa_elections_2",
+      "variants": 2,
+      "cases": 4,
+      "passed": 4
+    },
+    {
+      "slug": "watch_1",
+      "variants": 2,
+      "cases": 20,
+      "passed": 20
+    },
+    {
+      "slug": "watch_2",
+      "variants": 2,
+      "cases": 62,
+      "passed": 62
+    },
+    {
+      "slug": "watch_3",
+      "variants": 2,
+      "cases": 20,
+      "passed": 20
+    }
+  ],
+  "failures": [],
+  "cases": 770,
+  "passed": 770,
+  "method": "Fresh Python subprocess per authored variant/test; timeout 3s; whitespace token comparison and absolute numeric tolerance <1e-3 as tutorial/tester.py. No archived solution code executed.",
+  "limitations": [
+    "Authored explanations and code, not imported official solutions.",
+    "usa_elections_2 has only two archived cases; tie rules and result ordering are inferred from these cases; states without ballots are unspecified.",
+    "Complexities count arithmetic operations for ordinary-sized integers unless explicitly stated.",
+    "Execution uses host Python subprocess, not the application tracing sandbox."
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "slug": "series_3",
+  "title": "Ряд - 3",
+  "origin": "authored",
+  "summary": "Находим наибольшее нечётное число не больше A и идём с шагом −2.",
+  "recommended": {
+    "title": "Рекомендуемый подход",
+    "code": "a = int(input())\nb = int(input())\nstart = a - (1 - a % 2)\nfor x in range(start, b - 1, -2):\n    print(x)\n",
+    "explanation": "Для нечётного a поправка равна 0, для чётного — 1; if не нужен.",
+    "time_complexity": "O(A−B+1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Другой способ",
+      "code": "a = int(input())\nb = int(input())\nx = (a - 1) // 2 * 2 + 1\nwhile x >= b:\n    print(x)\n    x -= 2\n",
+      "explanation": "Формула через целочисленное деление даёт ближайшее нечётное число снизу, затем while перечисляет остальные.",
+      "time_complexity": "O(A−B+1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "Обе версии обходятся без if.",
+    "Остаток и // в Python позволяют работать и с отрицательными границами."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/for_loop/problems/series_3/"
+    }
+  ]
+}

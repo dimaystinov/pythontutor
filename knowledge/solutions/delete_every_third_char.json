@@ -1,0 +1,31 @@
+{
+  "slug": "delete_every_third_char",
+  "title": "Удалить каждый третий символ",
+  "origin": "authored",
+  "summary": "Удаляем индексы 0, 3, 6 и так далее.",
+  "recommended": {
+    "title": "Фильтрация по индексу",
+    "code": "s = input()\nprint(''.join(c for i, c in enumerate(s) if i % 3 != 0))\n",
+    "explanation": "Остаток от деления индекса определяет, нужно ли сохранять символ.",
+    "time_complexity": "O(L)",
+    "space_complexity": "O(L)"
+  },
+  "alternatives": [
+    {
+      "title": "Сборка блоков по два символа",
+      "code": "s = input()\nprint(''.join(s[i + 1:i + 3] for i in range(0, len(s), 3)))\n",
+      "explanation": "В каждой тройке пропускаем первый символ и берём следующие два; короткий последний срез безопасен.",
+      "time_complexity": "O(L)",
+      "space_complexity": "O(L)"
+    }
+  ],
+  "pitfalls": [
+    "Нумерация начинается с 0: самый первый символ удаляется."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/str/problems/delete_every_third_char/"
+    }
+  ]
+}

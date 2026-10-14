@@ -1,0 +1,31 @@
+{
+  "slug": "knight_move",
+  "title": "Ход коня",
+  "origin": "authored",
+  "summary": "У коня абсолютные смещения равны 1 и 2 в любом порядке.",
+  "recommended": {
+    "title": "Проверка смещений",
+    "code": "x1 = int(input())\ny1 = int(input())\nx2 = int(input())\ny2 = int(input())\ndx = abs(x2 - x1)\ndy = abs(y2 - y1)\nprint(\"YES\" if (dx == 1 and dy == 2) or (dx == 2 and dy == 1) else \"NO\")\n",
+    "explanation": "У коня абсолютные смещения равны 1 и 2 в любом порядке.",
+    "time_complexity": "O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Другая форма условия",
+      "code": "x1 = int(input())\ny1 = int(input())\nx2 = int(input())\ny2 = int(input())\ndx = abs(x2 - x1)\ndy = abs(y2 - y1)\nprint(\"YES\" if sorted((dx, dy)) == [1, 2] else \"NO\")\n",
+      "explanation": "Та же геометрия выражена через сортировку двух смещений.",
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "Клетки по условию различны; ответ печатается латинскими YES или NO."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/ifelse/problems/knight_move/"
+    }
+  ]
+}

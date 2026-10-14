@@ -1,0 +1,33 @@
+{
+  "slug": "std_dev",
+  "title": "Стандартное отклонение",
+  "origin": "authored",
+  "summary": "Используем выборочное стандартное отклонение с делителем n−1.",
+  "recommended": {
+    "title": "Суммы и суммы квадратов целых чисел",
+    "code": "from math import sqrt\nn = total = squares = 0\nwhile True:\n    x = int(input())\n    if x == 0:\n        break\n    n += 1\n    total += x\n    squares += x * x\nprint(sqrt((n * squares - total * total) / (n * (n - 1))))\n",
+    "explanation": "Раскрытие скобок даёт сумму квадратов отклонений через сумму x и сумму x². Вычитание выполняется в точных целых числах Python, поэтому не возникает потери точности от вычитания близких float.",
+    "time_complexity": "O(n) арифметических операций; стоимость зависит от длины целых",
+    "space_complexity": "O(1) целочисленных накопителей, растущих с величиной суммы"
+  },
+  "alternatives": [
+    {
+      "title": "Два прохода по определению",
+      "code": "a = []\nwhile True:\n    x = int(input())\n    if x == 0:\n        break\n    a.append(x)\n\nfrom math import sqrt\nmean = sum(a) / len(a)\nprint(sqrt(sum((x - mean) ** 2 for x in a) / (len(a) - 1)))\n",
+      "explanation": "Сначала вычисляем среднее, затем непосредственно суммируем квадраты отклонений. Формула хорошо видна в коде.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n) для последовательности"
+    }
+  ],
+  "pitfalls": [
+    "Делитель равен n−1, а не n.",
+    "Требуются хотя бы два элемента.",
+    "Ноль завершает ввод и не участвует в вычислениях."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/while/problems/std_dev/"
+    }
+  ]
+}

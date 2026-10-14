@@ -1,0 +1,31 @@
+{
+  "slug": "chocolate",
+  "title": "Шоколадка",
+  "origin": "authored",
+  "summary": "При одном прямом разломе часть состоит из целого числа строк или столбцов.",
+  "recommended": {
+    "title": "Проверка делимости",
+    "code": "n = int(input())\nm = int(input())\nk = int(input())\nprint('YES' if 0 < k < n * m and (k % n == 0 or k % m == 0) else 'NO')\n",
+    "explanation": "Площадь отломленной полосы кратна одной из сторон, а обе части должны быть непустыми.",
+    "time_complexity": "O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Перебор линий разлома",
+      "code": "n = int(input())\nm = int(input())\nk = int(input())\npossible = any(i * m == k for i in range(1, n))\npossible = possible or any(j * n == k for j in range(1, m))\nprint('YES' if possible else 'NO')\n",
+      "explanation": "Явно проверяем каждый горизонтальный и вертикальный разлом.",
+      "time_complexity": "O(n + m)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "Нельзя отломить всю шоколадку как одну из двух непустых частей."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/ifelse/problems/chocolate/"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "slug": "swap_min_and_max",
+  "title": "Переставить min и max",
+  "origin": "authored",
+  "summary": "Находим позиции минимального и максимального значений, затем обмениваем элементы.",
+  "recommended": {
+    "title": "Один проход по индексам",
+    "code": "a = list(map(int, input().split()))\nlo = hi = 0\nfor i in range(1, len(a)):\n    if a[i] < a[lo]:\n        lo = i\n    if a[i] > a[hi]:\n        hi = i\na[lo], a[hi] = a[hi], a[lo]\nprint(*a)\n",
+    "explanation": "Храним индексы обоих экстремумов. Обмен выполняется после поиска, чтобы исходные значения не изменялись раньше времени.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(n), включая входные данные"
+  },
+  "alternatives": [
+    {
+      "title": "Встроенные функции",
+      "code": "a = list(map(int, input().split()))\nlo = a.index(min(a))\nhi = a.index(max(a))\na[lo], a[hi] = a[hi], a[lo]\nprint(*a)\n",
+      "explanation": "min/max находят значения, index — их позиции. Проходов больше, но общая сложность остаётся линейной.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n), включая входные данные"
+    }
+  ],
+  "pitfalls": [
+    "Нужно поменять элементы, а не весь порядок списка.",
+    "Один элемент одновременно является минимумом и максимумом."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/lists/problems/swap_min_and_max/"
+    }
+  ]
+}

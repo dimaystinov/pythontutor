@@ -1,0 +1,18 @@
+{% extends '_base_basic.html' %}
+{% block body %}
+<div class="page-header"><h1>Обработка изображений <small>Python и OpenCV</small></h1></div>
+<p>Читайте изображения, меняйте цвета, находите границы и проверяйте результат прямо в браузере. В среде выполнения доступны OpenCV, NumPy и Pillow.</p>
+<p><a href="{% url 'image_assignments' %}" class="btn btn-default">Мои задания{% if request.user.is_staff %} и управление{% endif %}</a></p>
+<div class="row">
+{% for task in tasks %}
+<div class="col-sm-6"><div class="panel panel-default">
+    <div class="panel-heading"><h2 class="panel-title"><a href="{% url 'image_task' task.slug %}">{{ forloop.counter }}. {{ task.title }}</a></h2></div>
+    <div class="panel-body">
+        <p>{{ task.statement }}</p>
+        {% if task.status == 'ok' or task.status == 'accepted' %}<p class="text-success">✓ Решено</p>{% elif task.status %}<p>Есть попытки решения</p>{% endif %}
+        <a class="btn btn-primary" href="{% url 'image_task' task.slug %}">Открыть задачу</a>
+    </div>
+</div></div>
+{% empty %}<p>Задачи пока не добавлены.</p>{% endfor %}
+</div>
+{% endblock %}

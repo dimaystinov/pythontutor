@@ -1,0 +1,32 @@
+{
+  "slug": "capitalize",
+  "title": "Большие буквы",
+  "origin": "authored",
+  "summary": "Обрабатываем каждое слово собственной функцией capitalize.",
+  "recommended": {
+    "title": "Замена первой буквы",
+    "code": "def capitalize(word):\n    return word[0].upper() + word[1:]\nprint(' '.join(capitalize(word) for word in input().split()))\n",
+    "explanation": "Первая буква становится заглавной, оставшаяся часть слова сохраняется.",
+    "time_complexity": "O(L), L — длина строки",
+    "space_complexity": "O(L)"
+  },
+  "alternatives": [
+    {
+      "title": "Преобразование кода символа",
+      "code": "def capitalize(word):\n    first = chr(ord(word[0]) - ord('a') + ord('A'))\n    return first + word[1:]\nwords = input().split()\nfor i in range(len(words)):\n    words[i] = capitalize(words[i])\nprint(' '.join(words))\n",
+      "explanation": "Для маленьких латинских букв смещение между кодами a и A одинаково. Метод применим к алфавиту из условия.",
+      "time_complexity": "O(L)",
+      "space_complexity": "O(L)"
+    }
+  ],
+  "pitfalls": [
+    "Нужно определить и вызвать функцию capitalize.",
+    "Формула кодов рассчитана на латинские буквы."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/functions/problems/capitalize/"
+    }
+  ]
+}

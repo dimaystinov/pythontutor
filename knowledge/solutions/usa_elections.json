@@ -1,0 +1,32 @@
+{
+  "slug": "usa_elections",
+  "title": "Выборы в США",
+  "origin": "authored",
+  "summary": "Суммируем число голосов по фамилии, затем выводим фамилии по алфавиту.",
+  "recommended": {
+    "title": "Словарь итогов",
+    "code": "n = int(input())\ntotals = {}\nfor _ in range(n):\n    name, votes = input().split()\n    totals[name] = totals.get(name, 0) + int(votes)\nfor name in sorted(totals):\n    print(name, totals[name])\n",
+    "explanation": "Повторные записи кандидата увеличивают накопленную сумму.",
+    "time_complexity": "O(n + k log k) в среднем, k кандидатов; без учёта длины строк",
+    "space_complexity": "O(k)"
+  },
+  "alternatives": [
+    {
+      "title": "Сортировка и группировка",
+      "code": "from itertools import groupby\nn = int(input())\nrecords = []\nfor _ in range(n):\n    name, votes = input().split()\n    records.append((name, int(votes)))\nrecords.sort()\nfor name, group in groupby(records, key=lambda r: r[0]):\n    print(name, sum(votes for _, votes in group))\n",
+      "explanation": "После сортировки все записи кандидата идут подряд и суммируются в одной группе.",
+      "time_complexity": "O(n log n), без учёта длины строк",
+      "space_complexity": "O(n)"
+    }
+  ],
+  "pitfalls": [
+    "Здесь суммируются уже заданные голоса выборщиков.",
+    "Вывод идёт по имени, а не по количеству голосов."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/dicts/problems/usa_elections/"
+    }
+  ]
+}

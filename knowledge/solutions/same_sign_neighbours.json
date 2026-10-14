@@ -1,0 +1,32 @@
+{
+  "slug": "same_sign_neighbours",
+  "title": "Соседи одного знака",
+  "origin": "authored",
+  "summary": "Проверяем соседние пары слева направо и останавливаемся на первой подходящей.",
+  "recommended": {
+    "title": "Сравнение произведения",
+    "code": "a = list(map(int, input().split()))\nfor i in range(len(a) - 1):\n    if a[i] * a[i + 1] > 0:\n        print(a[i], a[i + 1])\n        break\n",
+    "explanation": "Произведение строго положительно тогда и только тогда, когда оба числа ненулевые и имеют одинаковый знак.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(n), включая входные данные"
+  },
+  "alternatives": [
+    {
+      "title": "Поток соседних значений",
+      "code": "values = map(int, input().split())\nprevious = next(values, None)\nfor current in values:\n    if (previous > 0 and current > 0) or (previous < 0 and current < 0):\n        print(previous, current)\n        break\n    previous = current\n",
+      "explanation": "Храним предыдущий элемент и сравниваем знаки без умножения. split всё равно хранит слова входной строки.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n) для разбитой входной строки; O(1) числовых переменных"
+    }
+  ],
+  "pitfalls": [
+    "Ноль не является ни положительным, ни отрицательным.",
+    "После первой пары нужен break."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/lists/problems/same_sign_neighbours/"
+    }
+  ]
+}

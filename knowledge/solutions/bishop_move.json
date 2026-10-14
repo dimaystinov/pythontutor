@@ -1,0 +1,31 @@
+{
+  "slug": "bishop_move",
+  "title": "Ход слона",
+  "origin": "authored",
+  "summary": "На одной диагонали изменения координат равны по модулю.",
+  "recommended": {
+    "title": "Модули разностей",
+    "code": "x1 = int(input())\ny1 = int(input())\nx2 = int(input())\ny2 = int(input())\nprint('YES' if abs(x1 - x2) == abs(y1 - y2) else 'NO')\n",
+    "explanation": "Слон меняет обе координаты на одинаковое число клеток.",
+    "time_complexity": "O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Уравнения диагоналей",
+      "code": "x1 = int(input())\ny1 = int(input())\nx2 = int(input())\ny2 = int(input())\nprint('YES' if x1 + y1 == x2 + y2 or x1 - y1 == x2 - y2 else 'NO')\n",
+      "explanation": "На диагоналях одного направления постоянна сумма координат, другого — разность.",
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "Одинакового цвета клеток недостаточно для хода слона."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/ifelse/problems/bishop_move/"
+    }
+  ]
+}

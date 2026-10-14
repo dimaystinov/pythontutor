@@ -1,0 +1,28 @@
+{
+  "slug": "crop",
+  "title": "Центральный фрагмент",
+  "origin": "authored",
+  "summary": "Разбор задачи обработки изображений. N = H × W — число пикселей. Сложность включает чтение и запись изображения.",
+  "recommended": {
+    "title": "Обработка массива без циклов Python",
+    "code": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\nheight, width = image.shape[:2]\nresult = image[height // 4:3 * height // 4, width // 4:3 * width // 4]\ncv2.imwrite('output.png', result)\n",
+    "explanation": "Срез NumPy выбирает центральную область без цикла по пикселям. Верхняя граница среза не включается; операции // должны выполняться в указанном порядке.",
+    "time_complexity": "O(N) при фиксированных параметрах фильтра",
+    "space_complexity": "O(N), включая исходное и результирующее изображение"
+  },
+  "alternatives": [
+    {
+      "title": "Выбор индексов через NumPy take",
+      "code": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\nheight, width = image.shape[:2]\nresult = np.take(np.take(image, range(height // 4, 3 * height // 4), axis=0), range(width // 4, 3 * width // 4), axis=1)\ncv2.imwrite('output.png', result)\n",
+      "explanation": "Два вызова take выбирают те же строки и столбцы. В отличие от среза создаются промежуточные массивы, поэтому срез предпочтительнее по памяти и читаемости.",
+      "time_complexity": "O(N)",
+      "space_complexity": "O(N), включая копии массивов"
+    }
+  ],
+  "pitfalls": [
+    "OpenCV читает цветные изображения в порядке BGR, а Pillow — RGB.",
+    "Сохраните результат в output.png; печать массива в консоль не заменяет изображение.",
+    "Проверка использует фиксированные тестовые картинки, а не загруженный вами пример."
+  ],
+  "sources": []
+}

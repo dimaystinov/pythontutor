@@ -1,0 +1,31 @@
+{
+  "slug": "chess_board",
+  "title": "Шахматная доска",
+  "origin": "authored",
+  "summary": "Цвет клетки определяется чётностью суммы координат.",
+  "recommended": {
+    "title": "Сравнение чётностей",
+    "code": "x1 = int(input())\ny1 = int(input())\nx2 = int(input())\ny2 = int(input())\nprint('YES' if (x1 + y1) % 2 == (x2 + y2) % 2 else 'NO')\n",
+    "explanation": "При шаге на соседнюю клетку чётность суммы меняется.",
+    "time_complexity": "O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Чётность перемещения",
+      "code": "x1 = int(input())\ny1 = int(input())\nx2 = int(input())\ny2 = int(input())\ndistance = abs(x1 - x2) + abs(y1 - y2)\nprint('YES' if distance % 2 == 0 else 'NO')\n",
+      "explanation": "Каждый горизонтальный или вертикальный шаг меняет цвет; чётное число шагов возвращает прежний цвет.",
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "Сравнивайте обе координаты, а не только столбцы."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/ifelse/problems/chess_board/"
+    }
+  ]
+}

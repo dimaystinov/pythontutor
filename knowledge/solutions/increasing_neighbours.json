@@ -1,0 +1,32 @@
+{
+  "slug": "increasing_neighbours",
+  "title": "Больше предыдущего",
+  "origin": "authored",
+  "summary": "Сравниваем каждый элемент с непосредственным предшественником.",
+  "recommended": {
+    "title": "Обход соседних индексов",
+    "code": "a = list(map(int, input().split()))\nfor i in range(1, len(a)):\n    if a[i] > a[i - 1]:\n        print(a[i], end=' ')\n",
+    "explanation": "Начинаем с индекса 1, потому что у нулевого элемента предшественника нет.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(n) для входного списка"
+  },
+  "alternatives": [
+    {
+      "title": "Запоминание предыдущего значения",
+      "code": "values = iter(map(int, input().split()))\nprevious = next(values, None)\nfor current in values:\n    if current > previous:\n        print(current, end=' ')\n    previous = current\n",
+      "explanation": "Поддерживаем одну переменную для предыдущего значения. Токены input().split() всё ещё занимают линейную память.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n) для входных токенов; O(1) дополнительных чисел"
+    }
+  ],
+  "pitfalls": [
+    "Сравнение строгое: равные элементы не подходят.",
+    "Сравнивать нужно с соседом, а не с последним напечатанным элементом."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/lists/problems/increasing_neighbours/"
+    }
+  ]
+}

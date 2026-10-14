@@ -1,0 +1,32 @@
+{
+  "slug": "insert_element",
+  "title": "Вставить элемент",
+  "origin": "authored",
+  "summary": "Добавляем место в конце и освобождаем позицию k сдвигом.",
+  "recommended": {
+    "title": "Сдвиг справа налево",
+    "code": "a = list(map(int, input().split()))\nk, value = map(int, input().split())\na.append(0)\nfor i in range(len(a) - 1, k, -1):\n    a[i] = a[i - 1]\na[k] = value\nprint(*a)\n",
+    "explanation": "Двигаясь справа налево, не затираем элементы, которые ещё предстоит перенести. Дополнительного списка не создаём.",
+    "time_complexity": "O(n - k) для вставки, O(n) с вводом и выводом",
+    "space_complexity": "O(n) входной список, O(1) дополнительная память"
+  },
+  "alternatives": [
+    {
+      "title": "Передача вытесненного элемента",
+      "code": "a = list(map(int, input().split()))\nk, value = map(int, input().split())\na.append(0)\ncarry = value\nfor i in range(k, len(a)):\n    a[i], carry = carry, a[i]\nprint(*a)\n",
+      "explanation": "Идём слева направо, сохраняя вытесненное значение в carry и помещая его в следующую клетку. Это другой способ сдвига на месте.",
+      "time_complexity": "O(n - k) вставка, O(n) полный запуск",
+      "space_complexity": "O(n) входной список, O(1) дополнительно"
+    }
+  ],
+  "pitfalls": [
+    "Обычный сдвиг слева направо без временной переменной уничтожит данные.",
+    "k может указывать на конец списка."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/lists/problems/insert_element/"
+    }
+  ]
+}

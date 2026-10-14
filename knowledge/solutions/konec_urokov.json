@@ -1,0 +1,33 @@
+{
+  "slug": "konec_urokov",
+  "title": "Конец уроков",
+  "origin": "authored",
+  "summary": "К длительности уроков добавляем только перемены перед окончанием нужного урока.",
+  "recommended": {
+    "title": "Подсчёт двух видов перемен",
+    "code": "n = int(input())\nshort_breaks = n // 2\nlong_breaks = (n - 1) // 2\ntotal_minutes = 9 * 60 + n * 45 + short_breaks * 5 + long_breaks * 15\nprint(total_minutes // 60, total_minutes % 60)\n",
+    "explanation": "До конца n-го урока проходят n−1 перемена. После нечётных уроков коротких перемен n//2, после чётных длинных — (n−1)//2. Переводим итоговое число минут в часы и минуты.",
+    "time_complexity": "O(1) арифметических операций",
+    "space_complexity": "O(1) числовых переменных"
+  },
+  "alternatives": [
+    {
+      "title": "Пошаговое расписание",
+      "code": "n = int(input())\ntime = 9 * 60\nfor lesson in range(1, n + 1):\n    time += 45\n    if lesson < n:\n        time += 5 if lesson % 2 == 1 else 15\nprint(time // 60, time % 60)\n",
+      "explanation": "Моделируем каждый урок и, если он не последний из нужных, следующую перемену. Такая модель легко переносится на изменяемую длительность занятий.",
+      "time_complexity": "O(n), при ограничении n≤10 — O(1)",
+      "space_complexity": "O(1) числовых переменных"
+    }
+  ],
+  "pitfalls": [
+    "Перемена после указанного урока в ответ не входит.",
+    "Сначала идёт короткая перемена.",
+    "По условию часы и минуты выводятся двумя числами, без обязательного ведущего нуля."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/int_and_float/problems/konec_urokov/"
+    }
+  ]
+}

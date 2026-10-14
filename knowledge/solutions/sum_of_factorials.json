@@ -1,0 +1,32 @@
+{
+  "slug": "sum_of_factorials",
+  "title": "Сумма факториалов",
+  "origin": "authored",
+  "summary": "Вычисляем следующий факториал из предыдущего и добавляем в сумму.",
+  "recommended": {
+    "title": "Накопление факториала",
+    "code": "n = int(input())\nfactorial = 1\ntotal = 0\nfor i in range(1, n + 1):\n    factorial *= i\n    total += factorial\nprint(total)\n",
+    "explanation": "После умножения на i накопитель равен i!, поэтому не нужно вычислять каждый факториал заново.",
+    "time_complexity": "O(n) операций с растущими целыми",
+    "space_complexity": "O(1) целых чисел; O(n log n) бит для результата"
+  },
+  "alternatives": [
+    {
+      "title": "Схема Горнера с конца",
+      "code": "n = int(input())\ntotal = 0\nfor i in range(n, 0, -1):\n    total = i * (1 + total)\nprint(total)\n",
+      "explanation": "Сумма записывается как 1·(1 + 2·(1 + 3·(1 + … + n))). Обрабатываем вложенные скобки от n к 1 за один цикл, без math.",
+      "time_complexity": "O(n) операций с растущими целыми",
+      "space_complexity": "O(1) целых чисел; O(n log n) бит для результата"
+    }
+  ],
+  "pitfalls": [
+    "Нужен один цикл, без повторного вычисления факториалов.",
+    "Не включайте 0! в сумму."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/for_loop/problems/sum_of_factorials/"
+    }
+  ]
+}

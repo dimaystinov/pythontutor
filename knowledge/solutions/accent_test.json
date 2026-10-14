@@ -1,0 +1,32 @@
+{
+  "slug": "accent_test",
+  "title": "Контрольная по ударениям",
+  "origin": "authored",
+  "summary": "Известное слово проверяем по словарю вариантов, неизвестное — по числу заглавных букв.",
+  "recommended": {
+    "title": "Два множества",
+    "code": "n = int(input())\nvalid = {input() for _ in range(n)}\nknown = {word.lower() for word in valid}\nerrors = 0\nfor word in input().split():\n    if word.lower() in known:\n        errors += word not in valid\n    else:\n        errors += sum(c.isupper() for c in word) != 1\nprint(errors)\n",
+    "explanation": "Множество known определяет наличие слова в словаре независимо от ударения, valid содержит разрешённые написания.",
+    "time_complexity": "Ожидаемое O(D + T), D и T — число символов словаря и текста",
+    "space_complexity": "O(D + T), включая строку упражнения и split"
+  },
+  "alternatives": [
+    {
+      "title": "Словарь разрешённых позиций",
+      "code": "n = int(input())\npositions = {}\nfor _ in range(n):\n    word = input()\n    index = next(i for i, c in enumerate(word) if c.isupper())\n    positions.setdefault(word.lower(), set()).add(index)\nerrors = 0\nfor word in input().split():\n    stress = [i for i, c in enumerate(word) if c.isupper()]\n    if len(stress) != 1:\n        errors += 1\n    elif word.lower() in positions and stress[0] not in positions[word.lower()]:\n        errors += 1\nprint(errors)\n",
+      "explanation": "Вместо целых вариантов сохраняем индексы допустимых ударений. Ровно одна заглавная буква обязательна в любом случае.",
+      "time_complexity": "Ожидаемое O(D + T)",
+      "space_complexity": "O(D + T)"
+    }
+  ],
+  "pitfalls": [
+    "Для известного слова одной заглавной буквы недостаточно.",
+    "У одного слова может быть несколько разрешённых ударений."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/dicts/problems/accent_test/"
+    }
+  ]
+}

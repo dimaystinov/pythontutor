@@ -1,0 +1,813 @@
+{
+  "python": "3.14.7",
+  "problems": 134,
+  "checks": 2625,
+  "variants": 269,
+  "failures": [],
+  "results": [
+    {
+      "slug": "2d_max",
+      "variants": 2,
+      "checks": 16,
+      "sha256": "7a6cc345f477ab3a690f99fdcf40cdb15a955f352dd240acccaf3198877cf705"
+    },
+    {
+      "slug": "accent_test",
+      "variants": 2,
+      "checks": 18,
+      "sha256": "c7154ff776d1ba4ba98d3e02c5c5f7b024036d883084bc4b3ab1ac80cb794021"
+    },
+    {
+      "slug": "aplusbplusc",
+      "variants": 2,
+      "checks": 6,
+      "sha256": "049c08327a006fb98c94e89f6b88910e3d069ac2a8f8585493db0d54ba8116d9"
+    },
+    {
+      "slug": "apples",
+      "variants": 2,
+      "checks": 8,
+      "sha256": "8f516363cdee10207b37f2a0d058d642c7da4efc34d4106776893fe199b08c1a"
+    },
+    {
+      "slug": "bank_accounts",
+      "variants": 2,
+      "checks": 6,
+      "sha256": "8ff5a2dfe307991a22070c3fc2995d1df707895c010711333dda1f54030eae84"
+    },
+    {
+      "slug": "bank_interest",
+      "variants": 2,
+      "checks": 12,
+      "sha256": "d3b16e8b9735e78ed696352488d2167cfb7927e861d18aa874082e7fadde5fc0"
+    },
+    {
+      "slug": "bishop_move",
+      "variants": 2,
+      "checks": 64,
+      "sha256": "d7f9efeb4ae14b1cb064be8b3ef8435fff1e984b1fcca54522c16a87b12509fb"
+    },
+    {
+      "slug": "capitalize",
+      "variants": 2,
+      "checks": 10,
+      "sha256": "0e1aec118ba775f33a5f658cb3a6e2b987fbf7566429d43caa5f5167f44f5b86"
+    },
+    {
+      "slug": "chess_board",
+      "variants": 2,
+      "checks": 22,
+      "sha256": "bb20edcae1b0e75230382f6a92ff59c8048cb58b567bc9e2be22b08bf17f296d"
+    },
+    {
+      "slug": "chessboard",
+      "variants": 2,
+      "checks": 14,
+      "sha256": "d8434809c34c6ae58c5bbdcc814f5a1bad918865e675f6fb8e53dbee6d5e6fca"
+    },
+    {
+      "slug": "chocolate",
+      "variants": 2,
+      "checks": 30,
+      "sha256": "6d510a1a6bbfc3d52d28483b751202b1ac59aafc52d608bc6ef748da18c20294"
+    },
+    {
+      "slug": "compound_interest",
+      "variants": 2,
+      "checks": 18,
+      "sha256": "2e973c1e03f75533b77ce0555aa28faf5d7606665e15ec2352a6a3f3ca221006"
+    },
+    {
+      "slug": "countries_and_cities",
+      "variants": 2,
+      "checks": 8,
+      "sha256": "fc0b9ab8f70e9bef258b821211acc90401e113b2218ab45f741aa1927ab6fee0"
+    },
+    {
+      "slug": "cubes",
+      "variants": 2,
+      "checks": 10,
+      "sha256": "4a7fb337876462c806d75d578be147c3cc4a91efed583aa624fa69a51fb23817"
+    },
+    {
+      "slug": "delete_char",
+      "variants": 2,
+      "checks": 14,
+      "sha256": "79e1d170de031375abfd2ffd2b51ee74c62daf46d2c7a9e7d4cb8e1c8b0187f9"
+    },
+    {
+      "slug": "delete_chunk",
+      "variants": 2,
+      "checks": 14,
+      "sha256": "da5eaaa95974a66b73bca5bff9e91dff407b60361c869caeae8d5d5cb20c4551"
+    },
+    {
+      "slug": "delete_every_third_char",
+      "variants": 2,
+      "checks": 26,
+      "sha256": "4a8d724f670db2c5873a883aff95940383f780fc1379ed2a09be380506793095"
+    },
+    {
+      "slug": "desks",
+      "variants": 2,
+      "checks": 8,
+      "sha256": "1312beaf6f4be099201824f3de1efd2e86d845b90a4a6cd2ba686823b823e8ba"
+    },
+    {
+      "slug": "diagonals",
+      "variants": 2,
+      "checks": 14,
+      "sha256": "29d3022db466d1a9393d929487ebfe51e62e1b8fd18516fa487f370b4293dd09"
+    },
+    {
+      "slug": "digit_after_separator",
+      "variants": 2,
+      "checks": 48,
+      "sha256": "55b3aff37c59e327a5fcf7e92b244747f90073d7db261b3f5a0500f78a78ae5d"
+    },
+    {
+      "slug": "electronic_watch",
+      "variants": 2,
+      "checks": 12,
+      "sha256": "f15d6d2c1c226fd46eb8b89a308cb3a33a444436002eff9994d5610c6f03490f"
+    },
+    {
+      "slug": "english_latin_dict",
+      "variants": 2,
+      "checks": 20,
+      "sha256": "0029cfdec47f50e01e1e01f1d1cb930271a8be9ba7a618babeaa67fa0bae8c6e"
+    },
+    {
+      "slug": "even_elements",
+      "variants": 2,
+      "checks": 14,
+      "sha256": "d3d9738149e3372cd57fbf64b06b787d2339c7d076db741697eae22339e00e02"
+    },
+    {
+      "slug": "even_indices",
+      "variants": 2,
+      "checks": 20,
+      "sha256": "d9c7be801217e1338e4b25c3e3af92a004337eebea9114e7bce4d26c623ebaa9"
+    },
+    {
+      "slug": "factorial",
+      "variants": 2,
+      "checks": 24,
+      "sha256": "c750960f0877ca63377fe8cafb7fdd8ea3c25db618135f7a43a9afd6f036dcae"
+    },
+    {
+      "slug": "fibonacci_rec",
+      "variants": 2,
+      "checks": 16,
+      "sha256": "5109fe947124cff6e5c9142d0d8932984c269c29cabd5faa50e59420823ed788"
+    },
+    {
+      "slug": "first_and_last_occurences",
+      "variants": 2,
+      "checks": 14,
+      "sha256": "3c7ab71c9be52c310822b5ea52c6944ca6b7630d31ba00f021d66c183a286868"
+    },
+    {
+      "slug": "fractional_part",
+      "variants": 2,
+      "checks": 10,
+      "sha256": "c68b8cedba2f08a99a7f16655b6bd91d2db6a2b65bb0de9c059e8cc883b14cee"
+    },
+    {
+      "slug": "frequency_analysis",
+      "variants": 2,
+      "checks": 12,
+      "sha256": "fcb87078d80e1aaa4414cad9f2b1c8334f6cc32a3186b3ced4d01ee5b9cc9b7e"
+    },
+    {
+      "slug": "genealogy_ancestors_and_descendants",
+      "variants": 2,
+      "checks": 8,
+      "sha256": "3a250242f1c13a2cc0c3e739cfa77ceb120e8ab3ba19b2c1fc9b5e34c657a5a6"
+    },
+    {
+      "slug": "genealogy_descendants_count",
+      "variants": 2,
+      "checks": 8,
+      "sha256": "aac052dc9afb4b4585da163ca7e4f3d5427c3bd13309cf14a1ed2e3027f233b0"
+    },
+    {
+      "slug": "genealogy_lca",
+      "variants": 2,
+      "checks": 4,
+      "sha256": "1e8787fb21ee96eb7ca818eaf45ab67d02dbb77a8b32ef83105a939d368bb6a5"
+    },
+    {
+      "slug": "genealogy_level_count",
+      "variants": 2,
+      "checks": 8,
+      "sha256": "b4b1b5e31c6c3fb4937e47a23b0b5275028be1a50612ab01a85f83688b78b4f4"
+    },
+    {
+      "slug": "guess_number",
+      "variants": 2,
+      "checks": 6,
+      "sha256": "b0fe7e79aedc4357c92484975706f1841c3370bdbc9c71071a49a9c7628f81fc"
+    },
+    {
+      "slug": "guess_number_2",
+      "variants": 2,
+      "checks": 8,
+      "sha256": "90d3d4552d5930b6c7d89dd2ffc71a3e4f7aa94bb27a1722cc816251d7c0f764"
+    },
+    {
+      "slug": "hello_harry",
+      "variants": 2,
+      "checks": 6,
+      "sha256": "220e59d341ee2e59ff5ec5fb3985003292a73a03956057c183fca45f996577a9"
+    },
+    {
+      "slug": "how_many_zeroes",
+      "variants": 2,
+      "checks": 16,
+      "sha256": "b0f1722e18445b56edb22897fc3b837392218732708a7df04ec9d815a498bc29"
+    },
+    {
+      "slug": "hypot",
+      "variants": 2,
+      "checks": 10,
+      "sha256": "becc4e9da07486fc3b4283098bf64b6da6e89a1743484e7eaff155d95c89fffa"
+    },
+    {
+      "slug": "increasing_neighbours",
+      "variants": 2,
+      "checks": 26,
+      "sha256": "37ff0046aee84f8a881fbf3fcd37cd190245e3bc98d74a0199b2c76bd2b7ccde"
+    },
+    {
+      "slug": "insert_element",
+      "variants": 2,
+      "checks": 18,
+      "sha256": "77d5ba0e5f0e314908db51eb5139efb6af02cb456175226cacddb2b6c0a769eb"
+    },
+    {
+      "slug": "is_fibonacci",
+      "variants": 2,
+      "checks": 30,
+      "sha256": "b240c09fdfc92905d20fde81e96a436ef68760b25de1a7046374bcc3c5c77015"
+    },
+    {
+      "slug": "jacob_the_swimmer",
+      "variants": 2,
+      "checks": 80,
+      "sha256": "63b46facdfb1c67764afcc1981d5616c2b2bbc6608f585fecd7bea5952ec0981"
+    },
+    {
+      "slug": "kegelbahn",
+      "variants": 2,
+      "checks": 16,
+      "sha256": "b83f8035daf15f2557a6193e610c5d30ca9bb0ded5b7ed00d5c69c03d519e032"
+    },
+    {
+      "slug": "king_move",
+      "variants": 2,
+      "checks": 66,
+      "sha256": "04737141c2211167d965e00e6cb7556aae1d015216983ed5a7deff6f7cb02575"
+    },
+    {
+      "slug": "knight_move",
+      "variants": 2,
+      "checks": 26,
+      "sha256": "d6d04f106063f5bd539ca8216fdf49f711d68dd38b82bafa5dedef038fada261"
+    },
+    {
+      "slug": "konec_urokov",
+      "variants": 2,
+      "checks": 20,
+      "sha256": "25a4c99b155064b096e7e2fb0056a74ed30320a2eda3433fb6ecb53490b06f35"
+    },
+    {
+      "slug": "kth_fibonacci",
+      "variants": 3,
+      "checks": 63,
+      "sha256": "05ecbe40f666d9764d6babf9d8e9a1c79cc8ea2b72a69a868b0190edbf8cf577"
+    },
+    {
+      "slug": "ladder",
+      "variants": 2,
+      "checks": 18,
+      "sha256": "57be9f910daa8d32d6ed417f624c6d1a4b84f74ec8e456021d5e200cbe325bd2"
+    },
+    {
+      "slug": "last_digit",
+      "variants": 2,
+      "checks": 38,
+      "sha256": "d40e8b2aecd7fba17ce9c6d33dfd34f57ea5518778d7ff9e861176d9e14b6cf5"
+    },
+    {
+      "slug": "leap_year",
+      "variants": 2,
+      "checks": 18,
+      "sha256": "881c37bf462cbddf84e4ae0dcca814c639f5575a451239ad003ce89c8411cd6d"
+    },
+    {
+      "slug": "length_of_segment",
+      "variants": 2,
+      "checks": 10,
+      "sha256": "30b8b128ac32168d2b4db57c28890f85d68541590cc2c9df587cb9669f1c65e5"
+    },
+    {
+      "slug": "lineup",
+      "variants": 2,
+      "checks": 40,
+      "sha256": "ca3b1de456e27daa056be00b28e6ed4d5f8d2db1c8597986f97a1ba9c691ab22"
+    },
+    {
+      "slug": "list_of_squares",
+      "variants": 2,
+      "checks": 14,
+      "sha256": "f8932778f326308b0cbe0ceef4ecafce6acaf17c87d053b3c67131be71618ff2"
+    },
+    {
+      "slug": "lists_queens",
+      "variants": 2,
+      "checks": 28,
+      "sha256": "646e17168ebc7b5111683c786511e75d85cc5187007778d647c2727b876e1abd"
+    },
+    {
+      "slug": "lost_card",
+      "variants": 2,
+      "checks": 16,
+      "sha256": "f593829cff2b259ff54c14b09080c9f3099ac0133ff5ded13f32e6cf055ba443"
+    },
+    {
+      "slug": "maximal_element",
+      "variants": 2,
+      "checks": 42,
+      "sha256": "74370916e392502d5c40e2ca4c69fc3b9742261cfb2d62d84b17b2d30a21b49d"
+    },
+    {
+      "slug": "minimal_divisor",
+      "variants": 2,
+      "checks": 22,
+      "sha256": "35ce28774ebd5edb0a54be10361ef74fab2dff77bc060bb821c5f15e92164f64"
+    },
+    {
+      "slug": "minimum",
+      "variants": 2,
+      "checks": 8,
+      "sha256": "85135027b3c1a2070ddcb10267c22c1d3045c199abd2ff1a825ede1bb2f642eb"
+    },
+    {
+      "slug": "minimum3",
+      "variants": 2,
+      "checks": 12,
+      "sha256": "741ee2febde37f30984004c78aba38049f70466dd69428f1ab1d66d0752bf5b2"
+    },
+    {
+      "slug": "mkad",
+      "variants": 2,
+      "checks": 12,
+      "sha256": "de49128d7fdf38050e047e4d426a875aaee35f07a8a7c3db59c654793719cd54"
+    },
+    {
+      "slug": "more_than_neighbours",
+      "variants": 2,
+      "checks": 26,
+      "sha256": "79f1913bf585165ae597aad32e184eb66848b3cc9880b8654e90dbd8ad6e60c7"
+    },
+    {
+      "slug": "most_frequent_word",
+      "variants": 2,
+      "checks": 16,
+      "sha256": "1a8091b43dfe8352a09b8f9e13f36c8b079e9f7bd15afe12605f719563b0fbe1"
+    },
+    {
+      "slug": "motor_rally",
+      "variants": 2,
+      "checks": 28,
+      "sha256": "776811e876d59c449a195bbbbbe7f4e13f15684a684a8e89aa9013aabeb52ac4"
+    },
+    {
+      "slug": "negative_power",
+      "variants": 2,
+      "checks": 68,
+      "sha256": "666d79eedd57877af037a240dde0ac1c13c5f30f11641744a6ed3e1e298db97b"
+    },
+    {
+      "slug": "next_and_previous",
+      "variants": 2,
+      "checks": 6,
+      "sha256": "90a0bcecdaba9a7520ad3dc1330950786d415b13fde9e0637e2b266d2c6f5001"
+    },
+    {
+      "slug": "num_distinct",
+      "variants": 2,
+      "checks": 24,
+      "sha256": "bf020c962be2398b220bcc7dc618cbc353c5a0cfb42b7d1371ab294f031014dc"
+    },
+    {
+      "slug": "num_equal",
+      "variants": 2,
+      "checks": 12,
+      "sha256": "fe267769dd7fe3432e4f4c098ed88e1f1f7f0b2fe57a37dcd64eea9fa300e0a9"
+    },
+    {
+      "slug": "num_equal_pairs",
+      "variants": 2,
+      "checks": 20,
+      "sha256": "29b8b84dd2502f2bf1b0af44bba137d59c5ce10b4fbc26e75039fe97271dce0d"
+    },
+    {
+      "slug": "num_words",
+      "variants": 2,
+      "checks": 10,
+      "sha256": "38d93089c69581141a46b0518c0fdf66edd17a9ab16bccceeebf66b12ee05549"
+    },
+    {
+      "slug": "number_of_coincidental",
+      "variants": 2,
+      "checks": 8,
+      "sha256": "f36211513c7dbb1773a257e1105da7f85368a7400d166d086ae3ff4e4e9a805b"
+    },
+    {
+      "slug": "number_of_unique",
+      "variants": 2,
+      "checks": 8,
+      "sha256": "7cfb9e89019c0e2a5a3105f75ba3dfeaa36bf9f54edd60d8b3cce81754ed51e1"
+    },
+    {
+      "slug": "number_of_words",
+      "variants": 2,
+      "checks": 10,
+      "sha256": "9aa364b9f84c08b3b02e3d400a37ee124a06cdb084f3b042309038367db893d5"
+    },
+    {
+      "slug": "occurency_index",
+      "variants": 2,
+      "checks": 26,
+      "sha256": "7e23424096d3156630b08a58e68cb93baafd1638b5e76b902df4e61dcf6076a8"
+    },
+    {
+      "slug": "occurs_before",
+      "variants": 2,
+      "checks": 8,
+      "sha256": "34151b4a210c98472cbdad7d889b5c66292dbaae8f71fb3b71392b608d1b972d"
+    },
+    {
+      "slug": "percents",
+      "variants": 2,
+      "checks": 18,
+      "sha256": "85b148b476979ec662b65f645f2773da1f93ace31ef99253bdca2e5c677bb945"
+    },
+    {
+      "slug": "permissions",
+      "variants": 2,
+      "checks": 12,
+      "sha256": "e4666f493c43c9e4afb1e944fa3f21c8e87dc7492ae9ffcc80f0dc1f4a460279"
+    },
+    {
+      "slug": "polyglotes",
+      "variants": 2,
+      "checks": 6,
+      "sha256": "36c0f4540abb9ea5a545f6bad369ea19d86e694e878b94baa5320859930d2a79"
+    },
+    {
+      "slug": "power_rec",
+      "variants": 2,
+      "checks": 42,
+      "sha256": "1189641af6ffad2b166ce4a11fcfe83bc43d63474a512aa09b17c97d5b3cbb03"
+    },
+    {
+      "slug": "powers_of_two",
+      "variants": 2,
+      "checks": 24,
+      "sha256": "472c60a563c75c41e2b5e084ab10397643030fee5ed58ccafda471affc3689ae"
+    },
+    {
+      "slug": "purchase_price",
+      "variants": 2,
+      "checks": 20,
+      "sha256": "749e7d73b3ad2a1120db480635be05046b15b20a77ebda82938e9855f3ba9c28"
+    },
+    {
+      "slug": "queen_move",
+      "variants": 2,
+      "checks": 30,
+      "sha256": "e60b7ebe53c2fbafead690e90ed5bbfbdb68185d0e1c7505c0bb783ab02e8d69"
+    },
+    {
+      "slug": "raznost_vremen",
+      "variants": 2,
+      "checks": 20,
+      "sha256": "b2a58da067726757ba8ef2c4a83b17a8ddd38aafe78354c786ce38095e3293c3"
+    },
+    {
+      "slug": "rect_triangle_square",
+      "variants": 2,
+      "checks": 8,
+      "sha256": "1454536b5c9247d96eff38e7b56e1a7ed7ca21cb6850ab72d4428169f752c4b5"
+    },
+    {
+      "slug": "remove_element",
+      "variants": 2,
+      "checks": 14,
+      "sha256": "d40f4b64e246a8a656fa24d010700f3851139f6b54cb62c3580bd01a61f19e01"
+    },
+    {
+      "slug": "replace_in_chunk",
+      "variants": 2,
+      "checks": 18,
+      "sha256": "8bc662d4895acf10de2b4f504e8c130cf0402d8babdfe0bed5a1bcdbcaaad080"
+    },
+    {
+      "slug": "replace_substring",
+      "variants": 2,
+      "checks": 10,
+      "sha256": "02b3ab875ed8c46319184c2366b89d41528bf531cbf614339bb04325fef1a0cf"
+    },
+    {
+      "slug": "reverse_chunk",
+      "variants": 2,
+      "checks": 18,
+      "sha256": "a543ac9026a71e0dac427bb7b8f686f6259213afb4611f64a4c2c06036d362f8"
+    },
+    {
+      "slug": "reverse_rec",
+      "variants": 2,
+      "checks": 10,
+      "sha256": "b799866a5f4d9337a6f68f55bad56d21570c0abfcead080e319eb6fa9b0a2360"
+    },
+    {
+      "slug": "rook_move",
+      "variants": 2,
+      "checks": 60,
+      "sha256": "4880773d777b90fc48e9535c2db426b7e86ff9761cf4cbc1856b350de4c60223"
+    },
+    {
+      "slug": "running",
+      "variants": 2,
+      "checks": 18,
+      "sha256": "2f5b83ab2a55a89de6ff56cbebf9c06334aa3dc307b4d3cc57f1cf6f8d4b7737"
+    },
+    {
+      "slug": "russian_round",
+      "variants": 2,
+      "checks": 18,
+      "sha256": "347e18f476942264022a076d9f87ab8a3721d2e175d2d8f4a467b6e08b55bacb"
+    },
+    {
+      "slug": "sales",
+      "variants": 2,
+      "checks": 6,
+      "sha256": "2a0b5484ecd2d1262d4c03202bcc2961cc11fc70d664333a33db4985751e03a1"
+    },
+    {
+      "slug": "same_sign_neighbours",
+      "variants": 2,
+      "checks": 30,
+      "sha256": "3a0ad60ee282a0d1bec06fd900c7c2f1bd9707d4486e9499bd99f87fb817b037"
+    },
+    {
+      "slug": "second_occurence",
+      "variants": 2,
+      "checks": 20,
+      "sha256": "c9769d306c32339005213dbed3fa0d91b02e04f628ccf7968bb8f6e7311fa36e"
+    },
+    {
+      "slug": "secondary_diagonal",
+      "variants": 2,
+      "checks": 16,
+      "sha256": "6b6097d85a15dc15fcf59f1bc78ac7633631a9b492d428db8e14895453674410"
+    },
+    {
+      "slug": "seq_avg",
+      "variants": 2,
+      "checks": 18,
+      "sha256": "f1e9bb6816053a7217935130d320efc8a9c43b65618c8ecb9ea7abc355e91feb"
+    },
+    {
+      "slug": "seq_increasing_neighbours",
+      "variants": 2,
+      "checks": 26,
+      "sha256": "e317459d9d51a40c2d9e7ba8af8af4e60d8488ff10b7c2ef5fe8f33c8b7adfe3"
+    },
+    {
+      "slug": "seq_index_of_max",
+      "variants": 2,
+      "checks": 24,
+      "sha256": "945acb80a8bb47c52d735f7573be404b9b021549295bae2f89a71faf95954eb7"
+    },
+    {
+      "slug": "seq_len",
+      "variants": 2,
+      "checks": 10,
+      "sha256": "a092f40da965e23ea70e4955bc57949cbda246bbca7e6fa8438ff47aa8827970"
+    },
+    {
+      "slug": "seq_max",
+      "variants": 2,
+      "checks": 22,
+      "sha256": "57eeb7d6312b9f0fadf4ddefcd72a73fcb30f1ce83ac696240b167ba7ad1b210"
+    },
+    {
+      "slug": "seq_max_chunk_of_repetitions",
+      "variants": 2,
+      "checks": 22,
+      "sha256": "b68b25fc02650f2739fdd46e440705fad53fc3516172a532cd7b8d77efcfa4d6"
+    },
+    {
+      "slug": "seq_num_even",
+      "variants": 2,
+      "checks": 20,
+      "sha256": "a8fc835ee1392a426d66deb4b275d435e719ded1cc9885e8933eab131ec984a3"
+    },
+    {
+      "slug": "seq_num_maximal",
+      "variants": 2,
+      "checks": 26,
+      "sha256": "0ec57e809c7c6059f9f16d9c6d400bfa96caefabb3bee94901992ac4208ded34"
+    },
+    {
+      "slug": "seq_second_max",
+      "variants": 2,
+      "checks": 50,
+      "sha256": "97d2304e576daa3dbd8a3d31be31613fa19e66a1ca52ad638b7ab61d9549e887"
+    },
+    {
+      "slug": "seq_sum",
+      "variants": 2,
+      "checks": 18,
+      "sha256": "84ee84652ef8dcac79b879d27b1863e88a7c979aa517f8009ac1cd6081ff5912"
+    },
+    {
+      "slug": "series_1",
+      "variants": 2,
+      "checks": 8,
+      "sha256": "a81ed9d64c69a02fd00165c730216ca3f2719b594a7927ae34848f6153783881"
+    },
+    {
+      "slug": "series_2",
+      "variants": 2,
+      "checks": 12,
+      "sha256": "ab599a6de6450664727c6b31538ab801a49e54a3858f8df21c920fecca06d70b"
+    },
+    {
+      "slug": "series_3",
+      "variants": 2,
+      "checks": 12,
+      "sha256": "0ffc533a3c40d0dcba3d5d94af73e42e57b0847d2b8e6b3df692e4bbe6ffadb2"
+    },
+    {
+      "slug": "sets_intersection",
+      "variants": 2,
+      "checks": 6,
+      "sha256": "55ae96c73d148edaef0857232a748ff8505a7c149522352ff3073e5cfcdeeaf9"
+    },
+    {
+      "slug": "shoelace",
+      "variants": 2,
+      "checks": 12,
+      "sha256": "e09afc03555d99cbc82de7279bd9ba66351fec2d3733756078d9910d1660d431"
+    },
+    {
+      "slug": "signum",
+      "variants": 2,
+      "checks": 8,
+      "sha256": "88a218a70744017c7166cee2627612b7e40314df8bed5f2dcbe4839826e085cc"
+    },
+    {
+      "slug": "slices",
+      "variants": 2,
+      "checks": 8,
+      "sha256": "8fe205a3f7d0f5ba8c4b0e3db3952c5dab67140410fad1bb481101c845217de6"
+    },
+    {
+      "slug": "snowflake",
+      "variants": 2,
+      "checks": 12,
+      "sha256": "d47ef4874c30b763a7276301b425ce7b38757fa07f0a93cb1e9ee7b75410d87d"
+    },
+    {
+      "slug": "std_dev",
+      "variants": 2,
+      "checks": 14,
+      "sha256": "f9a86a736795baf8642198806afbd4967bcd7efcd2ed936d7e152c4f2b92f744"
+    },
+    {
+      "slug": "strikes",
+      "variants": 2,
+      "checks": 16,
+      "sha256": "54524320cb753fd4c358cdd3a9e4445c9cd0686d52ff8e7301819ab8c85c1838"
+    },
+    {
+      "slug": "sum_of_cubes",
+      "variants": 2,
+      "checks": 22,
+      "sha256": "c52d51e97fc409732d859512a3a98125fa55f0e02075ba0ddf55548564abef7a"
+    },
+    {
+      "slug": "sum_of_digits",
+      "variants": 2,
+      "checks": 12,
+      "sha256": "c098cb2a37672c17b311e4c39ba4e8b13177526549ddd5e47902906ca0834356"
+    },
+    {
+      "slug": "sum_of_factorials",
+      "variants": 2,
+      "checks": 20,
+      "sha256": "03e34f98c50183cd4e68c94a0cf357a50a046800ac8a055cfb21ff94422a5fd8"
+    },
+    {
+      "slug": "sum_of_n_numbers",
+      "variants": 2,
+      "checks": 22,
+      "sha256": "315a437fc08a73dee633bd83345f542ae7bbf53d14463b39661f4a21fcb3c332"
+    },
+    {
+      "slug": "sum_of_ten_numbers",
+      "variants": 2,
+      "checks": 14,
+      "sha256": "263053f8c2ca582971ed97c84972c96a0e789f9b479c7aac5377718e2a46f0d0"
+    },
+    {
+      "slug": "swap_columns",
+      "variants": 2,
+      "checks": 22,
+      "sha256": "4ef872b747f243ef51fbaf1f978a02f7db2eb431b5da4fcd9c6bd5fc5b6b83ed"
+    },
+    {
+      "slug": "swap_min_and_max",
+      "variants": 2,
+      "checks": 16,
+      "sha256": "c487df84099b2e8df938ccf45575f466f7126222f533a6a00ca02e1c1be0ead2"
+    },
+    {
+      "slug": "swap_neighbours",
+      "variants": 2,
+      "checks": 20,
+      "sha256": "c87c6c914121d3c20a9942337faa9cd8cf83463aa0c34e435ceceb07d5527f83"
+    },
+    {
+      "slug": "swap_two_words",
+      "variants": 2,
+      "checks": 10,
+      "sha256": "cc99e6e6a69c8a36ef9f507bc71e0cdc1ca2f888e9ffb16dcbde4d7eb71e8c59"
+    },
+    {
+      "slug": "synonym_dictionary",
+      "variants": 2,
+      "checks": 12,
+      "sha256": "dcaa40942c476311dc20c51528f8a6e58b415397200fbce13f7c31f0ef326a98"
+    },
+    {
+      "slug": "tens_digit",
+      "variants": 2,
+      "checks": 36,
+      "sha256": "d18585306bbbcb49b04ad9fbf9eb787c7c8c36534ad66ac562ea4a9e568711e2"
+    },
+    {
+      "slug": "two_halves",
+      "variants": 2,
+      "checks": 12,
+      "sha256": "1d0bde25c041dbb68b9e20a30e33dcbee459a705630dcf44c613e26946e160a5"
+    },
+    {
+      "slug": "ulitka",
+      "variants": 2,
+      "checks": 40,
+      "sha256": "01b44c974c7226231cff857dc3f4caf8b06bdc008ee60bf5e2e7bb9a78b96273"
+    },
+    {
+      "slug": "unique_elements",
+      "variants": 2,
+      "checks": 14,
+      "sha256": "695fd10dba5f66034de25c40499c5554164df9a5296217d05883002ac3c7d070"
+    },
+    {
+      "slug": "usa_elections",
+      "variants": 2,
+      "checks": 10,
+      "sha256": "b5b46ed2263a2b90d4a53bdcafb0075a00d53460be3417d83bca78b7a227e058"
+    },
+    {
+      "slug": "usa_elections_2",
+      "variants": 2,
+      "checks": 4,
+      "sha256": "8759665ce2c54b6d4486130686e1637d5a610497a8d1b801138a322eca907e2e"
+    },
+    {
+      "slug": "watch_1",
+      "variants": 2,
+      "checks": 20,
+      "sha256": "9f4754abc5d72c6ef54250c0864b80f5359c1e34d2927bc572e126c8921624da"
+    },
+    {
+      "slug": "watch_2",
+      "variants": 2,
+      "checks": 62,
+      "sha256": "66700f5c51b2475791b01c27b1161294077f6b7ae2e386a3b559c841e34685bb"
+    },
+    {
+      "slug": "watch_3",
+      "variants": 2,
+      "checks": 20,
+      "sha256": "6c7657c69d7ba87614b29a1151f8689f45570fc596adeaeb15ca1af0572ed89c"
+    }
+  ]
+}

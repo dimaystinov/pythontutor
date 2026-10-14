@@ -1,0 +1,33 @@
+{
+  "slug": "slices",
+  "title": "Делаем срезы",
+  "origin": "authored",
+  "summary": "Используем индексы и срезы с положительным и отрицательным шагом.",
+  "recommended": {
+    "title": "Срезы строки",
+    "code": "s = input()\nprint(s[2])\nprint(s[-2])\nprint(s[:5])\nprint(s[:-2])\nprint(s[::2])\nprint(s[1::2])\nprint(s[::-1])\nprint(s[::-2])\nprint(len(s))\n",
+    "explanation": "Отрицательные индексы отсчитываются от конца, а отрицательный шаг разворачивает направление обхода.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(n) для строки и срезов"
+  },
+  "alternatives": [
+    {
+      "title": "Сборка по индексам",
+      "code": "s = input()\nn = len(s)\nprint(s[2])\nprint(s[n - 2])\nprint(''.join(s[i] for i in range(min(5, n))))\nprint(''.join(s[i] for i in range(n - 2)))\nprint(''.join(s[i] for i in range(0, n, 2)))\nprint(''.join(s[i] for i in range(1, n, 2)))\nprint(''.join(s[i] for i in range(n - 1, -1, -1)))\nprint(''.join(s[i] for i in range(n - 1, -1, -2)))\nprint(n)\n",
+      "explanation": "Явные диапазоны индексов воспроизводят каждый срез. Такой способ длиннее, но показывает, какие позиции выбираются.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n) для строки и собираемых результатов"
+    }
+  ],
+  "pitfalls": [
+    "Третий символ имеет индекс 2.",
+    "Обратный срез через один начинается с последнего символа.",
+    "Вход должен содержать как минимум три символа."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/str/problems/slices/"
+    }
+  ]
+}

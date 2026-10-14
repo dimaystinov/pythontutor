@@ -1,0 +1,31 @@
+{
+  "slug": "seq_num_even",
+  "title": "Количество четных элементов последовательности",
+  "origin": "authored",
+  "summary": "Увеличиваем счётчик для каждого чётного числа до нуля.",
+  "recommended": {
+    "title": "Один проход без хранения последовательности",
+    "code": "count = 0\nwhile True:\n    x = int(input())\n    if x == 0:\n        break\n    if x % 2 == 0:\n        count += 1\nprint(count)\n",
+    "explanation": "Проверка завершения стоит перед проверкой чётности, поэтому ноль не учитывается.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(1) числовых переменных"
+  },
+  "alternatives": [
+    {
+      "title": "Сохранение и обработка списка",
+      "code": "a = []\nwhile True:\n    x = int(input())\n    if x == 0:\n        break\n    a.append(x)\nprint(sum(x % 2 == 0 for x in a))\n",
+      "explanation": "Булевы результаты проверки чётности суммируются как нули и единицы.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n) для сохранённой последовательности"
+    }
+  ],
+  "pitfalls": [
+    "Завершающий ноль чётен, но в ответ не входит."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/while/problems/seq_num_even/"
+    }
+  ]
+}

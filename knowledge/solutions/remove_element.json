@@ -1,0 +1,31 @@
+{
+  "slug": "remove_element",
+  "title": "Удалить элемент",
+  "origin": "authored",
+  "summary": "Сдвигаем хвост влево внутри исходного списка.",
+  "recommended": {
+    "title": "Копирование соседей",
+    "code": "a = list(map(int, input().split()))\nk = int(input())\nfor i in range(k, len(a) - 1):\n    a[i] = a[i + 1]\na.pop()\nprint(*a)\n",
+    "explanation": "После сдвига последний элемент дублируется; удаляем его разрешённым pop без аргумента.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(n) исходный список, O(1) дополнительной памяти"
+  },
+  "alternatives": [
+    {
+      "title": "Перенос удаляемого элемента обменами",
+      "code": "a = list(map(int, input().split()))\nk = int(input())\nfor i in range(k, len(a) - 1):\n    a[i], a[i + 1] = a[i + 1], a[i]\na.pop()\nprint(*a)\n",
+      "explanation": "Соседние обмены перемещают удаляемое значение в конец, одновременно сдвигая остальные влево.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n) исходный список, O(1) дополнительной памяти"
+    }
+  ],
+  "pitfalls": [
+    "Индекс начинается с нуля; дополнительный список и pop(k) запрещены условием."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/lists/problems/remove_element/"
+    }
+  ]
+}

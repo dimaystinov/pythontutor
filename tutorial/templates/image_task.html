@@ -1,0 +1,48 @@
+{% extends '_base_basic.html' %}
+{% block headers %}
+<script defer src="{{ STATIC_URL }}js/task-writing.js?v=1"></script>
+{{ block.super }}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/images.css">
+<script src="{{ STATIC_URL }}js/ace-editor/ace.js"></script>
+<script defer src="{{ STATIC_URL }}js/image-task.js?v=pwa1"></script>
+{% endblock %}
+{% block body %}
+<p><a href="{% url 'image_index' %}">← Все задачи с изображениями</a> · <a href="{% url 'image_assignments' %}">Мои задания</a></p>
+<h1>{{ task.title }}</h1>
+<p>{{ task.statement }}</p>
+<p>Прочитайте входной файл через <code>cv2.imread('input.png')</code> и сохраните результат командой <code>cv2.imwrite('output.png', result)</code>. Используйте также <code>numpy</code> и <code>PIL</code>. Результат появится ниже; <code>cv2.imshow()</code> в этой среде не используется.</p>
+<div id="image-task" data-slug="{{ task.slug }}" data-run-url="{% url 'image_run' task.slug %}" data-submit-url="{% url 'image_submit' task.slug %}">
+    <h2 class="h4" id="image-code-label">Код Python</h2>
+<p id="task-writing-notice" class="text-muted" role="status" aria-live="polite"></p>
+    <pre id="image-code" aria-labelledby="image-code-label">{% if saved_code %}{{ saved_code }}{% else %}{{ task.starter }}{% endif %}</pre>
+    <div class="image-actions">
+        <button type="button" class="btn btn-primary" id="image-run"{% if not request.user.is_authenticated and execution_mode != "browser" %} disabled{% endif %}>Запустить на изображении</button>
+        {% if request.user.is_authenticated or execution_mode == "browser" %}<button type="button" class="btn btn-success" id="image-submit">Проверить решение</button>{% else %}<a href="{% url 'login' %}?next={{ request.path|urlencode }}">Войдите, чтобы запускать код, проверять решения и сохранять прогресс</a>{% endif %}
+    </div>
+    <p>Запуск использует выбранное изображение. Проверка решения всегда выполняется на учебных тестах.</p>
+    <p id="image-status" role="status" aria-live="polite"></p>
+    <div class="row">
+        <div class="col-sm-6">
+            <h2 class="h4">Входное изображение</h2>
+            <label for="image-upload">Своя картинка (PNG или JPEG, до 2 МБ и 4 млн пикселей)</label>
+            <input id="image-upload" type="file" accept="image/png,image/jpeg" aria-describedby="image-upload-help">
+            <p id="image-upload-help" class="help-block">Файл используется для запуска, но не заменяет учебные тесты.</p>
+            <button type="button" id="image-reset" class="btn btn-default btn-sm">Вернуть учебное изображение</button>
+            <div class="image-preview"><img id="image-input" src="{% url 'image_input' task.slug 0 %}" alt="Входное изображение для обработки"></div>
+        </div>
+        <div class="col-sm-6">
+            <h2 class="h4">Результат обработки</h2>
+            <p id="image-output-empty">Запустите код, чтобы увидеть результат.</p>
+            <div class="image-preview" id="image-output-wrap" hidden><img id="image-output" alt="Изображение, созданное вашей программой"></div>
+            <a id="image-download" class="btn btn-default btn-sm" download="output.png" hidden>Скачать PNG</a>
+        </div>
+    </div>
+    <h2 class="h4">Вывод программы</h2>
+    <pre id="image-stdout" aria-label="Вывод программы"></pre>
+    <pre id="image-error" class="text-danger" role="alert" hidden></pre>
+    <div id="image-knowledge-unlock" class="alert alert-success" {% if not knowledge_unlocked %}hidden{% endif %}>Задача решена. <a href="{% url 'knowledge_image' task.slug %}">Рекомендуемое решение и другие способы</a></div>
+    <div id="image-test-results" aria-live="polite"></div>
+{% include '_task_hints.html' %}
+{% include '_next_task.html' %}
+</div>
+{% endblock %}

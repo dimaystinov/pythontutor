@@ -1,0 +1,31 @@
+{
+  "slug": "how_many_zeroes",
+  "title": "Количество нулей",
+  "origin": "authored",
+  "summary": "Увеличиваем счётчик только при вводе числа, равного нулю.",
+  "recommended": {
+    "title": "Счётчик при чтении",
+    "code": "n = int(input())\ncount = 0\nfor _ in range(n):\n    if int(input()) == 0:\n        count += 1\nprint(count)\n",
+    "explanation": "Не нужно хранить все числа: после проверки очередное значение больше не используется.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(1) числовых переменных, кроме текущей строки ввода"
+  },
+  "alternatives": [
+    {
+      "title": "Подсчёт в сохранённом списке",
+      "code": "n = int(input())\na = [int(input()) for _ in range(n)]\nprint(a.count(0))\n",
+      "explanation": "Метод count считает элементы со значением 0 в готовом списке. Это удобно, если список потребуется дальше.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n)"
+    }
+  ],
+  "pitfalls": [
+    "Число 700 не равно нулю, хотя содержит цифры 0."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/for_loop/problems/how_many_zeroes/"
+    }
+  ]
+}

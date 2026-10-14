@@ -1,0 +1,30 @@
+// Public task and visible tests from pythontutor.ru/old/, 2026-09-27
+Name:
+Гипотенуза
+Statement:
+Дано два числа a и b. Выведите гипотенузу треугольника с заданными катетами.
+Test:
+3
+4
+Answer:
+5.0
+Test:
+5
+12
+Answer:
+13.0
+Test:
+1
+1
+Answer:
+1.41421356237
+Test:
+179
+971
+Answer:
+987.361129476
+Test:
+26
+89
+Answer:
+92.7200086281

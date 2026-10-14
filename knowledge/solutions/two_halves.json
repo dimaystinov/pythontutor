@@ -1,0 +1,32 @@
+{
+  "slug": "two_halves",
+  "title": "Две половинки",
+  "origin": "authored",
+  "summary": "Точка разреза равна округлённой вверх половине длины.",
+  "recommended": {
+    "title": "Рекомендуемый подход",
+    "code": "s = input()\nmiddle = (len(s) + 1) // 2\nprint(s[middle:] + s[:middle])\n",
+    "explanation": "Формула одинаково работает для чётной и нечётной длины, без if.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(n)"
+  },
+  "alternatives": [
+    {
+      "title": "Другой способ",
+      "code": "from collections import deque\ns = input()\nletters = deque(s)\nletters.rotate(-((len(s) + 1) // 2))\nprint(''.join(letters))\n",
+      "explanation": "Циклический сдвиг влево на длину первой половины переносит её в конец. Очередь дороже по памяти и здесь служит альтернативной моделью.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n)"
+    }
+  ],
+  "pitfalls": [
+    "При нечётной длине первая половина длиннее.",
+    "Не нужно разворачивать символы внутри половин."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/str/problems/two_halves/"
+    }
+  ]
+}

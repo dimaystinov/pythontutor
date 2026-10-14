@@ -1,0 +1,32 @@
+{
+  "slug": "series_2",
+  "title": "Ряд - 2",
+  "origin": "authored",
+  "summary": "Направление обхода зависит от взаимного порядка границ.",
+  "recommended": {
+    "title": "Рекомендуемый подход",
+    "code": "a = int(input())\nb = int(input())\nstep = 1 if a <= b else -1\nfor x in range(a, b + step, step):\n    print(x)\n",
+    "explanation": "Конец range сдвигается на один шаг за b, чтобы b вошло в вывод.",
+    "time_complexity": "O(|B−A|+1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Другой способ",
+      "code": "a = int(input())\nb = int(input())\nwhile a != b:\n    print(a)\n    a += 1 if a < b else -1\nprint(b)\n",
+      "explanation": "Пока границы не совпали, приближаем a к b на единицу. Последнюю границу печатаем отдельно.",
+      "time_complexity": "O(|B−A|+1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "При A=B выводится одно число.",
+    "При убывании шаг и сдвиг конечной границы отрицательны."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/for_loop/problems/series_2/"
+    }
+  ]
+}

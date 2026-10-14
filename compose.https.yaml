@@ -1,0 +1,30 @@
+# Optional public HTTPS deployment. Requires DNS pointing DOMAIN at your server.
+services:
+  web:
+    environment:
+      TRUST_PROXY_HEADERS: "1"
+      SESSION_COOKIE_SECURE: "1"
+      CSRF_COOKIE_SECURE: "1"
+      SECURE_SSL_REDIRECT: "0"
+  proxy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    environment:
+      DOMAIN: ${DOMAIN:?Set DOMAIN to your real hostname}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    networks: [backend, edge]
+    depends_on:
+      web:
+        condition: service_healthy
+networks:
+  edge:
+volumes:
+  caddy-data:
+  caddy-config:

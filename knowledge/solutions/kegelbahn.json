@@ -1,0 +1,32 @@
+{
+  "slug": "kegelbahn",
+  "title": "Кегельбан",
+  "origin": "authored",
+  "summary": "Отмечаем покрытие интервалами сбитых кеглей.",
+  "recommended": {
+    "title": "Разностный массив",
+    "code": "n, k = map(int, input().split())\ndifference = [0] * (n + 1)\nfor _ in range(k):\n    left, right = map(int, input().split())\n    difference[left - 1] += 1\n    difference[right] -= 1\nactive = 0\nresult = []\nfor i in range(n):\n    active += difference[i]\n    result.append('.' if active else 'I')\nprint(''.join(result))\n",
+    "explanation": "Добавляем начало и конец каждого интервала. Префиксная сумма показывает, сколько бросков покрыли данную кеглю; положительное значение означает падение.",
+    "time_complexity": "O(n + k)",
+    "space_complexity": "O(n)"
+  },
+  "alternatives": [
+    {
+      "title": "Явная отметка каждой сбитой кегли",
+      "code": "n, k = map(int, input().split())\npins = ['I'] * n\nfor _ in range(k):\n    left, right = map(int, input().split())\n    for i in range(left - 1, right):\n        pins[i] = '.'\nprint(''.join(pins))\n",
+      "explanation": "Простой подход напрямую воспроизводит каждый бросок. При длинных перекрывающихся интервалах он повторяет одну работу много раз.",
+      "time_complexity": "O(n + сумма длин интервалов), максимум O(nk + n)",
+      "space_complexity": "O(n)"
+    }
+  ],
+  "pitfalls": [
+    "Ввод нумерует кегли с 1, список — с 0.",
+    "Правый конец интервала включён."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/lists/problems/kegelbahn/"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "slug": "watch_2",
+  "title": "Часы - 2",
+  "origin": "authored",
+  "summary": "За полный час часовая стрелка проходит 30°, минутная — 360°.",
+  "recommended": {
+    "title": "Рекомендуемый подход",
+    "code": "angle = float(input())\nprint((angle % 30) * 12)\n",
+    "explanation": "Остаток убирает полные часы; внутри часа минутная стрелка движется в 12 раз быстрее.",
+    "time_complexity": "O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Другой способ",
+      "code": "angle = float(input())\nhours = angle / 30\nfraction = hours - int(hours)\nprint(fraction * 360)\n",
+      "explanation": "Дробная часть прошедшего времени в часах задаёт долю оборота минутной стрелки.",
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "На границе часа ответ 0°, а не 360°.",
+    "Округлять количество часов до ближайшего целого нельзя."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/int_and_float/problems/watch_2/"
+    }
+  ]
+}

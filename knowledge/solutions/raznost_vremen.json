@@ -1,0 +1,33 @@
+{
+  "slug": "raznost_vremen",
+  "title": "Разность времен",
+  "origin": "authored",
+  "summary": "Переводим оба момента времени в секунды от начала суток и вычитаем.",
+  "recommended": {
+    "title": "Общая единица измерения",
+    "code": "h1 = int(input())\nm1 = int(input())\ns1 = int(input())\nh2 = int(input())\nm2 = int(input())\ns2 = int(input())\nstart = h1 * 3600 + m1 * 60 + s1\nend = h2 * 3600 + m2 * 60 + s2\nprint(end - start)\n",
+    "explanation": "В часе 3600 секунд, в минуте 60. После перевода переносы между разрядами не требуют отдельных проверок.",
+    "time_complexity": "O(1) арифметических операций",
+    "space_complexity": "O(1) числовых переменных"
+  },
+  "alternatives": [
+    {
+      "title": "Вычитание с заимствованием",
+      "code": "h1 = int(input())\nm1 = int(input())\ns1 = int(input())\nh2 = int(input())\nm2 = int(input())\ns2 = int(input())\nseconds = s2 - s1\nminutes = m2 - m1\nhours = h2 - h1\nif seconds < 0:\n    seconds += 60\n    minutes -= 1\nif minutes < 0:\n    minutes += 60\n    hours -= 1\nprint(hours * 3600 + minutes * 60 + seconds)\n",
+      "explanation": "Если секунд второго момента недостаточно для вычитания, заимствуем минуту; при отрицательном числе минут заимствуем час. Затем переводим полученный интервал в секунды.",
+      "time_complexity": "O(1) арифметических операций",
+      "space_complexity": "O(1) числовых переменных"
+    }
+  ],
+  "pitfalls": [
+    "Не нужно брать модуль разности: второй момент по условию не раньше первого.",
+    "Оба момента принадлежат одним суткам.",
+    "Один час содержит 3600 секунд, а не 60."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/int_and_float/problems/raznost_vremen/"
+    }
+  ]
+}

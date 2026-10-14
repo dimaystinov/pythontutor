@@ -1,0 +1,32 @@
+{
+  "slug": "cubes",
+  "title": "Кубики",
+  "origin": "authored",
+  "summary": "Пересечение и две разности множеств описывают требуемые группы.",
+  "recommended": {
+    "title": "Операции над множествами",
+    "code": "n, m = map(int, input().split())\na = {int(input()) for _ in range(n)}\nb = {int(input()) for _ in range(m)}\nfor group in (a & b, a - b, b - a):\n    print(len(group))\n    print(*sorted(group))\n",
+    "explanation": "Пересечение даёт общие цвета, направленные разности — уникальные для каждого ребёнка.",
+    "time_complexity": "O((n + m) log(n + m)) с сортировкой",
+    "space_complexity": "O(n + m)"
+  },
+  "alternatives": [
+    {
+      "title": "Слияние отсортированных списков",
+      "code": "n, m = map(int, input().split())\na = sorted(int(input()) for _ in range(n))\nb = sorted(int(input()) for _ in range(m))\ni = j = 0\ncommon, only_a, only_b = [], [], []\nwhile i < n and j < m:\n    if a[i] == b[j]:\n        common.append(a[i])\n        i += 1\n        j += 1\n    elif a[i] < b[j]:\n        only_a.append(a[i])\n        i += 1\n    else:\n        only_b.append(b[j])\n        j += 1\nonly_a.extend(a[i:])\nonly_b.extend(b[j:])\nfor group in (common, only_a, only_b):\n    print(len(group))\n    print(*group)\n",
+      "explanation": "Два указателя классифицируют цвета в возрастающем порядке; оставшийся хвост принадлежит только одному набору.",
+      "time_complexity": "O(n log n + m log m)",
+      "space_complexity": "O(n + m)"
+    }
+  ],
+  "pitfalls": [
+    "Выводите сначала общие цвета, затем только Ани, затем только Бори.",
+    "Даже для пустой группы нужно вывести количество 0."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/sets/problems/cubes/"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "slug": "power_rec",
+  "title": "Возведение в степень",
+  "origin": "authored",
+  "summary": "Следуем рекуррентной формуле и останавливаемся при нулевом показателе.",
+  "recommended": {
+    "title": "Прямая рекурсия",
+    "code": "def power(a, n):\n    if n == 0:\n        return 1\n    return a * power(a, n - 1)\n\nprint(power(float(input()), int(input())))\n",
+    "explanation": "Каждый вызов уменьшает показатель на единицу; при возврате выполняется умножение.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(n) стек"
+  },
+  "alternatives": [
+    {
+      "title": "Рекурсия с накопителем",
+      "code": "def power(a, n):\n    def multiply(k, product):\n        if k == 0:\n            return product\n        return multiply(k - 1, product * a)\n    return multiply(n, 1)\nprint(power(float(input()), int(input())))\n",
+      "explanation": "Произведение переносится в аргумент следующего вызова. Циклов и операции степени нет; Python не устраняет хвостовые вызовы.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n) стек"
+    }
+  ],
+  "pitfalls": [
+    "Для больших n оба варианта достигают предела глубины рекурсии Python; n=0 возвращает 1."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/functions/problems/power_rec/"
+    }
+  ]
+}

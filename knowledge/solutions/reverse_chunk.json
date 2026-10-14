@@ -1,0 +1,31 @@
+{
+  "slug": "reverse_chunk",
+  "title": "Обращение фрагмента",
+  "origin": "authored",
+  "summary": "Сохраняем края и разворачиваем только внутреннюю часть.",
+  "recommended": {
+    "title": "Обратный срез",
+    "code": "s = input()\nleft, right = s.find(\"h\"), s.rfind(\"h\")\nprint(s[:left + 1] + s[left + 1:right][::-1] + s[right:])\n",
+    "explanation": "Границы h остаются на месте; срез с шагом −1 разворачивает середину.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(n)"
+  },
+  "alternatives": [
+    {
+      "title": "Обмены двух указателей",
+      "code": "s = list(input())\nleft = s.index(\"h\") + 1\nright = len(s) - 2 - s[::-1].index(\"h\")\nwhile left < right:\n    s[left], s[right] = s[right], s[left]\n    left += 1\n    right -= 1\nprint(\"\".join(s))\n",
+      "explanation": "Переводим строку в изменяемый список и меняем симметричные символы местами.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n)"
+    }
+  ],
+  "pitfalls": [
+    "Первое и последнее h — границы всего фрагмента, а не соседняя пара h."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/str/problems/reverse_chunk/"
+    }
+  ]
+}

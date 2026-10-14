@@ -1,0 +1,33 @@
+{
+  "slug": "strikes",
+  "title": "Забастовки",
+  "origin": "authored",
+  "summary": "Отмечаем рабочие дни забастовок, считая совпадения только один раз.",
+  "recommended": {
+    "title": "Множество дней",
+    "code": "n, k = map(int, input().split())\ndays = set()\nfor _ in range(k):\n    a, b = map(int, input().split())\n    for day in range(a, n + 1, b):\n        if day % 7 not in (6, 0):\n            days.add(day)\nprint(len(days))\n",
+    "explanation": "Остатки 6 и 0 соответствуют субботе и воскресенью. Множество автоматически удаляет совпадения разных партий.",
+    "time_complexity": "O(k + Σ(1 + (n−aᵢ)//bᵢ)) для партий с aᵢ≤n; в среднем",
+    "space_complexity": "O(n) в худшем случае"
+  },
+  "alternatives": [
+    {
+      "title": "Проверка календаря",
+      "code": "n, k = map(int, input().split())\nparties = [tuple(map(int, input().split())) for _ in range(k)]\ncount = 0\nfor day in range(1, n + 1):\n    if day % 7 not in (6, 0):\n        if any(day >= a and (day - a) % b == 0 for a, b in parties):\n            count += 1\nprint(count)\n",
+      "explanation": "Для каждого рабочего дня ищем хотя бы одну партию, у которой он входит в арифметическую прогрессию.",
+      "time_complexity": "O(nk)",
+      "space_complexity": "O(k)"
+    }
+  ],
+  "pitfalls": [
+    "Отсчёт дней начинается с понедельника под номером 1.",
+    "Совпадающие забастовки не суммируются.",
+    "Нельзя учитывать дни раньше первого выступления партии."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/sets/problems/strikes/"
+    }
+  ]
+}

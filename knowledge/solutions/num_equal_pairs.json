@@ -1,0 +1,31 @@
+{
+  "slug": "num_equal_pairs",
+  "title": "Количество совпадающих пар",
+  "origin": "authored",
+  "summary": "Каждый новый элемент образует пары со всеми прежними равными.",
+  "recommended": {
+    "title": "Частоты на ходу",
+    "code": "a = list(map(int, input().split()))\ncounts = {}\nanswer = 0\nfor x in a:\n    answer += counts.get(x, 0)\n    counts[x] = counts.get(x, 0) + 1\nprint(answer)\n",
+    "explanation": "Пара учитывается ровно при обработке её правого элемента.",
+    "time_complexity": "O(n) в среднем",
+    "space_complexity": "O(n)"
+  },
+  "alternatives": [
+    {
+      "title": "Все пары индексов",
+      "code": "a = list(map(int, input().split()))\nanswer = 0\nfor i in range(len(a)):\n    for j in range(i):\n        if a[i] == a[j]:\n            answer += 1\nprint(answer)\n",
+      "explanation": "Перебор j<i исключает повторный подсчёт и пары элемента с самим собой.",
+      "time_complexity": "O(n²)",
+      "space_complexity": "O(n)"
+    }
+  ],
+  "pitfalls": [
+    "Для k одинаковых чисел получается k(k−1)/2 пар."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/lists/problems/num_equal_pairs/"
+    }
+  ]
+}

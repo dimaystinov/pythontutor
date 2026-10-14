@@ -1,0 +1,32 @@
+{
+  "slug": "fractional_part",
+  "title": "Дробная часть",
+  "origin": "authored",
+  "summary": "Отбрасываем целую часть положительного числа.",
+  "recommended": {
+    "title": "Точное вычитание целой части",
+    "code": "from decimal import Decimal, localcontext, ROUND_DOWN\nx = Decimal(input())\nwith localcontext() as context:\n    context.prec = max(1, len(x.as_tuple().digits))\n    fraction = x - x.to_integral_value(rounding=ROUND_DOWN)\nprint(fraction)\n",
+    "explanation": "Число читается как точная десятичная запись. Выделяем целую часть и вычитаем её, задав достаточно значащих цифр для исходного числа; поэтому длинная дробная часть не теряется.",
+    "time_complexity": "O(L + E), где E — длина выводимого результата; для обычной записи O(L)",
+    "space_complexity": "O(L + E)"
+  },
+  "alternatives": [
+    {
+      "title": "Отделение дробной части строки",
+      "code": "from decimal import Decimal\ns = format(Decimal(input()), 'f')\nfraction = s.partition('.')[2]\nprint('0.' + fraction if fraction else '0')\n",
+      "explanation": "Переводим число в обычную десятичную запись и заменяем целую часть нулём. Арифметического округления нет; при больших показателях степени развёрнутая строка может быть длинной.",
+      "time_complexity": "O(L + E), E — длина развёрнутой записи",
+      "space_complexity": "O(L + E)"
+    }
+  ],
+  "pitfalls": [
+    "float не сохраняет маленькую дробную часть у очень большого целого.",
+    "Для положительного числа ответ лежит в промежутке [0, 1)."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/int_and_float/problems/fractional_part/"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "slug": "tens_digit",
+  "title": "Число десятков",
+  "origin": "authored",
+  "summary": "Убираем единицы, затем берём последнюю оставшуюся цифру.",
+  "recommended": {
+    "title": "Рекомендуемый подход",
+    "code": "n = int(input())\nprint(n // 10 % 10)\n",
+    "explanation": "Деление на 10 убирает единицы, остаток по 10 выделяет десятки.",
+    "time_complexity": "O(d) на чтение d цифр; арифметика зависит от размера числа",
+    "space_complexity": "O(d) для записи числа"
+  },
+  "alternatives": [
+    {
+      "title": "Другой способ",
+      "code": "s = input().strip().zfill(2)\nprint(int(s[-2]))\n",
+      "explanation": "Дополняем запись слева нулём до двух символов и читаем предпоследнюю цифру.",
+      "time_complexity": "O(d) на чтение d цифр; арифметика зависит от размера числа",
+      "space_complexity": "O(d) для записи числа"
+    }
+  ],
+  "pitfalls": [
+    "Нужно получить цифру десятков, а не количество полных десятков.",
+    "У однозначного числа цифра десятков равна 0."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/int_and_float/problems/tens_digit/"
+    }
+  ]
+}

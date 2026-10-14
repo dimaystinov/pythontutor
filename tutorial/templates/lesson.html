@@ -1,0 +1,44 @@
+{% extends '_lesson_page.html' %}
+{% load lesson %}
+
+{% block headers %}
+	{{ block.super }}
+
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/lesson.css?v=menu2">
+{% endblock %}
+
+{% block navbar_active_lesson %}
+	<ul class="lesson_sections">
+		{% if lesson.sections|length > 2 %}
+			{{ lesson|lesson_navbar }}
+		{% endif %}
+		<li class="problems_link">
+			<a href="#problems">Задачи</a>
+            <ul>{% for menu_problem in problems %}<li><a href="{% url 'problem_in_lesson' lesson.name menu_problem.urlname %}">{{ menu_problem.name }}</a></li>{% endfor %}</ul>
+		</li>
+	</ul>
+{% endblock %}
+
+{% block lesson_body %}
+	<h3 class="page-header">{% include "_sidebar_toggle.html" %}Занятие {{ lesson_in_course.order }}. {% include "_lesson_title.html" %}</h3>
+
+	{{ lesson|lesson_content }}
+
+	{% if problems %}
+		<hr>
+		<div id="problems">
+			<h2>Задачи:</h2>
+			<ol class="lesson_problems">
+				{% for problem in problems %}
+					<li>
+						<a href="/lessons/{{ lesson.name }}/problems/{{ problem.urlname }}/">{% problem_link problem %}</a>
+						{% ideal_solution problem %}
+					</li>
+				{% endfor %}
+			</ol>
+		</div>
+	{% endif %}
+	{% if lesson_db.external_contest_link %}
+		<h4><a href="{{ lesson_db.external_contest_link }}">Внешний контест с задачами</a></h4>
+	{% endif %}
+{% endblock %}

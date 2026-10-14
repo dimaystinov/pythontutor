@@ -1,0 +1,32 @@
+{
+  "slug": "genealogy_lca",
+  "title": "Родословная: LCA",
+  "origin": "authored",
+  "summary": "Предварительно сохраняем предков на степенях двойки, чтобы быстро отвечать на множество запросов.",
+  "recommended": {
+    "title": "Двоичные подъёмы",
+    "code": "n = int(input())\nparent = {}\nchildren = {}\nfor _ in range(n - 1):\n    child, ancestor = input().split()\n    parent[child] = ancestor\n    children.setdefault(ancestor, []).append(child)\n    children.setdefault(child, [])\nq = int(input())\nqueries = [input().split() for _ in range(q)]\nfor a, b in queries:\n    children.setdefault(a, [])\n    children.setdefault(b, [])\n\nif children:\n    root = next(name for name in children if name not in parent)\n    width = max(1, n.bit_length())\n    depth = {root: 0}\n    up = {root: [root] * width}\n    order = [root]\n    for name in order:\n        for child in children[name]:\n            depth[child] = depth[name] + 1\n            row = [name]\n            for bit in range(1, width):\n                row.append(up[row[bit - 1]][bit - 1])\n            up[child] = row\n            order.append(child)\n    for a, b in queries:\n        if depth[a] < depth[b]:\n            a, b = b, a\n        difference = depth[a] - depth[b]\n        for bit in range(width):\n            if difference & (1 << bit):\n                a = up[a][bit]\n        if a != b:\n            for bit in range(width - 1, -1, -1):\n                if up[a][bit] != up[b][bit]:\n                    a, b = up[a][bit], up[b][bit]\n            a = up[a][0]\n        print(a)\n",
+    "explanation": "Для каждой вершины запоминаем предков на расстояниях 1, 2, 4 и так далее. Сначала выравниваем глубины скачками, затем одновременно поднимаем обе вершины, пока их непосредственные родители не совпадут. Обход итеративный. Если дерево содержит единственную вершину, её имя берём из запросов; при отсутствии запросов вывод пуст.",
+    "time_complexity": "Ожидаемое O((n + q) log(n + 1)) без учёта длины имён",
+    "space_complexity": "O(n log(n + 1) + q) записей, включая таблицу предков и сохранённые запросы"
+  },
+  "alternatives": [
+    {
+      "title": "Множество предков первого имени",
+      "code": "n = int(input())\nparent = {}\nchildren = {}\nfor _ in range(n - 1):\n    child, ancestor = input().split()\n    parent[child] = ancestor\n    children.setdefault(ancestor, []).append(child)\n    children.setdefault(child, [])\nq = int(input())\nqueries = [input().split() for _ in range(q)]\nfor a, b in queries:\n    children.setdefault(a, [])\n    children.setdefault(b, [])\n\nfor a, b in queries:\n    ancestors = {a}\n    while a in parent:\n        a = parent[a]\n        ancestors.add(a)\n    while b not in ancestors:\n        b = parent[b]\n    print(b)\n",
+      "explanation": "Сохраняем всю цепочку первого имени вместе с ним самим. Первый общий элемент при подъёме второго имени — самый глубокий общий предок. Этот вариант проще и экономит таблицу подъёмов, но запрос на глубокой цепочке занимает линейное время.",
+      "time_complexity": "Ожидаемое O(n + q(h + 1)), h — высота дерева",
+      "space_complexity": "O(n + q), включая дерево, запросы и множество предков"
+    }
+  ],
+  "pitfalls": [
+    "В этой задаче вершина считается собственным предком.",
+    "Ответом может быть одно из двух исходных имён."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/dicts/problems/genealogy_lca/"
+    }
+  ]
+}

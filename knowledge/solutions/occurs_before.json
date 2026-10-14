@@ -1,0 +1,31 @@
+{
+  "slug": "occurs_before",
+  "title": "Встречалось ли число раньше",
+  "origin": "authored",
+  "summary": "Множество содержит только уже обработанные числа.",
+  "recommended": {
+    "title": "Множество просмотренных",
+    "code": "seen = set()\nfor x in map(int, input().split()):\n    print(\"YES\" if x in seen else \"NO\")\n    seen.add(x)\n",
+    "explanation": "Проверяем принадлежность до добавления текущего числа.",
+    "time_complexity": "O(n) в среднем",
+    "space_complexity": "O(n)"
+  },
+  "alternatives": [
+    {
+      "title": "Поиск в предыдущем списке",
+      "code": "seen = []\nfor x in map(int, input().split()):\n    print(\"YES\" if x in seen else \"NO\")\n    seen.append(x)\n",
+      "explanation": "Список тоже позволяет проверить наличие, но поиск линейный.",
+      "time_complexity": "O(n²)",
+      "space_complexity": "O(n)"
+    }
+  ],
+  "pitfalls": [
+    "Первое появление всегда NO, последующие появления того же числа — YES."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/sets/problems/occurs_before/"
+    }
+  ]
+}

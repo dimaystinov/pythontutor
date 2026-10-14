@@ -1,0 +1,31 @@
+{
+  "slug": "reverse_rec",
+  "title": "Разворот последовательности",
+  "origin": "authored",
+  "summary": "Печатаем число после рекурсивной обработки остатка.",
+  "recommended": {
+    "title": "Один элемент на вызов",
+    "code": "def reverse():\n    x = int(input())\n    if x != 0:\n        reverse()\n    print(x)\n\nreverse()\n",
+    "explanation": "Стек сохраняет прочитанные числа; возвраты идут в обратном порядке. Ноль тоже печатается.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(n) стек"
+  },
+  "alternatives": [
+    {
+      "title": "Два элемента на вызов",
+      "code": "def reverse():\n    first = int(input())\n    if first == 0:\n        print(0)\n        return\n    second = int(input())\n    if second == 0:\n        print(0)\n    else:\n        reverse()\n    if second != 0:\n        print(second)\n    print(first)\nreverse()\n",
+      "explanation": "Каждый вызов хранит до двух чисел в отдельных переменных. Сначала выводим продолжение, затем второе и первое; глубина примерно вдвое меньше.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n) стек"
+    }
+  ],
+  "pitfalls": [
+    "Ноль входит в вывод. Глубина рекурсии ограничивает оба варианта; массивы не используются."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/functions/problems/reverse_rec/"
+    }
+  ]
+}

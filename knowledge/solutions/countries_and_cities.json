@@ -1,0 +1,31 @@
+{
+  "slug": "countries_and_cities",
+  "title": "Страны и города",
+  "origin": "authored",
+  "summary": "Строим обратное соответствие от города к стране.",
+  "recommended": {
+    "title": "Индекс городов",
+    "code": "n = int(input())\ncountry_of = {}\nfor _ in range(n):\n    country, *cities = input().split()\n    for city in cities:\n        country_of[city] = country\nfor _ in range(int(input())):\n    print(country_of[input()])\n",
+    "explanation": "Каждый город становится ключом словаря, поэтому ответ находится без повторного обхода стран.",
+    "time_complexity": "Ожидаемое O(C + Q), C — число городов, Q — запросов (без учёта длины строк)",
+    "space_complexity": "O(C) записей и памяти для названий"
+  },
+  "alternatives": [
+    {
+      "title": "Множества городов по странам",
+      "code": "n = int(input())\ncountries = []\nfor _ in range(n):\n    name, *cities = input().split()\n    countries.append((name, set(cities)))\nfor _ in range(int(input())):\n    city = input()\n    for name, cities in countries:\n        if city in cities:\n            print(name)\n            break\n",
+      "explanation": "Сохраняем исходное направление связи и проверяем принадлежность города каждой стране.",
+      "time_complexity": "Ожидаемое O(C + Qn)",
+      "space_complexity": "O(C + n) записей и названий"
+    }
+  ],
+  "pitfalls": [
+    "Название страны — первый элемент строки, остальные элементы — города."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/dicts/problems/countries_and_cities/"
+    }
+  ]
+}

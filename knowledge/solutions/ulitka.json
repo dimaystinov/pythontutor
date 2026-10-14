@@ -1,0 +1,33 @@
+{
+  "slug": "ulitka",
+  "title": "Улитка",
+  "origin": "authored",
+  "summary": "Последний дневной подъём рассматриваем отдельно: после достижения вершины ночного спуска нет.",
+  "recommended": {
+    "title": "Целочисленная формула",
+    "code": "h = int(input())\na = int(input())\nb = int(input())\nif h <= a:\n    print(1)\nelse:\n    gain = a - b\n    remaining = h - a\n    print((remaining + gain - 1) // gain + 1)\n",
+    "explanation": "За полные сутки до последнего дня улитка прибавляет a−b. Нужно накопить не меньше h−a метров, после чего последний подъём завершит путь. Деление с округлением вверх вычисляется только целыми числами.",
+    "time_complexity": "O(1) арифметических операций",
+    "space_complexity": "O(1) числовых переменных"
+  },
+  "alternatives": [
+    {
+      "title": "Моделирование суток",
+      "code": "h = int(input())\na = int(input())\nb = int(input())\nheight = 0\nday = 1\nwhile height + a < h:\n    height += a - b\n    day += 1\nprint(day)\n",
+      "explanation": "Пока текущий дневной подъём не достигает вершины, добавляем чистый прирост за сутки и переходим к следующему дню. Условие a>b гарантирует завершение, но для большой высоты цикл может быть медленным.",
+      "time_complexity": "O(D), где D — искомое число дней",
+      "space_complexity": "O(1) числовых переменных"
+    }
+  ],
+  "pitfalls": [
+    "Нельзя делить всю высоту h на a−b: в последний день спуска нет.",
+    "Если a≥h, ответ сразу 1.",
+    "Деление с округлением вверх лучше выполнять целыми числами, без погрешности float."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/int_and_float/problems/ulitka/"
+    }
+  ]
+}

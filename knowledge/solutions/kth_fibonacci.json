@@ -1,0 +1,38 @@
+{
+  "slug": "kth_fibonacci",
+  "title": "Числа Фибоначчи",
+  "origin": "authored",
+  "summary": "Храним два соседних числа последовательности.",
+  "recommended": {
+    "title": "Две переменные",
+    "code": "n = int(input())\na, b = 0, 1\nfor _ in range(n):\n    a, b = b, a + b\nprint(a)\n",
+    "explanation": "После k шагов a равно F(k), а b равно F(k+1). Это рекомендуемый вариант для изучения циклов: он простой и хранит только два числа. Для очень большого n ниже приведён более быстрый по числу арифметических операций вариант.",
+    "time_complexity": "O(n) сложений",
+    "space_complexity": "O(1) целых чисел; O(n) бит"
+  },
+  "alternatives": [
+    {
+      "title": "Таблица значений",
+      "code": "n = int(input())\nf = [0, 1]\nfor i in range(2, n + 1):\n    f.append(f[i - 1] + f[i - 2])\nprint(f[n])\n",
+      "explanation": "Сохраняем все ранее вычисленные числа; удобно для последующих запросов.",
+      "time_complexity": "O(n) сложений",
+      "space_complexity": "O(n) целых чисел; O(n²) бит"
+    },
+    {
+      "title": "Быстрое удвоение для больших n",
+      "code": "def pair(n):\n    if n == 0:\n        return 0, 1\n    a, b = pair(n // 2)\n    c = a * (2 * b - a)\n    d = a * a + b * b\n    return (d, c + d) if n % 2 else (c, d)\nn = int(input())\nprint(pair(n)[0])\n",
+      "explanation": "Пара F(n), F(n+1) вычисляется по формулам удвоения из пары для n//2. Это более сложный, масштабируемый алгоритм: рекурсия логарифмическая, зато вместо простых сложений используются умножения больших чисел.",
+      "time_complexity": "O(log(n + 1)) арифметических операций над растущими целыми",
+      "space_complexity": "O(log(n + 1)) кадров и O(n) бит значений"
+    }
+  ],
+  "pitfalls": [
+    "Нумерация начинается с F(0)=0; присваивание пары должно использовать старые значения."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/while/problems/kth_fibonacci/"
+    }
+  ]
+}

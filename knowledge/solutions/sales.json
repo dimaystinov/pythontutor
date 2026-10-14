@@ -1,0 +1,32 @@
+{
+  "slug": "sales",
+  "title": "Продажи",
+  "origin": "authored",
+  "summary": "Суммируем покупки для каждой пары покупатель–товар, затем сортируем имена.",
+  "recommended": {
+    "title": "Вложенные словари",
+    "code": "import sys\nsales = {}\nfor line in sys.stdin:\n    buyer, product, count = line.split()\n    goods = sales.setdefault(buyer, {})\n    goods[product] = goods.get(product, 0) + int(count)\nfor buyer in sorted(sales):\n    print(buyer + ':')\n    for product in sorted(sales[buyer]):\n        print(product, sales[buyer][product])\n",
+    "explanation": "Внешний словарь выделяет покупателя, внутренний хранит итог каждого товара. Повторы накапливаются сразу, весь журнал не нужен.",
+    "time_complexity": "O(n + k log k) в среднем, n записей, k разных пар; без учёта длины строк",
+    "space_complexity": "O(k) записей и списков сортировки"
+  },
+  "alternatives": [
+    {
+      "title": "Сортировка записей и группировка",
+      "code": "import sys\nfrom itertools import groupby\nrecords = []\nfor line in sys.stdin:\n    buyer, product, count = line.split()\n    records.append((buyer, product, int(count)))\nrecords.sort()\nfor buyer, rows in groupby(records, key=lambda r: r[0]):\n    print(buyer + ':')\n    for product, purchases in groupby(rows, key=lambda r: r[1]):\n        print(product, sum(r[2] for r in purchases))\n",
+      "explanation": "После сортировки одинаковые покупатели и товары идут подряд. groupby выделяет группы, а sum сворачивает количества.",
+      "time_complexity": "O(n log n), без учёта длины строк",
+      "space_complexity": "O(n) записей"
+    }
+  ],
+  "pitfalls": [
+    "Количество нужно преобразовать в int.",
+    "Сортировать требуется и покупателей, и товары."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/dicts/problems/sales/"
+    }
+  ]
+}

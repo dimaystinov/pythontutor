@@ -1,0 +1,32 @@
+{
+  "slug": "2d_max",
+  "title": "Максимум",
+  "origin": "authored",
+  "summary": "Просматриваем элементы по строкам и сохраняем позицию первого максимума.",
+  "recommended": {
+    "title": "Построчный поиск",
+    "code": "n, m = map(int, input().split())\nbest = None\nfor i in range(n):\n    row = list(map(int, input().split()))\n    for j, value in enumerate(row):\n        if best is None or value > best:\n            best, bi, bj = value, i, j\nprint(bi, bj)\n",
+    "explanation": "Строгое сравнение оставляет прежнюю позицию при равных значениях. None позволяет начать даже с отрицательного элемента.",
+    "time_complexity": "O(nm)",
+    "space_complexity": "O(m), хранится одна строка"
+  },
+  "alternatives": [
+    {
+      "title": "Поиск максимума и его первой позиции",
+      "code": "n, m = map(int, input().split())\na = [list(map(int, input().split())) for _ in range(n)]\nbest = max(map(max, a))\nfor i, row in enumerate(a):\n    if best in row:\n        print(i, row.index(best))\n        break\n",
+      "explanation": "Сначала находим значение максимума, затем первую содержащую его строку и первый индекс в ней. Проще разделить шаги, но требуется вся матрица.",
+      "time_complexity": "O(nm)",
+      "space_complexity": "O(nm)"
+    }
+  ],
+  "pitfalls": [
+    "Индексы начинаются с нуля.",
+    "Не обновляйте позицию при равенстве максимуму."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/2d_arrays/problems/2d_max/"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "slug": "lists_queens",
+  "title": "Ферзи",
+  "origin": "authored",
+  "summary": "Проверяем совпадения строк, столбцов и диагоналей.",
+  "recommended": {
+    "title": "Все пары",
+    "code": "a = [tuple(map(int, input().split())) for _ in range(8)]\nattack = False\nfor i in range(8):\n    for j in range(i):\n        x, y = a[i]\n        u, v = a[j]\n        if x == u or y == v or abs(x - u) == abs(y - v):\n            attack = True\nprint('YES' if attack else 'NO')\n",
+    "explanation": "Каждую пару проверяем один раз. На фиксированной доске всего 28 пар.",
+    "time_complexity": "O(q²) для q ферзей; здесь O(1)",
+    "space_complexity": "O(q); здесь O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Множества линий",
+      "code": "rows, cols, diag1, diag2 = set(), set(), set(), set()\nattack = False\nfor _ in range(8):\n    x, y = map(int, input().split())\n    if x in rows or y in cols or x - y in diag1 or x + y in diag2:\n        attack = True\n    rows.add(x)\n    cols.add(y)\n    diag1.add(x - y)\n    diag2.add(x + y)\nprint('YES' if attack else 'NO')\n",
+      "explanation": "На диагонали постоянны сумма или разность координат; повтор линии означает атаку.",
+      "time_complexity": "O(q) в среднем; здесь O(1)",
+      "space_complexity": "O(q); здесь O(1)"
+    }
+  ],
+  "pitfalls": [
+    "YES означает, что атакующая пара есть, а не что расстановка правильная."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/lists/problems/lists_queens/"
+    }
+  ]
+}

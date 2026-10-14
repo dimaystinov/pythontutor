@@ -1,0 +1,31 @@
+{
+  "slug": "leap_year",
+  "title": "Високосный год",
+  "origin": "authored",
+  "summary": "Проверяем исключение для столетий.",
+  "recommended": {
+    "title": "Логическое выражение",
+    "code": "y = int(input())\nprint(\"YES\" if y % 400 == 0 or y % 4 == 0 and y % 100 != 0 else \"NO\")\n",
+    "explanation": "Год кратный 400 високосный; остальные должны делиться на 4 и не делиться на 100.",
+    "time_complexity": "O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Последовательные ветви",
+      "code": "y = int(input())\nif y % 400 == 0:\n    print('YES')\nelif y % 100 == 0:\n    print('NO')\nelif y % 4 == 0:\n    print('YES')\nelse:\n    print('NO')\n",
+      "explanation": "Сначала обрабатываем более редкие исключения, затем общее правило.",
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "1900 не високосный, а 2000 високосный."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/ifelse/problems/leap_year/"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "slug": "series_1",
+  "title": "Ряд - 1",
+  "origin": "authored",
+  "summary": "Правая граница range не включается, поэтому используем B+1.",
+  "recommended": {
+    "title": "Рекомендуемый подход",
+    "code": "a = int(input())\nb = int(input())\nfor x in range(a, b + 1):\n    print(x)\n",
+    "explanation": "range выдаёт все целые числа от a до b включительно.",
+    "time_complexity": "O(B−A+1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Другой способ",
+      "code": "a = int(input())\nb = int(input())\nwhile a <= b:\n    print(a)\n    a += 1\n",
+      "explanation": "Цикл while явно увеличивает текущую границу до достижения b.",
+      "time_complexity": "O(B−A+1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "Для включения B граница range должна быть B+1."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/for_loop/problems/series_1/"
+    }
+  ]
+}

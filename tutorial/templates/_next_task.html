@@ -1,0 +1,9 @@
+<nav class="next-task-navigation" aria-label="Переход к следующей задаче" style="margin:28px 0 20px;padding-top:20px;border-top:1px solid #ddd;text-align:right">
+{% if next_task %}
+    <a class="btn btn-primary" href="{{ next_task.url }}">Следующая задача <span aria-hidden="true">→</span></a>
+    <p class="text-muted" style="margin:8px 0 0;overflow-wrap:anywhere">{{ next_task.title }}</p>
+{% else %}
+    <p class="text-muted">Это последняя задача раздела.</p>
+    <a class="btn btn-default" href="{{ task_list_url }}">К списку занятий и задач</a>
+{% endif %}
+</nav>

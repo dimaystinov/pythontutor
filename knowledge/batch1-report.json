@@ -1,0 +1,16 @@
+{
+  "batch": 1,
+  "python": "3.14.3 (main, Feb  3 2026, 15:32:20) [Clang 17.0.0 (clang-1700.6.3.2)]",
+  "problems": 43,
+  "variants": 86,
+  "total": 808,
+  "passed": 808,
+  "failed": [],
+  "comparison": "tutorial/tester.py semantics: whitespace tokens; float absolute tolerance < 1e-3; otherwise exact string",
+  "limitations": [
+    "Finite archived tests do not prove correctness for every input.",
+    "Complexities of numeric tasks count arithmetic operations unless bit storage is explicitly stated.",
+    "Genealogy input must contain at least one relation so that names are available; original one-node format provides no name.",
+    "Recursive memoized Fibonacci alternative has Python recursion-depth limits for large n."
+  ]
+}

@@ -1,0 +1,21 @@
+<!doctype html><meta charset="utf-8"><meta name="execution-mode" content="browser"><title>Browser Python checks</title><script src="/static/js/browser-execution.js?v=3"></script><button id="run">Run checks</button><pre id="results"></pre><script>
+const out=document.getElementById('results');
+const log=t=>out.textContent+=t+'\n';
+document.getElementById('run').onclick=async()=>{
+ out.textContent='';document.getElementById('run').disabled=true;
+ async function check(name,job,test){const r=await BrowserPython.run(job);if(!test(r))throw new Error(name+': '+JSON.stringify(r).slice(0,800));log('PASS '+name);return r;}
+ try {
+ await check('input/output',{code:'a=int(input())\nprint(a+7)',stdin:'5'},r=>r.stdout==='12\n');
+ await check('correct local verdict',{code:'print(1.0005)',tests:[{stdin:'',answer:'1'}]},r=>r[0].result==='ok');
+ await check('wrong local verdict',{code:'print(4)',tests:[{stdin:'',answer:'5'}]},r=>r[0].result==='wrong_answer');
+ await check('exception',{code:'print(1/0)'},r=>r.result==='unhandled_exception');
+ await check('trace',{code:'items=[1,2]\nitems.append(3)\nprint(items)',explain:true},r=>r.trace.length>2&&r.stdout.includes('3'));
+ await check('output limit',{code:'print("x"*70000)'},r=>r.result==='output_limited');
+ await check('timeout',{code:'while True: pass'},r=>r.result==='realtime_limited');
+ await check('recovery',{code:'print(42)'},r=>r.stdout==='42\n');
+ await check('OpenCV image',{code:'import cv2\na=cv2.imread("input.png")\ncv2.imwrite("output.png",a)\nprint(a.shape)',image:"iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAEElEQVR4nGP8zwACTGCSAQANHQEDgslx/wAAAABJRU5ErkJggg=="},r=>r.result==='ok'&&r.image&&r.stdout.includes('2, 2, 3'));
+ await check('OpenCV test batch',{code:'import cv2\ncv2.imwrite("output.png",cv2.imread("input.png"))',tests:[{image:"iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAEElEQVR4nGP8zwACTGCSAQANHQEDgslx/wAAAABJRU5ErkJggg==",expected:"iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAEElEQVR4nGP8zwACTGCSAQANHQEDgslx/wAAAABJRU5ErkJggg=="}]},r=>r[0].result==='ok');
+ await check('blocked API fetch',{code:'import js\ntry:\n x=js.XMLHttpRequest.new(); x.open("GET","/accounts/login/",False); x.send(); print("LEAK")\nexcept Exception:\n pass\nprint("safe")'},r=>r.result==='ok'&&!r.stdout.includes('LEAK'));
+ log('ALL CHECKS PASSED');
+ }catch(e){log('FAIL '+e.message);}finally{document.getElementById('run').disabled=false;}
+};</script>

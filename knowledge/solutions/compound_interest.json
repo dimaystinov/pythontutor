@@ -1,0 +1,31 @@
+{
+  "slug": "compound_interest",
+  "title": "Сложные проценты",
+  "origin": "authored",
+  "summary": "Каждый год начисляем проценты в целых копейках.",
+  "recommended": {
+    "title": "Один денежный счётчик",
+    "code": "p = int(input())\nx = int(input())\ny = int(input())\nk = int(input())\nmoney = 100 * x + y\nfor _ in range(k):\n    money = money * (100 + p) // 100\nprint(money // 100, money % 100)\n",
+    "explanation": "Ежегодное целочисленное деление отбрасывает дробную часть копейки именно тогда, когда требует условие.",
+    "time_complexity": "O(k)",
+    "space_complexity": "O(1) числовых переменных"
+  },
+  "alternatives": [
+    {
+      "title": "Прибавка и нормализация копеек",
+      "code": "p = int(input())\nrubles = int(input())\nkopecks = int(input())\nk = int(input())\nfor _ in range(k):\n    increment = (100 * rubles + kopecks) * p // 100\n    kopecks += increment\n    rubles += kopecks // 100\n    kopecks %= 100\nprint(rubles, kopecks)\n",
+      "explanation": "Прибавляем целые копейки процентов, после чего выделяем рубли из накопившихся копеек.",
+      "time_complexity": "O(k)",
+      "space_complexity": "O(1) числовых переменных"
+    }
+  ],
+  "pitfalls": [
+    "Степенная формула без ежегодного округления даёт другой результат."
+  ],
+  "sources": [
+    {
+      "title": "Публичный архив PythonTutor 2017 года",
+      "url": "https://github.com/Behnisch/pythontutor-ru/tree/1a9193f/problems"
+    }
+  ]
+}

@@ -1,0 +1,1240 @@
+[
+  {
+    "tests": [
+      "3 4\n0 3 2 4\n2 3 5 5\n5 1 2 3",
+      "1 1\n1",
+      "3 5\n1 2 3 4 5\n6 7 8 9 10\n11 12 13 14 15",
+      "6 1\n1\n2\n3\n2\n1\n2",
+      "1 6\n1 2 3 3 2 1",
+      "3 5\n1 4 5 2 7\n3 4 8 0 8\n8 8 8 8 8",
+      "2 2\n-3 -2\n-2 -1",
+      "2 2\n-1000000003 -1000000002\n-1000000002 -1000000001"
+    ],
+    "answers": [
+      "1 2",
+      "0 0",
+      "2 4",
+      "2 0",
+      "0 2",
+      "1 2",
+      "1 1",
+      "1 1"
+    ],
+    "name": "Максимум",
+    "statement": "<p>Найдите индексы первого вхождения максимального элемента. Выведите два числа: номер строки и номер столбца, в которых стоит наибольший элемент в двумерном массиве. Если таких элементов несколько, то выводится тот, у которого меньше номер строки, а если номера строк равны то тот, у которого меньше номер столбца.  <p>Программа получает на вход размеры массива <code>n</code> и <code>m</code>, затем <code>n</code> строк по <code>m</code> чисел в каждой.",
+    "urlname": "2d_max",
+    "filename": "2d_arrays/2d_max.txt"
+  },
+  {
+    "tests": [
+      "4\ncAnnot\ncannOt\nfOund\npAge\nthE pAge cAnnot be found",
+      "4\ncAnnot\ncannOt\nfOund\npAge\nThe PAGE cannot be found",
+      "1\nM\nM",
+      "2\nXu\nxU\nNJ xu xU xu",
+      "5\ngSn\ngsN\nqY\nrkZ\nrKz\nqy dr DH y Y qy rKz",
+      "5\nnPa\nOc\noC\npT\nzjU\nQp Gt oC oG l oc oc",
+      "5\naZqz\nAzqz\nlyAi\nlYai\nzN\nxfm Zn frs lyai azqz",
+      "10\nchN\nlXp\nLxp\nlxP\nqXe\nQxe\nqxE\nuDb\nudB\nvezV\nchn jkn bz j UDb Qxe udb qxE szk Lxp udb chn qXe cx",
+      "10\nDe\niKq\nikQ\nlL\nMea\nmeA\nuDb\nX\nzA\nZa\nIKq H mea qc ln Udb udb lL jr pE X ul Yc ikQ dE dE"
+    ],
+    "answers": [
+      "2",
+      "4",
+      "0",
+      "3",
+      "5",
+      "3",
+      "5",
+      "10",
+      "10"
+    ],
+    "name": "Контрольная по ударениям",
+    "statement": "<p>Учительница задала Пете домашнее задание — в заданном тексте расставить ударения в словах, после чего поручила Васе проверить это домашнее задание. Вася очень плохо знаком с данной темой, поэтому он нашел словарь, в котором указано, как ставятся ударения в словах. К сожалению, в этом словаре присутствуют не все слова. Вася решил, что в словах, которых нет в словаре, он будет считать, что Петя поставил ударения правильно, если в этом слове Петей поставлено ровно одно ударение.</p>  <p>Оказалось, что в некоторых словах ударение может быть поставлено больше, чем одним способом. Вася решил, что в этом случае если то, как Петя поставил ударение, соответствует одному из приведенных в словаре вариантов, он будет засчитывать это как правильную расстановку ударения, а если не соответствует, то как ошибку.</p>  <p>Вам дан словарь, которым пользовался Вася и домашнее задание, сданное Петей. Ваша задача — определить количество ошибок, которое в этом задании насчитает Вася.</p>  <p> Вводится сначала число <code>N</code> — количество слов в словаре. </p><p> Далее идет N строк со словами из словаря. Каждое слово состоит не более чем из 30 символов. Все слова состоят из маленьких и заглавных латинских букв. В каждом слове заглавная ровно одна буква — та, на которую попадает ударение. Слова в словаре расположены в алфавитном порядке. Если есть несколько возможностей расстановки ударения в одном и том же слове, то эти варианты в словаре идут в произвольном порядке. <p></p> Далее идет упражнение, выполненное Петей. Упражнение представляет собой строку текста, суммарным объемом не более 300000 символов. Строка состоит из слов, которые разделяются между собой ровно одним пробелом. Длина каждого слова не превышает 30 символов. Все слова состоят из маленьких и заглавных латинских букв (заглавными обозначены те буквы, над которыми Петя поставил ударение). Петя мог по ошибке в каком-то слове поставить более одного ударения или не поставить ударения вовсе. </p>  <p> Выведите количество ошибок в Петином тексте, которые найдет Вася. </p>  <p> <b>Примечания к примерам тестов</b> </p><p> 1. В слове cannot, согласно словарю возможно два варианта расстановки ударения. Эти варианты в словаре могут быть перечислены в любом порядке (т.е. как сначала cAnnot, а потом cannOt, так и наоборот). Две ошибки, совершенные Петей — это слова be (ударение вообще не поставлено) и fouNd (ударение поставлено неверно). Слово thE отсутствует в словаре, но поскольку в нем Петя поставил ровно одно ударение, признается верным. </p><p> 2. Неверно расставлены ударения во всех словах, кроме The (оно отсутствует в словаре, в нем поставлено ровно одно ударение). В остальных словах либо ударные все буквы (в слове PAGE), либо не поставлено ни одного ударения. </p>",
+    "urlname": "accent_test",
+    "filename": "dicts/accent_test.txt"
+  },
+  {
+    "tests": [
+      "2\n3\n6",
+      "0\n20\n300",
+      "-5\n180\n-17"
+    ],
+    "answers": [
+      "11",
+      "320",
+      "158"
+    ],
+    "name": "Сумма трёх чисел",
+    "statement": "Напишите программу, которая считывает три числа и выводит их сумму. Каждое число записано в отдельной строке.",
+    "urlname": "aplusbplusc",
+    "filename": "aplusbplusc.txt"
+  },
+  {
+    "tests": [
+      "6\n50",
+      "1\n10",
+      "5\n25",
+      "4\n2"
+    ],
+    "answers": [
+      "8\n2",
+      "10\n0",
+      "5\n0",
+      "0\n2"
+    ],
+    "name": "Дележ яблок",
+    "statement": "n школьников делят k яблок поровну, неделящийся остаток остается в корзинке. Сколько яблок достанется каждому школьнику? Сколько яблок останется в корзинке? Программа получает на вход числа n и k и должна вывести искомое количество яблок (два числа).",
+    "urlname": "apples",
+    "filename": "apples.txt"
+  },
+  {
+    "tests": [
+      "DEPOSIT Ivanov 100\nINCOME 5\nBALANCE Ivanov\nTRANSFER Ivanov Petrov 50\nWITHDRAW Petrov 100\nBALANCE Petrov\nBALANCE Sidorov",
+      "BALANCE Ivanov\nBALANCE Petrov\nDEPOSIT Ivanov 100\nBALANCE Ivanov\nBALANCE Petrov\nDEPOSIT Petrov 150\nBALANCE Petrov\nDEPOSIT Ivanov 10\nDEPOSIT Petrov 15\nBALANCE Ivanov\nBALANCE Petrov\nDEPOSIT Ivanov 46\nBALANCE Ivanov\nBALANCE Petrov\nDEPOSIT Petrov 14\nBALANCE Ivanov\nBALANCE Petrov",
+      "BALANCE a\nBALANCE b\nDEPOSIT a 100\nBALANCE a\nBALANCE b\nWITHDRAW a 20\nBALANCE a\nBALANCE b\nWITHDRAW b 78\nBALANCE a\nBALANCE b\nWITHDRAW a 784\nBALANCE a\nBALANCE b\nDEPOSIT b 849\nBALANCE a\nBALANCE b"
+    ],
+    "answers": [
+      "105\n-50\nERROR",
+      "ERROR\nERROR\n100\nERROR\n150\n110\n165\n156\n165\n156\n179",
+      "ERROR\nERROR\n100\nERROR\n80\nERROR\n80\n-78\n-704\n-78\n-704\n771"
+    ],
+    "name": "Банковские счета",
+    "statement": "<p>Некоторый банк хочет внедрить систему управления счетами клиентов, поддерживающую следующие операции:</p>  <ol> <li>Пополнение счета клиента. <li>Снятие денег со счета. <li>Запрос остатка средств на счете. <li>Перевод денег между счетами клиентов. <li>Начисление процентов всем клиентам. </ol>  <p>Вам необходимо реализовать такую систему. Клиенты банка идентифицируются именами (уникальная строка, не содержащая пробелов). Первоначально у банка нет ни одного клиента. Как только для клиента проводится операция пололнения, снятия или перевода денег, ему заводится счет с нулевым балансом. Все дальнейшие операции проводятся только с этим счетом. Сумма на счету может быть как положительной, так и отрицательной, при этом всегда является целым числом.</p>  <p> Входной файл содержит последовательность операций. Возможны следующие операции: </p><p> DEPOSIT name sum - зачислить сумму sum на счет клиента name. Если у клиента нет счета, то счет создается. </p><p> WITHDRAW name sum - снять сумму sum со счета клиента name. Если у клиента нет счета, то счет создается. </p><p> BALANCE name - узнать остаток средств на счету клиента name. </p><p> TRANSFER name1 name2 sum - перевести сумму sum со счета клиента name1 на счет клиента name2. Если у какого-либо клиента нет счета, то ему создается счет. </p><p> INCOME p - начислить всем клиентам, у которых открыты счета, p% от суммы счета. Проценты начисляются только клиентам с положительным остатком на счету, если у клиента остаток отрицательный, то его счет не меняется. После начисления процентов сумма на счету остается целой, то есть начисляется только целое число денежных единиц. Дробная часть начисленных процентов отбрасывается. </p>  <p> Для каждого запроса BALANCE программа должна вывести остаток на счету данного клиента. Если же у клиента с запрашиваемым именем не открыт счет в банке, выведите ERROR. </p>",
+    "urlname": "bank_accounts",
+    "filename": "dicts/bank_accounts.txt"
+  },
+  {
+    "tests": [
+      "100\n10\n200",
+      "100\n100\n200",
+      "1\n1\n2",
+      "100\n1\n200",
+      "400\n32\n743",
+      "400\n7\n1046"
+    ],
+    "answers": [
+      "8",
+      "1",
+      "100",
+      "70",
+      "3",
+      "15"
+    ],
+    "name": "Банковские проценты",
+    "statement": "<p>Вклад в банке составляет <i>x</i> рублей. Ежегодно он увеличивается на <i>p</i> процентов, после чего <u>дробная часть копеек отбрасывается</u>. Определите, через сколько лет вклад составит не менее <i>y</i> рублей.  <p>Выражение &laquo;дробная часть копеек отбрасывается&raquo; означает, что если у вас оказалось 123.4567 рублей, т. е. 123 рубля и 45.67 копеек, то после округления у вас получится 123 рубля и 45 копеек, т.е. 123.45 рублей.  <p>Программа получает на вход три натуральных числа: <i>x</i>, <i>p</i>, <i>y</i> и должна вывести одно целое число.",
+    "urlname": "bank_interest",
+    "filename": "while/bank_percents.txt"
+  },
+  {
+    "tests": [
+      "4\n4\n5\n5",
+      "4\n4\n5\n4",
+      "4\n4\n5\n3",
+      "4\n4\n4\n5",
+      "4\n4\n3\n5",
+      "4\n4\n4\n3",
+      "4\n4\n3\n4",
+      "4\n4\n3\n3",
+      "1\n1\n1\n8",
+      "1\n1\n8\n8",
+      "1\n1\n8\n1",
+      "1\n8\n8\n8",
+      "1\n8\n8\n1",
+      "1\n8\n1\n1",
+      "8\n8\n8\n1",
+      "8\n8\n1\n1",
+      "8\n8\n1\n8",
+      "8\n1\n1\n1",
+      "8\n1\n1\n8",
+      "8\n1\n8\n8",
+      "1\n1\n1\n2",
+      "1\n1\n2\n2",
+      "1\n1\n2\n1",
+      "4\n4\n6\n6",
+      "4\n4\n2\n2",
+      "4\n4\n6\n2",
+      "4\n4\n2\n6",
+      "4\n4\n2\n7",
+      "4\n4\n4\n6",
+      "4\n4\n2\n4",
+      "7\n4\n2\n5",
+      "7\n5\n1\n1"
+    ],
+    "answers": [
+      "YES",
+      "NO",
+      "YES",
+      "NO",
+      "YES",
+      "NO",
+      "NO",
+      "YES",
+      "NO",
+      "YES",
+      "NO",
+      "NO",
+      "YES",
+      "NO",
+      "NO",
+      "YES",
+      "NO",
+      "NO",
+      "YES",
+      "NO",
+      "NO",
+      "YES",
+      "NO",
+      "YES",
+      "YES",
+      "YES",
+      "YES",
+      "NO",
+      "NO",
+      "NO",
+      "NO",
+      "NO"
+    ],
+    "name": "Ход слона",
+    "statement": "<p>Шахматный слон ходит по диагонали. Даны две различные клетки шахматной доски, определите, может ли слон попасть с первой клетки на вторую одним ходом. </p>",
+    "urlname": "bishop_move",
+    "filename": "ifelse/bishop_move.txt"
+  },
+  {
+    "tests": [
+      "harry potter",
+      "procrastination",
+      "not a hero unless you die",
+      "de noche todos los gatos son pardos",
+      "i wanna taste you but your lips are venomous poison"
+    ],
+    "answers": [
+      "Harry Potter",
+      "Procrastination",
+      "Not A Hero Unless You Die",
+      "De Noche Todos Los Gatos Son Pardos",
+      "I Wanna Taste You But Your Lips Are Venomous Poison"
+    ],
+    "name": "Большие буквы",
+    "statement": "Напишите функцию capitalize(), которая принимает слово из маленьких латинских букв и возвращает его же, меняя первую букву на большую.  <p>Например, print(capitalize('word')) должно печатать слово Word.  <p>На вход подаётся строка, состоящая из слов, разделённых одним пробелом. Слова состоят из маленьких латинских букв. Напечатайте исходную строку, сделав так, чтобы каждое слово начиналось с большой буквы. При этом используйте вашу функцию capitalize().  <p>Напомним, что в Питоне есть функция <code>ord()</code>, которая по символу возвращает его код <a href=\"http://ru.wikipedia.org/wiki/ASCII\">в таблице ASCII</a>, и функция <code>chr()</code>, которая по коду символа возвращает сам символ. Например, <code>ord('a') == 97</code>, <code>chr(97) == 'a'</code>.",
+    "urlname": "capitalize",
+    "filename": "functions/capitalize.txt"
+  },
+  {
+    "tests": [
+      "1\n1\n2\n6",
+      "2\n2\n2\n5",
+      "2\n2\n2\n4",
+      "2\n3\n3\n2",
+      "2\n3\n7\n8",
+      "2\n3\n8\n8",
+      "5\n7\n5\n7",
+      "2\n6\n3\n1",
+      "2\n3\n4\n5",
+      "7\n2\n2\n3",
+      "1\n6\n7\n2"
+    ],
+    "answers": [
+      "YES",
+      "NO",
+      "YES",
+      "YES",
+      "YES",
+      "NO",
+      "YES",
+      "YES",
+      "YES",
+      "YES",
+      "YES"
+    ],
+    "name": "Шахматная доска",
+    "statement": "Заданы две клетки шахматной доски. Если они покрашены в один цвет, то выведите слово <code>YES</code>, а если в разные цвета &#151; то <code>NO</code>. Программа получает на вход четыре числа от 1 до 8 каждое, задающие номер столбца и номер строки сначала для первой клетки, потом для второй клетки.",
+    "urlname": "chess_board",
+    "filename": "ifelse/chess_board.txt"
+  },
+  {
+    "tests": [
+      "3 4",
+      "6 8",
+      "8 3",
+      "7 5",
+      "1 6",
+      "8 1",
+      "1 1"
+    ],
+    "answers": [
+      ". * . *\n* . * .\n. * . *",
+      ". * . * . * . *\n* . * . * . * .\n. * . * . * . *\n* . * . * . * .\n. * . * . * . *\n* . * . * . * .",
+      ". * .\n* . *\n. * .\n* . *\n. * .\n* . *\n. * .\n* . *",
+      ". * . * .\n* . * . *\n. * . * .\n* . * . *\n. * . * .\n* . * . *\n. * . * .",
+      ". * . * . *",
+      ".\n*\n.\n*\n.\n*\n.\n*",
+      "."
+    ],
+    "name": "Шахматная доска",
+    "statement": "<p>Даны два числа <code>n</code> и <code>m</code>. Создайте двумерный массив размером <code>n&times;m</code>  и заполните его символами <code>&quot;.&quot;</code>  и <code>&quot;*&quot;</code> в шахматном порядке. В левом верхнем углу должна стоять точка.",
+    "urlname": "chessboard",
+    "filename": "2d_arrays/chessboard.txt"
+  },
+  {
+    "tests": [
+      "4\n2\n6",
+      "2\n10\n7",
+      "5\n7\n1",
+      "7\n4\n21",
+      "5\n12\n100",
+      "6\n6\n6",
+      "6\n6\n35",
+      "6\n6\n37",
+      "7\n1\n99",
+      "300\n100\n3000",
+      "256\n124\n4069",
+      "348\n41\n6183",
+      "387\n13\n2709",
+      "13\n387\n2709",
+      "1\n1\n2"
+    ],
+    "answers": [
+      "YES",
+      "NO",
+      "NO",
+      "YES",
+      "NO",
+      "YES",
+      "NO",
+      "NO",
+      "NO",
+      "YES",
+      "NO",
+      "NO",
+      "YES",
+      "YES",
+      "NO"
+    ],
+    "name": "Шоколадка",
+    "statement": "Шоколадка имеет вид прямоугольника, разделенного на n×m долек. Шоколадку можно один раз разломить по прямой на две части. Определите, можно ли таким образом отломить от шоколадки часть, состоящую ровно из k долек.  Программа получает на вход три числа: n, m, k и должна вывести YES или NO.",
+    "urlname": "chocolate",
+    "filename": "ifelse/chocolate.txt"
+  },
+  {
+    "tests": [
+      "12\n179\n0\n5",
+      "13\n179\n0\n100",
+      "1\n1\n0\n1000",
+      "100\n1\n0\n10",
+      "100\n0\n1\n30",
+      "17\n94\n41\n27",
+      "23\n19382\n23\n5",
+      "17\n35\n87\n14",
+      "1\n1\n99\n1"
+    ],
+    "answers": [
+      "315 43",
+      "36360285 50",
+      "11881 92",
+      "1024 0",
+      "10737418 24",
+      "6544 33",
+      "54566 88",
+      "322 88",
+      "2 0"
+    ],
+    "name": "Сложные проценты",
+    "statement": "Процентная ставка по вкладу составляет P процентов годовых, которые прибавляются к сумме вклада через год. Вклад составляет X рублей Y копеек. Определите размер вклада через K лет.  <p> Программа получает на вход целые числа P, X, Y, K и должна вывести два числа: величину вклада через год в рублях и копейках. Дробное число копеек по истечение года отбрасывается. Перерасчет суммы вклада (с отбрасыванием дробных частей копеек) происходит ежегодно.",
+    "urlname": "compound_interest",
+    "filename": "int_and_float/compound_interest.txt"
+  },
+  {
+    "tests": [
+      "2\nRussia Moscow Petersburg Novgorod Kaluga\nUkraine Kiev Donetsk Odessa\n3\nOdessa\nMoscow\nNovgorod",
+      "5\nA B\nC D\nE F\nG H\nI J\n5\nJ\nH\nF\nD\nB",
+      "5\nA B\nC D E\nF G H I\nJ K L M N\nO P Q R S T\n15\nT\nS\nN\nR\nM\nI\nQ\nL\nH\nE\nP\nK\nG\nD\nB",
+      "3\nJNHIZN5VT5F0P NWKLYHJLJ7S5I 55SZACOU8GZC0E QSRASODSSZ4CJ\nE61OETO7GT 2ORRX8WBTML JLY3T2PZEY35KM 9N5BIXINMS9YL\nIK59912BIG MC0L2E4P2C U0M42ZG6I40 9XW44CTBJB4\n9\nNWKLYHJLJ7S5I\n9XW44CTBJB4\n2ORRX8WBTML\n9N5BIXINMS9YL\nMC0L2E4P2C\nU0M42ZG6I40\nQSRASODSSZ4CJ\nJLY3T2PZEY35KM\n55SZACOU8GZC0E"
+    ],
+    "answers": [
+      "Ukraine\nRussia\nRussia",
+      "I\nG\nE\nC\nA",
+      "O\nO\nJ\nO\nJ\nF\nO\nJ\nF\nC\nO\nJ\nF\nC\nA",
+      "JNHIZN5VT5F0P\nIK59912BIG\nE61OETO7GT\nE61OETO7GT\nIK59912BIG\nIK59912BIG\nJNHIZN5VT5F0P\nE61OETO7GT\nJNHIZN5VT5F0P"
+    ],
+    "name": "Страны и города",
+    "statement": "<p>Дан список стран и городов каждой страны. Затем даны названия городов. Для каждого города укажите, в какой стране он находится.</p>",
+    "urlname": "countries_and_cities",
+    "filename": "dicts/countries_and_cities.txt"
+  },
+  {
+    "tests": [
+      "4 3\n0\n1\n10\n9\n1\n3\n0",
+      "2 2\n1\n2\n2\n3",
+      "0 0",
+      "1 1\n0\n1",
+      "8 5\n1\n10\n100\n1000\n10000\n100000\n1000000\n10000000\n1\n100\n10000\n1000000\n100000000"
+    ],
+    "answers": [
+      "2\n0 1\n2\n9 10\n1\n3",
+      "1\n2\n1\n1\n1\n3",
+      "0\n\n0\n\n0",
+      "0\n\n1\n0\n1\n1",
+      "4\n1\n100\n10000\n1000000\n4\n10\n1000\n100000\n10000000\n1\n100000000"
+    ],
+    "name": "Кубики",
+    "statement": "<p>Аня и Боря любят играть в разноцветные кубики, причем у каждого из них свой набор и в каждом наборе все кубики различны по цвету. Однажды дети заинтересовались, сколько существуют цветов таких, что кубики каждого цвета присутствуют в обоих наборах. Для этого они занумеровали все цвета случайными числами от 0 до 10<sup>8</sup>. На этом их энтузиазм иссяк, поэтому вам предлагается помочь им в оставшейся части.</p>  <p>В первой строке входных данных записаны числа N и M &mdash; число кубиков у Ани и Бори. В следующих N строках заданы номера цветов кубиков Ани. В последних M строках номера цветов Бори.</p>  <p>Найдите три множества: номера цветов кубиков, которые есть в обоих наборах; номера цветов кубиков, которые есть только у Ани и номера цветов кубиков, которые есть только у Бори. Для каждого из множеств выведите сначала количество элементов в нем, а затем сами элементы, отсортированные по возрастанию.</p>",
+    "urlname": "cubes",
+    "filename": "sets/cubes.txt"
+  },
+  {
+    "tests": [
+      "Bilbo.Baggins@bagend.hobbiton.shire.me",
+      "dfa;sdkfj;ajva;bvna'sdasdfasdglJLHJKFHLDKJFh",
+      "@",
+      "@W@E@E@E@R",
+      "@@@@@@@@@@",
+      "H@K@M@J@M@L",
+      "@@@@@F@@@@KL@@@@@J@J@J@JJJH@JJKK@JJJ@JJ"
+    ],
+    "answers": [
+      "Bilbo.Bagginsbagend.hobbiton.shire.me",
+      "dfa;sdkfj;ajva;bvna'sdasdfasdglJLHJKFHLDKJFh",
+      "",
+      "WEEER",
+      "",
+      "HKMJML",
+      "FKLJJJJJJHJJKKJJJJJ"
+    ],
+    "name": "Удаление символа",
+    "statement": "<p>Дана строка. Удалите из этой строки все символы <code>@</code>.",
+    "urlname": "delete_char",
+    "filename": "str/delete_char.txt"
+  },
+  {
+    "tests": [
+      "In the hole in the ground there lived a hobbit",
+      "qwertyhasdfghzxcvb",
+      "asdfghhzxcvb",
+      "ahahahahaha",
+      "haaaaaaaaaaaaaaaaaah",
+      "hh",
+      "ahaha"
+    ],
+    "answers": [
+      "In tobbit",
+      "qwertyzxcvb",
+      "asdfgzxcvb",
+      "aa",
+      "",
+      "",
+      "aa"
+    ],
+    "name": "Удаление фрагмента",
+    "statement": "<p>Дана строка, в которой буква <code>h</code> встречается минимум два раза. Удалите из этой строки первое и последнее вхождение буквы <code>h</code>, а также все символы, находящиеся между ними.",
+    "urlname": "delete_chunk",
+    "filename": "str/delete_chunk.txt"
+  },
+  {
+    "tests": [
+      "Python",
+      "Hello",
+      "qwer",
+      "a",
+      "ab",
+      "abc",
+      "abcdefg",
+      "abcdefgh",
+      "abcdefghi",
+      "abcdefghij",
+      "abcdefghijk",
+      "abcdefghijkl",
+      "qwertyuiopasdfghjklzxcvbnm"
+    ],
+    "answers": [
+      "yton",
+      "elo",
+      "we",
+      "",
+      "b",
+      "bc",
+      "bcef",
+      "bcefh",
+      "bcefhi",
+      "bcefhi",
+      "bcefhik",
+      "bcefhikl",
+      "wetyioasfgjkzxvbm"
+    ],
+    "name": "Удалить каждый третий символ",
+    "statement": "<p>Дана строка. Удалите из нее все символы, чьи индексы делятся на 3.",
+    "urlname": "delete_every_third_char",
+    "filename": "str/delete_every_third_char.txt"
+  },
+  {
+    "tests": [
+      "20\n21\n22",
+      "26\n20\n16",
+      "25\n21\n23",
+      "17\n19\n18"
+    ],
+    "answers": [
+      "32",
+      "31",
+      "36",
+      "28"
+    ],
+    "name": "Парты",
+    "statement": "В некоторой школе решили набрать три новых математических класса и оборудовать кабинеты для них новыми партами. За каждой партой может сидеть два учащихся. Известно количество учащихся в каждом из трех классов. Выведите наименьшее число парт, которое нужно приобрести для них.  Программа получает на вход три натуральных числа: количество учащихся в каждом из трех классов.",
+    "urlname": "desks",
+    "filename": "desks.txt"
+  },
+  {
+    "tests": [
+      "5",
+      "6",
+      "7",
+      "4",
+      "3",
+      "2",
+      "1"
+    ],
+    "answers": [
+      "0 1 2 3 4\n1 0 1 2 3\n2 1 0 1 2\n3 2 1 0 1\n4 3 2 1 0",
+      "0 1 2 3 4 5\n1 0 1 2 3 4\n2 1 0 1 2 3\n3 2 1 0 1 2\n4 3 2 1 0 1\n5 4 3 2 1 0",
+      "0 1 2 3 4 5 6\n1 0 1 2 3 4 5\n2 1 0 1 2 3 4\n3 2 1 0 1 2 3\n4 3 2 1 0 1 2\n5 4 3 2 1 0 1\n6 5 4 3 2 1 0",
+      "0 1 2 3\n1 0 1 2\n2 1 0 1\n3 2 1 0",
+      "0 1 2\n1 0 1\n2 1 0",
+      "0 1\n1 0",
+      "0"
+    ],
+    "name": "Диагонали, параллельные главной",
+    "statement": "<p>Дано число <code>n</code>. Создайте массив размером <code>n&times;n</code> и заполните его по следующему правилу. На главной диагонали должны быть записаны числа 0. На двух диагоналях, прилегающих к главной, числа 1. На следующих двух диагоналях числа 2, и т.д.",
+    "urlname": "diagonals",
+    "filename": "2d_arrays/diagonals.txt"
+  },
+  {
+    "tests": [
+      "1.79",
+      "10.34",
+      "0.001",
+      "179",
+      "19.99",
+      "179.12",
+      "5.29",
+      "0.31",
+      "12.45",
+      "18.58",
+      "0.83",
+      "999.99",
+      "146.67",
+      "1293.73",
+      "0.09999",
+      "312.19999",
+      "901.29999",
+      "3.39999",
+      "2371.49999",
+      "290.59999",
+      "90291.69999",
+      "412.79999",
+      "1.89999",
+      "0.999999"
+    ],
+    "answers": [
+      "7",
+      "3",
+      "0",
+      "0",
+      "9",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "8",
+      "9",
+      "6",
+      "7",
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "name": "Первая цифра после точки",
+    "statement": "Дано положительное действительное число X. Выведите его первую цифру после десятичной точки.",
+    "urlname": "digit_after_separator",
+    "filename": "int_and_float/digit_after_separator.txt"
+  },
+  {
+    "tests": [
+      "150",
+      "1441",
+      "444",
+      "180",
+      "1439",
+      "1440"
+    ],
+    "answers": [
+      "2 30",
+      "0 1",
+      "7 24",
+      "3 0",
+      "23 59",
+      "0 0"
+    ],
+    "name": "Электронные часы",
+    "statement": "Дано число n. С начала суток прошло n минут. Определите, сколько часов и минут будут показывать электронные часы в этот момент. Программа должна вывести два числа: количество часов (от 0 до 23) и количество минут (от 0 до 59). Учтите, что число n может быть больше, чем количество минут в сутках.",
+    "urlname": "electronic_watch",
+    "filename": "electronic_watch.txt"
+  },
+  {
+    "tests": [
+      "3\napple - malum, pomum, popula\nfruit - baca, bacca, popum\npunishment - malum, multa",
+      "1\nschool - schola",
+      "3\ngreet - empfangen, willkommen\nsilicon - silicon\nwelcome - willkommen",
+      "2\nmef - mqax, xkr\nwemu - mqax",
+      "3\ngfk - whao\nicfx - nil, whao\nutzs - brh",
+      "5\ncasy - moxd, oosz, pfh, wfp\ncgsy - pfh\ndlx - fma, lyq\nvja - fma, lyq, moxd, oosz, pfh, wfp, xrwv\nzfq - fma, lyq, tnqq, xrwv",
+      "6\ndrxpeycnkp - fgoezltv, fgqedltc, fgqezltc, fsqezltc, tgqehltc\noaxpeycnkp - fgqedltc, pgqezltu, tgqehltc\nyaxpefcnkr - fgqedltc, fgqezljc, fgqezlqc, fgqezltc, tgqehltc\nyaxpeycnkp - fgqedltc, fgqezlqc, fsqezltc\nyaxpeycnks - fgqedltc, fsqezltc, pgqezltu\nyaxteyckp - fgqedltc, fgqezljc, fgqezlqc, fsqezltc, pgqezltu",
+      "5\nfnpa - kbyip\nkbyip - kbyip, ojawe, ysye\nojawe - fnpa, kbyip\nuyjge - kbyip\nysye - ojawe",
+      "6\nddf - ngyj, nrbb, nrkh, wryj\ndeds - ngyj, nrbb, nrkh, nryj, wryj\ndpds - ngyj, nrkh, nryj\ndudm - ngyj, nrkh, nrni, nryj, wryj\nduds - ngyj, nrbb, nrkh, nryj\ndujs - ngyj, nrbb, nrkh, wryj",
+      "6\ncdb - cdb, crke, meqb, pyk, uel\ncrke - cdb, crke, meqb, pyk, uel\nfvl - crke, meqb\nmeqb - cdb\npyk - crke, meqb, uel\nuel - cdb, crke, fvl"
+    ],
+    "answers": [
+      "7\nbaca - fruit\nbacca - fruit\nmalum - apple, punishment\nmulta - punishment\npomum - apple\npopula - apple\npopum - fruit",
+      "1\nschola - school",
+      "3\nempfangen - greet\nsilicon - silicon\nwillkommen - greet, welcome",
+      "2\nmqax - mef, wemu\nxkr - mef",
+      "3\nbrh - utzs\nnil - icfx\nwhao - gfk, icfx",
+      "8\nfma - dlx, vja, zfq\nlyq - dlx, vja, zfq\nmoxd - casy, vja\noosz - casy, vja\npfh - casy, cgsy, vja\ntnqq - zfq\nwfp - casy, vja\nxrwv - vja, zfq",
+      "8\nfgoezltv - drxpeycnkp\nfgqedltc - drxpeycnkp, oaxpeycnkp, yaxpefcnkr, yaxpeycnkp, yaxpeycnks, yaxteyckp\nfgqezljc - yaxpefcnkr, yaxteyckp\nfgqezlqc - yaxpefcnkr, yaxpeycnkp, yaxteyckp\nfgqezltc - drxpeycnkp, yaxpefcnkr\nfsqezltc - drxpeycnkp, yaxpeycnkp, yaxpeycnks, yaxteyckp\npgqezltu - oaxpeycnkp, yaxpeycnks, yaxteyckp\ntgqehltc - drxpeycnkp, oaxpeycnkp, yaxpefcnkr",
+      "4\nfnpa - ojawe\nkbyip - fnpa, kbyip, ojawe, uyjge\nojawe - kbyip, ysye\nysye - kbyip",
+      "6\nngyj - ddf, deds, dpds, dudm, duds, dujs\nnrbb - ddf, deds, duds, dujs\nnrkh - ddf, deds, dpds, dudm, duds, dujs\nnrni - dudm\nnryj - deds, dpds, dudm, duds\nwryj - ddf, deds, dudm, dujs",
+      "6\ncdb - cdb, crke, meqb, uel\ncrke - cdb, crke, fvl, pyk, uel\nfvl - uel\nmeqb - cdb, crke, fvl, pyk\npyk - cdb, crke\nuel - cdb, crke, pyk"
+    ],
+    "name": "Англо-латинский словарь",
+    "statement": "<p>Однажды, разбирая старые книги на чердаке, школьник Вася нашёл англо-латинский словарь. Английский он к тому времени знал в совершенстве, и его мечтой было изучить латынь. Поэтому попавшийся словарь был как раз кстати.</p>  <p>К сожалению, для полноценного изучения языка недостаточно только одного словаря: кроме англо-латинского необходим латинско-английский. За неимением лучшего он решил сделать второй словарь из первого.</p>  <p>Как известно, словарь состоит из переводимых слов, к каждому из которых приводится несколько слов-переводов. Для каждого латинского слова, встречающегося где-либо в словаре, Вася предлагает найти все его переводы (то есть все английские слова, для которых наше латинское встречалось в его списке переводов), и считать их и только их переводами этого латинского слова.</p>  <p>Помогите Васе выполнить работу по созданию латинско-английского словаря из англо-латинского.</p>  <p> В первой строке содержится единственное целое число <code>N</code> — количество английских слов в словаре. Далее следует <code>N</code> описаний. Каждое описание содержится в отдельной строке, в которой записано сначала английское слово, затем отделённый пробелами дефис, затем разделённые запятыми с пробелами переводы этого английского слова на латинский. Все слова состоят только из маленьких латинских букв. Переводы отсортированы в лексикографическом порядке. Порядок следования английских слов в словаре также лексикографический. </p> <p> Выведите соответствующий данному латинско-английский словарь, в точности соблюдая формат входных данных. В частности, первым должен идти перевод лексикографически минимального латинского слова, далее — второго в этом порядке и т.д. Внутри перевода английские слова должны быть также отсортированы лексикографически. </p>",
+    "urlname": "english_latin_dict",
+    "filename": "dicts/english_latin_dict.txt"
+  },
+  {
+    "tests": [
+      "1 2 2 3 3 3 4",
+      "1 2 3 4 5",
+      "2 4 6 8",
+      "1 1 1 1 1 1 2",
+      "44 -51 32 -60 -7 -67 62 91 26 -14",
+      "32 -95 -78 -15 -71 -73 -83 53 -91 -82 -71 -52 -60 -18 12 8 98 -92 -83 7",
+      "39 55 -88 56 -39 -92 -30 54 15 94 27 -87 -85 -53 -44 -87 33 38 -22 56"
+    ],
+    "answers": [
+      "2 2 4",
+      "2 4",
+      "2 4 6 8",
+      "2",
+      "44 32 -60 62 26 -14",
+      "32 -78 -82 -52 -60 -18 12 8 98 -92",
+      "-88 56 -92 -30 54 94 -44 38 -22 56"
+    ],
+    "name": "Четные элементы",
+    "statement": "Выведите все четные элементы списка. При этом используйте цикл <code>for</code>, перебирающий <u>элементы последовательности</u>, а не их индексы!",
+    "urlname": "even_elements",
+    "filename": "lists/even_elements.txt"
+  },
+  {
+    "tests": [
+      "1 2 3 4 5",
+      "4 5 3 4 2 3",
+      "9 4 5 2 3",
+      "6",
+      "7 8",
+      "1 2 3",
+      "90 45 3 43",
+      "40 64 -80 -98 -68 56 85 87 -68 -78",
+      "-1 -11 -40 3 -47 -37 -18 -100 6 -29 14 -1 -89 -20 -36 7 5 78 -5 85",
+      "-46 35 72 -79 38 -32 1 23 -84 -84 50 -46 -57 -44 72 33 91 -6 88 91 -12 -76 -78 95 63 45 54 13 58 -19 30 48 -98 37 97"
+    ],
+    "answers": [
+      "1 3 5",
+      "4 3 2",
+      "9 5 3",
+      "6",
+      "7",
+      "1 3",
+      "90 3",
+      "40 -80 -68 85 -68",
+      "-1 -40 -47 -18 6 14 -89 -36 5 -5",
+      "-46 72 38 1 -84 50 -57 72 91 88 -12 -78 63 54 58 30 -98 97"
+    ],
+    "name": "Четные индексы",
+    "statement": "Выведите все элементы списка с четными индексами (то есть <code>A[0]</code>, <code>A[2]</code>, <code>A[4]</code>, ...).",
+    "urlname": "even_indices",
+    "filename": "lists/even_indices.txt"
+  },
+  {
+    "tests": [
+      "4",
+      "1",
+      "2",
+      "3",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ],
+    "answers": [
+      "24",
+      "1",
+      "2",
+      "6",
+      "120",
+      "720",
+      "5040",
+      "40320",
+      "362880",
+      "3628800",
+      "39916800",
+      "479001600"
+    ],
+    "name": "Факториал",
+    "statement": "Факториалом числа n называется произведение 1 &times; 2 &times; ... &times; n. Обозначение: n!.  <p> По данному натуральному n вычислите значение n!. Пользоваться математической библиотекой math в этой задаче запрещено.",
+    "urlname": "factorial",
+    "filename": "for/factorial.txt"
+  },
+  {
+    "tests": [
+      "6",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "7",
+      "8"
+    ],
+    "answers": [
+      "8",
+      "1",
+      "1",
+      "2",
+      "3",
+      "5",
+      "13",
+      "21"
+    ],
+    "name": "Числа Фибоначчи",
+    "statement": "Напишите функцию <code>fib(n)</code>, которая по данному целому неотрицательному <i>n</i> возвращает <i>n</i>-e число Фибоначчи. В этой задаче нельзя использовать циклы &mdash; используйте рекурсию.",
+    "urlname": "fibonacci_rec",
+    "filename": "functions/fibonacci_rec.txt"
+  },
+  {
+    "tests": [
+      "comfort",
+      "office",
+      "hello",
+      "fffffffffffffff",
+      "aaaaaaaaaaaaaaaaaaaaafaaaaaaaaaaaaaaaaaaaaaaaa",
+      "aaaaaaaaaaaaaaaaaaaaaaaaffaaaaaaaaaaaaaaaaaaaa",
+      "afafafafafafafa"
+    ],
+    "answers": [
+      "3",
+      "1 2",
+      "",
+      "0 14",
+      "21",
+      "24 25",
+      "1 13"
+    ],
+    "name": "Первое и последнее вхождения",
+    "statement": "<p>Дана строка. Если в этой строке буква <code>f</code> встречается только один раз, выведите её индекс. Если она встречается два и более раз, выведите индекс её первого и последнего появления. Если буква <code>f</code> в данной строке не встречается, ничего не выводите.   <p><b>При решении этой задачи не стоит использовать циклы.</b>",
+    "urlname": "first_and_last_occurences",
+    "filename": "str/first_and_last_occurences.txt"
+  },
+  {
+    "tests": [
+      "17.9",
+      "10.34",
+      "0.001",
+      "179",
+      "19.99"
+    ],
+    "answers": [
+      "0.9",
+      "0.34",
+      "0.001",
+      "0",
+      "0.99"
+    ],
+    "name": "Дробная часть",
+    "statement": "Дано положительное действительное число X. Выведите его дробную часть.",
+    "urlname": "fractional_part",
+    "filename": "int_and_float/fractional_part.txt"
+  },
+  {
+    "tests": [
+      "9\nhi\nhi\nwhat is your name\nmy name is bond\njames bond\nmy name is damme\nvan damme\nclaude van damme\njean claude van damme",
+      "1\nai ai ai ai ai ai ai ai ai ai",
+      "2\niovjxotfvt h h iovjxotfvt h iovjxotfvt iovjxotfvt h\nh iovjxotfvt",
+      "4\neqlbahbovv pzpumhz mlcgtbbnfr\naxsjbontg emojwajtfi\nbasdu nzyh wpyirkmz xxkmrr blnlqwcpur eqlbahbovv nzyh mlcgtbbnfr\nmlcgtbbnfr axsjbontg mlcgtbbnfr mlcgtbbnfr mlcgtbbnfr blnlqwcpur mlcgtbbnfr",
+      "14\nThat thou hast her it is not all my grief,\nAnd yet it may be said I loved her dearly,\nThat she hath thee is of my wailing chief,\nA loss in love that touches me more nearly.\nLoving offenders thus I will excuse ye,\nThou dost love her, because thou know'st I love her,\nAnd for my sake even so doth she abuse me,\nSuff'ring my friend for my sake to approve her.\nIf I lose thee, my loss is my love's gain,\nAnd losing her, my friend hath found that loss,\nBoth find each other, and I lose both twain,\nAnd both for my sake lay on me this cross,\nBut here's the joy, my friend and I are one,\nSweet flattery, then she loves but me alone.",
+      "10\nDeath there mirth way the noisy merit. Piqued shy spring nor six though mutual living ask extent. Replying of dashwood advanced ladyship smallest disposal or. Attempt offices own improve now see. Called person are around county talked her esteem. Those fully these way nay thing seems.\nAt distant inhabit amongst by. Appetite welcomed interest the goodness boy not. Estimable education for disposing pronounce her. John size good gay plan sent old roof own. Inquietude saw understood his friendship frequently yet. Nature his marked ham wished.\nMarianne or husbands if at stronger ye. Considered is as middletons uncommonly. Promotion perfectly ye consisted so. His chatty dining for effect ladies active. Equally journey wishing not several behaved chapter she two sir. Deficient procuring favourite extensive you two. Yet diminution she impossible understood age.\nSo if on advanced addition absolute received replying throwing he. Delighted consisted newspaper of unfeeling as neglected so. Tell size come hard mrs and four fond are. Of in commanded earnestly resources it. At quitting in strictly up wandered of relation answered felicity. Side need at in what dear ever upon if. Same down want joy neat ask pain help she. Alone three stuff use law walls fat asked. Near do that he help.\nBetrayed cheerful declared end and. Questions we additions is extremely incommode. Next half add call them eat face. Age lived smile six defer bed their few. Had admitting concluded too behaviour him she. Of death to or to being other.\nConsulted he eagerness unfeeling deficient existence of. Calling nothing end fertile for venture way boy. Esteem spirit temper too say adieus who direct esteem. It esteems luckily mr or picture placing drawing no. Apartments frequently or motionless on reasonable projecting expression. Way mrs end gave tall walk fact bed.\nOffered say visited elderly and. Waited period are played family man formed. He ye body or made on pain part meet. You one delay nor begin our folly abode. By disposed replying mr me unpacked no. As moonlight of my resolving unwilling.\nFolly words widow one downs few age every seven. If miss part by fact he park just shew. Discovered had get considered projection who favourable. Necessary up knowledge it tolerably. Unwilling departure education is be dashwoods or an. Use off agreeable law unwilling sir deficient curiosity instantly. Easy mind life fact with see has bore ten. Parish any chatty can elinor direct for former. Up as meant widow equal an share least.\nWith my them if up many. Lain week nay she them her she. Extremity so attending objection as engrossed gentleman something. Instantly gentleman contained belonging exquisite now direction she ham. West room at sent if year. Numerous indulged distance old law you. Total state as merit court green decay he. Steepest sex bachelor the may delicate its yourself. As he instantly on discovery concluded to. Open draw far pure miss felt say yet few sigh.\nOut too the been like hard off. Improve enquire welcome own beloved matters her. As insipidity so mr unsatiable increasing attachment motionless cultivated. Addition mr husbands unpacked occasion he oh. Is unsatiable if projecting boisterous insensible. It recommend be resolving pretended middleton."
+    ],
+    "answers": [
+      "damme\nis\nname\nvan\nbond\nclaude\nhi\nmy\njames\njean\nwhat\nyour",
+      "ai",
+      "h\niovjxotfvt",
+      "mlcgtbbnfr\naxsjbontg\nblnlqwcpur\neqlbahbovv\nnzyh\nbasdu\nemojwajtfi\npzpumhz\nwpyirkmz\nxxkmrr",
+      "my\nI\nAnd\nfor\nfriend\nher,\nis\nlove\nme\nsake\nshe\nThat\nand\nboth\nhath\nher\nit\nlose\nloss\nthat\nthou\nA\nBoth\nBut\nIf\nLoving\nSuff'ring\nSweet\nThou\nabuse\nall\nalone.\napprove\nare\nbe\nbecause\nbut\nchief,\ncross,\ndearly,\ndost\ndoth\neach\neven\nexcuse\nfind\nflattery,\nfound\ngain,\ngrief,\nhast\nher.\nhere's\nin\njoy,\nknow'st\nlay\nlosing\nloss,\nlove's\nloved\nloves\nmay\nme,\nmore\nnearly.\nnot\nof\noffenders\non\none,\nother,\nsaid\nso\nthe\nthee\nthee,\nthen\nthis\nthus\nto\ntouches\ntwain,\nwailing\nwill\nye,\nyet",
+      "or\nas\nhe\nif\nfor\nmr\nof\non\nshe\nthe\nAs\nat\nend\nfact\nin\nis\nlaw\nsay\nshe.\nthem\ntoo\nup\nway\nAt\nIt\nOf\nadvanced\nand.\nare\nask\nbe\nchatty\nconcluded\nconsisted\ndeficient\ndirect\neducation\nesteem.\nfew\nfrequently\ngentleman\nhard\nhe.\nher\nher.\nhis\nhusbands\nmiss\nmotionless\nmrs\nmy\nnay\nno.\nnor\nnow\nold\none\nown\npain\npart\nprojecting\nreplying\nresolving\nsent\nsix\nsize\nso\nso.\nto\nunderstood\nunfeeling\nunpacked\nunsatiable\nwho\nwidow\nye\nAddition\nAge\nAlone\nApartments\nAppetite\nAttempt\nBetrayed\nBy\nCalled\nCalling\nConsidered\nConsulted\nDeath\nDeficient\nDelighted\nDiscovered\nEasy\nEqually\nEsteem\nEstimable\nExtremity\nFolly\nHad\nHe\nHis\nIf\nImprove\nInquietude\nInstantly\nIs\nJohn\nLain\nMarianne\nNature\nNear\nNecessary\nNext\nNumerous\nOffered\nOpen\nOut\nParish\nPiqued\nPromotion\nQuestions\nReplying\nSame\nSide\nSo\nSteepest\nTell\nThose\nTotal\nUnwilling\nUp\nUse\nWaited\nWay\nWest\nWith\nYet\nYou\nabode.\nabsolute\nactive.\nadd\naddition\nadditions\nadieus\nadmitting\nage\nage.\nagreeable\namongst\nan\nan.\nand\nanswered\nany\nare.\naround\nasked.\nattachment\nattending\nbachelor\nbed\nbed.\nbeen\nbegin\nbehaved\nbehaviour\nbeing\nbelonging\nbeloved\nbody\nboisterous\nbore\nboy\nboy.\nby\nby.\ncall\ncan\nchapter\ncheerful\ncome\ncommanded\nconsidered\ncontained\ncounty\ncourt\ncultivated.\ncuriosity\ndashwood\ndashwoods\ndear\ndeath\ndecay\ndeclared\ndefer\ndelay\ndelicate\ndeparture\ndiminution\ndining\ndirection\ndiscovery\ndisposal\ndisposed\ndisposing\ndistance\ndistant\ndo\ndown\ndowns\ndraw\ndrawing\neagerness\nearnestly\neat\neffect\nelderly\nelinor\nengrossed\nenquire\nequal\nesteems\never\nevery\nexistence\nexpression.\nexquisite\nextensive\nextent.\nextremely\nface.\nfamily\nfar\nfat\nfavourable.\nfavourite\nfelicity.\nfelt\nfertile\nfew.\nfolly\nfond\nformed.\nformer.\nfour\nfriendship\nfully\ngave\ngay\nget\ngood\ngoodness\ngreen\nhad\nhalf\nham\nham.\nhas\nhelp\nhelp.\nhim\nif.\nimpossible\nimprove\nincommode.\nincreasing\nindulged\ninhabit\ninsensible.\ninsipidity\ninstantly\ninstantly.\ninterest\nit\nit.\nits\njourney\njoy\njust\nknowledge\nladies\nladyship\nleast.\nlife\nlike\nlived\nliving\nluckily\nmade\nman\nmany.\nmarked\nmatters\nmay\nme\nmeant\nmeet.\nmerit\nmerit.\nmiddleton.\nmiddletons\nmind\nmirth\nmoonlight\nmutual\nneat\nneed\nneglected\nnewspaper\nnoisy\nnot\nnot.\nnothing\nobjection\noccasion\nof.\noff\noff.\noffices\noh.\nor.\nother.\nour\nown.\npark\nperfectly\nperiod\nperson\npicture\nplacing\nplan\nplayed\npretended\nprocuring\nprojection\npronounce\npure\nquitting\nreasonable\nreceived\nrecommend\nrelation\nresources\nroof\nroom\nsaw\nsee\nsee.\nseems.\nseven.\nseveral\nsex\nshare\nshew.\nshy\nsigh.\nsir\nsir.\nsmallest\nsmile\nsomething.\nspirit\nspring\nstate\nstrictly\nstronger\nstuff\ntalked\ntall\ntemper\nten.\nthat\ntheir\nthere\nthese\nthing\nthough\nthree\nthrowing\nto.\ntolerably.\ntwo\ntwo.\nuncommonly.\nunwilling\nunwilling.\nupon\nuse\nventure\nvisited\nwalk\nwalls\nwandered\nwant\nwe\nweek\nwelcome\nwelcomed\nwhat\nwished.\nwishing\nwith\nwords\nye.\nyear.\nyet\nyet.\nyou\nyou.\nyourself."
+    ],
+    "name": "Частотный анализ",
+    "statement": "<p>Дан текст: в первой строке записано количество строк в тексте, а затем сами строки. Выведите все слова, встречающиеся в тексте, по одному на каждую строку. Слова должны быть отсортированы по убыванию их количества появления в тексте, а при одинаковой частоте появления&nbsp;&mdash; в лексикографическом порядке.</p>  <p>Указание. После того, как вы создадите словарь всех слов, вам захочется отсортировать его по частоте встречаемости слова. Желаемого можно добиться, если создать список, элементами которого будут кортежи из двух элементов: частота встречаемости слова и само слово. Например, <code>[(2, 'hi'), (1, 'what'), (3, 'is')]</code>. Тогда стандартная сортировка будет сортировать список кортежей, при этом кортежи сравниваются по первому элементу, а если они равны&nbsp;&mdash; то по второму. Это <b>почти</b> то, что требуется в задаче.</p>",
+    "urlname": "frequency_analysis",
+    "filename": "dicts/frequency_analysis.txt"
+  },
+  {
+    "tests": [
+      "9\nAlexei Peter_I\nAnna Peter_I\nElizabeth Peter_I\nPeter_II Alexei\nPeter_III Anna\nPaul_I Peter_III\nAlexander_I Paul_I\nNicholaus_I Paul_I\n3\nAnna Nicholaus_I\nPeter_II Peter_I\nAlexei Paul_I",
+      "10\nABFNWOZSQ PYMOTVGV\nIDFTZIZ ABFNWOZSQ\nJROOREULMT PYMOTVGV\nLYGKZXAH WWHPX\nMGYOGC PYMOTVGV\nOSCWZTA JROOREULMT\nTOXFHB PYMOTVGV\nWWHPX PYMOTVGV\nXXGVR PYMOTVGV\n90\nABFNWOZSQ IDFTZIZ\nABFNWOZSQ JROOREULMT\nABFNWOZSQ LYGKZXAH\nABFNWOZSQ MGYOGC\nABFNWOZSQ OSCWZTA\nABFNWOZSQ PYMOTVGV\nABFNWOZSQ TOXFHB\nABFNWOZSQ WWHPX\nABFNWOZSQ XXGVR\nIDFTZIZ ABFNWOZSQ\nIDFTZIZ JROOREULMT\nIDFTZIZ LYGKZXAH\nIDFTZIZ MGYOGC\nIDFTZIZ OSCWZTA\nIDFTZIZ PYMOTVGV\nIDFTZIZ TOXFHB\nIDFTZIZ WWHPX\nIDFTZIZ XXGVR\nJROOREULMT ABFNWOZSQ\nJROOREULMT IDFTZIZ\nJROOREULMT LYGKZXAH\nJROOREULMT MGYOGC\nJROOREULMT OSCWZTA\nJROOREULMT PYMOTVGV\nJROOREULMT TOXFHB\nJROOREULMT WWHPX\nJROOREULMT XXGVR\nLYGKZXAH ABFNWOZSQ\nLYGKZXAH IDFTZIZ\nLYGKZXAH JROOREULMT\nLYGKZXAH MGYOGC\nLYGKZXAH OSCWZTA\nLYGKZXAH PYMOTVGV\nLYGKZXAH TOXFHB\nLYGKZXAH WWHPX\nLYGKZXAH XXGVR\nMGYOGC ABFNWOZSQ\nMGYOGC IDFTZIZ\nMGYOGC JROOREULMT\nMGYOGC LYGKZXAH\nMGYOGC OSCWZTA\nMGYOGC PYMOTVGV\nMGYOGC TOXFHB\nMGYOGC WWHPX\nMGYOGC XXGVR\nOSCWZTA ABFNWOZSQ\nOSCWZTA IDFTZIZ\nOSCWZTA JROOREULMT\nOSCWZTA LYGKZXAH\nOSCWZTA MGYOGC\nOSCWZTA PYMOTVGV\nOSCWZTA TOXFHB\nOSCWZTA WWHPX\nOSCWZTA XXGVR\nPYMOTVGV ABFNWOZSQ\nPYMOTVGV IDFTZIZ\nPYMOTVGV JROOREULMT\nPYMOTVGV LYGKZXAH\nPYMOTVGV MGYOGC\nPYMOTVGV OSCWZTA\nPYMOTVGV TOXFHB\nPYMOTVGV WWHPX\nPYMOTVGV XXGVR\nTOXFHB ABFNWOZSQ\nTOXFHB IDFTZIZ\nTOXFHB JROOREULMT\nTOXFHB LYGKZXAH\nTOXFHB MGYOGC\nTOXFHB OSCWZTA\nTOXFHB PYMOTVGV\nTOXFHB WWHPX\nTOXFHB XXGVR\nWWHPX ABFNWOZSQ\nWWHPX IDFTZIZ\nWWHPX JROOREULMT\nWWHPX LYGKZXAH\nWWHPX MGYOGC\nWWHPX OSCWZTA\nWWHPX PYMOTVGV\nWWHPX TOXFHB\nWWHPX XXGVR\nXXGVR ABFNWOZSQ\nXXGVR IDFTZIZ\nXXGVR JROOREULMT\nXXGVR LYGKZXAH\nXXGVR MGYOGC\nXXGVR OSCWZTA\nXXGVR PYMOTVGV\nXXGVR TOXFHB\nXXGVR WWHPX",
+      "10\nFMHGEENUCT XBBOQJCWX\nHPKZKTJFF TEUMIBCQZ\nIWKLSYC WNCJZGO\nIXYRHLFQC NABQG\nJJJJGBDJ OODIWN\nNABQG JJJJGBDJ\nTEUMIBCQZ FMHGEENUCT\nWNCJZGO HPKZKTJFF\nXBBOQJCWX IXYRHLFQC\n90\nFMHGEENUCT HPKZKTJFF\nFMHGEENUCT IWKLSYC\nFMHGEENUCT IXYRHLFQC\nFMHGEENUCT JJJJGBDJ\nFMHGEENUCT NABQG\nFMHGEENUCT OODIWN\nFMHGEENUCT TEUMIBCQZ\nFMHGEENUCT WNCJZGO\nFMHGEENUCT XBBOQJCWX\nHPKZKTJFF FMHGEENUCT\nHPKZKTJFF IWKLSYC\nHPKZKTJFF IXYRHLFQC\nHPKZKTJFF JJJJGBDJ\nHPKZKTJFF NABQG\nHPKZKTJFF OODIWN\nHPKZKTJFF TEUMIBCQZ\nHPKZKTJFF WNCJZGO\nHPKZKTJFF XBBOQJCWX\nIWKLSYC FMHGEENUCT\nIWKLSYC HPKZKTJFF\nIWKLSYC IXYRHLFQC\nIWKLSYC JJJJGBDJ\nIWKLSYC NABQG\nIWKLSYC OODIWN\nIWKLSYC TEUMIBCQZ\nIWKLSYC WNCJZGO\nIWKLSYC XBBOQJCWX\nIXYRHLFQC FMHGEENUCT\nIXYRHLFQC HPKZKTJFF\nIXYRHLFQC IWKLSYC\nIXYRHLFQC JJJJGBDJ\nIXYRHLFQC NABQG\nIXYRHLFQC OODIWN\nIXYRHLFQC TEUMIBCQZ\nIXYRHLFQC WNCJZGO\nIXYRHLFQC XBBOQJCWX\nJJJJGBDJ FMHGEENUCT\nJJJJGBDJ HPKZKTJFF\nJJJJGBDJ IWKLSYC\nJJJJGBDJ IXYRHLFQC\nJJJJGBDJ NABQG\nJJJJGBDJ OODIWN\nJJJJGBDJ TEUMIBCQZ\nJJJJGBDJ WNCJZGO\nJJJJGBDJ XBBOQJCWX\nNABQG FMHGEENUCT\nNABQG HPKZKTJFF\nNABQG IWKLSYC\nNABQG IXYRHLFQC\nNABQG JJJJGBDJ\nNABQG OODIWN\nNABQG TEUMIBCQZ\nNABQG WNCJZGO\nNABQG XBBOQJCWX\nOODIWN FMHGEENUCT\nOODIWN HPKZKTJFF\nOODIWN IWKLSYC\nOODIWN IXYRHLFQC\nOODIWN JJJJGBDJ\nOODIWN NABQG\nOODIWN TEUMIBCQZ\nOODIWN WNCJZGO\nOODIWN XBBOQJCWX\nTEUMIBCQZ FMHGEENUCT\nTEUMIBCQZ HPKZKTJFF\nTEUMIBCQZ IWKLSYC\nTEUMIBCQZ IXYRHLFQC\nTEUMIBCQZ JJJJGBDJ\nTEUMIBCQZ NABQG\nTEUMIBCQZ OODIWN\nTEUMIBCQZ WNCJZGO\nTEUMIBCQZ XBBOQJCWX\nWNCJZGO FMHGEENUCT\nWNCJZGO HPKZKTJFF\nWNCJZGO IWKLSYC\nWNCJZGO IXYRHLFQC\nWNCJZGO JJJJGBDJ\nWNCJZGO NABQG\nWNCJZGO OODIWN\nWNCJZGO TEUMIBCQZ\nWNCJZGO XBBOQJCWX\nXBBOQJCWX FMHGEENUCT\nXBBOQJCWX HPKZKTJFF\nXBBOQJCWX IWKLSYC\nXBBOQJCWX IXYRHLFQC\nXBBOQJCWX JJJJGBDJ\nXBBOQJCWX NABQG\nXBBOQJCWX OODIWN\nXBBOQJCWX TEUMIBCQZ\nXBBOQJCWX WNCJZGO",
+      "10\nLLGFZXYN WFIDZAB\nMUPLOZQF OHCMZSSM\nOBLEM LLGFZXYN\nOHCMZSSM WFIDZAB\nOVBOHOGAWQ WKEXH\nRRJHDOUTF WKEXH\nUBTZU LLGFZXYN\nVCAUCARJ MUPLOZQF\nWKEXH OHCMZSSM\n90\nLLGFZXYN MUPLOZQF\nLLGFZXYN OBLEM\nLLGFZXYN OHCMZSSM\nLLGFZXYN OVBOHOGAWQ\nLLGFZXYN RRJHDOUTF\nLLGFZXYN UBTZU\nLLGFZXYN VCAUCARJ\nLLGFZXYN WFIDZAB\nLLGFZXYN WKEXH\nMUPLOZQF LLGFZXYN\nMUPLOZQF OBLEM\nMUPLOZQF OHCMZSSM\nMUPLOZQF OVBOHOGAWQ\nMUPLOZQF RRJHDOUTF\nMUPLOZQF UBTZU\nMUPLOZQF VCAUCARJ\nMUPLOZQF WFIDZAB\nMUPLOZQF WKEXH\nOBLEM LLGFZXYN\nOBLEM MUPLOZQF\nOBLEM OHCMZSSM\nOBLEM OVBOHOGAWQ\nOBLEM RRJHDOUTF\nOBLEM UBTZU\nOBLEM VCAUCARJ\nOBLEM WFIDZAB\nOBLEM WKEXH\nOHCMZSSM LLGFZXYN\nOHCMZSSM MUPLOZQF\nOHCMZSSM OBLEM\nOHCMZSSM OVBOHOGAWQ\nOHCMZSSM RRJHDOUTF\nOHCMZSSM UBTZU\nOHCMZSSM VCAUCARJ\nOHCMZSSM WFIDZAB\nOHCMZSSM WKEXH\nOVBOHOGAWQ LLGFZXYN\nOVBOHOGAWQ MUPLOZQF\nOVBOHOGAWQ OBLEM\nOVBOHOGAWQ OHCMZSSM\nOVBOHOGAWQ RRJHDOUTF\nOVBOHOGAWQ UBTZU\nOVBOHOGAWQ VCAUCARJ\nOVBOHOGAWQ WFIDZAB\nOVBOHOGAWQ WKEXH\nRRJHDOUTF LLGFZXYN\nRRJHDOUTF MUPLOZQF\nRRJHDOUTF OBLEM\nRRJHDOUTF OHCMZSSM\nRRJHDOUTF OVBOHOGAWQ\nRRJHDOUTF UBTZU\nRRJHDOUTF VCAUCARJ\nRRJHDOUTF WFIDZAB\nRRJHDOUTF WKEXH\nUBTZU LLGFZXYN\nUBTZU MUPLOZQF\nUBTZU OBLEM\nUBTZU OHCMZSSM\nUBTZU OVBOHOGAWQ\nUBTZU RRJHDOUTF\nUBTZU VCAUCARJ\nUBTZU WFIDZAB\nUBTZU WKEXH\nVCAUCARJ LLGFZXYN\nVCAUCARJ MUPLOZQF\nVCAUCARJ OBLEM\nVCAUCARJ OHCMZSSM\nVCAUCARJ OVBOHOGAWQ\nVCAUCARJ RRJHDOUTF\nVCAUCARJ UBTZU\nVCAUCARJ WFIDZAB\nVCAUCARJ WKEXH\nWFIDZAB LLGFZXYN\nWFIDZAB MUPLOZQF\nWFIDZAB OBLEM\nWFIDZAB OHCMZSSM\nWFIDZAB OVBOHOGAWQ\nWFIDZAB RRJHDOUTF\nWFIDZAB UBTZU\nWFIDZAB VCAUCARJ\nWFIDZAB WKEXH\nWKEXH LLGFZXYN\nWKEXH MUPLOZQF\nWKEXH OBLEM\nWKEXH OHCMZSSM\nWKEXH OVBOHOGAWQ\nWKEXH RRJHDOUTF\nWKEXH UBTZU\nWKEXH VCAUCARJ\nWKEXH WFIDZAB"
+    ],
+    "answers": [
+      "1 2 0",
+      "1 0 0 0 0 2 0 0 0 2 0 0 0 0 2 0 0 0 0 0 0 0 1 2 0 0 0 0 0 0 0 0 2 0 2 0 0 0 0 0 0 2 0 0 0 0 0 2 0 0 2 0 0 0 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 2 0 0 0 0 0 1 0 0 2 0 0 0 0 0 0 0 0 2 0 0",
+      "1 1 2 2 2 2 1 1 2 2 1 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 2 2 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 2 2 2 2 1 2 2 2 1 2 2 2 2 2 2 1 1 1 2 2 2 2 1 1",
+      "0 1 0 0 0 1 0 2 0 0 0 2 0 0 0 1 2 0 2 0 0 0 0 0 0 2 0 0 1 0 1 1 0 1 2 1 0 0 0 2 0 0 0 2 2 0 0 0 2 0 0 0 2 2 2 0 0 0 0 0 0 2 0 0 2 0 2 0 0 0 2 0 1 1 1 1 1 1 1 1 1 0 0 0 2 1 1 0 0 2"
+    ],
+    "name": "Родословная: предки и потомки",
+    "statement": "<p>Даны два элемента в дереве. Определите, является ли один из них потомком другого.</p>  <p> Во входных данных записано дерево в том же формате, что и <a href=\"http://pythontutor.ru/lessons/sets/problems/genealogy_level_count/\">в предыдущей задаче</a> Далее идет число запросов <code>K</code>. В каждой из следующих <code>K</code> строк, содержатся имена двух элементов дерева. </p> <p> Для каждого такого запроса выведите одно из трех чисел: 1, если первый элемент является предком второго, 2, если второй является предком первого или 0, если ни один из них не является предком другого. </p>",
+    "urlname": "genealogy_ancestors_and_descendants",
+    "filename": "dicts/genealogy_ancestors_and_descendants.txt"
+  },
+  {
+    "tests": [
+      "9\nAlexei Peter_I\nAnna Peter_I\nElizabeth Peter_I\nPeter_II Alexei\nPeter_III Anna\nPaul_I Peter_III\nAlexander_I Paul_I\nNicholaus_I Paul_I",
+      "10\nAICHNG ZLNYXGO\nBDLHBJZWY BELAFXWA\nCOXUC WVWNNC\nELPPUINHJ BELAFXWA\nHIOSZOHQWG AICHNG\nUVRRAVHX BDLHBJZWY\nWVWNNC ELPPUINHJ\nYKYWCJBAX BDLHBJZWY\nZLNYXGO BDLHBJZWY",
+      "10\nATGRVELXU VAFBFFU\nAXOLTFYBEU IELUG\nGJSBSGD PSLUWDJML\nNOVHFU ZGTKHDLCUG\nPSLUWDJML ATGRVELXU\nUTOEGJE VQJTQ\nVAFBFFU AXOLTFYBEU\nVQJTQ NOVHFU\nZGTKHDLCUG GJSBSGD",
+      "10\nBVBSQST YYKHZ\nDLPJBFWD BVBSQST\nLWHPUKU MMDVH\nMMDVH AGHTYJZKGG\nNMOGF QKZQHV\nQKZQHV YYKHZ\nTXIGBES MMDVH\nYGQSXD QKZQHV\nYYKHZ AGHTYJZKGG"
+    ],
+    "answers": [
+      "Alexander_I 0\nAlexei 1\nAnna 4\nElizabeth 0\nNicholaus_I 0\nPaul_I 2\nPeter_I 8\nPeter_II 0\nPeter_III 3",
+      "AICHNG 1\nBDLHBJZWY 5\nBELAFXWA 9\nCOXUC 0\nELPPUINHJ 2\nHIOSZOHQWG 0\nUVRRAVHX 0\nWVWNNC 1\nYKYWCJBAX 0\nZLNYXGO 2",
+      "ATGRVELXU 6\nAXOLTFYBEU 8\nGJSBSGD 4\nIELUG 9\nNOVHFU 2\nPSLUWDJML 5\nUTOEGJE 0\nVAFBFFU 7\nVQJTQ 1\nZGTKHDLCUG 3",
+      "AGHTYJZKGG 9\nBVBSQST 1\nDLPJBFWD 0\nLWHPUKU 0\nMMDVH 2\nNMOGF 0\nQKZQHV 2\nTXIGBES 0\nYGQSXD 0\nYYKHZ 5"
+    ],
+    "name": "Родословная: число потомков",
+    "statement": "<p>Для каждого элемента дерева определите число всех его потомков (не считая его самого).</p>  <p> Формат выходных данных совпадает с <a href=\"http://pythontutor.ru/lessons/sets/problems/genealogy_level_count/\">задачей</a>. </p><p> Выведите список всех элементов в лексикографическом порядке, для каждого элемента выводите количество всех его потомков. </p>",
+    "urlname": "genealogy_descendants_count",
+    "filename": "dicts/genealogy_descendants_count.txt"
+  },
+  {
+    "tests": [
+      "9\nAlexei Peter_I\nAnna Peter_I\nElizabeth Peter_I\nPeter_II Alexei\nPeter_III Anna\nPaul_I Peter_III\nAlexander_I Paul_I\nNicholaus_I Paul_I\n3\nAlexander_I Nicholaus_I\nPeter_II Paul_I\nAlexander_I Anna",
+      "10\nABVQKLSZG UNORTZGDM\nALOPAEPIX VYNYXUEQ\nDBPNBMCQ IDZTWEVFC\nHHYVM NQXCK\nIDZTWEVFC ABVQKLSZG\nNQXCK VYNYXUEQ\nSXIVZSOLAH HHYVM\nUNORTZGDM ALOPAEPIX\nUYPMDVMONF NQXCK\n100\nABVQKLSZG ABVQKLSZG\nABVQKLSZG ALOPAEPIX\nABVQKLSZG DBPNBMCQ\nABVQKLSZG HHYVM\nABVQKLSZG IDZTWEVFC\nABVQKLSZG NQXCK\nABVQKLSZG SXIVZSOLAH\nABVQKLSZG UNORTZGDM\nABVQKLSZG UYPMDVMONF\nABVQKLSZG VYNYXUEQ\nALOPAEPIX ABVQKLSZG\nALOPAEPIX ALOPAEPIX\nALOPAEPIX DBPNBMCQ\nALOPAEPIX HHYVM\nALOPAEPIX IDZTWEVFC\nALOPAEPIX NQXCK\nALOPAEPIX SXIVZSOLAH\nALOPAEPIX UNORTZGDM\nALOPAEPIX UYPMDVMONF\nALOPAEPIX VYNYXUEQ\nDBPNBMCQ ABVQKLSZG\nDBPNBMCQ ALOPAEPIX\nDBPNBMCQ DBPNBMCQ\nDBPNBMCQ HHYVM\nDBPNBMCQ IDZTWEVFC\nDBPNBMCQ NQXCK\nDBPNBMCQ SXIVZSOLAH\nDBPNBMCQ UNORTZGDM\nDBPNBMCQ UYPMDVMONF\nDBPNBMCQ VYNYXUEQ\nHHYVM ABVQKLSZG\nHHYVM ALOPAEPIX\nHHYVM DBPNBMCQ\nHHYVM HHYVM\nHHYVM IDZTWEVFC\nHHYVM NQXCK\nHHYVM SXIVZSOLAH\nHHYVM UNORTZGDM\nHHYVM UYPMDVMONF\nHHYVM VYNYXUEQ\nIDZTWEVFC ABVQKLSZG\nIDZTWEVFC ALOPAEPIX\nIDZTWEVFC DBPNBMCQ\nIDZTWEVFC HHYVM\nIDZTWEVFC IDZTWEVFC\nIDZTWEVFC NQXCK\nIDZTWEVFC SXIVZSOLAH\nIDZTWEVFC UNORTZGDM\nIDZTWEVFC UYPMDVMONF\nIDZTWEVFC VYNYXUEQ\nNQXCK ABVQKLSZG\nNQXCK ALOPAEPIX\nNQXCK DBPNBMCQ\nNQXCK HHYVM\nNQXCK IDZTWEVFC\nNQXCK NQXCK\nNQXCK SXIVZSOLAH\nNQXCK UNORTZGDM\nNQXCK UYPMDVMONF\nNQXCK VYNYXUEQ\nSXIVZSOLAH ABVQKLSZG\nSXIVZSOLAH ALOPAEPIX\nSXIVZSOLAH DBPNBMCQ\nSXIVZSOLAH HHYVM\nSXIVZSOLAH IDZTWEVFC\nSXIVZSOLAH NQXCK\nSXIVZSOLAH SXIVZSOLAH\nSXIVZSOLAH UNORTZGDM\nSXIVZSOLAH UYPMDVMONF\nSXIVZSOLAH VYNYXUEQ\nUNORTZGDM ABVQKLSZG\nUNORTZGDM ALOPAEPIX\nUNORTZGDM DBPNBMCQ\nUNORTZGDM HHYVM\nUNORTZGDM IDZTWEVFC\nUNORTZGDM NQXCK\nUNORTZGDM SXIVZSOLAH\nUNORTZGDM UNORTZGDM\nUNORTZGDM UYPMDVMONF\nUNORTZGDM VYNYXUEQ\nUYPMDVMONF ABVQKLSZG\nUYPMDVMONF ALOPAEPIX\nUYPMDVMONF DBPNBMCQ\nUYPMDVMONF HHYVM\nUYPMDVMONF IDZTWEVFC\nUYPMDVMONF NQXCK\nUYPMDVMONF SXIVZSOLAH\nUYPMDVMONF UNORTZGDM\nUYPMDVMONF UYPMDVMONF\nUYPMDVMONF VYNYXUEQ\nVYNYXUEQ ABVQKLSZG\nVYNYXUEQ ALOPAEPIX\nVYNYXUEQ DBPNBMCQ\nVYNYXUEQ HHYVM\nVYNYXUEQ IDZTWEVFC\nVYNYXUEQ NQXCK\nVYNYXUEQ SXIVZSOLAH\nVYNYXUEQ UNORTZGDM\nVYNYXUEQ UYPMDVMONF\nVYNYXUEQ VYNYXUEQ"
+    ],
+    "answers": [
+      "Paul_I\nPeter_I\nAnna",
+      "ABVQKLSZG\nALOPAEPIX\nABVQKLSZG\nVYNYXUEQ\nABVQKLSZG\nVYNYXUEQ\nVYNYXUEQ\nUNORTZGDM\nVYNYXUEQ\nVYNYXUEQ\nALOPAEPIX\nALOPAEPIX\nALOPAEPIX\nVYNYXUEQ\nALOPAEPIX\nVYNYXUEQ\nVYNYXUEQ\nALOPAEPIX\nVYNYXUEQ\nVYNYXUEQ\nABVQKLSZG\nALOPAEPIX\nDBPNBMCQ\nVYNYXUEQ\nIDZTWEVFC\nVYNYXUEQ\nVYNYXUEQ\nUNORTZGDM\nVYNYXUEQ\nVYNYXUEQ\nVYNYXUEQ\nVYNYXUEQ\nVYNYXUEQ\nHHYVM\nVYNYXUEQ\nNQXCK\nHHYVM\nVYNYXUEQ\nNQXCK\nVYNYXUEQ\nABVQKLSZG\nALOPAEPIX\nIDZTWEVFC\nVYNYXUEQ\nIDZTWEVFC\nVYNYXUEQ\nVYNYXUEQ\nUNORTZGDM\nVYNYXUEQ\nVYNYXUEQ\nVYNYXUEQ\nVYNYXUEQ\nVYNYXUEQ\nNQXCK\nVYNYXUEQ\nNQXCK\nNQXCK\nVYNYXUEQ\nNQXCK\nVYNYXUEQ\nVYNYXUEQ\nVYNYXUEQ\nVYNYXUEQ\nHHYVM\nVYNYXUEQ\nNQXCK\nSXIVZSOLAH\nVYNYXUEQ\nNQXCK\nVYNYXUEQ\nUNORTZGDM\nALOPAEPIX\nUNORTZGDM\nVYNYXUEQ\nUNORTZGDM\nVYNYXUEQ\nVYNYXUEQ\nUNORTZGDM\nVYNYXUEQ\nVYNYXUEQ\nVYNYXUEQ\nVYNYXUEQ\nVYNYXUEQ\nNQXCK\nVYNYXUEQ\nNQXCK\nNQXCK\nVYNYXUEQ\nUYPMDVMONF\nVYNYXUEQ\nVYNYXUEQ\nVYNYXUEQ\nVYNYXUEQ\nVYNYXUEQ\nVYNYXUEQ\nVYNYXUEQ\nVYNYXUEQ\nVYNYXUEQ\nVYNYXUEQ\nVYNYXUEQ"
+    ],
+    "name": "Родословная: LCA",
+    "statement": "<p>В генеалогическом древе определите для двух элементов их наименьшего общего предка (Lowest Common Ancestor). Наименьшим общим предком элементов A и B является такой элемент C, что С является предком A, C является предком B, при этом глубина C является наибольшей из возможных. При этом элемент считается своим собственным предком. </p> <p> Формат входных данных аналогичен <a href=\"http://pythontutor.ru/lessons/sets/problems/genealogy_ancestors_and_descendants/\">предыдущей задаче</a> </p>  <p> Для каждого запроса выведите наименьшего общего предка данных элементов. </p>",
+    "urlname": "genealogy_lca",
+    "filename": "dicts/genealogy_lca.txt"
+  },
+  {
+    "tests": [
+      "9\nAlexei Peter_I\nAnna Peter_I\nElizabeth Peter_I\nPeter_II Alexei\nPeter_III Anna\nPaul_I Peter_III\nAlexander_I Paul_I\nNicholaus_I Paul_I",
+      "10\nAQHFYP MKFXCLZBT\nAYKOTYQ QIUKGHWCDC\nIWCGKHMFM WPLHJL\nMJVAURUDN QIUKGHWCDC\nMKFXCLZBT IWCGKHMFM\nPUTRIPYHNQ UQNGAXNP\nQIUKGHWCDC WPLHJL\nUQNGAXNP WPLHJL\nYURTPJNR QIUKGHWCDC",
+      "10\nBFNRMLH CSZMPFXBZ\nCSZMPFXBZ IHWBQDJ\nFMVQTU FUXATQUGIG\nFUXATQUGIG IRVAVMQKN\nGNVIZ IQGIGUJZ\nIHWBQDJ LACXYFQHSQ\nIQGIGUJZ JMUPNYRQD\nIRVAVMQKN GNVIZ\nJMUPNYRQD BFNRMLH",
+      "10\nAQYAGCP REWAA\nESWQWYTYC UBRMC\nIAMIHKG REWAA\nICEWDHDNA XETAFXX\nPYDGXBFCOE XETAFXX\nREWAA UBRMC\nUCODPEEGM ESWQWYTYC\nVZHDSSNZ UCODPEEGM\nXETAFXX ESWQWYTYC"
+    ],
+    "answers": [
+      "Alexander_I 4\nAlexei 1\nAnna 1\nElizabeth 1\nNicholaus_I 4\nPaul_I 3\nPeter_I 0\nPeter_II 2\nPeter_III 2",
+      "AQHFYP 3\nAYKOTYQ 2\nIWCGKHMFM 1\nMJVAURUDN 2\nMKFXCLZBT 2\nPUTRIPYHNQ 2\nQIUKGHWCDC 1\nUQNGAXNP 1\nWPLHJL 0\nYURTPJNR 2",
+      "BFNRMLH 3\nCSZMPFXBZ 2\nFMVQTU 9\nFUXATQUGIG 8\nGNVIZ 6\nIHWBQDJ 1\nIQGIGUJZ 5\nIRVAVMQKN 7\nJMUPNYRQD 4\nLACXYFQHSQ 0",
+      "AQYAGCP 2\nESWQWYTYC 1\nIAMIHKG 2\nICEWDHDNA 3\nPYDGXBFCOE 3\nREWAA 1\nUBRMC 0\nUCODPEEGM 2\nVZHDSSNZ 3\nXETAFXX 2"
+    ],
+    "name": "Родословная: подсчет уровней",
+    "statement": "<p>В генеалогическом древе у каждого человека, кроме родоначальника, есть ровно один родитель. </p> <p>Каждом элементу дерева сопоставляется целое неотрицательное число, называемое высотой. У родоначальника высота равна 0, у любого другого элемента высота на 1 больше, чем у его родителя.</p>  <p>Вам дано генеалогическое древо, определите высоту всех его элементов.</p>  <p> Программа получает на вход число элементов в генеалогическом древе <code>N</code>. Далее следует <code>N−1</code> строка, задающие родителя для каждого элемента древа, кроме родоначальника. Каждая строка имеет вид <code>имя_потомка имя_родителя</code>. </p>  <p> Программа должна вывести список всех элементов древа в лексикографическом порядке. После вывода имени каждого элемента необходимо вывести его высоту. </p>  <p> <b>Примечание</b> </p><p> Эта задача имеет решение сложности O(n), но вам достаточно написать решение сложности O(n2) (не считая сложности обращения к элементам словаря). </p>",
+    "urlname": "genealogy_level_count",
+    "filename": "dicts/genealogy_level_count.txt"
+  },
+  {
+    "tests": [
+      "10\n1 2 3 4 5\nYES\n2 4 6 8 10\nNO\nHELP",
+      "10\n1 2 3 4 5 6 7 8 9 10\nYES\n1\nNO\n2\nNO\n3\nNO\n4\nNO\n6\nNO\n7\nNO\n8\nNO\n9\nNO\n10\nNO\nHELP",
+      "100\n3 5 8 10 11 13 14 15 16 20 21 23 25 27 29 31 32 33 35 42 43 46 47 48 51 52 57 58 67 68 72 74 75 76 79 80 81 82 83 84 86 89 90 91 92 93 94 95 96 99\nYES\n1 4 7 9 14 16 17 19 20 23 25 27 28 29 30 31 32 33 41 42 45 46 48 50 52 54 59 60 61 63 66 67 68 69 70 71 73 74 79 81 82 83 89 90 91 92 93 94 95 100\nYES\n3 5 6 15 16 18 19 20 21 22 23 24 26 28 29 35 37 38 39 40 41 43 44 45 46 47 53 55 56 60 61 63 64 65 68 70 71 73 76 79 80 81 82 83 86 90 91 95 96 99\nYES\n1 2 3 5 11 16 17 23 25 31 32 33 34 35 38 39 41 43 44 46 47 49 51 53 58 59 62 63 68 69 70 72 73 74 76 77 78 79 80 81 82 83 85 86 93 94 95 97 99 100\nYES\n3 7 8 9 10 14 17 20 22 23 24 25 26 27 28 30 34 40 42 43 45 47 48 49 50 51 52 53 54 55 59 62 63 66 67 72 73 75 77 81 83 84 86 89 92 93 94 96 98 100\nYES\nHELP"
+    ],
+    "answers": [
+      "1 3 5",
+      "5",
+      "23 81 83"
+    ],
+    "name": "Угадай число",
+    "statement": "<p>Август и Беатриса играют в игру. Август загадал натуральное число от 1 до n. Беатриса пытается угадать это число, для этого она называет некоторые множества натуральных чисел. Август отвечает Беатрисе <code>YES</code>, если среди названных ей чисел есть задуманное или <code>NO</code> в противном случае. После нескольких заданныъх вопросов Беатриса запуталась в том, какие вопросы она задавала и какие ответы получила и просит вас помочь ей определить, какие числа мог задумать Август.</p>  <p>В первой строке задано n - максимальное число, которое мог загадать Август. Далее каждая строка содержит вопрос Беатрисы (множество чисел, разделенных пробелом) и ответ Августа на этот вопрос.</p>  <p>Вы должны вывести через пробел, в порядке возрастания, все числа, которые мог задумать Август.</p>",
+    "urlname": "guess_number",
+    "filename": "sets/guess_number.txt"
+  },
+  {
+    "tests": [
+      "10\n1 2 3 4 5\n2 4 6 8 10\nHELP",
+      "10\n1\n2\n3\n4\n5\n6\n7\n8\n9\nHELP",
+      "16\n1 2 3 4 5 6 7 8\n9 10 11 12\n13 14\n16\nHELP",
+      "100\n2 3 5 6 9 12 13 14 15 17 19 21 22 24 25 28 31 32 33 34 35 38 43 46 48 54 55 56 57 58 60 61 63 69 70 71 76 77 78 79 80 81 83 91 92 93 94 95 96 99\n2 5 6 7 8 11 13 14 19 24 25 26 28 29 30 31 34 36 37 38 40 42 43 46 49 50 54 55 56 57 61 62 65 68 70 71 72 75 78 79 80 81 82 83 87 90 91 96 99 100\n2 4 6 7 9 11 13 16 20 21 28 29 31 33 34 36 40 41 42 43 45 46 47 48 50 52 54 55 59 64 65 68 69 70 71 73 77 78 81 82 83 84 88 90 92 93 96 98 99 100\n1 4 5 7 9 10 12 13 15 16 18 20 22 23 25 27 28 30 31 33 34 36 38 40 41 43 48 49 50 51 52 53 57 62 63 64 69 71 76 79 80 81 84 85 89 90 93 95 98 100\n8 11 13 14 15 16 17 18 19 21 23 24 26 29 30 31 33 34 35 36 44 51 53 55 58 59 60 61 62 63 64 66 68 71 74 75 78 79 80 83 85 88 89 91 94 95 96 97 98 100\n2 3 4 8 9 11 12 18 23 24 26 28 30 32 33 34 35 36 37 39 41 42 45 54 57 59 60 62 64 66 71 72 74 78 79 80 82 83 84 86 87 88 89 90 91 92 95 97 98 100\nHELP"
+    ],
+    "answers": [
+      "NO\nYES\n6 8 10",
+      "NO\nNO\nNO\nNO\nNO\nNO\nNO\nNO\nNO\n10",
+      "NO\nNO\nNO\nNO\n15",
+      "NO\nNO\nNO\nYES\nYES\nNO\n51 53 85"
+    ],
+    "name": "Угадай число - 2",
+    "statement": "<p>Август и Беатриса <a href=\"http://pythontutor.ru/lessons/sets/problems/guess_number/\">продолжают играть в игру</a>, но Август начал жульничать. На каждый из вопросов Беатрисы он выбирает такой вариант ответа <code>YES</code> или <code>NO</code>, чтобы множество возможных задуманных чисел оставалось как можно больше. Например, если Август задумал число от 1 до 5, а Беатриса спросила про числа 1 и 2, то Август ответит <code>NO</code>, а если Беатриса спросит про 1, 2, 3, то Август ответит <code>YES</code>.</p>  <p>Если же Бетриса в своем вопросе перечисляет ровно половину из задуманных чисел, то Август из вредности всегда отвечает <code>NO</code>. Наконец, Август при ответе учитывает все предыдущие вопросы Беатрисы и свои ответы на них, то есть множество возможных задуманных чисел уменьшается.</p>  <p>Первая строка содержит наибольшее число, которое мог загадать Август. Каждая следующая строка содержит очередной вопрос Беатрисы: набор чисел, разделенных пробелами. Последняя строка входных данных содержит одно слово <code>HELP</code>.</p>  <p>Для каждого вопроса Беатрисы выведите ответ Августа на этот вопрос. После этого выведите через пробел, в порядке возрастания, все числа, которые мог загадать Август после ответа на все вопросы Беатрисы.</p>",
+    "urlname": "guess_number_2",
+    "filename": "sets/guess_number_2.txt"
+  },
+  {
+    "tests": [
+      "Harry",
+      "Mr. Potter",
+      "Lord Voldemort"
+    ],
+    "answers": [
+      "Hello, Harry!",
+      "Hello, Mr. Potter!",
+      "Hello, Lord Voldemort!"
+    ],
+    "name": "Hello, Harry!",
+    "statement": "Напишите программу, которая приветствует пользователя, выводя слово <code>Hello</code>, введенное имя и знаки препинания по образцу:",
+    "urlname": "hello_harry",
+    "filename": "hello_harry.txt"
+  },
+  {
+    "tests": [
+      "5\n0\n700\n0\n200\n2",
+      "7\n1\n2\n3\n4\n5\n6\n7",
+      "6\n0\n0\n0\n0\n0\n0",
+      "1\n0",
+      "1\n1",
+      "3\n0\n1\n2",
+      "3\n1\n2\n0",
+      "10\n0\n4\n1\n-7\n0\n4\n5\n1\n0\n0"
+    ],
+    "answers": [
+      "2",
+      "0",
+      "6",
+      "1",
+      "0",
+      "1",
+      "1",
+      "4"
+    ],
+    "name": "Количество нулей",
+    "statement": "Дано N чисел: сначала вводится число N, затем вводится ровно N целых чисел. Подсчитайте количество нулей среди введенных чисел и выведите это количество. Вам нужно подсчитать количество чисел, равных нулю, а не количество цифр.",
+    "urlname": "how_many_zeroes",
+    "filename": "for/how_many_zeroes.txt"
+  },
+  {
+    "tests": [
+      "1 5 2 4 3",
+      "1 2 3 4 5",
+      "5 4 3 2 1",
+      "1 5 1 5 1",
+      "5 1 5 1 5",
+      "5 5 5 5 5",
+      "1 1 1 5 1",
+      "345354",
+      "1 465",
+      "4 -54643",
+      "2147483647 0 1 2 3",
+      "1 2 3 4 -2147483648",
+      "-9 29 -100 64 26 73 -96 28 -92 11 -14 -86 -54 -67 -33 38 -65 -66 72 41 35 81 43 -75 -34 -72 80 23 96 -83 51 -25 85 8 -4 -42 65 18 0 -97 -81 52 -54 57 11 -34 49 -61 -53 9 34 12 41 -4 -31 -94 77 -63 21 25 20 -16 47 2 98 -25 -89 76 -61 17 7 -16 -87 -36 17 -10 2 -85 -97 10 -64 51 -30 0 -42 -29 -63 -81 56 -100 24 23 -37 81 83 -15 -53 36 -28 97"
+    ],
+    "answers": [
+      "5 4",
+      "2 3 4 5",
+      "",
+      "5 5",
+      "5 5",
+      "",
+      "5",
+      "",
+      "465",
+      "",
+      "1 2 3",
+      "2 3 4",
+      "29 64 73 28 11 -54 -33 38 72 81 -34 80 96 51 85 65 -81 52 57 49 -53 9 34 41 77 21 25 47 98 76 17 -36 17 2 10 51 0 -29 56 24 81 83 36 97"
+    ],
+    "name": "Больше предыдущего",
+    "statement": "Дан список чисел. Выведите все элементы списка, которые больше предыдущего элемента.",
+    "urlname": "increasing_neighbours",
+    "filename": "lists/increasing_neighbours.txt"
+  },
+  {
+    "tests": [
+      "7 6 5 4 3 2 1\n2 0",
+      "4 6 2 4 3 5 12 24 3 5\n4 22",
+      "4 6 2 4 3 5 12 24 3 5\n0 2",
+      "4 6 2 4 3 5 12 24 3 5\n8 22",
+      "4 6 2 4 3 5 12 24 3 5\n9 1",
+      "1 2\n0 3",
+      "1 2\n1 3",
+      "4 6 2 4 3 5 12 24 3 5\n1 22",
+      "1 3 5 7 9 11 13 15 17 19\n10 179"
+    ],
+    "answers": [
+      "7 6 0 5 4 3 2 1",
+      "4 6 2 4 22 3 5 12 24 3 5",
+      "2 4 6 2 4 3 5 12 24 3 5",
+      "4 6 2 4 3 5 12 24 22 3 5",
+      "4 6 2 4 3 5 12 24 3 1 5",
+      "3 1 2",
+      "1 3 2",
+      "4 22 6 2 4 3 5 12 24 3 5",
+      "1 3 5 7 9 11 13 15 17 19 179"
+    ],
+    "name": "Вставить элемент",
+    "statement": "Дан список целых чисел, число <code>k</code> и значение <code>C</code>. Необходимо вставить в список на позицию с индексом <code>k</code> элемент, равный <code>C</code>, сдвинув все элементы, имевшие индекс не менее <code>k</code>, вправо.  <p>Посколько при этом количество элементов в списке увеличивается, после считывания списка в его конец нужно будет добавить новый элемент, используя метод <code>append</code>.  <p>Вставку необходимо осуществлять уже в считанном списке, не делая этого при выводе и не создавая дополнительного списка.",
+    "urlname": "insert_element",
+    "filename": "lists/insert_element.txt"
+  },
+  {
+    "tests": [
+      "8",
+      "10",
+      "13",
+      "55",
+      "56",
+      "57",
+      "54",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "1134903170",
+      "1134903171",
+      "1134903169"
+    ],
+    "answers": [
+      "6",
+      "-1",
+      "7",
+      "10",
+      "-1",
+      "-1",
+      "-1",
+      "3",
+      "4",
+      "-1",
+      "5",
+      "-1",
+      "45",
+      "-1",
+      "-1"
+    ],
+    "name": "Номер числа Фибоначчи",
+    "statement": "Дано натуральное число <i>A</i>. Определите, каким по счету числом Фибоначчи оно является, то есть выведите такое число <i>n</i>, что <i>&phi;<sub>n</sub> = A</i>. Если <i>А</i> не является числом Фибоначчи, выведите число -1.",
+    "urlname": "is_fibonacci",
+    "filename": "while/is_fibonacci.txt"
+  },
+  {
+    "tests": [
+      "23\n52\n8\n43",
+      "18\n90\n3\n63",
+      "96\n1\n0\n83",
+      "78\n29\n1\n10",
+      "49\n31\n14\n32",
+      "53\n3\n2\n0",
+      "73\n63\n51\n8",
+      "57\n7\n3\n0",
+      "54\n22\n15\n6",
+      "50\n42\n17\n29",
+      "43\n33\n6\n30",
+      "65\n30\n13\n12",
+      "11\n47\n1\n20",
+      "5\n98\n2\n81",
+      "34\n39\n3\n7",
+      "45\n48\n17\n11",
+      "78\n48\n0\n4",
+      "90\n72\n9\n35",
+      "16\n100\n7\n11",
+      "38\n31\n2\n4",
+      "96\n45\n41\n22",
+      "3\n56\n0\n37",
+      "28\n25\n17\n28",
+      "6\n97\n6\n95",
+      "88\n18\n7\n70",
+      "25\n57\n0\n20",
+      "97\n38\n6\n38",
+      "98\n77\n31\n80",
+      "41\n84\n4\n73",
+      "46\n90\n28\n77",
+      "5\n94\n1\n36",
+      "66\n45\n35\n47",
+      "60\n98\n39\n27",
+      "67\n22\n7\n54",
+      "6\n38\n1\n16",
+      "72\n19\n9\n42",
+      "79\n78\n49\n79",
+      "71\n26\n21\n42",
+      "5\n87\n3\n38",
+      "31\n79\n0\n74"
+    ],
+    "answers": [
+      "8",
+      "3",
+      "0",
+      "1",
+      "14",
+      "0",
+      "8",
+      "0",
+      "6",
+      "17",
+      "6",
+      "12",
+      "1",
+      "2",
+      "3",
+      "11",
+      "0",
+      "9",
+      "7",
+      "2",
+      "4",
+      "0",
+      "0",
+      "0",
+      "7",
+      "0",
+      "6",
+      "18",
+      "4",
+      "13",
+      "1",
+      "10",
+      "21",
+      "7",
+      "1",
+      "9",
+      "0",
+      "5",
+      "2",
+      "0"
+    ],
+    "name": "Яша плавает в бассейне",
+    "statement": "Яша плавал в бассейне размером <i>N &times; M</i> метров и устал. В этот момент он обнаружил, что находится на расстоянии <i>x</i> метров от одного из длинных бортиков (не обязательно от ближайшего) и <i>y</i> метров от одного из коротких бортиков. Какое минимальное расстояние должен проплыть Яша, чтобы выбраться из бассейна на бортик?  Программа получает на вход числа <i>N, M, x, y</i>. Программа должна вывести число метров, которое нужно проплыть Яше до бортика.",
+    "urlname": "jacob_the_swimmer",
+    "filename": "ifelse/jacob_the_swimmer.txt"
+  },
+  {
+    "tests": [
+      "10 3\n8 10\n2 5\n3 6",
+      "5 2\n1 2\n4 4",
+      "10 3\n3 5\n4 6\n10 10",
+      "5 0",
+      "5 5\n5 5\n3 3\n1 1\n2 2\n4 4",
+      "20 1\n1 20",
+      "20 3\n3 8\n13 17\n6 9",
+      "15 4\n1 1\n1 4\n6 8\n7 9"
+    ],
+    "answers": [
+      "I.....I...",
+      "..I.I",
+      "II....III.",
+      "IIIII",
+      ".....",
+      "....................",
+      "II.......III.....III",
+      "....I....IIIIII"
+    ],
+    "name": "Кегельбан",
+    "statement": "<i>N</i> кеглей выставили в один ряд, занумеровав их слева направо числами от <i>1</i> до <i>N</i>. Затем по этому ряду бросили <i>K</i> шаров, при этом <i>i</i>-й шар сбил все кегли с номерами от <i>l<sub>i</sub></i> до <i>r<sub>i</sub></i> включительно. Определите, какие кегли остались стоять на месте.  <p>Программа получает на вход количество кеглей <i>N</i> и количество бросков <i>K</i>. Далее идет <i>K</i> пар чисел <i>l<sub>i</sub></i>, <i>r<sub>i</sub></i>, при этом <i>1&le; l<sub>i</sub>&le; r<sub>i</sub>&le; N</i>.  <p>Программа должна вывести последовательность из <i>N</i> символов, где <i>j</i>-й символ есть &ldquo;<code>I</code>&rdquo;, если <i>j</i>-я кегля осталась стоять, или &ldquo;<code>.</code>&rdquo;, если <i>j</i>-я кегля была сбита.",
+    "urlname": "kegelbahn",
+    "filename": "lists/kegelbahn.txt"
+  },
+  {
+    "tests": [
+      "4\n4\n5\n5",
+      "4\n4\n5\n4",
+      "4\n4\n5\n3",
+      "4\n4\n4\n5",
+      "4\n4\n3\n5",
+      "4\n4\n4\n3",
+      "4\n4\n3\n4",
+      "4\n4\n3\n3",
+      "1\n1\n1\n8",
+      "1\n1\n8\n8",
+      "1\n1\n8\n1",
+      "1\n8\n8\n8",
+      "1\n8\n8\n1",
+      "1\n8\n1\n1",
+      "8\n8\n8\n1",
+      "8\n8\n1\n1",
+      "8\n8\n1\n8",
+      "8\n1\n1\n1",
+      "8\n1\n1\n8",
+      "8\n1\n8\n8",
+      "1\n1\n1\n2",
+      "1\n1\n2\n2",
+      "1\n1\n2\n1",
+      "4\n4\n6\n6",
+      "4\n4\n2\n2",
+      "4\n4\n6\n2",
+      "4\n4\n2\n6",
+      "4\n4\n2\n7",
+      "4\n4\n4\n6",
+      "4\n4\n2\n4",
+      "4\n4\n5\n6",
+      "1\n7\n1\n8",
+      "4\n3\n2\n2"
+    ],
+    "answers": [
+      "YES",
+      "YES",
+      "YES",
+      "YES",
+      "YES",
+      "YES",
+      "YES",
+      "YES",
+      "NO",
+      "NO",
+      "NO",
+      "NO",
+      "NO",
+      "NO",
+      "NO",
+      "NO",
+      "NO",
+      "NO",
+      "NO",
+      "NO",
+      "YES",
+      "YES",
+      "YES",
+      "NO",
+      "NO",
+      "NO",
+      "NO",
+      "NO",
+      "NO",
+      "NO",
+      "NO",
+      "YES",
+      "NO"
+    ],
+    "name": "Ход короля",
+    "statement": "Шахматный король ходит по горизонтали, вертикали и диагонали, но только на 1 клетку. Даны две различные клетки шахматной доски, определите, может ли король попасть с первой клетки на вторую одним ходом. Программа получает на вход четыре числа от 1 до 8 каждое, задающие номер столбца и номер строки сначала для первой клетки, потом для второй клетки. Программа должна вывести <code>YES</code>, если из первой клетки ходом короля можно попасть во вторую или <code>NO</code> в противном случае.",
+    "urlname": "king_move",
+    "filename": "ifelse/king_move.txt"
+  }
+]

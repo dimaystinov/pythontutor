@@ -1,0 +1,31 @@
+{
+  "slug": "permissions",
+  "title": "Права доступа",
+  "origin": "authored",
+  "summary": "Сопоставляем файлам разрешения, а названиям операций — буквы.",
+  "recommended": {
+    "title": "Множества разрешений",
+    "code": "rights = {}\nfor _ in range(int(input())):\n    name, *allowed = input().split()\n    rights[name] = set(allowed)\noperation = {'read': 'R', 'write': 'W', 'execute': 'X'}\nfor _ in range(int(input())):\n    action, name = input().split()\n    print('OK' if operation[action] in rights[name] else 'Access denied')\n",
+    "explanation": "Запрос сводится к проверке одной буквы в разрешениях конкретного файла.",
+    "time_complexity": "O(N+M) в среднем",
+    "space_complexity": "O(N) записей"
+  },
+  "alternatives": [
+    {
+      "title": "Битовые маски",
+      "code": "bits = {'R': 1, 'W': 2, 'X': 4}\nrights = {}\nfor _ in range(int(input())):\n    name, *allowed = input().split()\n    mask = 0\n    for letter in allowed:\n        mask |= bits[letter]\n    rights[name] = mask\noperation = {'read': 1, 'write': 2, 'execute': 4}\nfor _ in range(int(input())):\n    action, name = input().split()\n    print('OK' if rights[name] & operation[action] else 'Access denied')\n",
+      "explanation": "Каждому праву выделяем один бит; побитовое И проверяет наличие нужного бита.",
+      "time_complexity": "O(N+M) в среднем",
+      "space_complexity": "O(N) записей"
+    }
+  ],
+  "pitfalls": [
+    "В запросе сначала операция, затем файл; execute соответствует X, а не E."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/dicts/problems/permissions/"
+    }
+  ]
+}

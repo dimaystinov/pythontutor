@@ -1,0 +1,6 @@
+{% extends '_base_basic.html' %}
+{% block body %}
+<h3 class="auth-title">База знаний: решения и разборы</h3>
+<p>Открыто {{ unlocked_count }} из {{ entries|length }} разборов. Сначала решите задачу самостоятельно и пройдите все тесты — затем сравните своё решение с рекомендуемым и альтернативными подходами.</p>
+<ul class="knowledge-list">{% for entry in entries %}<li>{% if entry.unlocked %}<a href="{{ entry.url }}">{{ entry.title }}</a> <span class="text-success">✓ Доступен</span>{% else %}{{ entry.title }} <span class="text-muted">— после решения</span>{% endif %}</li>{% endfor %}</ul>
+{% endblock %}

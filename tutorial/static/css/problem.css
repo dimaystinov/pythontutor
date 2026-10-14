@@ -1,0 +1,63 @@
+.lesson_sections .problems_link {
+	border-top: none;
+	background: transparent;
+}
+
+.lesson_sections .problems_link li a.active {
+	background: #428bca;
+	color: #fff;
+}
+
+.lesson_sections .problems_link li.solved { background: rgba(128, 252, 92, 0.3); }
+.lesson_sections .problems_link li.accepted { background: rgba(255, 250, 7, 0.3); }
+.lesson_sections .problems_link li.unsolved { background: rgba(252, 168, 132, 0.3); }
+
+
+.lesson_name {
+	margin-bottom: 10px;
+}
+.problem_name {
+	margin-top: 10px;
+}
+
+
+#example_tests {
+	margin-top: 15px;
+}
+
+#example_tests th {
+	text-align: center;
+}
+
+#example_tests pre {
+	height: 100%;
+	margin: 0;
+	margin-top: 10px;
+}
+
+#example_tests .arrow,
+#example_tests .debug_me {
+	width: 24px;
+	vertical-align: middle;
+	text-align: center;
+}
+#example_tests .debug_me {
+	width: 55px;
+}
+
+#example_tests .debug_me button {
+	padding: 2px;
+	font-size: 20px;
+}
+
+#example_tests .test_result {
+	width: 135px;
+	padding-right: 10px;
+	text-align: center;
+	vertical-align: middle;
+	display: none;
+}
+
+.submit_solution {
+	margin-bottom: 35px;
+}

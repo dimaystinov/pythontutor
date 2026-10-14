@@ -1,0 +1,32 @@
+{
+  "slug": "seq_max",
+  "title": "Максимум последовательности",
+  "origin": "authored",
+  "summary": "Поддерживаем наибольшее из уже прочитанных натуральных чисел.",
+  "recommended": {
+    "title": "Один проход без хранения последовательности",
+    "code": "best = 0\nwhile True:\n    x = int(input())\n    if x == 0:\n        break\n    if x > best:\n        best = x\nprint(best)\n",
+    "explanation": "После обработки очередного элемента best равен максимуму прочитанной части.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(1) числовых переменных"
+  },
+  "alternatives": [
+    {
+      "title": "Сохранение и обработка списка",
+      "code": "a = []\nwhile True:\n    x = int(input())\n    if x == 0:\n        break\n    a.append(x)\nprint(max(a))\n",
+      "explanation": "Встроенная функция max выполняет такой же линейный поиск по сохранённому списку.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n) для сохранённой последовательности"
+    }
+  ],
+  "pitfalls": [
+    "Начальное значение 0 опирается на натуральность чисел.",
+    "Максимум требует хотя бы одного элемента."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/while/problems/seq_max/"
+    }
+  ]
+}

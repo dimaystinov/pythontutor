@@ -1,0 +1,31 @@
+{
+  "slug": "last_digit",
+  "title": "Последняя цифра числа",
+  "origin": "authored",
+  "summary": "Последняя десятичная цифра — остаток от деления на десять.",
+  "recommended": {
+    "title": "Остаток",
+    "code": "n = int(input())\nprint(n % 10)\n",
+    "explanation": "Остаток натурального числа от деления на 10 лежит от 0 до 9.",
+    "time_complexity": "O(d) для чтения d цифр",
+    "space_complexity": "O(d) с учётом ввода"
+  },
+  "alternatives": [
+    {
+      "title": "Последний символ",
+      "code": "s = input().strip()\nprint(s[-1])\n",
+      "explanation": "В десятичной записи последняя цифра уже находится в конце.",
+      "time_complexity": "O(d)",
+      "space_complexity": "O(d)"
+    }
+  ],
+  "pitfalls": [
+    "Условие задаёт натуральное число; правила для отрицательных чисел здесь не нужны."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/int_and_float/problems/last_digit/"
+    }
+  ]
+}

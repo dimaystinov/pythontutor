@@ -1,0 +1,32 @@
+{
+  "slug": "genealogy_descendants_count",
+  "title": "Родословная: число потомков",
+  "origin": "authored",
+  "summary": "Количество потомков равно сумме размеров поддеревьев детей.",
+  "recommended": {
+    "title": "Обратный порядок обхода",
+    "code": "n = int(input())\nparent = {}\nchildren = {}\nfor _ in range(n - 1):\n    child, ancestor = input().split()\n    parent[child] = ancestor\n    children.setdefault(ancestor, []).append(child)\n    children.setdefault(child, [])\n\nroot = next(name for name in children if name not in parent)\norder = [root]\nfor name in order:\n    order.extend(children[name])\ncount = {name: 0 for name in children}\nfor name in reversed(order):\n    if name in parent:\n        count[parent[name]] += count[name] + 1\nfor name in sorted(count):\n    print(name, count[name])\n",
+    "explanation": "Обратный порядок гарантирует, что все дети обработаны до родителя. Прибавка 1 учитывает самого ребёнка, но не текущую вершину.",
+    "time_complexity": "O(n log n) из-за сортировки имён; подсчёт O(n)",
+    "space_complexity": "O(n) записей и имён"
+  },
+  "alternatives": [
+    {
+      "title": "Увеличение счётчиков предков",
+      "code": "n = int(input())\nparent = {}\nchildren = {}\nfor _ in range(n - 1):\n    child, ancestor = input().split()\n    parent[child] = ancestor\n    children.setdefault(ancestor, []).append(child)\n    children.setdefault(child, [])\n\ncount = {name: 0 for name in children}\nfor name in children:\n    current = name\n    while current in parent:\n        current = parent[current]\n        count[current] += 1\nfor name in sorted(count):\n    print(name, count[name])\n",
+      "explanation": "Каждая вершина добавляет единицу всем своим предкам. Этот вариант нагляден, но на длинной цепочке делает квадратичное число шагов.",
+      "time_complexity": "O(nh + n log n), h — высота дерева",
+      "space_complexity": "O(n)"
+    }
+  ],
+  "pitfalls": [
+    "В число потомков не включают саму вершину.",
+    "У листа ответ 0."
+  ],
+  "sources": [
+    {
+      "title": "Публичный архив PythonTutor 2017 года",
+      "url": "https://github.com/Behnisch/pythontutor-ru/tree/1a9193f/problems"
+    }
+  ]
+}

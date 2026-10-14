@@ -1,0 +1,32 @@
+{
+  "slug": "seq_index_of_max",
+  "title": "Индекс максимума последовательности",
+  "origin": "authored",
+  "summary": "Запоминаем значение максимума и индекс его первого появления.",
+  "recommended": {
+    "title": "Один проход без хранения последовательности",
+    "code": "best = 0\nbest_index = 0\nindex = 0\nwhile True:\n    x = int(input())\n    if x == 0:\n        break\n    if x > best:\n        best = x\n        best_index = index\n    index += 1\nprint(best_index)\n",
+    "explanation": "Строгое сравнение сохраняет самый ранний индекс при повторениях максимума. Начальное значение 0 подходит для натуральных чисел.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(1) числовых переменных"
+  },
+  "alternatives": [
+    {
+      "title": "Сохранение и обработка списка",
+      "code": "a = []\nwhile True:\n    x = int(input())\n    if x == 0:\n        break\n    a.append(x)\nprint(a.index(max(a)))\n",
+      "explanation": "max находит значение, index возвращает индекс его первого появления.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n) для сохранённой последовательности"
+    }
+  ],
+  "pitfalls": [
+    "Нумерация начинается с нуля.",
+    "Сравнение >= вместо > выберет последнее появление."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/while/problems/seq_index_of_max/"
+    }
+  ]
+}

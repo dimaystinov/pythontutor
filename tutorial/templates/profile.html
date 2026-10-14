@@ -1,0 +1,15 @@
+{% extends '_base_basic.html' %}
+{% block body %}
+<h1>Пользователь {{ user.first_name }} {{ user.last_name }}</h1>
+{% if user.userprofile.study_group %}<p>Преподаватель: <strong>{{ user.userprofile.study_group.teacher.get_full_name|default:user.userprofile.study_group.teacher.username }}</strong> · Группа: {{ user.userprofile.study_group.name }}</p>{% else %}<p>Вы пока не записаны в группу. Для записи откройте ссылку-приглашение преподавателя.</p>{% endif %}
+<p>Всего сделано посылок: {{ submissions|length }}</p>
+{% if changed %}<div class="alert alert-success" role="status">Изменения сохранены.</div>{% endif %}
+{% if editable %}
+<form method="post" class="auth-form">
+    {% csrf_token %}
+    {% if form.errors %}<div role="alert">{{ form.non_field_errors }}</div>{% endif %}
+    {% for field in form %}<div class="form-group">{{ field.label_tag }}{{ field }}{{ field.errors }}</div>{% endfor %}
+    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+</form>
+{% endif %}
+{% endblock %}

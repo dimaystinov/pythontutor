@@ -1,0 +1,32 @@
+{
+  "slug": "seq_avg",
+  "title": "Среднее значение последовательности",
+  "origin": "authored",
+  "summary": "Для среднего нужны сумма и число элементов до первого нуля.",
+  "recommended": {
+    "title": "Один проход без хранения последовательности",
+    "code": "total = count = 0\nwhile True:\n    x = int(input())\n    if x == 0:\n        break\n    total += x\n    count += 1\nprint(total / count)\n",
+    "explanation": "Каждое ненулевое число увеличивает сумму и счётчик. Среднее вычисляется после завершения ввода.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(1) числовых переменных"
+  },
+  "alternatives": [
+    {
+      "title": "Сохранение и обработка списка",
+      "code": "a = []\nwhile True:\n    x = int(input())\n    if x == 0:\n        break\n    a.append(x)\nprint(sum(a) / len(a))\n",
+      "explanation": "Сохраняем элементы, затем используем sum и len. Это проще для дальнейшей повторной обработки, но требует линейной памяти.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n) для сохранённой последовательности"
+    }
+  ],
+  "pitfalls": [
+    "Завершающий ноль не включается в количество.",
+    "Среднее определено только для непустой последовательности."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/while/problems/seq_avg/"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{% extends '_lesson_page.html' %}
+{% load lesson %}
+
+{% block headers %}
+<script defer src="{{ STATIC_URL }}js/task-writing.js?v=1"></script>
+	{{ block.super }}
+
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/lesson.css?v=menu2">
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/problem.css">
+
+	<script type="text/javascript" src="{{ STATIC_URL }}js/problem.js?v=beginner1"></script>
+
+	<script type="text/javascript">
+		var problem_name = '{{ problem.urlname|escapejs }}';
+	</script>
+{% endblock %}
+
+{% block navbar_active_lesson %}
+	<ul class="lesson_sections">
+		<li class="problems_link">
+			<a href="{% url 'lesson_in_course' lesson.name %}#problems">Задачи</a>
+			<ul>
+				{% for menu_problem in problems %}
+					<li class="{{ menu_problem.status }}"><a{% if menu_problem.urlname == problem.urlname %} class="active"{% endif %} href="{% url 'problem_in_lesson' lesson.name menu_problem.urlname %}">{{ menu_problem.name }}</a></li>
+				{% endfor %}
+			</ul>
+		</li>
+	</ul>
+{% endblock %}
+
+{% block lesson_body %}
+	<h3 class="lesson_name">{% include "_sidebar_toggle.html" %}<a href="{% url 'lesson_in_course' lesson.name %}">Занятие {{ lesson_in_course.order }}</a>. {% include "_lesson_title.html" %}</h3>
+	<h3 class="problem_name">Задача &laquo;{{ problem.name }}&raquo;</h3>
+	<hr>
+
+	<h4 class="statement-title">Условие</h4>
+	{{ problem.statement | safe }}
+    {% if figure %}<figure class="task-figure"><img src="{{ STATIC_URL }}{{ figure.src }}" alt="{{ figure.caption }}" width="480" height="220"><figcaption>{{ figure.caption }}</figcaption></figure>{% endif %}
+
+	<hr>
+	<p id="task-writing-notice" class="text-muted" role="status" aria-live="polite"></p>
+<div id="visualizer" data-draft-user-id="{% if request.user.is_authenticated %}{{ request.user.pk }}{% endif %}">{{ saved_code }}</div>
+
+    {% if request.user.is_authenticated or execution_mode == "browser" %}
+    <div class="submit_solution">
+		<button type="button" class="btn btn-primary btn-lg">Проверить решение на всех тестах</button>
+	</div>
+    {% else %}
+    <p>Чтобы отправить решение и сохранить прогресс, <a href="{% url 'login' %}?next={{ request.path|urlencode }}">войдите</a> или <a href="{% url 'register' %}">зарегистрируйтесь</a>.</p>
+    {% endif %}
+
+	<p id="submission-status" class="submission-status" role="status" aria-live="polite"></p>
+	<div id="knowledge-unlock" class="alert alert-success" {% if not knowledge_unlocked %}hidden{% endif %}>
+        Задача решена. <a href="{% url 'knowledge_problem' problem.urlname %}">Посмотреть рекомендуемое решение и другие способы</a>
+    </div>
+    <div class="table-responsive">
+	<h3>Тесты</h3>
+	<table id="example_tests" class="table table-condensed">
+		<thead><tr>
+			<th class="debug_me"></th>
+			<th scope="col">Входные данные</th>
+
+			<th scope="col">Правильный ответ</th>
+			<th class="test_result">Результат</th>
+		</tr></thead>
+		<tbody>
+			{% for test in tests_examples %}
+			<tr>
+				<td class="debug_me"><button type="button" class="btn btn-default btn-sm" title="Отладить код, используя эти входные данные">Запустить тест {{ forloop.counter }}</button></td>
+				<td><pre class="input">{{ test.input }}</pre></td>
+
+				<td><pre class="output">{{ test.output }}</pre></td>
+				<td class="test_result"></td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	</div>
+{% include '_task_hints.html' %}
+{% include '_next_task.html' %}
+{% endblock %}

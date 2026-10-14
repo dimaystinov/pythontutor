@@ -1,0 +1,31 @@
+{
+  "slug": "minimal_divisor",
+  "title": "Минимальный делитель",
+  "origin": "authored",
+  "summary": "Достаточно искать делитель до квадратного корня.",
+  "recommended": {
+    "title": "Проверка до корня",
+    "code": "n = int(input())\nd = 2\nwhile d * d <= n and n % d != 0:\n    d += 1\nprint(d if d * d <= n else n)\n",
+    "explanation": "У составного числа хотя бы один делитель не превосходит √n. Если такой не найден, число простое.",
+    "time_complexity": "O(√n)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Прямой перебор",
+      "code": "n = int(input())\nd = 2\nwhile n % d != 0:\n    d += 1\nprint(d)\n",
+      "explanation": "Само n обязательно делитель; первый найденный делитель минимален. Метод проще, но медленнее на простых числах.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "Единицу нельзя считать ответом; для простого числа ответ — само число."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/while/problems/minimal_divisor/"
+    }
+  ]
+}

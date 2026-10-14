@@ -1,0 +1,32 @@
+{
+  "slug": "secondary_diagonal",
+  "title": "Побочная диагональ",
+  "origin": "authored",
+  "summary": "Положение клетки относительно побочной диагонали определяется суммой индексов.",
+  "recommended": {
+    "title": "Формула для каждой клетки",
+    "code": "n = int(input())\na = [[0 if i + j < n - 1 else 1 if i + j == n - 1 else 2\n      for j in range(n)] for i in range(n)]\nfor row in a:\n    print(*row)\n",
+    "explanation": "На диагонали i + j = n − 1; меньшая сумма означает область выше, большая — ниже.",
+    "time_complexity": "O(n²)",
+    "space_complexity": "O(n²) для массива"
+  },
+  "alternatives": [
+    {
+      "title": "Сборка строк из блоков",
+      "code": "n = int(input())\na = []\nfor i in range(n):\n    a.append([0] * (n - i - 1) + [1] + [2] * i)\nfor row in a:\n    print(*row)\n",
+      "explanation": "В строке i сначала n−i−1 нулей, затем одна единица и i двоек. Сравнения для каждой клетки не нужны.",
+      "time_complexity": "O(n²)",
+      "space_complexity": "O(n²) для массива"
+    }
+  ],
+  "pitfalls": [
+    "Диагональ задаётся n−1, а не n.",
+    "Нельзя создавать изменяемые строки через [[0]*n]*n."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/2d_arrays/problems/secondary_diagonal/"
+    }
+  ]
+}

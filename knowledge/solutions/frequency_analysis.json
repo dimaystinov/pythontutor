@@ -1,0 +1,31 @@
+{
+  "slug": "frequency_analysis",
+  "title": "Частотный анализ",
+  "origin": "authored",
+  "summary": "Подсчитываем частоты и сортируем по убыванию частоты, затем по слову.",
+  "recommended": {
+    "title": "Составной ключ сортировки",
+    "code": "counts = {}\nfor _ in range(int(input())):\n    for word in input().split():\n        counts[word] = counts.get(word, 0) + 1\nfor word in sorted(counts, key=lambda word: (-counts[word], word)):\n    print(word)\n",
+    "explanation": "Отрицательная частота превращает убывание в обычную сортировку по возрастанию; второй компонент разрешает равенства.",
+    "time_complexity": "Ожидаемое O(W + U log U) плюс обработка символов, U — разных слов",
+    "space_complexity": "O(U + L) слов и текущая строка"
+  },
+  "alternatives": [
+    {
+      "title": "Группы по частоте",
+      "code": "from collections import Counter\ncounts = Counter()\nfor _ in range(int(input())):\n    counts.update(input().split())\nbuckets = {}\nfor word, count in counts.items():\n    buckets.setdefault(count, []).append(word)\nfor count in sorted(buckets, reverse=True):\n    for word in sorted(buckets[count]):\n        print(word)\n",
+      "explanation": "Разделяем слова на группы равной частоты, обходим частоты от больших к малым и отдельно сортируем слова в каждой группе.",
+      "time_complexity": "O(W + U log U) плюс обработка символов",
+      "space_complexity": "O(U + L)"
+    }
+  ],
+  "pitfalls": [
+    "reverse=True для пары (частота, слово) развернёт и алфавитный порядок, что неверно."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/dicts/problems/frequency_analysis/"
+    }
+  ]
+}

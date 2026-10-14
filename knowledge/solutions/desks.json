@@ -1,0 +1,31 @@
+{
+  "slug": "desks",
+  "title": "Парты",
+  "origin": "authored",
+  "summary": "Округляем число парт вверх отдельно для каждого класса.",
+  "recommended": {
+    "title": "Целочисленное округление",
+    "code": "a = int(input())\nb = int(input())\nc = int(input())\nprint((a + 1) // 2 + (b + 1) // 2 + (c + 1) // 2)\n",
+    "explanation": "Для нечётного числа учеников нужна ещё одна парта, что учитывает прибавление единицы.",
+    "time_complexity": "O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Полные пары и одиночные места",
+      "code": "desks = 0\nfor _ in range(3):\n    pupils = int(input())\n    desks += pupils // 2\n    if pupils % 2:\n        desks += 1\nprint(desks)\n",
+      "explanation": "Сначала считаем парты для пар учеников, затем добавляем одну для оставшегося ученика.",
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "Нельзя сначала складывать учеников трёх классов: парты не делятся между кабинетами."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/inout_and_arithmetic_operations/problems/desks/"
+    }
+  ]
+}

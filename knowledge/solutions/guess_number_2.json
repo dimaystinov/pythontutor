@@ -1,0 +1,32 @@
+{
+  "slug": "guess_number_2",
+  "title": "Угадай число - 2",
+  "origin": "authored",
+  "summary": "Выбираем большую из двух частей текущего множества кандидатов.",
+  "recommended": {
+    "title": "Разбиение множества",
+    "code": "n = int(input())\npossible = set(range(1, n + 1))\nwhile True:\n    line = input()\n    if line == 'HELP':\n        break\n    question = set(map(int, line.split()))\n    yes = possible & question\n    if len(yes) > len(possible) - len(yes):\n        print('YES')\n        possible = yes\n    else:\n        print('NO')\n        possible -= question\nprint(*sorted(possible))\n",
+    "explanation": "Считаем только ещё допустимые числа вопроса. При равенстве размеров выбираем NO по условию.",
+    "time_complexity": "Ожидаемое O(nq + S + n log n) как верхняя оценка",
+    "space_complexity": "O(n + m), m — размер вопроса"
+  },
+  "alternatives": [
+    {
+      "title": "Фильтрация списка кандидатов",
+      "code": "n = int(input())\npossible = list(range(1, n + 1))\nwhile True:\n    line = input()\n    if line == 'HELP':\n        break\n    question = set(map(int, line.split()))\n    yes, no = [], []\n    for value in possible:\n        (yes if value in question else no).append(value)\n    if len(yes) > len(no):\n        print('YES')\n        possible = yes\n    else:\n        print('NO')\n        possible = no\nprint(*possible)\n",
+      "explanation": "Явно строим две группы из списка. Порядок кандидатов остаётся возрастающим, так что итоговая сортировка не нужна.",
+      "time_complexity": "Ожидаемое O(nq + S)",
+      "space_complexity": "O(n + m)"
+    }
+  ],
+  "pitfalls": [
+    "Ровно половина текущих кандидатов означает NO.",
+    "Числа, уже исключённые, не влияют на выбор ответа."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/sets/problems/guess_number_2/"
+    }
+  ]
+}

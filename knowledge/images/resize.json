@@ -1,0 +1,28 @@
+{
+  "slug": "resize",
+  "title": "Уменьшение вдвое",
+  "origin": "authored",
+  "summary": "Разбор задачи обработки изображений. N = H × W — число пикселей. Сложность включает чтение и запись изображения.",
+  "recommended": {
+    "title": "Обработка массива без циклов Python",
+    "code": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\nheight, width = image.shape[:2]\nresult = cv2.resize(image, (width // 2, height // 2), interpolation=cv2.INTER_NEAREST)\ncv2.imwrite('output.png', result)\n",
+    "explanation": "Размер результата вычисляется целочисленным делением. INTER_NEAREST выбирает исходные пиксели, не смешивая их цвета. При нечётном размере обычный срез [::2] не равнозначен resize.",
+    "time_complexity": "O(N) при фиксированных параметрах фильтра",
+    "space_complexity": "O(N), включая исходное и результирующее изображение"
+  },
+  "alternatives": [
+    {
+      "title": "Загрузка через Pillow, обработка через OpenCV",
+      "code": "import cv2\nimport numpy as np\n\nfrom PIL import Image\nimage = np.array(Image.open('input.png').convert('RGB'))[:, :, ::-1].copy()\nheight, width = image.shape[:2]\nresult = cv2.resize(image, (width // 2, height // 2), interpolation=cv2.INTER_NEAREST)\ncv2.imwrite('output.png', result)\n",
+      "explanation": "Альтернативный путь ввода: Pillow читает RGB, затем каналы переставляются в BGR для OpenCV. Алгоритм обработки тот же, но при загрузке возникает дополнительная копия изображения. Это полезно при работе с форматами и метаданными Pillow.",
+      "time_complexity": "O(N)",
+      "space_complexity": "O(N), включая копии массивов"
+    }
+  ],
+  "pitfalls": [
+    "OpenCV читает цветные изображения в порядке BGR, а Pillow — RGB.",
+    "Сохраните результат в output.png; печать массива в консоль не заменяет изображение.",
+    "Проверка использует фиксированные тестовые картинки, а не загруженный вами пример."
+  ],
+  "sources": []
+}

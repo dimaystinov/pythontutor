@@ -1,0 +1,32 @@
+{
+  "slug": "snowflake",
+  "title": "Снежинка",
+  "origin": "authored",
+  "summary": "Звёздочка объединяет центральные линии и обе диагонали.",
+  "recommended": {
+    "title": "Условие для клетки",
+    "code": "n = int(input())\nc = n // 2\na = [['*' if i == c or j == c or i == j or i + j == n - 1 else '.'\n      for j in range(n)] for i in range(n)]\nfor row in a:\n    print(*row)\n",
+    "explanation": "Клетка становится звёздочкой при принадлежности хотя бы одной из четырёх линий.",
+    "time_complexity": "O(n²)",
+    "space_complexity": "O(n²)"
+  },
+  "alternatives": [
+    {
+      "title": "Нанесение линий на массив",
+      "code": "n = int(input())\na = [['.'] * n for _ in range(n)]\nc = n // 2\nfor i in range(n):\n    a[c][i] = '*'\n    a[i][c] = '*'\n    a[i][i] = '*'\n    a[i][n - 1 - i] = '*'\nfor row in a:\n    print(*row)\n",
+      "explanation": "Создаём фон, затем отдельно рисуем четыре линии. Повторная запись звёздочки в пересечениях безопасна.",
+      "time_complexity": "O(n²), включая создание и вывод массива",
+      "space_complexity": "O(n²)"
+    }
+  ],
+  "pitfalls": [
+    "Строки массива должны быть независимыми списками.",
+    "Между символами при выводе нужны пробелы."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/2d_arrays/problems/snowflake/"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "slug": "seq_sum",
+  "title": "Сумма последовательности",
+  "origin": "authored",
+  "summary": "Суммируем числа до первого нуля.",
+  "recommended": {
+    "title": "Один проход без хранения последовательности",
+    "code": "total = 0\nwhile True:\n    x = int(input())\n    if x == 0:\n        break\n    total += x\nprint(total)\n",
+    "explanation": "После каждого шага total содержит сумму обработанных чисел.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(1) числовых переменных"
+  },
+  "alternatives": [
+    {
+      "title": "Сохранение и обработка списка",
+      "code": "a = []\nwhile True:\n    x = int(input())\n    if x == 0:\n        break\n    a.append(x)\nprint(sum(a))\n",
+      "explanation": "Сохранённый список суммируется встроенной функцией.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n) для сохранённой последовательности"
+    }
+  ],
+  "pitfalls": [
+    "Нельзя суммировать все оставшиеся строки после нуля.",
+    "Начальное значение суммы — 0."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/while/problems/seq_sum/"
+    }
+  ]
+}

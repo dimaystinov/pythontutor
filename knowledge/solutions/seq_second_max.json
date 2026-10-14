@@ -1,0 +1,32 @@
+{
+  "slug": "seq_second_max",
+  "title": "Второй максимум",
+  "origin": "authored",
+  "summary": "Храним два наибольших значения прочитанной части.",
+  "recommended": {
+    "title": "Один проход без хранения последовательности",
+    "code": "first = second = 0\nwhile True:\n    x = int(input())\n    if x == 0:\n        break\n    if x > first:\n        second, first = first, x\n    elif x > second:\n        second = x\nprint(second)\n",
+    "explanation": "Новый лидер сдвигает прежний максимум на второе место; остальные числа могут улучшить только второй максимум. Числа по условию различны.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(1) числовых переменных"
+  },
+  "alternatives": [
+    {
+      "title": "Сохранение и обработка списка",
+      "code": "a = []\nwhile True:\n    x = int(input())\n    if x == 0:\n        break\n    a.append(x)\nprint(sorted(a)[-2])\n",
+      "explanation": "Сортировка располагает числа по возрастанию, поэтому предпоследнее — второе по величине.",
+      "time_complexity": "O(n log n)",
+      "space_complexity": "O(n) для сохранённой последовательности"
+    }
+  ],
+  "pitfalls": [
+    "Гарантированы хотя бы два различных элемента.",
+    "Прежний максимум нельзя потерять при обновлении first."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/while/problems/seq_second_max/"
+    }
+  ]
+}

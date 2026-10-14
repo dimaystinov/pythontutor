@@ -1,0 +1,31 @@
+{
+  "slug": "number_of_unique",
+  "title": "Количество различных чисел",
+  "origin": "authored",
+  "summary": "Множество хранит каждое значение один раз.",
+  "recommended": {
+    "title": "Множество",
+    "code": "print(len(set(map(int, input().split()))))\n",
+    "explanation": "Размер множества равен количеству различных чисел.",
+    "time_complexity": "O(n) в среднем",
+    "space_complexity": "O(n)"
+  },
+  "alternatives": [
+    {
+      "title": "Сортировка",
+      "code": "a = sorted(map(int, input().split()))\nprint((1 if a else 0) + sum(a[i] != a[i - 1] for i in range(1, len(a))))\n",
+      "explanation": "После сортировки считаем начала групп одинаковых значений.",
+      "time_complexity": "O(n log n)",
+      "space_complexity": "O(n)"
+    }
+  ],
+  "pitfalls": [
+    "Числа нужно преобразовать в int, чтобы одинаковые числа с разным написанием считались равными."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/sets/problems/number_of_unique/"
+    }
+  ]
+}

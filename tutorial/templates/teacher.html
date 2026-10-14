@@ -1,0 +1,28 @@
+{% extends '_base_basic.html' %}
+{% block headers %}{{ block.super }}<script defer src="{{ STATIC_URL }}js/teacher.js"></script>{% endblock %}
+{% block body %}
+<p class="text-muted">Проверки с источником «Браузер ученика» выполнены на устройстве ученика и не подтверждены серверным запуском. Источник указан в записях решений в админке.</p>
+<section class="teacher-page">
+    <h1>Кабинет преподавателя</h1>
+    <p>Создайте группу и передайте ученикам ссылку — они зарегистрируются и появятся в вашем списке.</p>
+    <div class="teacher-actions"><a class="btn btn-primary" href="{% url 'teacher_group_new' %}">Создать группу</a> <a class="btn btn-default" href="{% url 'teacher_student_new' %}">Добавить ученика</a> <a class="btn btn-default" href="{% url 'image_assignments' %}">Задания OpenCV</a>{% if request.user.is_superuser %} <a href="{% url 'admin:tutorial_userprofile_changelist' %}">Все профили в Django</a>{% endif %}</div>
+    <h2>{% if request.user.is_superuser %}Учебные группы{% else %}Мои группы{% endif %}</h2>
+    {% for entry in invitations %}
+    <section class="teacher-group-card">
+        <h3>{{ entry.group.name }} <small>{{ entry.group.student_count }} учеников</small></h3>
+        <p>{{ entry.group.course.title }} · Преподаватель: {{ entry.group.teacher.get_full_name|default:entry.group.teacher.username }}</p>
+        {% if entry.group.registration_open %}<label for="invite-{{ entry.group.pk }}">Ссылка для самостоятельной регистрации</label><div class="invite-row"><input class="form-control" readonly id="invite-{{ entry.group.pk }}" value="{{ entry.url }}"><button class="btn btn-default" type="button" data-copy-invite="invite-{{ entry.group.pk }}">Скопировать ссылку</button></div>{% else %}<p>Приём новых учеников закрыт.</p>{% endif %}
+        <p><a href="?group={{ entry.group.pk }}">Ученики группы</a> · <a href="{% url 'teacher_group_edit' entry.group.pk %}">Настройки и приглашение</a></p>
+    </section>
+    {% empty %}<p class="teacher-empty">Групп пока нет. Нажмите «Создать группу», укажите название класса и курс.</p>{% endfor %}
+    <p id="copy-status" role="status" aria-live="polite"></p>
+    <h2>Ученики <small>{{ page.paginator.count }}</small></h2>
+    <form method="get" class="teacher-filters"><label for="student-search">Поиск по имени, фамилии, логину или почте</label><input class="form-control" id="student-search" name="q" value="{{ q }}"><label for="student-group">Группа</label><select class="form-control" name="group" id="student-group"><option value="">Все группы</option>{% for group in groups %}<option value="{{ group.pk }}" {% if selected_group == group.pk|stringformat:'s' %}selected{% endif %}>{{ group }}</option>{% endfor %}</select><button class="btn btn-default">Найти</button><a href="{% url 'teacher' %}">Сбросить</a></form>
+    <div class="table-responsive"><table class="table teacher-students"><thead><tr><th>Ученик</th><th>Логин / почта</th><th>Группа</th><th>Решено задач</th><th></th></tr></thead><tbody>
+    {% for student in page %}<tr><td><a href="{% url 'profile' student.username %}">{{ student.get_full_name|default:student.username }}</a>{% if not student.is_active %}<br><small>Аккаунт отключён</small>{% endif %}</td><td>{{ student.username }}<br><small>{{ student.email }}</small></td><td>{{ student.userprofile.study_group.name|default:'Не назначена' }}</td><td>{{ student.solved_count }}</td><td><a href="{% url 'teacher_student_edit' student.pk %}">Редактировать</a></td></tr>{% empty %}<tr><td colspan="5">Учеников пока нет или они не найдены. Отправьте приглашение либо добавьте ученика вручную.</td></tr>{% endfor %}
+    </tbody></table></div>
+    {% if page.has_other_pages %}<nav aria-label="Страницы учеников">{% if page.has_previous %}<a href="?page={{ page.previous_page_number }}&q={{ q|urlencode }}&group={{ selected_group|urlencode }}">← Назад</a>{% endif %} Страница {{ page.number }} из {{ page.paginator.num_pages }} {% if page.has_next %}<a href="?page={{ page.next_page_number }}&q={{ q|urlencode }}&group={{ selected_group|urlencode }}">Далее →</a>{% endif %}</nav>{% endif %}
+    <h2>Результаты по курсам</h2>
+    {% for course in courses %}<details class="teacher-course"><summary>{{ course.title }}</summary><p><a href="/standings/{{ course.urlname }}/">Таблица результатов</a> · Решения: <a href="/success_roadmap/{{ course.pk }}/">все</a>, <a href="/success_roadmap_last/{{ course.pk }}/">последние</a></p>{% for lic in course.lessonincourse_set.all %}<p><a href="/standings/{{ course.urlname }}/lesson/{{ lic.lesson.urlname }}/">{{ lic.order }}. {{ lic.lesson.title }}</a></p>{% endfor %}</details>{% endfor %}
+</section>
+{% endblock %}

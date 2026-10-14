@@ -1,0 +1,31 @@
+{
+  "slug": "lineup",
+  "title": "Шеренга",
+  "origin": "authored",
+  "summary": "Петя встаёт после всех, чей рост не меньше его роста.",
+  "recommended": {
+    "title": "Линейный проход",
+    "code": "a = list(map(int, input().split()))\nx = int(input())\ni = 0\nwhile i < len(a) and a[i] >= x:\n    i += 1\nprint(i + 1)\n",
+    "explanation": "Первый меньший рост задаёт место вставки; нумерация мест начинается с единицы.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(n) с учётом списка"
+  },
+  "alternatives": [
+    {
+      "title": "Двоичный поиск",
+      "code": "a = list(map(int, input().split()))\nx = int(input())\nlo, hi = 0, len(a)\nwhile lo < hi:\n    mid = (lo + hi) // 2\n    if a[mid] >= x:\n        lo = mid + 1\n    else:\n        hi = mid\nprint(lo + 1)\n",
+      "explanation": "Невозрастающий порядок позволяет найти границу двоичным поиском; чтение списка всё равно линейное.",
+      "time_complexity": "O(n) всего, O(log n) поиск",
+      "space_complexity": "O(n)"
+    }
+  ],
+  "pitfalls": [
+    "Равный рост нужно пропускать вместе с большими значениями."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/lists/problems/lineup/"
+    }
+  ]
+}

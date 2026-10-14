@@ -1,0 +1,31 @@
+{
+  "slug": "occurency_index",
+  "title": "Номер появления слова",
+  "origin": "authored",
+  "summary": "Перед увеличением счётчика выводим прежнюю частоту.",
+  "recommended": {
+    "title": "Словарь",
+    "code": "counts = {}\nfor word in input().split():\n    print(counts.get(word, 0), end=\" \")\n    counts[word] = counts.get(word, 0) + 1\n",
+    "explanation": "Начальная частота нулевая; каждый обработанный экземпляр увеличивает её на один.",
+    "time_complexity": "O(n) в среднем",
+    "space_complexity": "O(n) включая токены"
+  },
+  "alternatives": [
+    {
+      "title": "Подсчёт в префиксе",
+      "code": "words = input().split()\nfor i, word in enumerate(words):\n    print(words[:i].count(word), end=\" \")\n",
+      "explanation": "Для каждого слова непосредственно считаем его вхождения среди предыдущих. Подходит для объяснения, но медленнее.",
+      "time_complexity": "O(n²)",
+      "space_complexity": "O(n)"
+    }
+  ],
+  "pitfalls": [
+    "Текущее вхождение не должно попадать в выведенный счётчик."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/dicts/problems/occurency_index/"
+    }
+  ]
+}

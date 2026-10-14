@@ -1,0 +1,31 @@
+{
+  "slug": "num_words",
+  "title": "Количество слов",
+  "origin": "authored",
+  "summary": "При одиночных пробелах слов на одно больше, чем разделителей.",
+  "recommended": {
+    "title": "Подсчёт пробелов",
+    "code": "s = input()\nprint(s.count(\" \") + 1)\n",
+    "explanation": "Это решение следует требованию использовать count и предполагает формат задачи: непустые слова через один пробел.",
+    "time_complexity": "O(L)",
+    "space_complexity": "O(L)"
+  },
+  "alternatives": [
+    {
+      "title": "Подсчёт начал слов",
+      "code": "s = input()\nwords = 0\nfor i in range(len(s)):\n    if s.count(\" \", i, i + 1) == 0 and (i == 0 or s[i - 1] == \" \"):\n        words += 1\nprint(words)\n",
+      "explanation": "Вместо общего числа разделителей считаем переходы от пробела к непробельному символу. count проверяет односимвольный диапазон; подход также допускает повторные и крайние пробелы.",
+      "time_complexity": "O(L)",
+      "space_complexity": "O(L)"
+    }
+  ],
+  "pitfalls": [
+    "Краткая формула требует отсутствия повторных и крайних пробелов. Метод count с границами не создаёт срез строки."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/str/problems/num_words/"
+    }
+  ]
+}

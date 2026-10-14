@@ -1,0 +1,28 @@
+{
+  "slug": "threshold",
+  "title": "Пороговая обработка",
+  "origin": "authored",
+  "summary": "Разбор задачи обработки изображений. N = H × W — число пикселей. Сложность включает чтение и запись изображения.",
+  "recommended": {
+    "title": "Обработка массива без циклов Python",
+    "code": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\ngray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)\n_, result = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)\ncv2.imwrite('output.png', result)\n",
+    "explanation": "Сначала вычисляется яркость, затем значения строго больше 127 заменяются на 255. Пиксель со значением ровно 127 должен стать нулём.",
+    "time_complexity": "O(N) при фиксированных параметрах фильтра",
+    "space_complexity": "O(N), включая исходное и результирующее изображение"
+  },
+  "alternatives": [
+    {
+      "title": "Логическая маска NumPy",
+      "code": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\ngray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)\nresult = np.where(gray > 127, 255, 0).astype(np.uint8)\ncv2.imwrite('output.png', result)\n",
+      "explanation": "Сравнение gray > 127 создаёт булеву маску. np.where переводит её в значения 255 и 0; uint8 задаёт формат одноканального PNG.",
+      "time_complexity": "O(N)",
+      "space_complexity": "O(N), включая копии массивов"
+    }
+  ],
+  "pitfalls": [
+    "OpenCV читает цветные изображения в порядке BGR, а Pillow — RGB.",
+    "Сохраните результат в output.png; печать массива в консоль не заменяет изображение.",
+    "Проверка использует фиксированные тестовые картинки, а не загруженный вами пример."
+  ],
+  "sources": []
+}

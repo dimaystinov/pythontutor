@@ -1,0 +1,31 @@
+{
+  "slug": "ladder",
+  "title": "Лесенка",
+  "origin": "authored",
+  "summary": "Каждая строка продолжает предыдущую одной цифрой.",
+  "recommended": {
+    "title": "Наращивание строки",
+    "code": "n = int(input())\nrow = ''\nfor i in range(1, n + 1):\n    row += str(i)\n    print(row)\n",
+    "explanation": "На шаге i добавляем i; ограничение n≤9 гарантирует одну цифру.",
+    "time_complexity": "O(n²), включая вывод",
+    "space_complexity": "O(n)"
+  },
+  "alternatives": [
+    {
+      "title": "Вложенные циклы",
+      "code": "n = int(input())\nfor i in range(1, n + 1):\n    for j in range(1, i + 1):\n        print(j, end='')\n    print()\n",
+      "explanation": "Каждую ступень строим заново прямо в потоке вывода.",
+      "time_complexity": "O(n²)",
+      "space_complexity": "O(1) дополнительной памяти"
+    }
+  ],
+  "pitfalls": [
+    "Между цифрами нет пробелов, а после ступеньки нужен перевод строки."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/for_loop/problems/ladder/"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "slug": "second_occurence",
+  "title": "Второе вхождение",
+  "origin": "authored",
+  "summary": "Сначала выясняем, есть ли первая f, затем ищем следующую.",
+  "recommended": {
+    "title": "Два поиска find",
+    "code": "s = input()\nfirst = s.find('f')\nif first == -1:\n    print(-2)\nelse:\n    print(s.find('f', first + 1))\n",
+    "explanation": "Начальная позиция второго поиска исключает первое вхождение. Отсутствие второго автоматически даёт −1.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(n) для строки; O(1) дополнительной памяти"
+  },
+  "alternatives": [
+    {
+      "title": "Счётчик при проходе",
+      "code": "s = input()\ncount = 0\nanswer = -2\nfor i, char in enumerate(s):\n    if char == 'f':\n        count += 1\n        answer = -1\n        if count == 2:\n            answer = i\n            break\nprint(answer)\n",
+      "explanation": "До первой f ответ −2, после первой −1, после второй — её индекс.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n) для строки; O(1) дополнительной памяти"
+    }
+  ],
+  "pitfalls": [
+    "Индексы начинаются с нуля.",
+    "Второй поиск нужно начинать после первого вхождения."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/str/problems/second_occurence/"
+    }
+  ]
+}

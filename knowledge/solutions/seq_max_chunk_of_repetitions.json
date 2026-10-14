@@ -1,0 +1,32 @@
+{
+  "slug": "seq_max_chunk_of_repetitions",
+  "title": "Максимальное число идущих подряд равных элементов",
+  "origin": "authored",
+  "summary": "Следим за длиной текущей серии одинаковых чисел и лучшей длиной.",
+  "recommended": {
+    "title": "Один проход без хранения последовательности",
+    "code": "previous = None\nrun = best = 0\nwhile True:\n    x = int(input())\n    if x == 0:\n        break\n    run = run + 1 if x == previous else 1\n    best = max(best, run)\n    previous = x\nprint(best)\n",
+    "explanation": "Повтор продолжает серию, смена числа начинает серию длины 1. Максимум обновляется на каждом элементе.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(1) числовых переменных"
+  },
+  "alternatives": [
+    {
+      "title": "Сохранение и обработка списка",
+      "code": "a = []\nwhile True:\n    x = int(input())\n    if x == 0:\n        break\n    a.append(x)\n\nfrom itertools import groupby\nprint(max((sum(1 for _ in group) for _, group in groupby(a)), default=0))\n",
+      "explanation": "groupby объединяет только подряд идущие одинаковые значения; считаем размер каждой группы.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n) для сохранённой последовательности"
+    }
+  ],
+  "pitfalls": [
+    "Нужны повторы подряд, а не общая частота числа.",
+    "Последняя серия также должна участвовать в максимуме."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/while/problems/seq_max_chunk_of_repetitions/"
+    }
+  ]
+}

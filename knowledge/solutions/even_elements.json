@@ -1,0 +1,31 @@
+{
+  "slug": "even_elements",
+  "title": "Четные элементы",
+  "origin": "authored",
+  "summary": "Проверяем чётность самих чисел, обходя элементы списка.",
+  "recommended": {
+    "title": "Печать при обходе",
+    "code": "a = list(map(int, input().split()))\nfor value in a:\n    if value % 2 == 0:\n        print(value, end=' ')\n",
+    "explanation": "Остаток 0 означает чётность, в том числе для отрицательных чисел и нуля.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(n), хранится входной список"
+  },
+  "alternatives": [
+    {
+      "title": "Отдельный список результата",
+      "code": "a = list(map(int, input().split()))\neven = []\nfor value in a:\n    if value % 2 == 0:\n        even.append(value)\nprint(*even)\n",
+      "explanation": "Сначала фильтруем элементы в новый список, затем печатаем его целиком. Цикл также перебирает значения, как требует условие.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n), вход и результат"
+    }
+  ],
+  "pitfalls": [
+    "Чётный элемент и элемент с чётным индексом — разные понятия."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/lists/problems/even_elements/"
+    }
+  ]
+}

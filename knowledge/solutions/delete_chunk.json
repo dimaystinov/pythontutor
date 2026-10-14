@@ -1,0 +1,31 @@
+{
+  "slug": "delete_chunk",
+  "title": "Удаление фрагмента",
+  "origin": "authored",
+  "summary": "Оставляем префикс до первого h и суффикс после последнего h.",
+  "recommended": {
+    "title": "Поиск границ и срезы",
+    "code": "s = input()\nleft, right = s.find('h'), s.rfind('h')\nprint(s[:left] + s[right + 1:])\n",
+    "explanation": "Самим буквам h тоже не место в результате; поэтому суффикс начинается с right + 1.",
+    "time_complexity": "O(L)",
+    "space_complexity": "O(L)"
+  },
+  "alternatives": [
+    {
+      "title": "Разделение с двух сторон",
+      "code": "s = input()\nprint(s.split('h', 1)[0] + s.rsplit('h', 1)[1])\n",
+      "explanation": "Первое разделение выделяет часть до первого h, правое — часть после последнего.",
+      "time_complexity": "O(L)",
+      "space_complexity": "O(L)"
+    }
+  ],
+  "pitfalls": [
+    "Граница правого среза должна исключать последнее h."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/str/problems/delete_chunk/"
+    }
+  ]
+}

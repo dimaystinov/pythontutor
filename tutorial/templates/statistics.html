@@ -1,0 +1,23 @@
+{% extends '_base_basic.html' %}
+
+{% block headers %}
+	{{ block.super }}
+{% endblock %}
+
+{% block body %}
+<div>Сколько людей успешно сдало хотя бы одну задачу за последний день: {{ active_users_in_last_day }}</div>
+<div>Сколько людей успешно сдало хотя бы одну задачу за последнюю неделю: {{ active_users_in_last_week }}</div>
+<div>Сколько людей успешно сдало хотя бы одну задачу за последний месяц: {{ active_users_in_last_month }}</div>
+<br>
+<div>Сколько сдано верных решений за последний день: {{ ok_submissions_in_last_day }}</div>
+<div>Сколько сдано верных решений за последнюю неделю: {{ ok_submissions_in_last_week }}</div>
+<div>Сколько сдано верных решений за последний месяц: {{ ok_submissions_in_last_month }}</div>
+<br>
+<div>Сколько всего отправлено решений за последний день: {{ submissions_in_last_day }}</div>
+<div>Сколько всего отправлено решений за последнюю неделю: {{ submissions_in_last_week }}</div>
+<div>Сколько всего отправлено решений за последний месяц: {{ submissions_in_last_month }}</div>
+<br>
+<div>Сколько новых пользователей зарегистрировалось за последний день: {{ new_users_in_last_day }}</div>
+<div>Сколько новых пользователей зарегистрировалось за последнюю неделю: {{ new_users_in_last_week }}</div>
+<div>Сколько новых пользователей зарегистрировалось за последний месяц: {{ new_users_in_last_month }}</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{
+  "slug": "watch_1",
+  "title": "Часы - 1",
+  "origin": "authored",
+  "summary": "Часовая стрелка проходит 30° за час, 0.5° за минуту и 1/120° за секунду.",
+  "recommended": {
+    "title": "Рекомендуемый подход",
+    "code": "h = int(input())\nm = int(input())\ns = int(input())\nprint(h * 30 + m / 2 + s / 120)\n",
+    "explanation": "Складываем вклад каждой единицы времени.",
+    "time_complexity": "O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Другой способ",
+      "code": "h = int(input())\nm = int(input())\ns = int(input())\ntotal_seconds = h * 3600 + m * 60 + s\nprint(total_seconds / 120)\n",
+      "explanation": "Переводим время в секунды, затем делим на число секунд на один градус.",
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "Часовая стрелка движется непрерывно и зависит от минут и секунд."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/int_and_float/problems/watch_1/"
+    }
+  ]
+}

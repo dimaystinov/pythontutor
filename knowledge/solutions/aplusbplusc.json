@@ -1,0 +1,31 @@
+{
+  "slug": "aplusbplusc",
+  "title": "Сумма трёх чисел",
+  "origin": "authored",
+  "summary": "Считываем целые числа и складываем их.",
+  "recommended": {
+    "title": "Три переменные",
+    "code": "a = int(input())\nb = int(input())\nc = int(input())\nprint(a + b + c)\n",
+    "explanation": "int переводит введённую строку в число; после этого + выполняет сложение.",
+    "time_complexity": "O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Сначала вычисляем сумму",
+      "code": "a = int(input())\nb = int(input())\nc = int(input())\nresult = a + b + c\nprint(result)\n",
+      "explanation": "Сохраняем сумму в переменной, затем выводим через print. Циклы и sum пока не нужны.",
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "Без int оператор + склеит строки."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/inout_and_arithmetic_operations/problems/aplusbplusc/"
+    }
+  ]
+}

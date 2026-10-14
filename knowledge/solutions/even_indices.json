@@ -1,0 +1,31 @@
+{
+  "slug": "even_indices",
+  "title": "Четные индексы",
+  "origin": "authored",
+  "summary": "Берём позиции 0, 2, 4 и далее.",
+  "recommended": {
+    "title": "Обход с шагом два",
+    "code": "a = input().split()\nfor i in range(0, len(a), 2):\n    print(a[i], end=' ')\n",
+    "explanation": "Шаг range пропускает нечётные индексы. Для вывода без арифметики преобразование токенов в int не требуется.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(n), входные токены"
+  },
+  "alternatives": [
+    {
+      "title": "Срез с шагом",
+      "code": "a = input().split()\nprint(*a[::2])\n",
+      "explanation": "Срез с шагом 2 формирует последовательность элементов на чётных позициях.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n), включая копию среза"
+    }
+  ],
+  "pitfalls": [
+    "Первый элемент имеет индекс 0 и должен попасть в ответ."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/lists/problems/even_indices/"
+    }
+  ]
+}

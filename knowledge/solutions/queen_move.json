@@ -1,0 +1,31 @@
+{
+  "slug": "queen_move",
+  "title": "Ход ферзя",
+  "origin": "authored",
+  "summary": "Общая строка, столбец или диагональ позволяют ход ферзя.",
+  "recommended": {
+    "title": "Проверка смещений",
+    "code": "x1 = int(input())\ny1 = int(input())\nx2 = int(input())\ny2 = int(input())\ndx = abs(x2 - x1)\ndy = abs(y2 - y1)\nprint(\"YES\" if dx == 0 or dy == 0 or dx == dy else \"NO\")\n",
+    "explanation": "Общая строка, столбец или диагональ позволяют ход ферзя.",
+    "time_complexity": "O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Другая форма условия",
+      "code": "x1 = int(input())\ny1 = int(input())\nx2 = int(input())\ny2 = int(input())\ndx = abs(x2 - x1)\ndy = abs(y2 - y1)\nprint(\"YES\" if x1 == x2 or y1 == y2 or x1 + y1 == x2 + y2 or x1 - y1 == x2 - y2 else \"NO\")\n",
+      "explanation": "Та же геометрия выражена через алгебраическое условие.",
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "Клетки по условию различны; ответ печатается латинскими YES или NO."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/ifelse/problems/queen_move/"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "slug": "next_and_previous",
+  "title": "Следующее и предыдущее",
+  "origin": "authored",
+  "summary": "Вставляем n, n+1 и n−1 в точный шаблон.",
+  "recommended": {
+    "title": "Форматированные строки",
+    "code": "n = int(input())\nprint(f\"The next number for the number {n} is {n + 1}.\")\nprint(f\"The previous number for the number {n} is {n - 1}.\")\n",
+    "explanation": "f-строки сохраняют пробелы и точку из образца.",
+    "time_complexity": "O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Сборка строк",
+      "code": "n = int(input())\nprint(\"The next number for the number \" + str(n) + \" is \" + str(n + 1) + \".\")\nprint(\"The previous number for the number \" + str(n) + \" is \" + str(n - 1) + \".\")\n",
+      "explanation": "Явное преобразование чисел в строки позволяет соединить части через +.",
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "После числа перед точкой нет пробела; сначала печатается следующее число."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/inout_and_arithmetic_operations/problems/next_and_previous/"
+    }
+  ]
+}

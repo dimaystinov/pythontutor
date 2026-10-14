@@ -1,0 +1,31 @@
+{
+  "slug": "first_and_last_occurences",
+  "title": "Первое и последнее вхождения",
+  "origin": "authored",
+  "summary": "Находим крайние вхождения f без циклов.",
+  "recommended": {
+    "title": "find и rfind",
+    "code": "s = input()\nfirst, last = s.find('f'), s.rfind('f')\nif first != -1:\n    if first == last:\n        print(first)\n    else:\n        print(first, last)\n",
+    "explanation": "Методы возвращают −1 при отсутствии; одинаковые найденные индексы означают одно вхождение.",
+    "time_complexity": "O(L)",
+    "space_complexity": "O(L) для входной строки, O(1) дополнительно"
+  },
+  "alternatives": [
+    {
+      "title": "Подсчёт и поиск с обратной стороны",
+      "code": "s = input()\ncount = s.count('f')\nif count == 1:\n    print(s.index('f'))\nelif count > 1:\n    print(s.index('f'), len(s) - 1 - s[::-1].index('f'))\n",
+      "explanation": "Индекс первого f в перевёрнутой строке переводим обратно формулой L−1−index. Явные циклы не нужны.",
+      "time_complexity": "O(L)",
+      "space_complexity": "O(L), включая перевёрнутую копию"
+    }
+  ],
+  "pitfalls": [
+    "При отсутствии f ничего не печатается, даже −1."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/str/problems/first_and_last_occurences/"
+    }
+  ]
+}

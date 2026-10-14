@@ -1,0 +1,32 @@
+{
+  "slug": "bank_accounts",
+  "title": "Банковские счета",
+  "origin": "authored",
+  "summary": "Словарь связывает имя клиента с целочисленным балансом.",
+  "recommended": {
+    "title": "Словарь балансов",
+    "code": "import sys\naccounts = {}\nfor line in sys.stdin:\n    parts = line.split()\n    if not parts:\n        continue\n    command = parts[0]\n    if command == 'BALANCE':\n        print(accounts.get(parts[1], 'ERROR'))\n    elif command == 'INCOME':\n        p = int(parts[1])\n        for name, balance in accounts.items():\n            if balance > 0:\n                accounts[name] += balance * p // 100\n    elif command == 'TRANSFER':\n        source, target, amount = parts[1], parts[2], int(parts[3])\n        accounts[source] = accounts.get(source, 0) - amount\n        accounts[target] = accounts.get(target, 0) + amount\n    else:\n        name, amount = parts[1], int(parts[2])\n        if command == 'WITHDRAW':\n            amount = -amount\n        accounts[name] = accounts.get(name, 0) + amount\n",
+    "explanation": "Обычные операции меняют один-два баланса. Для INCOME обходим открытые счета; целочисленная формула не теряет точность. Перевод самому себе тоже работает.",
+    "time_complexity": "Ожидаемое O(Q + IC), Q — число команд, I — число начислений, C — число клиентов",
+    "space_complexity": "O(C + L), L — длина текущей команды"
+  },
+  "alternatives": [
+    {
+      "title": "Список счетов и линейный поиск",
+      "code": "import sys\nnames, balances = [], []\ndef account(name):\n    if name not in names:\n        names.append(name)\n        balances.append(0)\n    return names.index(name)\nfor line in sys.stdin:\n    p = line.split()\n    if not p:\n        continue\n    if p[0] == 'BALANCE':\n        print(balances[names.index(p[1])] if p[1] in names else 'ERROR')\n    elif p[0] == 'INCOME':\n        rate = int(p[1])\n        for i in range(len(names)):\n            if balances[i] > 0:\n                balances[i] += balances[i] * rate // 100\n    elif p[0] == 'TRANSFER':\n        i, j = account(p[1]), account(p[2])\n        balances[i] -= int(p[3])\n        balances[j] += int(p[3])\n    else:\n        i = account(p[1])\n        balances[i] += int(p[2]) * (1 if p[0] == 'DEPOSIT' else -1)\n",
+      "explanation": "Параллельные списки демонстрируют тот же учёт без хеш-таблицы. Поиск имени требует линейного прохода, поэтому для больших данных предпочтителен словарь.",
+      "time_complexity": "O(QC)",
+      "space_complexity": "O(C + L)"
+    }
+  ],
+  "pitfalls": [
+    "BALANCE не создаёт счёт.",
+    "Проценты начисляются только положительным балансам."
+  ],
+  "sources": [
+    {
+      "title": "Публичный архив PythonTutor 2017 года",
+      "url": "https://github.com/Behnisch/pythontutor-ru/tree/1a9193f/problems"
+    }
+  ]
+}

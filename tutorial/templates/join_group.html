@@ -1,0 +1,5 @@
+{% extends '_base_basic.html' %}
+{% block body %}
+<section class="teacher-page"><h1>Запись к преподавателю</h1><p>Преподаватель: <strong>{{ group.teacher.get_full_name|default:group.teacher.username }}</strong></p><p>Группа: {{ group.name }} · Курс: {{ group.course.title }}</p>
+{% if conflict %}<p class="alert alert-info">Вы уже записаны в другую группу. Для перевода обратитесь к преподавателю или администратору.</p>{% else %}<p>После записи преподаватель увидит ваш профиль и результаты решения задач.</p><form method="post">{% csrf_token %}<button class="btn btn-primary">Присоединиться к группе</button></form>{% endif %}</section>
+{% endblock %}

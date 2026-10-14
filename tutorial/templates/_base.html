@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<!--
+
+Online Python Tutor
+https://github.com/pgbovine/OnlinePythonTutor/
+
+Copyright (C) 2010-2012 Philip J. Guo (philip@pgbovine.net)
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+-->
+
+<!--
+
+Онлайн учебник Python
+
+Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
+
+-->
+
+{% load menu %}
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="execution-mode" content="{{ execution_mode }}">
+<meta name="local-page" content="{{ pwa_offline|yesno:'yes,no' }}">
+<meta name="learner-id" content="{{ request.user.pk|default:'local' }}">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#e3ebf1">
+<link rel="apple-touch-icon" href="/static/pwa/icon-192.png">
+<script defer src="/static/pwa/app.js?v=2"></script>
+<script src="/static/pwa/storage.js?v=2"></script>
+<meta name="csrf-token" content="{{ csrf_token }}">
+
+	<title>Интерактивный учебник языка Python</title>
+
+{% block headers %}
+	<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-3.7.1.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{ STATIC_URL }}js/site.js?v=5"></script>
+    <script src="{{ STATIC_URL }}js/browser-execution.js?v=5"></script>
+    <script>window.MathJax = {options: {enableMenu: false}, loader: {load: []}, tex: {packages: {'[-]': ['autoload', 'require']}}, svg: {fontCache: 'local'}};</script>
+    <script defer src="{{ STATIC_URL }}vendor/mathjax/tex-svg.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/pythontutor.css">
+{% endblock %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/selfhost.css?v=hints2">
+</head>
+<body>
+	<div class="navbar navbar-default navbar-{% block navbar_type %}static{% endblock %}-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Открыть меню</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="{% url 'home' %}">Питонтьютор</a>
+			</div>
+			<div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/pwa/">Офлайн-приложение</a></li>
+                    <li><button id="pwa-install-nav" type="button" class="btn btn-link navbar-btn">Установить приложение</button></li>
+                    <li><a class="original-en" href="https://snakify.org/">En</a></li>
+                    <li><a class="original-teacher" href="{% url 'teacher' %}">Учителям</a></li>
+                </ul>
+				<div class="navbar-text navbar-right">
+					{% if pwa_offline %}<span>Локальная версия · <a href="/pwa/">Мой прогресс</a></span>{% elif request.user.is_authenticated %}
+						<span class="fa fa-user"></span> <a href="{% url 'profile' request.user.username %}">{{ request.user.first_name }} {{ request.user.last_name }}</a>.
+						<form action="{% url 'logout' %}" method="post" class="logout-form">{% csrf_token %}<button type="submit" class="btn btn-link">Выйти</button></form>
+					{% else %}
+						<a href="{% url 'login' %}">Войти</a> или <a href="{% url 'register' %}">зарегистрироваться</a>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% if ai_kind %}<div id="tutor-workspace">{% endif %}
+	<div {% if ai_kind %}id="tutor-content"{% endif %} class="container{% block container_type %}{% endblock %}">
+		{% if messages %}<div class="site-messages">{% for message in messages %}<div class="alert alert-{{ message.tags|default:'info' }}" role="status">{{ message }}</div>{% endfor %}</div>{% endif %}
+        {% block container %}
+		{% endblock %}
+
+		{% block footer %}
+			<footer>
+                <p>Разработка и поддержка учебника: <a href="https://t.me/thingsiread">Виталий Павленко</a>, Владимир Соломатин (2014), команда Pythontutor (2016)<br>
+                Автор первоначального текста большинства уроков, задач и тестов: Д. П. Кириенко (см. <a href="https://informatics.msk.ru/moodle/course/view.php?id=156">оригинальный курс</a>)<br>
+                Идея учебника: В. М. Гуровиц<br>
+                Разработчик визуализатора: <a href="https://www.pgbovine.net/">Philip Guo</a> (см. <a href="https://pythontutor.com/">сайт визуализатора</a>)<br>
+                Родилось в 2012</p>
+                <p class="local-links"><a href="{% url 'knowledge_index' %}">База знаний</a> · <a href="{% url 'home' %}">Уроки</a> · <a href="{% url 'visualizer' %}">Визуализатор</a> · <a href="{% url 'image_index' %}">OpenCV</a>{% if request.user.is_staff %} · <a href="{% url 'statistics' %}">Статистика</a>{% endif %} · <a href="https://github.com/Behnisch/pythontutor-ru">Публичный архив</a></p>
+
+			</footer>
+		{% endblock %}
+	</div>
+{% if ai_kind %}{% include '_assistant.html' %}</div>{% endif %}
+</body>
+</html>

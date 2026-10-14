@@ -1,0 +1,4 @@
+# Stable PyPI wheels verified 2026-09-27, including CPython 3.14 Linux arm64.
+opencv-python-headless==5.0.0.93
+numpy==2.5.3
+Pillow==12.3.0

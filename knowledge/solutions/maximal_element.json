@@ -1,0 +1,31 @@
+{
+  "slug": "maximal_element",
+  "title": "Наибольший элемент",
+  "origin": "authored",
+  "summary": "Обновляем индекс только при строгом увеличении максимума.",
+  "recommended": {
+    "title": "Один проход",
+    "code": "a = list(map(int, input().split()))\nbest = 0\nfor i in range(1, len(a)):\n    if a[i] > a[best]:\n        best = i\nprint(a[best], best)\n",
+    "explanation": "Строгое сравнение сохраняет первое вхождение максимума.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(n) включая список"
+  },
+  "alternatives": [
+    {
+      "title": "max и index",
+      "code": "a = list(map(int, input().split()))\nm = max(a)\nprint(m, a.index(m))\n",
+      "explanation": "max находит значение, index возвращает первый индекс; два линейных прохода.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n)"
+    }
+  ],
+  "pitfalls": [
+    "Начальный максимум берите из списка: все числа могут быть отрицательными."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/lists/problems/maximal_element/"
+    }
+  ]
+}

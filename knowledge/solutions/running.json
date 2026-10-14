@@ -1,0 +1,31 @@
+{
+  "slug": "running",
+  "title": "Утренняя пробежка",
+  "origin": "authored",
+  "summary": "Первый день уже считается; затем моделируем ежедневный рост.",
+  "recommended": {
+    "title": "Точные рациональные числа",
+    "code": "from fractions import Fraction\nx = Fraction(input())\ny = Fraction(input())\nday = 1\nwhile x < y:\n    x *= Fraction(11, 10)\n    day += 1\nprint(day)\n",
+    "explanation": "Рациональное представление десятичного ввода даёт точное сравнение, но числители и знаменатели растут.",
+    "time_complexity": "O(d) операций над растущими целыми числами",
+    "space_complexity": "O(d + B) бит, B — размер исходных чисел"
+  },
+  "alternatives": [
+    {
+      "title": "Цикл с Decimal",
+      "code": "from decimal import Decimal\nx = Decimal(input())\ny = Decimal(input())\nday = 1\nwhile x < y:\n    x *= Decimal(\"1.1\")\n    day += 1\nprint(day)\n",
+      "explanation": "Десятичный множитель устраняет типичные двоичные погрешности около 10% на учебных данных. Decimal использует конечную точность контекста.",
+      "time_complexity": "O(d) десятичных умножений, d — число дней",
+      "space_complexity": "O(1) десятичных чисел при фиксированной точности"
+    }
+  ],
+  "pitfalls": [
+    "Если x уже не меньше y, ответ 1. Предполагается положительный начальный пробег."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/while/problems/running/"
+    }
+  ]
+}

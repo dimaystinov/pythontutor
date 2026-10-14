@@ -1,0 +1,32 @@
+{
+  "slug": "unique_elements",
+  "title": "Уникальные элементы",
+  "origin": "authored",
+  "summary": "Сначала считаем частоты, затем выводим одиночные элементы в исходном порядке.",
+  "recommended": {
+    "title": "Таблица частот",
+    "code": "a = list(map(int, input().split()))\ncounts = {}\nfor x in a:\n    counts[x] = counts.get(x, 0) + 1\nprint(*(x for x in a if counts[x] == 1))\n",
+    "explanation": "Словарь позволяет посчитать все частоты за один проход. Второй проход сохраняет исходный порядок.",
+    "time_complexity": "O(n) в среднем",
+    "space_complexity": "O(n) для списка, частот и аргументов вывода"
+  },
+  "alternatives": [
+    {
+      "title": "Подсчёт каждого значения",
+      "code": "a = list(map(int, input().split()))\nfor x in a:\n    if a.count(x) == 1:\n        print(x, end=' ')\n",
+      "explanation": "Метод count каждый раз проверяет весь список. Код короткий, но подходит только для небольших входов.",
+      "time_complexity": "O(n²)",
+      "space_complexity": "O(n) для исходного списка; O(1) дополнительной памяти"
+    }
+  ],
+  "pitfalls": [
+    "Множество удаляет повторы, но не отличает одиночные значения от повторяющихся.",
+    "Сортировка нарушит требуемый порядок."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/lists/problems/unique_elements/"
+    }
+  ]
+}

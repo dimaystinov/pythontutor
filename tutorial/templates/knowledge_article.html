@@ -1,0 +1,21 @@
+{% extends '_base_basic.html' %}
+{% block body %}
+{% if pwa_offline %}<p id="local-knowledge-notice">Разбор откроется после решения задачи на этом устройстве. <a href="{{ task_url }}">К задаче</a></p>{% endif %}
+<article class="knowledge-article" {% if pwa_offline %}hidden data-local-article="{{ local_kind }}" data-slug="{{ local_slug }}"{% endif %}>
+<p><a href="{{ task_url }}">← К задаче</a> · <a href="{% url 'knowledge_index' %}">База знаний</a></p>
+<h2>{{ article.title }}</h2>
+<p class="text-success">Вы решили задачу. Теперь можно сравнить подходы.</p>
+<p>{{ article.summary }}</p>
+<p class="knowledge-origin">{% if article.origin == 'upstream' %}Разбор из публичных материалов исходного учебника.{% else %}Авторский разбор для локальной версии на основе условия задачи. Это не выгрузка чужих посылок и не официальное решение исходного сайта.{% endif %}</p>
+<details><summary>Ваше принятое решение</summary><pre><code id="knowledge-own-code">{{ own_code }}</code></pre></details>
+<section><h3>Рекомендуемое решение: {{ article.recommended.title }}</h3>
+<p>{{ article.recommended.explanation }}</p>
+<pre><code>{{ article.recommended.code }}</code></pre>
+<p><strong>Время:</strong> {{ article.recommended.time_complexity }}. <strong>Память:</strong> {{ article.recommended.space_complexity }}.</p>
+</section>
+{% for variant in article.alternatives %}<section><h3>Другой способ: {{ variant.title }}</h3><p>{{ variant.explanation }}</p><pre><code>{{ variant.code }}</code></pre><p><strong>Время:</strong> {{ variant.time_complexity }}. <strong>Память:</strong> {{ variant.space_complexity }}.</p></section>{% endfor %}
+{% if article.pitfalls %}<h3>На что обратить внимание</h3><ul>{% for item in article.pitfalls %}<li>{{ item }}</li>{% endfor %}</ul>{% endif %}
+<p>Рекомендация учитывает сложность и читаемость для этой задачи. Единственного самого быстрого решения для всех размеров входа и всех компьютеров может не быть.</p>
+{% if article.sources %}<h3>Материалы</h3><ul>{% for source in article.sources %}<li><a href="{{ source.url }}" rel="noreferrer">{{ source.title }}</a></li>{% endfor %}</ul>{% endif %}
+</article>
+{% endblock %}

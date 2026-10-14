@@ -1,0 +1,31 @@
+{
+  "slug": "apples",
+  "title": "Дележ яблок",
+  "origin": "authored",
+  "summary": "Частное даёт долю каждого, остаток — количество яблок в корзинке.",
+  "recommended": {
+    "title": "Целочисленное деление",
+    "code": "n = int(input())\nk = int(input())\nprint(k // n)\nprint(k % n)\n",
+    "explanation": "Равенство k = (k // n) * n + k % n описывает разделение яблок.",
+    "time_complexity": "O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Частное и восстановление остатка",
+      "code": "n = int(input())\nk = int(input())\neach = k // n\nleft = k - each * n\nprint(each, left)\n",
+      "explanation": "После раздачи each яблок каждому вычитаем число выданных яблок.",
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "Делите число яблок на число школьников, а не наоборот."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/inout_and_arithmetic_operations/problems/apples/"
+    }
+  ]
+}

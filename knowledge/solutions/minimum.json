@@ -1,0 +1,31 @@
+{
+  "slug": "minimum",
+  "title": "Минимум из двух чисел",
+  "origin": "authored",
+  "summary": "Сравниваем введённые целые числа.",
+  "recommended": {
+    "title": "Последовательные сравнения",
+    "code": "a = int(input())\nb = int(input())\nresult = a\nif b < result:\n    result = b\nprint(result)\n",
+    "explanation": "После каждого сравнения result хранит минимум уже обработанных чисел.",
+    "time_complexity": "O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Встроенная функция",
+      "code": "a = int(input())\nb = int(input())\nprint(min(a, b))\n",
+      "explanation": "min напрямую выражает требуемое действие.",
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "Равные значения также допустимы; выводится значение, а не его номер."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/ifelse/problems/minimum/"
+    }
+  ]
+}

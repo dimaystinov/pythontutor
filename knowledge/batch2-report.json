@@ -1,0 +1,9 @@
+{
+  "tasks": 43,
+  "variants": 86,
+  "cases": 912,
+  "passed": 912,
+  "failures": [],
+  "semantics": "tutorial/tester.py: whitespace tokens; numeric absolute error < 1e-3",
+  "python": "Python 3.14.3"
+}

@@ -1,0 +1,13 @@
+{% extends '_base_basic.html' %}
+{% block container_type %}-fluid{% endblock %}
+{% block body %}
+<h3 class="auth-title text-center">Регистрация нового пользователя</h3>
+{% if invitation_group %}<div class="enrollment-info"><strong>Регистрация к преподавателю: {{ invitation_group.teacher.get_full_name|default:invitation_group.teacher.username }}</strong><br>Группа: {{ invitation_group.name }} · {{ invitation_group.course.title }}<br><a href="{% url 'login' %}?next={% url 'join_group' invitation_group.invite_code %}">Уже есть аккаунт? Войти и присоединиться</a></div>{% elif invalid_invitation %}<p class="alert alert-danger">Приглашение недействительно или приём в группу закрыт. Попросите новую ссылку у преподавателя.</p>{% endif %}
+<form action="{% url 'register' %}" method="post" class="auth-form register-form">
+    {% csrf_token %}
+    {% if error %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endif %}
+    {% if form.errors %}<div role="alert">{{ form.non_field_errors }}</div>{% endif %}
+    {% for field in form %}<div class="form-group register-row">{{ field.label_tag }}<div>{{ field }}{{ field.errors }}{% if field.help_text %}<span class="helptext">{{ field.help_text|safe }}</span>{% endif %}</div></div>{% endfor %}
+    <div class="text-center"><button type="submit" class="btn btn-success">Зарегистрироваться</button></div>
+</form>
+{% endblock %}

@@ -1,0 +1,170 @@
+[
+  {
+    "slug": "grayscale",
+    "title": "Оттенки серого",
+    "statement": "Прочитайте input.png через cv2.imread и переведите изображение из BGR в оттенки серого с помощью cv2.COLOR_BGR2GRAY. Сохраните результат в output.png без изменения размеров.",
+    "starter": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\n\n# Напишите обработку изображения здесь\nresult = image.copy()\ncv2.imwrite('output.png', result)\n",
+    "solution": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\nresult = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)\ncv2.imwrite('output.png', result)\n",
+    "tests": [
+      {
+        "input": "fixtures/input-0.png",
+        "expected": "expected/grayscale-0.png"
+      },
+      {
+        "input": "fixtures/input-1.png",
+        "expected": "expected/grayscale-1.png"
+      },
+      {
+        "input": "fixtures/input-2.png",
+        "expected": "expected/grayscale-2.png"
+      }
+    ]
+  },
+  {
+    "slug": "negative",
+    "title": "Негатив изображения",
+    "statement": "Создайте цветной негатив: замените каждое значение каждого канала v на 255 − v. Сохраните размеры и запишите результат в output.png.",
+    "starter": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\n\n# Напишите обработку изображения здесь\nresult = image.copy()\ncv2.imwrite('output.png', result)\n",
+    "solution": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\nresult = cv2.bitwise_not(image)\ncv2.imwrite('output.png', result)\n",
+    "tests": [
+      {
+        "input": "fixtures/input-0.png",
+        "expected": "expected/negative-0.png"
+      },
+      {
+        "input": "fixtures/input-1.png",
+        "expected": "expected/negative-1.png"
+      },
+      {
+        "input": "fixtures/input-2.png",
+        "expected": "expected/negative-2.png"
+      }
+    ]
+  },
+  {
+    "slug": "resize",
+    "title": "Уменьшение вдвое",
+    "statement": "Уменьшите ширину и высоту изображения вдвое с округлением вниз. Используйте cv2.resize с интерполяцией cv2.INTER_NEAREST. Запишите результат в output.png.",
+    "starter": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\n\n# Напишите обработку изображения здесь\nresult = image.copy()\ncv2.imwrite('output.png', result)\n",
+    "solution": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\nheight, width = image.shape[:2]\nresult = cv2.resize(image, (width // 2, height // 2), interpolation=cv2.INTER_NEAREST)\ncv2.imwrite('output.png', result)\n",
+    "tests": [
+      {
+        "input": "fixtures/input-0.png",
+        "expected": "expected/resize-0.png"
+      },
+      {
+        "input": "fixtures/input-1.png",
+        "expected": "expected/resize-1.png"
+      },
+      {
+        "input": "fixtures/input-2.png",
+        "expected": "expected/resize-2.png"
+      }
+    ]
+  },
+  {
+    "slug": "rotate",
+    "title": "Поворот на 90°",
+    "statement": "Поверните цветное изображение на 90 градусов по часовой стрелке. Используйте cv2.rotate и cv2.ROTATE_90_CLOCKWISE. Сохраните результат в output.png.",
+    "starter": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\n\n# Напишите обработку изображения здесь\nresult = image.copy()\ncv2.imwrite('output.png', result)\n",
+    "solution": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\nresult = cv2.rotate(image, cv2.ROTATE_90_CLOCKWISE)\ncv2.imwrite('output.png', result)\n",
+    "tests": [
+      {
+        "input": "fixtures/input-0.png",
+        "expected": "expected/rotate-0.png"
+      },
+      {
+        "input": "fixtures/input-1.png",
+        "expected": "expected/rotate-1.png"
+      },
+      {
+        "input": "fixtures/input-2.png",
+        "expected": "expected/rotate-2.png"
+      }
+    ]
+  },
+  {
+    "slug": "threshold",
+    "title": "Пороговая обработка",
+    "statement": "Сначала переведите BGR-изображение в оттенки серого через cv2.COLOR_BGR2GRAY. Примените cv2.threshold с порогом 127, максимумом 255 и типом cv2.THRESH_BINARY: значения строго больше 127 становятся 255, остальные — 0. Сохраните output.png.",
+    "starter": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\n\n# Напишите обработку изображения здесь\nresult = image.copy()\ncv2.imwrite('output.png', result)\n",
+    "solution": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\ngray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)\n_, result = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)\ncv2.imwrite('output.png', result)\n",
+    "tests": [
+      {
+        "input": "fixtures/input-0.png",
+        "expected": "expected/threshold-0.png"
+      },
+      {
+        "input": "fixtures/input-1.png",
+        "expected": "expected/threshold-1.png"
+      },
+      {
+        "input": "fixtures/input-2.png",
+        "expected": "expected/threshold-2.png"
+      }
+    ]
+  },
+  {
+    "slug": "blur",
+    "title": "Гауссово размытие",
+    "statement": "Примените к цветному изображению cv2.GaussianBlur с ядром (5, 5), sigmaX=0 и borderType=cv2.BORDER_DEFAULT. Сохраните output.png, сохранив размеры и три канала.",
+    "starter": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\n\n# Напишите обработку изображения здесь\nresult = image.copy()\ncv2.imwrite('output.png', result)\n",
+    "solution": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\nresult = cv2.GaussianBlur(image, (5, 5), 0, borderType=cv2.BORDER_DEFAULT)\ncv2.imwrite('output.png', result)\n",
+    "tests": [
+      {
+        "input": "fixtures/input-0.png",
+        "expected": "expected/blur-0.png"
+      },
+      {
+        "input": "fixtures/input-1.png",
+        "expected": "expected/blur-1.png"
+      },
+      {
+        "input": "fixtures/input-2.png",
+        "expected": "expected/blur-2.png"
+      }
+    ]
+  },
+  {
+    "slug": "edges",
+    "title": "Границы Canny",
+    "statement": "Переведите BGR-изображение в серое через cv2.COLOR_BGR2GRAY. Найдите границы cv2.Canny с threshold1=100, threshold2=200, apertureSize=3, L2gradient=False. Сохраните одноканальное изображение границ в output.png.",
+    "starter": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\n\n# Напишите обработку изображения здесь\nresult = image.copy()\ncv2.imwrite('output.png', result)\n",
+    "solution": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\ngray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)\nresult = cv2.Canny(gray, 100, 200, apertureSize=3, L2gradient=False)\ncv2.imwrite('output.png', result)\n",
+    "tests": [
+      {
+        "input": "fixtures/input-0.png",
+        "expected": "expected/edges-0.png"
+      },
+      {
+        "input": "fixtures/input-1.png",
+        "expected": "expected/edges-1.png"
+      },
+      {
+        "input": "fixtures/input-2.png",
+        "expected": "expected/edges-2.png"
+      }
+    ]
+  },
+  {
+    "slug": "crop",
+    "title": "Центральный фрагмент",
+    "statement": "Используйте срез NumPy, чтобы вырезать центральный фрагмент: строки от height // 4 включительно до 3 * height // 4 не включительно, столбцы от width // 4 включительно до 3 * width // 4 не включительно. Сохраните цветной фрагмент в output.png.",
+    "starter": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\n\n# Напишите обработку изображения здесь\nresult = image.copy()\ncv2.imwrite('output.png', result)\n",
+    "solution": "import cv2\nimport numpy as np\n\nimage = cv2.imread('input.png')\nheight, width = image.shape[:2]\nresult = image[height // 4:3 * height // 4, width // 4:3 * width // 4]\ncv2.imwrite('output.png', result)\n",
+    "tests": [
+      {
+        "input": "fixtures/input-0.png",
+        "expected": "expected/crop-0.png"
+      },
+      {
+        "input": "fixtures/input-1.png",
+        "expected": "expected/crop-1.png"
+      },
+      {
+        "input": "fixtures/input-2.png",
+        "expected": "expected/crop-2.png"
+      }
+    ]
+  }
+]

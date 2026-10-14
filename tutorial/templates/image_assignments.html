@@ -1,0 +1,29 @@
+{% extends '_base_basic.html' %}
+{% block body %}
+<p><a href="{% url 'image_index' %}">← Задачи с изображениями</a></p>
+<h1>{% if is_teacher %}Назначение заданий{% else %}Мои задания{% endif %}</h1>
+{% if is_teacher and form %}
+<form method="post" class="auth-form">
+    <h2 class="h4">Новое задание</h2>
+    {% csrf_token %}
+    {% if form.errors %}<div role="alert">{{ form.non_field_errors }}</div>{% endif %}
+    {% for field in form %}<div class="form-group">{{ field.label_tag }}{{ field }}{{ field.errors }}{% if field.help_text %}<span class="helptext">{{ field.help_text }}</span>{% endif %}</div>{% endfor %}
+    <button type="submit" class="btn btn-primary">Назначить задание</button>
+</form>
+{% endif %}
+{% for entry in assignments %}
+<section class="panel panel-default">
+    <div class="panel-heading"><h2 class="panel-title">{{ entry.assignment.title }}</h2></div>
+    <div class="panel-body">
+        <p>{{ entry.assignment.description|linebreaksbr }}</p>
+        <p>{% if entry.assignment.assignee %}Ученик: {{ entry.assignment.assignee }}{% else %}Для всех учеников преподавателя{% endif %}{% if entry.assignment.due %} · Срок: {{ entry.assignment.due|date:'d.m.Y H:i' }}{% endif %}</p>
+        <a class="btn btn-default" href="{% url 'image_task' entry.assignment.task_slug %}">Открыть задачу</a>
+        {% if entry.submissions %}
+        <div class="table-responsive"><table class="table"><thead><tr><th scope="col">Ученик</th><th scope="col">Результат</th><th scope="col">Отправлено</th></tr></thead><tbody>
+        {% for submission in entry.submissions %}<tr><td>{{ submission.user }}</td><td>{% if submission.status == 'ok' or submission.status == 'accepted' %}Решено{% elif submission.status %}Требует исправления{% else %}Не отправлено{% endif %}</td><td>{{ submission.time|date:'d.m.Y H:i' }}</td></tr>{% endfor %}
+        </tbody></table></div>
+        {% else %}<p class="help-block">Решений пока нет.</p>{% endif %}
+    </div>
+</section>
+{% empty %}<p>Назначенных заданий пока нет. Можно выбрать задачу в <a href="{% url 'image_index' %}">каталоге</a>.</p>{% endfor %}
+{% endblock %}

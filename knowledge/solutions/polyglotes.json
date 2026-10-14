@@ -1,0 +1,31 @@
+{
+  "slug": "polyglotes",
+  "title": "Полиглоты",
+  "origin": "authored",
+  "summary": "Общие языки получаем пересечением, все известные — объединением.",
+  "recommended": {
+    "title": "Операции множеств",
+    "code": "n = int(input())\ncommon = None\nall_languages = set()\nfor _ in range(n):\n    languages = {input() for _ in range(int(input()))}\n    all_languages.update(languages)\n    common = languages if common is None else common & languages\ncommon = common or set()\nprint(len(common))\nfor language in sorted(common):\n    print(language)\nprint(len(all_languages))\nfor language in sorted(all_languages):\n    print(language)\n",
+    "explanation": "Первое множество задаёт начало пересечения; пустое пересечение дальше остаётся пустым.",
+    "time_complexity": "O(T+U log U) в среднем",
+    "space_complexity": "O(U+L) названий"
+  },
+  "alternatives": [
+    {
+      "title": "Количество знающих",
+      "code": "n = int(input())\ncounts = {}\nfor _ in range(n):\n    languages = {input() for _ in range(int(input()))}\n    for language in languages:\n        counts[language] = counts.get(language, 0) + 1\ncommon = sorted(language for language in counts if counts[language] == n)\nprint(len(common))\nfor language in common:\n    print(language)\nprint(len(counts))\nfor language in sorted(counts):\n    print(language)\n",
+      "explanation": "Язык общий тогда и только тогда, когда его знают n разных школьников. T — число записей языков, U — разных языков, L — максимум у одного школьника.",
+      "time_complexity": "O(T+U log U) в среднем",
+      "space_complexity": "O(U+L) названий"
+    }
+  ],
+  "pitfalls": [
+    "Оба списка выводятся в лексикографическом порядке, каждый язык на отдельной строке."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/sets/problems/polyglotes/"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{% extends '_base_sidebar.html' %}
+
+{% block headers %}
+	{{ block.super }}
+
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/visualizer.css">
+
+	<script type="text/javascript" src="{{ STATIC_URL }}js/ace-editor/ace.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.jsPlumb-1.6.4-min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/visualizer.js?v=browser1"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/lesson.js"></script>
+
+	<script type="text/javascript">
+		var lesson_name = '{{ lesson.urlname }}';
+	</script>
+{% endblock %}
+
+{% block sidebar %}
+	{{ block.super }}
+	<ul class="nav nav-sidebar">
+		{% for lic in lessons %}
+			<li{% if lesson.name == lic.lesson.urlname %} class="active"{% endif %}>
+				<a href="{% url 'lesson_in_course' lic.lesson.urlname %}">{{ lic.order }}. {% if lic.lesson.urlname == 'inout_and_arithmetic_operations' %}Ввод и вывод данных{% elif lic.lesson.urlname == 'ifelse' %}Условия{% elif lic.lesson.urlname == 'int_and_float' %}Вычисления{% else %}{{ lic.lesson.title }}{% endif %}</a>
+				{% if lesson.name == lic.lesson.urlname %}
+					{% block navbar_active_lesson %}{% endblock %}
+				{% endif %}
+			</li>
+		{% endfor %}
+	</ul>
+{% endblock %}
+
+{% block content %}
+	{{ block.super }}
+
+	{% block lesson_body %}
+	{% endblock %}
+
+{% endblock %}

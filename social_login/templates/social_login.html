@@ -1,0 +1,7 @@
+<div id="social_login">
+{% for provider in providers %}
+	<a href="{% url 'social_login' provider %}" class="btn btn-default {{ provider }}" onclick="social_login(this.href); return false;"><span class="fa fa-{{ provider }}"></span></a>
+{% empty %}
+	No providers configured.
+{% endfor %}
+</div>

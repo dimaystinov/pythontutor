@@ -1,0 +1,17 @@
+{% extends '_base_basic.html' %}
+{% block container_type %}-fluid{% endblock %}
+{% block body %}
+<h3 class="auth-title text-center">Вход для зарегистрированных пользователей</h3>
+<form method="post" action="{% url 'login' %}" class="auth-form login-form">
+{% csrf_token %}<input type="hidden" name="next" value="{{ next }}">
+{% if form.errors %}<div role="alert">{{ form.non_field_errors }}</div>{% endif %}
+<div class="form-group">
+<label class="sr-only" for="id_username">Имя пользователя</label>
+<input id="id_username" name="username" autocomplete="username" placeholder="Имя пользователя" value="{{ form.username.value|default_if_none:'' }}" required autofocus>
+<label class="sr-only" for="id_password">Пароль</label>
+<input id="id_password" name="password" type="password" autocomplete="current-password" placeholder="Пароль" required>
+</div>
+<button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+<a class="btn btn-sm btn-info btn-block" href="{% url 'register' %}">Регистрация</a>
+</form>
+{% endblock %}

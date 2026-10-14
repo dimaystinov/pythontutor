@@ -1,0 +1,31 @@
+{
+  "slug": "length_of_segment",
+  "title": "Длина отрезка",
+  "origin": "authored",
+  "summary": "Применяем теорему Пифагора к разностям координат.",
+  "recommended": {
+    "title": "Гипотенуза",
+    "code": "import math\ndef distance(x1, y1, x2, y2):\n    return math.hypot(x2 - x1, y2 - y1)\n\nx1 = float(input())\ny1 = float(input())\nx2 = float(input())\ny2 = float(input())\nprint(distance(x1, y1, x2, y2))\n",
+    "explanation": "hypot вычисляет длину вектора и устойчивее прямого возведения больших координат в квадрат.",
+    "time_complexity": "O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Формула Пифагора",
+      "code": "def distance(x1, y1, x2, y2):\n    return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5\n\nx1 = float(input())\ny1 = float(input())\nx2 = float(input())\ny2 = float(input())\nprint(distance(x1, y1, x2, y2))\n",
+      "explanation": "Для обычных школьных координат достаточно корня из суммы квадратов.",
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "Вводите координаты как float; не округляйте результат до целого."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/functions/problems/length_of_segment/"
+    }
+  ]
+}

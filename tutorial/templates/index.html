@@ -1,0 +1,50 @@
+{% extends '_base_basic.html' %}
+{% block container_type %}-fluid{% endblock %}
+{% block headers %}
+{{ block.super }}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/visualizer.css">
+<script src="{{ STATIC_URL }}js/ace-editor/ace.js"></script>
+<script src="{{ STATIC_URL }}js/jquery.jsPlumb-1.6.4-min.js"></script>
+<script src="{{ STATIC_URL }}js/visualizer.js?v=browser1"></script>
+<script src="{{ STATIC_URL }}js/visualizer-page.js"></script>
+{% endblock %}
+{% block body %}
+<header class="home-title">
+<h2>Интерактивный учебник языка Питон</h2>
+<h3>Учитесь, решая серьёзные задачи прямо в браузере</h3>
+</header>
+<div class="row home-overview">
+<section class="col-sm-6">
+<h3>Теория и практика</h3>
+<div class="home-lessons">
+{% for course, lessons in courses %}
+{% for lic in lessons %}{% if lic.order <= 11 %}
+<p>Занятие {{ lic.order }}. <a href="/lessons/{{ lic.lesson.urlname }}/">{% if lic.lesson.urlname == 'inout_and_arithmetic_operations' %}Ввод и вывод данных{% elif lic.lesson.urlname == 'ifelse' %}Условия{% elif lic.lesson.urlname == 'int_and_float' %}Вычисления{% else %}{{ lic.lesson.title }}{% endif %}</a></p>
+{% endif %}{% endfor %}
+{% endfor %}
+<details class="additional-lessons"><summary>Дополнительные занятия и OpenCV</summary>
+{% for course, lessons in courses %}{% for lic in lessons %}{% if lic.order > 11 %}
+<p>Занятие {{ lic.order }}. <a href="/lessons/{{ lic.lesson.urlname }}/">{{ lic.lesson.title }}</a></p>
+{% endif %}{% endfor %}{% endfor %}
+<p><a href="{% url 'image_index' %}">Обработка изображений Python и OpenCV</a></p>
+</details>
+</div>
+</section>
+<section class="col-sm-6 home-features">
+<h3>Удобный визуализатор</h3>
+<ul>
+<li>Не нужно ничего устанавливать на компьютер: пишите и исполняйте код прямо в браузере</li>
+<li>Отлаживайте код по шагам и смотрите за значениями переменных</li>
+<li>Проверяйте правильность решения на разных входных и выходных данных</li>
+<li>Визуализатор переводит и объясняет ошибки в программах</li>
+<li>После решения задачи ознакомьтесь с образцовым решением от нас</li>
+</ul>
+<video autoplay muted loop playsinline preload="metadata" aria-label="Демонстрация пошагового выполнения программы"><source src="{{ STATIC_URL }}vendor/original/demo_debug_720p.mp4" type="video/mp4"></video>
+</section>
+</div>
+<section class="home-demo">
+<h3>Визуализатор в действии</h3>
+<div class="row"><div class="col-md-9"><div id="visualizer" data-home-demo="true"></div></div></div>
+{% include '_visualizer_examples.html' %}
+</section>
+{% endblock %}

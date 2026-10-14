@@ -1,0 +1,31 @@
+{
+  "slug": "most_frequent_word",
+  "title": "Самое частое слово",
+  "origin": "authored",
+  "summary": "Подсчитываем частоты, затем выбираем по частоте и алфавиту.",
+  "recommended": {
+    "title": "Словарь частот",
+    "code": "counts = {}\nfor _ in range(int(input())):\n    for word in input().split():\n        counts[word] = counts.get(word, 0) + 1\nprint(min(counts, key=lambda word: (-counts[word], word)))\n",
+    "explanation": "Ключ из отрицательной частоты и слова выбирает наибольшую частоту и лексикографически первое слово.",
+    "time_complexity": "O(W) в среднем без учёта длины слов",
+    "space_complexity": "O(U + L), U разных слов, L токенов строки"
+  },
+  "alternatives": [
+    {
+      "title": "Сортировка и группы",
+      "code": "from itertools import groupby\nwords = []\nfor _ in range(int(input())):\n    words.extend(input().split())\nwords.sort()\nbest, best_count = '', 0\nfor word, group in groupby(words):\n    count = sum(1 for _ in group)\n    if count > best_count:\n        best, best_count = word, count\nprint(best)\n",
+      "explanation": "После сортировки равные слова соседствуют. При равной частоте сохраняем более раннее слово.",
+      "time_complexity": "O(W log W) сравнений слов",
+      "space_complexity": "O(W) слов"
+    }
+  ],
+  "pitfalls": [
+    "Регистр и знаки пунктуации не удаляются: слово определяется разделителями ввода."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/dicts/problems/most_frequent_word/"
+    }
+  ]
+}

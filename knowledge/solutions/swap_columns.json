@@ -1,0 +1,32 @@
+{
+  "slug": "swap_columns",
+  "title": "Поменять столбцы",
+  "origin": "authored",
+  "summary": "В каждой строке меняем местами элементы с индексами i и j.",
+  "recommended": {
+    "title": "Обмен на месте",
+    "code": "def swap_columns(a, i, j):\n    for row in a:\n        row[i], row[j] = row[j], row[i]\nn, m = map(int, input().split())\na = [list(map(int, input().split())) for _ in range(n)]\ni, j = map(int, input().split())\nswap_columns(a, i, j)\nfor row in a:\n    print(*row)\n",
+    "explanation": "Множественное присваивание сначала вычисляет правую часть, поэтому ни одно значение не теряется.",
+    "time_complexity": "O(nm), включая чтение и вывод; обмен O(n)",
+    "space_complexity": "O(nm) для массива; обмен O(1) дополнительно"
+  },
+  "alternatives": [
+    {
+      "title": "Перестроение строк по перестановке индексов",
+      "code": "def swap_columns(a, i, j):\n    order = list(range(len(a[0])))\n    order[i], order[j] = order[j], order[i]\n    for r in range(len(a)):\n        a[r] = [a[r][c] for c in order]\nn, m = map(int, input().split())\na = [list(map(int, input().split())) for _ in range(n)]\ni, j = map(int, input().split())\nswap_columns(a, i, j)\nfor row in a:\n    print(*row)\n",
+      "explanation": "Сначала строим перестановку номеров столбцов, затем применяем её ко всем строкам. Это обобщается на произвольный порядок столбцов.",
+      "time_complexity": "O(nm)",
+      "space_complexity": "O(nm) для массива и O(m) дополнительной памяти"
+    }
+  ],
+  "pitfalls": [
+    "Функция должна менять массив, а не только локальные переменные.",
+    "При i=j массив остаётся прежним."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/2d_arrays/problems/swap_columns/"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "slug": "synonym_dictionary",
+  "title": "Словарь синонимов",
+  "origin": "authored",
+  "summary": "Сохраняем соответствие в обоих направлениях.",
+  "recommended": {
+    "title": "Двусторонний словарь",
+    "code": "n = int(input())\nsynonyms = {}\nfor _ in range(n):\n    a, b = input().split()\n    synonyms[a] = b\n    synonyms[b] = a\nprint(synonyms[input()])\n",
+    "explanation": "Запрос может содержать любое слово пары, поэтому нужны обе записи.",
+    "time_complexity": "O(n) в среднем без учёта длины строк",
+    "space_complexity": "O(n) пар ссылок и текст слов"
+  },
+  "alternatives": [
+    {
+      "title": "Поиск по списку пар",
+      "code": "n = int(input())\npairs = [input().split() for _ in range(n)]\nword = input()\nfor a, b in pairs:\n    if word == a:\n        print(b)\n        break\n    if word == b:\n        print(a)\n        break\n",
+      "explanation": "Для единственного запроса можно последовательно проверять обе стороны каждой пары.",
+      "time_complexity": "O(n) без учёта длины строк",
+      "space_complexity": "O(n) для пар и текста"
+    }
+  ],
+  "pitfalls": [
+    "Синонимия симметрична.",
+    "Все слова различны, поэтому перезаписи конфликтующих пар нет."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/dicts/problems/synonym_dictionary/"
+    }
+  ]
+}

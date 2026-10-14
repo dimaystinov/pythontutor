@@ -1,0 +1,31 @@
+{
+  "slug": "jacob_the_swimmer",
+  "title": "Яша плавает в бассейне",
+  "origin": "authored",
+  "summary": "Сравниваем расстояния до всех четырёх бортиков.",
+  "recommended": {
+    "title": "Минимум четырёх расстояний",
+    "code": "n = int(input())\nm = int(input())\nx = int(input())\ny = int(input())\nshort, long = min(n, m), max(n, m)\nprint(min(x, short - x, y, long - y))\n",
+    "explanation": "Длинные бортики разделены короткой стороной бассейна, поэтому противоположный длинный бортик находится на расстоянии short−x.",
+    "time_complexity": "O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Сначала ближайший бортик каждой пары",
+      "code": "n = int(input())\nm = int(input())\nx = int(input())\ny = int(input())\nif n > m:\n    n, m = m, n\nif n - x < x:\n    x = n - x\nif m - y < y:\n    y = m - y\nprint(x if x < y else y)\n",
+      "explanation": "Упорядочиваем размеры, выбираем ближайший бортик в каждой параллельной паре, затем сравниваем двух кандидатов.",
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "x относится к длинному бортику, значит вычитать x нужно из короткой стороны."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/ifelse/problems/jacob_the_swimmer/"
+    }
+  ]
+}

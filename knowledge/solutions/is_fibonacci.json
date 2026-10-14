@@ -1,0 +1,32 @@
+{
+  "slug": "is_fibonacci",
+  "title": "Номер числа Фибоначчи",
+  "origin": "authored",
+  "summary": "Генерируем числа Фибоначчи, пока не достигнем или не превысим A.",
+  "recommended": {
+    "title": "Два соседних числа",
+    "code": "a = int(input())\nprevious, current = 0, 1\nindex = 1\nwhile current < a:\n    previous, current = current, previous + current\n    index += 1\nprint(index if current == a else -1)\n",
+    "explanation": "Последовательность не убывает и затем строго растёт. При превышении числа дальнейший поиск бесполезен. Для A=1 выбран допустимый индекс 1.",
+    "time_complexity": "O(log A) сложений больших целых",
+    "space_complexity": "O(log A) бит для нескольких чисел"
+  },
+  "alternatives": [
+    {
+      "title": "Таблица чисел с поиском",
+      "code": "a = int(input())\nfib = [0, 1]\nwhile fib[-1] < a:\n    fib.append(fib[-1] + fib[-2])\nprint(fib.index(a) if fib[-1] == a else -1)\n",
+      "explanation": "Сохраняем полученные значения и находим индекс в таблице. Память больше, зато таблицу можно использовать для других запросов.",
+      "time_complexity": "O(log A) сложений и сравнений",
+      "space_complexity": "O(log A) чисел, суммарно O((log A)²) бит"
+    }
+  ],
+  "pitfalls": [
+    "F(0)=0, F(1)=1, F(2)=1: для единицы индекс неоднозначен.",
+    "Не используйте приближённую формулу с вещественными числами для проверки равенства."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/while/problems/is_fibonacci/"
+    }
+  ]
+}

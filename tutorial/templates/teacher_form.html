@@ -1,0 +1,11 @@
+{% extends '_base_basic.html' %}
+{% block body %}
+<section class="teacher-page">
+<p><a href="{% url 'teacher' %}">← Кабинет преподавателя</a></p>
+<h1>{{ title }}</h1>
+{% if student %}<p>Логин: <strong>{{ student.username }}</strong>. Пароль ученик меняет в своём профиле.</p>{% endif %}
+{% if needs_group %}<p class="alert alert-info">Сначала <a href="{% url 'teacher_group_new' %}">создайте учебную группу</a>, чтобы привязать ученика к преподавателю.</p>{% endif %}
+<form method="post" class="auth-form teacher-form">{% csrf_token %}{{ form.non_field_errors }}{% for field in form %}<div class="form-group">{{ field.label_tag }}{{ field }}{{ field.errors }}{% if field.help_text %}<div class="helptext">{{ field.help_text|safe }}</div>{% endif %}</div>{% endfor %}<button class="btn btn-primary" type="submit">Сохранить</button> <a href="{% url 'teacher' %}">Отмена</a></form>
+{% if group %}<hr><h2>Заменить ссылку-приглашение</h2><p>Если ссылку получили посторонние, замените её. Уже зачисленные ученики останутся в группе.</p><form method="post">{% csrf_token %}<input type="hidden" name="action" value="rotate"><button class="btn btn-default">Создать новую ссылку</button></form>{% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,31 @@
+{
+  "slug": "signum",
+  "title": "Знак числа",
+  "origin": "authored",
+  "summary": "Разделяем положительный, отрицательный и нулевой случаи.",
+  "recommended": {
+    "title": "Рекомендуемый подход",
+    "code": "x = int(input())\nif x > 0:\n    print(1)\nelif x < 0:\n    print(-1)\nelse:\n    print(0)\n",
+    "explanation": "Каскад if/elif/else напрямую повторяет определение sign.",
+    "time_complexity": "O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Другой способ",
+      "code": "x = int(input())\nprint((x > 0) - (x < 0))\n",
+      "explanation": "Булевы значения участвуют в арифметике как 1 и 0; их разность даёт знак.",
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "Ноль требует результата 0."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/ifelse/problems/signum/"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{% extends '_base_basic.html' %}
+
+{% block headers %}
+	{{ block.super }}
+{% endblock %}
+
+{% block body %}
+
+{% for lesson_key, problems in data %}
+<h1>{{ lesson_key }}</h1>
+
+	{% for problem_key, submissions in problems %}
+		<h2>{{ problem_key }}</h2>
+		<table>
+			<tr>
+			{% for submission_list in submissions %}
+				<td valign="top">
+					{% if submission_list %}
+						<b>{{ submission_list.0.user.first_name }}<br>{{ submission_list.0.user.last_name }}</b>
+						{% for submission in submission_list %}
+						    <pre style="background-color: {% if not submission.status %}pink{% else %}lightgreen{% endif %};">{{ submission.code }}</pre>
+						    {% if forloop.last %}{{ submission.time }}{% endif %}
+						{% endfor %}
+					{% endif %}
+				</td>
+			{% endfor %}
+			</tr>
+		</table>
+	{% endfor %}
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,5 @@
+<div id="section_{{ id }}" class="section" data-section-id="{{ id }}">
+	{% comment %}{% if title != '__text__' %}{% endcomment %}
+	<h{{ nesting_level|add:'+3' }}>{{ id }}. {{ title|safe }}</h{{ nesting_level|add:'+3' }}>
+	{{ content|safe }}
+</div>

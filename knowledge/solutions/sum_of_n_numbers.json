@@ -1,0 +1,32 @@
+{
+  "slug": "sum_of_n_numbers",
+  "title": "Сумма N чисел",
+  "origin": "authored",
+  "summary": "Суммируем ровно N чисел по мере чтения.",
+  "recommended": {
+    "title": "Накопитель",
+    "code": "total = 0\nfor _ in range(int(input())):\n    total += int(input())\nprint(total)\n",
+    "explanation": "Количество сразу передаётся range; остаются накопитель и переменная цикла.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(1) числовых переменных"
+  },
+  "alternatives": [
+    {
+      "title": "Встроенная сумма генератора",
+      "code": "print(sum(int(input()) for _ in range(int(input()))))\n",
+      "explanation": "Генератор читает ровно N значений, а sum хранит накопитель внутри себя. Отсутствие именованных внешних переменных не означает отсутствие внутреннего состояния.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(1) числовых переменных"
+    }
+  ],
+  "pitfalls": [
+    "Первое число — количество, не слагаемое.",
+    "Пустая сумма при N=0 равна 0."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/for_loop/problems/sum_of_n_numbers/"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "slug": "swap_neighbours",
+  "title": "Переставить соседние",
+  "origin": "authored",
+  "summary": "Обрабатываем непересекающиеся пары с чётного индекса.",
+  "recommended": {
+    "title": "Обмен на месте",
+    "code": "a = list(map(int, input().split()))\nfor i in range(0, len(a) - 1, 2):\n    a[i], a[i + 1] = a[i + 1], a[i]\nprint(*a)\n",
+    "explanation": "Граница len(a)−1 гарантирует наличие второго элемента пары. Непарный хвост не затрагивается.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(n), включая входные данные"
+  },
+  "alternatives": [
+    {
+      "title": "Построение нового списка",
+      "code": "a = list(map(int, input().split()))\nb = []\nfor i in range(len(a)):\n    partner = i ^ 1\n    b.append(a[partner] if partner < len(a) else a[i])\nprint(*b)\n",
+      "explanation": "Операция XOR с 1 меняет младший бит индекса: 0↔1, 2↔3 и так далее. Последний непарный элемент копируется из исходной позиции.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n), включая входные данные"
+    }
+  ],
+  "pitfalls": [
+    "Шаг цикла должен быть 2.",
+    "При нечётной длине последний элемент остаётся на месте."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/lists/problems/swap_neighbours/"
+    }
+  ]
+}

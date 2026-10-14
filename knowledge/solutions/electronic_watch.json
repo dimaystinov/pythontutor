@@ -1,0 +1,31 @@
+{
+  "slug": "electronic_watch",
+  "title": "Электронные часы",
+  "origin": "authored",
+  "summary": "Минуты группируются по 60, часы повторяются каждые 24.",
+  "recommended": {
+    "title": "Частное и остатки",
+    "code": "n = int(input())\nprint(n // 60 % 24, n % 60)\n",
+    "explanation": "Полные часы берём по модулю 24, оставшиеся минуты — по модулю 60.",
+    "time_complexity": "O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Сначала убрать полные сутки",
+      "code": "n = int(input())\ntoday = n % (24 * 60)\nhours = today // 60\nminutes = today % 60\nprint(hours, minutes)\n",
+      "explanation": "Убираем полные сутки, отдельно находим часы и минуты.",
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "Ответ по часам должен оставаться в диапазоне 0–23."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/inout_and_arithmetic_operations/problems/electronic_watch/"
+    }
+  ]
+}

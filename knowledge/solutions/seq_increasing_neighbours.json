@@ -1,0 +1,32 @@
+{
+  "slug": "seq_increasing_neighbours",
+  "title": "Количество элементов, которые больше предыдущего",
+  "origin": "authored",
+  "summary": "Сравниваем каждый элемент со своим непосредственным предшественником.",
+  "recommended": {
+    "title": "Один проход без хранения последовательности",
+    "code": "previous = int(input())\ncount = 0\nif previous != 0:\n    while True:\n        current = int(input())\n        if current == 0:\n            break\n        if current > previous:\n            count += 1\n        previous = current\nprint(count)\n",
+    "explanation": "Первый элемент не имеет предшественника, поэтому начинаем сравнения со второго.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(1) числовых переменных"
+  },
+  "alternatives": [
+    {
+      "title": "Сохранение и обработка списка",
+      "code": "a = []\nwhile True:\n    x = int(input())\n    if x == 0:\n        break\n    a.append(x)\nprint(sum(a[i] > a[i - 1] for i in range(1, len(a))))\n",
+      "explanation": "Каждое истинное сравнение в генераторе даёт единицу.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n) для сохранённой последовательности"
+    }
+  ],
+  "pitfalls": [
+    "Равные элементы не подходят.",
+    "Предыдущее значение обновляется после любого сравнения."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/while/problems/seq_increasing_neighbours/"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "slug": "sum_of_ten_numbers",
+  "title": "Сумма десяти чисел",
+  "origin": "authored",
+  "summary": "Читаем десять чисел и складываем их.",
+  "recommended": {
+    "title": "Сумма генератора",
+    "code": "print(sum(int(input()) for _ in range(10)))\n",
+    "explanation": "sum суммирует значения генератора без сохранения списка. Внешний именованный накопитель не нужен.",
+    "time_complexity": "O(10), то есть O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Явный накопитель",
+      "code": "total = 0\nfor _ in range(10):\n    total += int(input())\nprint(total)\n",
+      "explanation": "Явный цикл показывает изменение суммы после каждого слагаемого и использует лишь накопитель и счётчик.",
+      "time_complexity": "O(10), то есть O(1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "Нужно считать ровно десять чисел.",
+    "Строки input нужно преобразовать в int."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/for_loop/problems/sum_of_ten_numbers/"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "slug": "replace_substring",
+  "title": "Замена подстроки",
+  "origin": "authored",
+  "summary": "Каждую цифру 1 заменяем строкой one.",
+  "recommended": {
+    "title": "replace",
+    "code": "s = input()\nprint(s.replace(\"1\", \"one\"))\n",
+    "explanation": "Строковый метод выполняет замену всех вхождений.",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(n)"
+  },
+  "alternatives": [
+    {
+      "title": "Посимвольная сборка",
+      "code": "s = input()\nprint(\"\".join(\"one\" if ch == \"1\" else ch for ch in s))\n",
+      "explanation": "Каждому символу сопоставляем прежний символ или слово; join собирает результат за линейное время.",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n)"
+    }
+  ],
+  "pitfalls": [
+    "Заменяется символ цифры 1, а не буква l."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/str/problems/replace_substring/"
+    }
+  ]
+}

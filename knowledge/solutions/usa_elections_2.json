@@ -1,0 +1,33 @@
+{
+  "slug": "usa_elections_2",
+  "title": "Выборы в США - 2",
+  "origin": "authored",
+  "summary": "Сначала выбираем победителя каждого штата, затем суммируем его голоса выборщиков.",
+  "recommended": {
+    "title": "Словари голосов по штатам",
+    "code": "import sys\nn = int(input())\nweights = {}\nfor _ in range(n):\n    state, weight = input().split()\n    weights[state] = int(weight)\nvotes = {state: {} for state in weights}\ntotals = {}\nfor line in sys.stdin:\n    state, candidate = line.split()\n    totals.setdefault(candidate, 0)\n    counts = votes[state]\n    counts[candidate] = counts.get(candidate, 0) + 1\nfor state, counts in votes.items():\n    if counts:\n        winner = min(counts, key=lambda c: (-counts[c], c))\n        totals[winner] += weights[state]\nfor candidate in sorted(totals, key=lambda c: (-totals[c], c)):\n    print(candidate, totals[candidate])\n",
+    "explanation": "Считаем бюллетени отдельно в каждом штате. При равенстве выбираем лексикографически первого кандидата; итог сортируем по убыванию голосов, затем по имени. Эти правила восстановлены по архивным тестам, поскольку краткое условие не описывает разрешение ничьих.",
+    "time_complexity": "Ожидаемое O(n + v + p + k log k), n — штатов, v — бюллетеней, p — пар штат–кандидат, k — кандидатов; без учёта длины строк",
+    "space_complexity": "O(n+p+k)"
+  },
+  "alternatives": [
+    {
+      "title": "Группировка отсортированных бюллетеней",
+      "code": "import sys\nfrom itertools import groupby\nn = int(input())\nweights = {}\nfor _ in range(n):\n    state, weight = input().split()\n    weights[state] = int(weight)\nballots = [tuple(line.split()) for line in sys.stdin]\ntotals = {candidate: 0 for _, candidate in ballots}\nballots.sort()\nfor state, group in groupby(ballots, key=lambda r: r[0]):\n    counts = []\n    for candidate, rows in groupby(group, key=lambda r: r[1]):\n        counts.append((sum(1 for _ in rows), candidate))\n    winner = min(counts, key=lambda pair: (-pair[0], pair[1]))[1]\n    totals[winner] += weights[state]\nfor candidate in sorted(totals, key=lambda c: (-totals[c], c)):\n    print(candidate, totals[candidate])\n",
+      "explanation": "Сортировка объединяет бюллетени по штату и кандидату. Размеры групп дают результаты штата, затем применяются те же правила ничьих и итогового порядка.",
+      "time_complexity": "O(n + v log(v + 1) + k log(k + 1)), включая чтение n штатов; без учёта длины строк",
+      "space_complexity": "O(v+n+k)"
+    }
+  ],
+  "pitfalls": [
+    "Нельзя напрямую суммировать бюллетени по всей стране.",
+    "Кандидаты без полученных голосов выборщиков выводятся с нулём.",
+    "Архив содержит только два теста: правила ничьих и порядок выведены из них; поведение для штата без бюллетеней явно не задано, здесь его вес не распределяется."
+  ],
+  "sources": [
+    {
+      "title": "Публичный архив PythonTutor 2017 года",
+      "url": "https://github.com/Behnisch/pythontutor-ru/tree/1a9193f/problems"
+    }
+  ]
+}

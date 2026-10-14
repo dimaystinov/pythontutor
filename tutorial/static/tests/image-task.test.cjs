@@ -1,0 +1,17 @@
+const assert = require('node:assert/strict');
+const vm = require('node:vm');
+const fs = require('node:fs');
+const path = require('node:path');
+const context = vm.createContext({window: {}, jQuery: function () {}});
+vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/image-task.js'), 'utf8'), context);
+const {pngURL, statusText} = context.window.ImageTaskUI;
+assert.equal(pngURL('javascript:alert(1)'), null);
+assert.equal(pngURL('<img src=x onerror=alert(1)>'), null);
+assert.equal(pngURL('data:image/svg+xml;base64,AAAA'), null);
+assert.equal(pngURL(null), null);
+assert.equal(pngURL('iVBORw0KGgoAAA=='), 'data:image/png;base64,iVBORw0KGgoAAA==');
+assert.match(statusText('skipped'), /Не запускался/);
+assert.match(statusText('output_limited'), /лимит вывода/);
+assert.match(statusText('invalid_image'), /output.png/);
+assert.match(statusText('<script>'), /ошибкой/);
+console.log('Image UI PNG/error-state checks passed.');

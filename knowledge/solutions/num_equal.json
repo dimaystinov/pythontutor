@@ -1,0 +1,31 @@
+{
+  "slug": "num_equal",
+  "title": "Сколько совпадает чисел",
+  "origin": "authored",
+  "summary": "Отдельно различаем три совпадения и ровно два.",
+  "recommended": {
+    "title": "Условия",
+    "code": "a = int(input())\nb = int(input())\nc = int(input())\nif a == b == c:\n    print(3)\nelif a == b or a == c or b == c:\n    print(2)\nelse:\n    print(0)\n",
+    "explanation": "Проверку трёх равных выполняем раньше проверки пары.",
+    "time_complexity": "O(1)",
+    "space_complexity": "O(1)"
+  },
+  "alternatives": [
+    {
+      "title": "Число разных значений",
+      "code": "values = {int(input()), int(input()), int(input())}\nprint({1: 3, 2: 2, 3: 0}[len(values)])\n",
+      "explanation": "Размер множества 1, 2 или 3 однозначно определяет ответ.",
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)"
+    }
+  ],
+  "pitfalls": [
+    "Если все значения разные, ответ 0, а не 1."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/ifelse/problems/num_equal/"
+    }
+  ]
+}

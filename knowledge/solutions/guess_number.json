@@ -1,0 +1,32 @@
+{
+  "slug": "guess_number",
+  "title": "Угадай число",
+  "origin": "authored",
+  "summary": "Сохраняем только числа, совместимые со всеми ответами.",
+  "recommended": {
+    "title": "Пересечение и разность",
+    "code": "n = int(input())\npossible = set(range(1, n + 1))\nwhile True:\n    line = input()\n    if line == 'HELP':\n        break\n    question = set(map(int, line.split()))\n    answer = input()\n    if answer == 'YES':\n        possible &= question\n    else:\n        possible -= question\nprint(*sorted(possible))\n",
+    "explanation": "YES оставляет пересечение с вопросом, NO удаляет перечисленные числа. Каждый шаг сохраняет все и только допустимые варианты.",
+    "time_complexity": "Ожидаемое O(n + S + qn + n log n) как верхняя оценка, S — объём вопросов",
+    "space_complexity": "O(n + m), m — размер текущего вопроса"
+  },
+  "alternatives": [
+    {
+      "title": "Булевы признаки допустимости",
+      "code": "n = int(input())\npossible = [False] + [True] * n\nwhile True:\n    line = input()\n    if line == 'HELP':\n        break\n    question = set(map(int, line.split()))\n    answer = input()\n    for value in range(1, n + 1):\n        if (value in question) != (answer == 'YES'):\n            possible[value] = False\nfor value in range(1, n + 1):\n    if possible[value]:\n        print(value, end=' ')\n",
+      "explanation": "Для каждого числа храним флаг. Если членство в вопросе не согласуется с ответом, запрещаем число навсегда; отдельная сортировка не нужна.",
+      "time_complexity": "Ожидаемое O(nq + S)",
+      "space_complexity": "O(n + m)"
+    }
+  ],
+  "pitfalls": [
+    "HELP завершает ввод и не сопровождается ответом.",
+    "После YES нельзя возвращать ранее исключённые числа."
+  ],
+  "sources": [
+    {
+      "title": "Условие задачи на PythonTutor (старый курс)",
+      "url": "https://pythontutor.ru/lessons/sets/problems/guess_number/"
+    }
+  ]
+}
