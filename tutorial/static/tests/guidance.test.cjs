@@ -9,3 +9,23 @@ assert.equal(next('Почему input возвращает строку?',[],hin
 assert.equal(next('Дай подсказку',[],[]),null);
 assert.equal(next('Дай подсказку',[],hints).guidedHint,1);
 console.log('PASS reviewed hints in order, explicit replay, no model required, other questions remain conversational');
+const {diagnose,review}=ctx.window.TutorGuidance;
+const code='print(a)';
+const failure={code,result:'unhandled_exception',exception:{exception_type:'NameError',exception_msg:"name 'a' is not defined",line:1}};
+assert.match(diagnose(code,failure),/Python не знает это имя/);
+assert.match(diagnose(code,failure),/строка 1/);
+assert.match(diagnose('print(1)',failure),/изменил код/);
+assert.match(diagnose(code,null),/Сначала нажми/);
+assert.match(diagnose('',failure),/Редактор пока пуст/);
+assert.match(diagnose(code,{code,result:'ok',checked:false}),/ещё не проверка/);
+assert.match(diagnose(code,{code,result:'ok',checked:true,total:4}),/Проверка пройдена: 4 из 4/);
+assert.match(diagnose(code,{code,result:'wrong_answer',checked:true,test:2,passed:3,total:4,stdin:'3\n5',stdout:'7\n',expected:'7.5'}),/Ожидается:\n```text\n7.5/);
+assert.match(diagnose(code,{code,result:'wrong_answer',expected:null}),/изображение/);
+assert.match(diagnose(code,{code,result:'realtime_limited'}),/лимита выполнения/);
+assert.match(review('Проверь мой код',code,failure,false).answer,/Доступ к коду отключён/);
+assert.equal(review('Привет',code,failure),null);
+for(const type of ['SyntaxError','TypeError','ValueError','EOFError','IndexError','KeyError','ZeroDivisionError','RecursionError','TabError','IndentationError']){
+ const answer=diagnose(code,{...failure,exception:{exception_type:type,line:1}});
+ assert.ok(!answer.includes('точную причину без дополнительного разбора'),type);
+}
+console.log('PASS execution-based explanations, outdated-code guard, code privacy, limits, wrong answers and successful runs');

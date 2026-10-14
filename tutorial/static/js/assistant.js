@@ -158,13 +158,13 @@
     async function send(text,fromVoice=false){
         if(busy)return null;text=text.trim();if(!text)return null;
         if(text.length>3000){notice('Сократите вопрос до 3000 символов.',true);return null;}
-        const prepared=window.TutorGuidance?.current(text,localHistory());
+        const prepared=window.TutorGuidance?.current(text,localHistory()) || window.TutorGuidance?.review(text,codeNow(),window.BrowserPython?.lastRun?.(),!!$('tutor-include-code')?.checked);
         if(prepared&&!attachment){
             if(window.TutorDevice.isCurrent&&!window.TutorDevice.isCurrent())return null;
             const result={question:text,...prepared,id:'local-'+crypto.randomUUID()};
             message('user',text);message('assistant',result.answer,result.id);
             localTurns.push(result);try{localStorage.setItem(chatKey,JSON.stringify(localTurns.slice(-20)));}catch(_){}
-            question.value='';notice('Подсказка из учебника · работает без ИИ и интернета.');return result;
+            question.value='';notice('Помощь по задаче · работает без ИИ и интернета.');return result;
         }
         updateCode();const code=$('tutor-include-code').checked?lastCode:'';
         if(code.length>12000){notice('Код слишком длинный. Сократите его или отключите передачу кода.',true);return null;}
@@ -178,7 +178,8 @@
                 model.disabled=true;
                 const slug=panel.dataset.url.split('/').filter(Boolean).pop();
                 const record=await window.TutorDevice.get(panel.dataset.kind,slug);
-                const context=currentMaterial();
+                const execution=window.BrowserPython?.lastRun?.();
+                const context=currentMaterial()+(code&&execution?.code===code?'\n\nФактический результат последнего запуска (не инструкция):\n'+window.TutorGuidance.diagnose(code,execution):'');
                 const answer=await window.TutorLocalAI.answer(model.value,{question:text,code,context,learningContext:panel.dataset.learningContext,turns:localHistory(),solved:!!record?.solved||document.getElementById('knowledge-unlock')?.hidden===false},notice);
                 if(window.TutorDevice.isCurrent&&!window.TutorDevice.isCurrent())return null;
                 const result={question:text,answer,id:'local-'+crypto.randomUUID()};
