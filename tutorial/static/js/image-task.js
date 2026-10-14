@@ -25,7 +25,7 @@
         editor.textInput.getElement().setAttribute('aria-label', 'Код Python для обработки изображения');
         const draftKey='image-draft:'+window.TutorDevice?.owner()+':'+root.dataset.slug;
         try { const draft=localStorage.getItem(draftKey);if(draft!==null)editor.setValue(draft,-1); } catch(_){}
-        editor.on('change',()=>{try{localStorage.setItem(draftKey,editor.getValue());}catch(_){}});
+        editor.on('change',()=>{if(window.TutorDevice.isCurrent&&!window.TutorDevice.isCurrent())return;try{localStorage.setItem(draftKey,editor.getValue());}catch(_){}});
         var input = document.getElementById('image-input');
         var defaultInput = input.src;
         var uploaded = null;

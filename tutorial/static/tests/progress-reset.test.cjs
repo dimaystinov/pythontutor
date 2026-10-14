@@ -11,15 +11,18 @@ const data=new Map([
  ['tutor-ai-model','qwen'],['lesson-menu-open','true']
 ]);
 const db={transaction(){const tx={objectStore(){return {
- getAll(){return {result:[...records.values()]};}, delete(key){records.delete(key);}
- };}};queueMicrotask(()=>tx.oncomplete());return tx;}};
+ getAll(){const r={result:[...records.values()]};queueMicrotask(()=>r.onsuccess?.());return r;}, delete(key){records.delete(key);}
+ };}};setImmediate(()=>tx.oncomplete());return tx;}};
 const context={window:{},document:{querySelector:()=>({content:'local'})},
  indexedDB:{open(){const r={result:db};queueMicrotask(()=>r.onsuccess());return r;}},
- localStorage:{get length(){return data.size;},key:i=>[...data.keys()][i],removeItem:k=>data.delete(k),setItem:(k,v)=>data.set(k,v)}
+ localStorage:{getItem:k=>data.get(k)??null,get length(){return data.size;},key:i=>[...data.keys()][i],removeItem:k=>data.delete(k),setItem:(k,v)=>data.set(k,v)}
 };
 vm.runInNewContext(fs.readFileSync(require('node:path').join(__dirname,'../pwa/storage.js'),'utf8'),context);
 (async()=>{
+ assert.equal(context.window.TutorDevice.isCurrent(),true);
  await context.window.TutorDevice.reset();
+ assert.equal(context.window.TutorDevice.isCurrent(),false);
+ await assert.rejects(context.window.TutorDevice.save('problem','sum','old code',{status:'ok'}),/Прогресс очищен/);
  assert.equal(records.has('local:problem:sum'),false);
  assert.equal(records.has('teacher:problem:sum'),true);
  assert.equal(data.has('problem-draft:local:sum'),false);

@@ -26,8 +26,9 @@ $('pwa-export')?.addEventListener('click',async()=>{const url=URL.createObjectUR
 $('pwa-import')?.addEventListener('change',async event=>{try{const file=event.target.files[0];if(!file)return;if(file.size>32*1024*1024)throw Error('Копия больше 32 МБ.');const data=JSON.parse(await file.text());if(![1,2].includes(data.version)||!Array.isArray(data.solutions)||data.solutions.length>1000)throw Error('Неверный формат копии.');for(const r of data.solutions){if(!['problem','image'].includes(r.kind)||!/^[-\w]+$/.test(r.slug)||typeof r.code!=='string'||r.code.length>65536||!['ok','error'].includes(r.result?.status))throw Error('Некорректное решение.');}if(data.version===2){if(!data.preferences||typeof data.preferences!=='object'||Array.isArray(data.preferences))throw Error('Неверные настройки копии.');for(const [key,value] of Object.entries(data.preferences)){if(!backupKey(key)||typeof value!=='string'||value.length>2000000)throw Error('Некорректные локальные данные.');}}for(const r of data.solutions)await TutorDevice.save(r.kind,r.slug,r.code,r.result,typeof r.acceptedCode==='string'?r.acceptedCode:'');if(data.version===2)for(const [key,value] of Object.entries(data.preferences))localStorage.setItem(key,value);await progress();say('Данные восстановлены в текущий локальный профиль.');}catch(e){say(e.message);}});
 // Other open task tabs must stop autosaving the previous student's drafts.
 window.addEventListener('storage',event=>{
- if(event.key==='tutor-progress-reset:'+TutorDevice.owner())location.reload();
+ if(event.key==='tutor-progress-reset-done:'+TutorDevice.owner())location.reload();
 });
+window.addEventListener('pageshow',()=>{if(!TutorDevice.isCurrent())location.reload();});
 $('pwa-reset')?.addEventListener('click',()=>{$('pwa-reset-confirm').hidden=false;$('pwa-reset-cancel').focus();});
 $('pwa-reset-cancel')?.addEventListener('click',()=>{$('pwa-reset-confirm').hidden=true;$('pwa-reset').focus();});
 $('pwa-reset-accept')?.addEventListener('click',async()=>{

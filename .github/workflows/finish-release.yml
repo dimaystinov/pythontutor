@@ -1,0 +1,27 @@
+name: Assemble verified offline release
+on:
+  workflow_dispatch:
+  push:
+    branches: [codex/github-offline-bundle]
+    paths: ['scripts/offline/finish_release.py', '.github/workflows/finish-release.yml']
+permissions:
+  contents: write
+concurrency:
+  group: offline-model-release
+  cancel-in-progress: false
+jobs:
+  assemble:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install 'Django>=5.2,<5.3' 'whitenoise>=6.9,<7' requests Pillow
+      - run: node --test tutorial/static/tests/*.test.cjs
+      - run: python scripts/build_pages.py
+      - run: python scripts/verify_pages.py
+      - run: python scripts/offline/finish_release.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -12,6 +12,12 @@
 <p><button id="pwa-export" class="btn btn-default">Скачать резервную копию решений</button> <label class="btn btn-default">Восстановить из копии <input id="pwa-import" type="file" accept="application/json" hidden></label></p>
 <p>Очистка данных сайта удаляет локальные решения и скачанный курс. Сохраните резервную копию перед очисткой или сменой устройства.</p>
 <h2 id="settings">Настройки</h2>
+<script defer src="/static/pwa/model-assets.js?v=1"></script>
+<h3>Локальный помощник</h3>
+<p>Qwen Coder 7B работает на устройстве с WebGPU и достаточной памятью. Подготовьте модель один раз; пакеты можно передать другим ученикам на флешке.</p>
+<button class="btn btn-default" data-model-group="qwen7b">Подготовить ИИ</button>
+<button class="btn btn-default" data-model-group="whisper-tiny">Подготовить голосовой ввод</button>
+<div id="pwa-model-setup" hidden></div>
 <p>За этим компьютером будет заниматься другой ученик? Можно начать обучение с чистого листа.</p>
 <button id="pwa-reset" class="btn btn-default">Начать обучение заново</button>
 <div id="pwa-reset-confirm" hidden role="region" aria-label="Подтверждение очистки прогресса" style="margin-top:16px;padding:16px;border:1px solid #ddd;border-radius:4px">

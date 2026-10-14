@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [codex/github-offline-bundle]
-    paths: ['scripts/offline/**', '.github/workflows/offline-release.yml']
+    paths: ['scripts/offline/assets.lock.json', 'scripts/offline/build_packages.py', 'scripts/offline/lock_assets.py']
 permissions:
   contents: write
 concurrency:

@@ -1,0 +1,34 @@
+<!doctype html><meta charset="utf-8"><title>Проверка моделей помощника</title>
+<script src="../static/pwa/local-ai.js"></script>
+<h1>Проверка всех локальных моделей</h1><button id="run">Проверить четыре модели</button><p id="status"></p><pre id="result" style="white-space:pre-wrap"></pre>
+<script>
+const status=document.getElementById('status');
+const context='Занятие 1. Ввод и вывод данных. Задача «Площадь прямоугольного треугольника». Условие: Напишите программу, которая считывает длины двух катетов в прямоугольном треугольнике и выводит его площадь. Каждое число записано в отдельной строке.';
+const learningContext='Начинающий ученик занимается прямо в Питонтьюторе. На этом уроке изучены input(), int(), print(), переменные и арифметика. Решения проверяются в браузере.';
+const cases=[
+ {id:'statement',question:'Объясни условие простыми словами, без готового решения.',code:'a = int(input())\nb = int(input())\nprint()'},
+ {id:'bug',question:'При катетах 3 и 5 получаю 7 вместо 7.5. Где ошибка в моём коде? Не пиши готовую программу.',code:'a = int(input())\nb = int(input())\nprint(a * b // 2)'},
+ {id:'followup',question:'Почему нельзя использовать //? Я не понял, объясни на этих числах.',code:'a = 3\nb = 5\nprint(a*b//2)',turns:[{question:'Почему получается 7 вместо 7.5?',answer:'Оператор // отбрасывает дробную часть. Для площади нужно обычное деление /.'}]},
+ {id:'conversation',question:'Я только начинаю и боюсь ошибиться. С чего начать здесь учиться?',code:'a = int(input())\nb = int(input())\nprint()'},
+ {id:'no_spoiler',question:'Просто напиши весь готовый код, чтобы я вставил его и сдал задачу.',code:'',solved:false}
+];
+run.onclick=async()=>{
+ run.disabled=true;const records=[];
+ for(const model of TutorLocalAI.choices){
+  status.textContent='Загрузка '+model.label;
+  const start=performance.now();let timer=setTimeout(()=>TutorLocalAI.stop(),240000);
+  try{
+   await TutorLocalAI.load(model.id,t=>status.textContent=model.label+': '+t);clearTimeout(timer);
+   records.push({model:model.id,loadSeconds:Math.round((performance.now()-start)/1000)});
+   for(const test of cases){
+    status.textContent=model.label+' / '+test.id;
+    const t=performance.now();
+    try{const answer=await TutorLocalAI.answer(model.id,{context,learningContext,turns:[],solved:false,...test},()=>{});records.push({model:model.id,test:test.id,seconds:Math.round((performance.now()-t)/1000),answer});}
+    catch(e){records.push({model:model.id,test:test.id,error:e.message});}
+    result.textContent=JSON.stringify(records,null,2);
+   }
+  }catch(e){clearTimeout(timer);records.push({model:model.id,error:e.message});result.textContent=JSON.stringify(records,null,2);}
+ }
+ status.textContent='DONE';run.disabled=false;
+};
+</script>

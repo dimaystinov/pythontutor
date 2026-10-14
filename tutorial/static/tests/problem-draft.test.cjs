@@ -85,3 +85,10 @@ assert.equal(reopened.notifications(), 1, 'First edit updates menu immediately')
 openPage('fresh');
 assert.equal(JSON.parse(storage.get('problem-draft:fresh:aplusb')).started, true, 'Started state survives reload');
 console.log('Untouched starters remain neutral; real edits persist started state.');
+
+const stalePage = openPage('reset-test');
+stalePage.editor.code = 'old student';
+storage.delete('problem-draft:reset-test:aplusb');
+storage.set('tutor-progress-reset:reset-test','new learner');
+stalePage.save();
+assert.equal(storage.has('problem-draft:reset-test:aplusb'),false,'An old tab must not recreate its draft after reset');

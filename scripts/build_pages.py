@@ -53,7 +53,7 @@ with tempfile.TemporaryDirectory() as tmp:
         if url == '/pwa/':
             html = html.replace('Облачный ИИ, регистрация и кабинет преподавателя требуют сети.', 'Все учебные функции работают на устройстве. Учётная запись не нужна.')
             html = html.replace('Локальные решения хранятся в этом браузере отдельно от учётной записи.', 'Решения, черновики и история помощника хранятся только в этом браузере.')
-            html = html.replace('Локальные Qwen и голосовой ввод Whisper скачиваются отдельно в помощнике.', 'Qwen и Whisper загружаются автоматически при первом использовании соответствующей функции помощника.')
+            html = html.replace('Локальные Qwen и голосовой ввод Whisper скачиваются отдельно в помощнике.', 'Qwen и Whisper подготавливаются один раз из пакетов GitHub в помощнике или настройках.')
             html = html.replace('резервную копию решений','резервную копию данных')
         write(url, rewrite(html))
     shutil.copytree(ROOT/'tutorial/static', out/'static', dirs_exist_ok=True, ignore=shutil.ignore_patterns('tests','__pycache__'))
@@ -97,7 +97,7 @@ with tempfile.TemporaryDirectory() as tmp:
     write('/sw.js',sw)
     resources += [base+p.relative_to(out).as_posix() for p in (out/'static').rglob('*') if p.is_file()]
     resources.append(base+'manifest.webmanifest')
-    write('/pwa/download-manifest.json',json.dumps({'version':'pages-v1.0.0','pages':[base+u.lstrip('/') for u in package['pages']], 'resources':sorted(set(resources))}))
+    write('/pwa/download-manifest.json',json.dumps({'version':'pages-v1.1.0','pages':[base+u.lstrip('/') for u in package['pages']], 'resources':sorted(set(resources))}))
     write('/.nojekyll','')
     write('/404.html','<!doctype html><meta charset="utf-8"><h1>Страница не найдена</h1><a href="'+base+'">К урокам</a>')
     print(f'Static site: {out}; {len(package["pages"])} pages, {len(resources)} resources; base={base}')
