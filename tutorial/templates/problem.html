@@ -6,9 +6,9 @@
 	{{ block.super }}
 
 	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/lesson.css?v=solved3">
-	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/problem.css?v=solved3">
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/problem.css?v=verdict4">
 
-	<script type="text/javascript" src="{{ STATIC_URL }}js/problem.js?v=beginner1"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/problem.js?v=verdict4"></script>
 
 	<script type="text/javascript">
 		var problem_name = '{{ problem.urlname|escapejs }}';
@@ -52,6 +52,7 @@
     {% endif %}
 
 	<p id="submission-status" class="submission-status" role="status" aria-live="polite"></p>
+	{% if next_task %}<p id="submission-next-task" hidden>Следующая задача: <a href="{{ next_task.url }}">{{ next_task.title }}</a></p>{% endif %}
 	<div id="knowledge-unlock" class="alert alert-success" {% if not knowledge_unlocked %}hidden{% endif %}>
         Задача решена. <a href="{% url 'knowledge_problem' problem.urlname %}">Посмотреть рекомендуемое решение и другие способы</a>
     </div>
