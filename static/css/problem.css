@@ -81,3 +81,6 @@
 #example_tests tr.success .test_result { color:#7b895d; }
 #example_tests tr.warning .test_result, #example_tests tr.danger .test_result { color:#a94442; }
 #example_tests tr.active .test_result { color:#777; }
+
+#submission-status, #submission-next-task, #knowledge-unlock { background:transparent; border:0; box-shadow:none; padding:0; }
+#knowledge-unlock { margin:12px 0 24px; }
