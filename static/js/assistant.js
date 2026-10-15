@@ -34,6 +34,16 @@
     }
     function localHistory(){try{localTurns=JSON.parse(localStorage.getItem(chatKey)||'[]');}catch(_){localTurns=[];}return localTurns;}
     function describeModel(){if($('tutor-api-settings'))$('tutor-api-settings').hidden=!api();const c=window.TutorLocalAI?.choices.find(c=>c.id===model?.value);if($('tutor-model-info'))$('tutor-model-info').textContent=c?c.download+' загрузка, '+c.memory+'. '+c.note:'Обработка через настроенный API. Нужен интернет.';if($('tutor-load-model'))$('tutor-load-model').hidden=!c;if($('tutor-load-voice'))$('tutor-load-voice').hidden=!c;}
+    let pairingWindow;
+    $('tutor-connect-desktop')?.addEventListener('click',()=>{
+        if(location.origin==='http://127.0.0.1:8043'){prepareModel().then(()=>{$('tutor-desktop-status').textContent='Приложение подключено.';}).catch(e=>notice(e.message,true));return;}
+        pairingWindow=window.open('http://127.0.0.1:8043/connect','pythontutor-connect','width=600,height=350');
+        $('tutor-desktop-status').textContent='Подтвердите подключение в открывшемся окне.';
+    });
+    window.addEventListener('message',event=>{
+        if(event.origin!=='http://127.0.0.1:8043'||!pairingWindow||event.source!==pairingWindow||event.data?.type!=='pythontutor-pair'||typeof event.data.token!=='string')return;
+        $('tutor-api-key').value=event.data.token;$('tutor-desktop-status').textContent='Приложение подключено.';
+    });
     describeModel();
     const csrf=()=>panel.querySelector('[name=csrfmiddlewaretoken]').value;
     function notice(text,error=false){if(status){status.textContent=text;status.classList.toggle('error',error);}}
