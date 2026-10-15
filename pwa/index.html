@@ -51,7 +51,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 <link rel="apple-touch-icon" href="/pythontutor/static/pwa/icon-192.png">
 <script defer src="/pythontutor/static/pwa/app.js?v=progress5"></script>
 <script src="/pythontutor/static/pwa/storage.js?v=reset7"></script>
-<meta name="csrf-token" content="LVTWA7xlo7PHcQbUsDBQBTCrWHLAndFiFAVmSKgUZKyRBA21f33rWK32UeY1eqFn">
+<meta name="csrf-token" content="y4BGf0NrXg3bGgVyjYJzXNkPOgRm1YDqBQIW9nJjuYSVaAGwlAIwtkD8JKqMsEgN">
 
 	<title>Интерактивный учебник языка Python</title>
 
@@ -117,7 +117,14 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 <section class="settings-section" aria-labelledby="settings-app">
  <h2 id="settings-app">Приложение</h2>
  <p>PythonTutor для Windows и macOS: учебник, локальные профили и помощник OpenCode.</p>
- <div class="settings-actions"><a id="desktop-release" class="btn btn-primary" href="https://github.com/dimaystinov/pythontutor/releases/tag/app-v2.0.0" target="_blank" rel="noopener noreferrer">Скачать приложение PythonTutor</a></div>
+ <div class="settings-actions"><a id="desktop-release" class="btn btn-primary" href="#desktop-download-options">Скачать приложение PythonTutor</a></div>
+ <details id="desktop-download-options"><summary>Другие версии</summary>
+ <ul>
+  <li><a href="https://github.com/dimaystinov/pythontutor/releases/download/app-v2.0.0/PythonTutor_2.0.0_x64-setup.exe">Windows</a></li>
+  <li><a href="https://github.com/dimaystinov/pythontutor/releases/download/app-v2.0.0/PythonTutor_2.0.0_aarch64.dmg">Mac с Apple Silicon (M1, M2, M3, M4 и новее)</a></li>
+  <li><a href="https://github.com/dimaystinov/pythontutor/releases/download/app-v2.0.0/PythonTutor_2.0.0_x64.dmg">Mac с Intel</a></li>
+ </ul>
+ </details>
  <p>Учебник работает без интернета. Для помощника OpenCode нужен интернет.</p>
  <div class="settings-actions"><button id="pwa-install" class="btn btn-default">Установить веб-приложение</button></div>
  <h3>Заниматься без интернета</h3>
@@ -145,6 +152,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
  </div>
 </section>
 </div>
+<script defer src="/pythontutor/static/pwa/desktop-download.js?v=1"></script>
 <script defer src="/pythontutor/static/pwa/model-assets.js?v=1"></script>
 
 
