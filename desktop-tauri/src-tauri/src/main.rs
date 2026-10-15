@@ -82,6 +82,25 @@ fn autostart(app: tauri::AppHandle, enabled: bool) -> Result<(), String> {
     }
     .map_err(|e| e.to_string())
 }
+#[tauri::command]
+fn open_release() -> Result<(), String> {
+    let url = "https://github.com/dimaystinov/pythontutor/releases/tag/app-v2.0.0";
+    #[cfg(target_os = "macos")]
+    let result = std::process::Command::new("/usr/bin/open").arg(url).spawn();
+    #[cfg(windows)]
+    let result = {
+        use std::os::windows::process::CommandExt;
+        std::process::Command::new("rundll32.exe")
+            .args(["url.dll,FileProtocolHandler", url])
+            .creation_flags(0x08000000)
+            .spawn()
+    };
+    #[cfg(not(any(windows, target_os = "macos")))]
+    let result = std::process::Command::new("xdg-open").arg(url).spawn();
+    result
+        .map(|_| ())
+        .map_err(|_| "Не удалось открыть браузер.".into())
+}
 fn cli_path(app: &tauri::AppHandle) -> Result<PathBuf, String> {
     app.path()
         .resolve(
@@ -254,6 +273,7 @@ fn main() {
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
+            open_release,
             register,
             login,
             current_profile,

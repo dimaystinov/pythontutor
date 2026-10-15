@@ -7,6 +7,7 @@ window.TutorNative={profile,invoke:(name,args={})=>invoke(name,{...args,profile:
 let meta=document.querySelector('meta[name=learner-id]');if(!meta){meta=document.createElement('meta');meta.name='learner-id';document.head.append(meta);}meta.content=profile.id;
 invoke('current_profile').then(p=>{if(p?.id!==profile.id)location.replace('/index.html');});
 window.addEventListener('DOMContentLoaded',()=>{
+ document.getElementById('desktop-release')?.addEventListener('click',event=>{event.preventDefault();invoke('open_release').catch(e=>alert(String(e)));});
  const model=document.getElementById('tutor-model');if(model){model.value='opencode-local';for(const o of [...model.options])if(o.value!=='opencode-local')o.remove();}
  document.getElementById('tutor-prepare-ai')?.remove();
  const apiSettings=document.getElementById('tutor-api-settings');if(apiSettings){for(const el of apiSettings.querySelectorAll('button,p'))el.remove();apiSettings.querySelector('input')?.closest('label')?.remove();}
