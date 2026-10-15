@@ -32,7 +32,7 @@ class Command(BaseCommand):
             existing = {r['filename']: r for r in archive.execute('SELECT * FROM tutorial_problem')}
             test_count = 0
             for path in sorted((root / 'problems').rglob('*.txt')):
-                filename = str(path.relative_to(root / 'problems'))
+                filename = path.relative_to(root / 'problems').as_posix()
                 try:
                     parsed = parse_file(path)
                 except (ValueError, AssertionError) as exc:
