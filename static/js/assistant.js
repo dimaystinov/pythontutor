@@ -13,6 +13,8 @@
         if(choice&&model?.querySelector('option[value="'+choice.replace(/[^\w.-]/g,'')+'"]'))model.value=choice;
         else if(model&&choice){model.value='Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC';localStorage.setItem('tutor-ai-model',model.value);}
     } catch(_){}
+    if(location.origin==='http://127.0.0.1:8043'&&model)model.value='opencode-local';
+    const api=()=>model?.value==='opencode-local';
     const local=()=>!!model&&model.value!=='cloud';
     const chatKey='tutor-local-chat:'+window.TutorDevice.owner()+':'+panel.dataset.url;
     let localTurns=[],modelPromise=null,mathQueue=Promise.resolve();
@@ -31,7 +33,7 @@
         return modelPromise;
     }
     function localHistory(){try{localTurns=JSON.parse(localStorage.getItem(chatKey)||'[]');}catch(_){localTurns=[];}return localTurns;}
-    function describeModel(){const c=window.TutorLocalAI?.choices.find(c=>c.id===model?.value);if($('tutor-model-info'))$('tutor-model-info').textContent=c?c.download+' загрузка, '+c.memory+'. '+c.note:'Обработка через настроенный API. Нужен интернет.';if($('tutor-load-model'))$('tutor-load-model').hidden=!c;if($('tutor-load-voice'))$('tutor-load-voice').hidden=!c;}
+    function describeModel(){if($('tutor-api-settings'))$('tutor-api-settings').hidden=!api();const c=window.TutorLocalAI?.choices.find(c=>c.id===model?.value);if($('tutor-model-info'))$('tutor-model-info').textContent=c?c.download+' загрузка, '+c.memory+'. '+c.note:'Обработка через настроенный API. Нужен интернет.';if($('tutor-load-model'))$('tutor-load-model').hidden=!c;if($('tutor-load-voice'))$('tutor-load-voice').hidden=!c;}
     describeModel();
     const csrf=()=>panel.querySelector('[name=csrfmiddlewaretoken]').value;
     function notice(text,error=false){if(status){status.textContent=text;status.classList.toggle('error',error);}}
@@ -86,8 +88,9 @@
         if(local()){
             log.querySelectorAll('.tutor-message').forEach(e=>e.remove());
             for(const turn of localHistory()){message('user',turn.question);message('assistant',turn.answer);}
-            $('tutor-context').textContent='Питоныч · локальный помощник';
+            $('tutor-context').textContent=api()?'Питоныч · OpenCode CLI':'Питоныч · локальный помощник';
             voiceReady=true;loaded=true;$('tutor-voice-mode').disabled=false;$('tutor-dictate').disabled=false;
+            if(api()){notice('Помощник работает через приложение PythonTutor.');return;}
             window.TutorModelAssets.ready('qwen7b').then(ready=>{if(ready)return prepareModel();notice('Подсказки доступны сразу. Для свободного разговора можно подготовить ИИ.');}).catch(e=>notice(e.message||String(e),true));return;
         }
         notice('Загружаю историю…');
@@ -183,7 +186,7 @@
                 const result={question:text,answer,id:'local-'+crypto.randomUUID()};
                 message('user',text);message('assistant',answer);
                 localTurns.push(result);try{localStorage.setItem(chatKey,JSON.stringify(localTurns.slice(-20)));}catch(_){}
-                pending=null;question.value='';notice('Ответ создан на устройстве.');return result;
+                pending=null;question.value='';notice(api()?'Ответ получен от OpenCode.':'Ответ создан на устройстве.');return result;
             }
             const result=await request(panel.dataset.url,data);message('user',result.question);message('assistant',result.answer,result.id);pending=null;question.value='';clearImage();notice('');return result;
         }catch(e){notice(e.message||String(e)||'Не удалось получить ответ. Повторите вопрос.',true);pending=null;if(fromVoice)throw e;return null;}

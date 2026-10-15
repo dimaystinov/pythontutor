@@ -1,0 +1,6 @@
+<!doctype html><meta charset="utf-8"><title>GitHub download check</title><button id="run">Проверить загрузку из GitHub</button><pre id="result"></pre><script>
+run.onclick=async()=>{result.textContent='';for(const [name,url,options] of [
+ ['release','https://github.com/dimaystinov/pythontutor/releases/download/v1.0.0/SHA256SUMS.txt',{}],
+ ['api','https://api.github.com/repos/dimaystinov/pythontutor/releases/assets/640530309',{headers:{Accept:'application/octet-stream'}}]
+]){try{const r=await fetch(url,options);result.textContent+=name+' '+r.status+' '+r.headers.get('content-type')+' '+(await r.text()).slice(0,250)+'\n';}catch(e){result.textContent+=name+' '+e.message+'\n';}}};
+</script>

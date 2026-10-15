@@ -3,7 +3,8 @@
 'use strict';
 const base = new URL('../models/', document.currentScript.src);
 const manifestURL = new URL('model-assets.json', document.currentScript.src);
-let manifestPromise;
+let manifestPromise,installedPromise;
+const installed=()=>installedPromise ||= fetch(new URL('installed.json',base),{cache:'no-store'}).then(r=>r.ok?r.json():{groups:[]}).catch(()=>({groups:[]}));
 const manifest = () => manifestPromise ||= fetch(manifestURL).then(r => {if (!r.ok) throw Error('Не удалось прочитать список файлов ИИ.'); return r.json();});
 const target = item => new URL(item.path.replace('ndarray-cache.json','tensor-cache.json'), base).href;
 async function present(item) {
@@ -11,6 +12,7 @@ async function present(item) {
  return response?.headers.get('x-tutor-sha256') === item.sha256;
 }
 async function ready(group) {
+ if((await installed()).groups?.includes(group))return true;
  const data = await manifest();
  for (const item of data.files.filter(f => f.group === group)) if (!await present(item)) return false;
  return true;
@@ -63,12 +65,12 @@ async function importFiles(files, progress = () => {}) {
 }
 async function mount(container, group, onReady) {
  const data=await manifest();container.replaceChildren();container.hidden=false;
- const text=document.createElement('p');text.textContent=group==='qwen7b'?'Один раз скачайте 3 пакета (4,3 ГБ), затем выберите их вместе. Дальше помощник запускается сам, без интернета.':'Один раз скачайте пакет голосового ввода (около 46 МБ) и выберите его здесь.';
+ const text=document.createElement('p');text.textContent='Установщик скачает все части, проверит их и настроит помощника. Для офлайн-ИИ отметьте Qwen 7B при установке. Ручная загрузка также доступна ниже. ';/*group==='qwen7b'?'Один раз скачайте 3 пакета (4,3 ГБ), затем выберите их вместе. Дальше помощник запускается сам, без интернета.':'Один раз скачайте пакет голосового ввода (около 46 МБ) и выберите его здесь.';*/
  const links=document.createElement('div');
  for(const pack of data.packages.filter(p=>p.group===group)){
   const link=document.createElement('a');link.href='https://github.com/dimaystinov/pythontutor/releases/download/'+data.release+'/'+pack.name;link.textContent=pack.name;link.download=pack.name;link.style.display='block';links.append(link);
  }
- const download=document.createElement('button');download.type='button';download.className='btn btn-primary';download.textContent='Скачать с GitHub';download.onclick=()=>{for(const link of links.children)link.click();};
+ const download=document.createElement('a');download.className='btn btn-primary';download.textContent='Установить автоматически';download.href='https://github.com/dimaystinov/pythontutor/releases/tag/desktop-v1.2.0';download.target='_blank';download.rel='noopener noreferrer';
  const details=document.createElement('details'),summary=document.createElement('summary');summary.textContent='Ссылки на отдельные пакеты';details.append(summary,links);
  const label=document.createElement('label');label.textContent='Выбрать скачанные пакеты';label.className='btn btn-default';
  const input=document.createElement('input');input.type='file';input.multiple=true;input.accept='.tar';input.style.display='block';input.setAttribute('aria-label','Пакеты локального помощника');label.append(input);
