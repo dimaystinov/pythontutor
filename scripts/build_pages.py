@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Compile the course into a standalone static site; Django is a build tool only."""
-import argparse, json, os, re, shutil, sys, tempfile
+import argparse, contextlib, json, os, re, shutil, sys, tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -16,10 +16,12 @@ out = (ROOT / args.output).resolve()
 if out == ROOT or ROOT not in out.parents:
     p.error('output must be a subdirectory of the project')
 out.mkdir(parents=True, exist_ok=True)
-with tempfile.TemporaryDirectory() as tmp:
+with tempfile.TemporaryDirectory() as tmp, contextlib.ExitStack() as cleanup:
     os.environ.update(DJANGO_SETTINGS_MODULE='pythontutor.settings', SECRET_KEY='static-build-not-a-deployed-secret', DATABASE_PATH=tmp+'/build.sqlite3', EXECUTION_MODE='browser')
     import django
     django.setup()
+    from django.db import connections
+    cleanup.callback(connections.close_all)
     from django.core.management import call_command
     from django.test import RequestFactory
     from django.contrib.auth.models import AnonymousUser
