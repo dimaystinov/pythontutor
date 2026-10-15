@@ -58,7 +58,9 @@ def install(progress,offline=False):
  jobs=[('Учебник',f'https://api.github.com/repos/dimaystinov/pythontutor/zipball/{sha}',cache/(sha+'.zip'),None),('OpenCode CLI',asset['browser_download_url'],cache/(release['tag_name']+'-'+assetname),expected)]
  for i,(label,url,target,sha256) in enumerate(jobs):download(url,target,lambda d,t:progress(label+(f' · {d//1048576} МБ' if not t else ''), (i+(d/t if t else 0))*60/len(jobs)),sha256)
  progress('Распаковываю учебник',62);staging=ROOT/'site-new';shutil.rmtree(staging,ignore_errors=True);unzip(jobs[0][2],staging)
- source=next(p for p in staging.iterdir() if p.is_dir());site=ROOT/'site'/'pythontutor';site.mkdir(parents=True,exist_ok=True);shutil.copytree(source,site,dirs_exist_ok=True);shutil.rmtree(staging)
+ source=next(p for p in staging.iterdir() if p.is_dir())
+ if not (source/'index.html').is_file() or not (source/'static/pwa/model-assets.json').is_file():raise ValueError('В архиве отсутствует учебник.')
+ site=ROOT/'site'/'pythontutor';site.mkdir(parents=True,exist_ok=True);shutil.copytree(source,site,dirs_exist_ok=True);shutil.rmtree(staging)
  progress('Настраиваю OpenCode CLI',67);bin_stage=ROOT/'bin-new';shutil.rmtree(bin_stage,ignore_errors=True);unzip(jobs[1][2],bin_stage)
  exe=next(bin_stage.rglob('opencode.exe' if sys.platform=='win32' else 'opencode'));BINARY.parent.mkdir(exist_ok=True)
  versioned=ROOT/'bin'/release['tag_name']/BINARY.name;versioned.parent.mkdir(parents=True,exist_ok=True)
@@ -84,20 +86,24 @@ def install_autostart(enabled):
  exe=Path(sys.executable)
  if sys.platform=='win32':
   import winreg
-  app=ROOT/'PythonTutor.exe'
+  app=ROOT/'launchers'/digest(exe)[:12]/'PythonTutor.exe';app.parent.mkdir(parents=True,exist_ok=True)
   if exe.resolve()!=app.resolve():shutil.copy2(exe,app)
   with winreg.CreateKey(winreg.HKEY_CURRENT_USER,r'Software\Microsoft\Windows\CurrentVersion\Run') as key:
    if enabled:winreg.SetValueEx(key,'PythonTutor',0,winreg.REG_SZ,f'"{app}" --serve')
    else:
     try:winreg.DeleteValue(key,'PythonTutor')
     except FileNotFoundError:pass
+  menu=Path(os.environ['APPDATA'])/'Microsoft/Windows/Start Menu/Programs/PythonTutor';menu.mkdir(parents=True,exist_ok=True)
+  env=os.environ.copy();env['TUTOR_EXE']=str(app);env['TUTOR_LINK']=str(menu/'PythonTutor.lnk')
+  subprocess.run(['powershell','-NoProfile','-Command',"$s=(New-Object -ComObject WScript.Shell).CreateShortcut($env:TUTOR_LINK);$s.TargetPath=$env:TUTOR_EXE;$s.Save()"],env=env,check=True,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
  else:
   original=exe.parents[2];app=Path.home()/'Applications'/'PythonTutor.app';app.parent.mkdir(exist_ok=True)
   if original!=app:shutil.copytree(original,app,dirs_exist_ok=True)
-  plist=Path.home()/'Library/LaunchAgents/org.pythontutor.helper.plist';plist.parent.mkdir(exist_ok=True)
+  plist=Path.home()/'Library/LaunchAgents/org.pythontutor.helper.plist';plist.parent.mkdir(parents=True,exist_ok=True)
   if enabled:
    with plist.open('wb') as f:plistlib.dump({'Label':'org.pythontutor.helper','ProgramArguments':[str(app/'Contents/MacOS/PythonTutor'),'--serve'],'RunAtLoad':True,'KeepAlive':False},f)
   else:plist.unlink(missing_ok=True)
+ (ROOT/'preferences.json').write_text(json.dumps({'autostart':enabled}))
 def start_service():
  try:
   if api(f'http://127.0.0.1:{PORT}/api/health').get('service')=='pythontutor':return
@@ -110,17 +116,19 @@ def start_service():
   except OSError:time.sleep(.1)
 def main():
  ROOT.mkdir(parents=True,exist_ok=True)
- if '--self-test' in sys.argv:return
+ if '--self-test' in sys.argv:
+  import tkinter
+  tkinter.Tcl().eval('info patchlevel');return
  if '--serve' in sys.argv:serve(ROOT,BINARY);return
  import tkinter as tk
  from tkinter import ttk
  window=tk.Tk();window.title('PythonTutor');window.geometry('680x450');events=queue.Queue()
  ttk.Label(window,text='PythonTutor — установка и обновление',font=('',18)).pack(pady=16)
  ttk.Label(window,text='Учебник и OpenCode CLI будут установлены автоматически.\nOpenCode использует интернет; локальный Qwen работает офлайн.').pack()
- offline=tk.BooleanVar(value=False);autostart=tk.BooleanVar(value=True)
+ offline=tk.BooleanVar(value=False);autostart=tk.BooleanVar(value=json.loads((ROOT/'preferences.json').read_text()).get('autostart',True) if (ROOT/'preferences.json').exists() else True)
  ttk.Checkbutton(window,text='Добавить Qwen 7B и голосовой ввод для работы офлайн (4,4 ГБ)',variable=offline).pack(pady=8)
  ttk.Checkbutton(window,text='Запускать помощника при входе в систему',variable=autostart).pack()
- bar=ttk.Progressbar(window,maximum=100,length=550);bar.pack(pady=12);status=ttk.Label(window,text='Готов к установке');status.pack()
+ bar=ttk.Progressbar(window,maximum=100,length=550);bar.pack(pady=12);status=ttk.Label(window,text='Готов к установке',wraplength=620);status.pack()
  def work(with_offline,auto):
   try:install(lambda text,value:events.put((text,value)),with_offline);install_autostart(auto);start_service();events.put(('done',100))
   except Exception as e:events.put(('Ошибка: '+str(e),-1))

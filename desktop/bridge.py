@@ -63,6 +63,9 @@ def make_server(root,binary,token):
    if not self.host_ok():self.respond({'error':'Host rejected'},403);return
    path=urlsplit(self.path).path
    if path=='/api/health':self.respond({'service':'pythontutor','cli':current_binary().exists()});return
+   if path=='/connect':
+    page=('<!doctype html><html lang="ru"><meta charset="utf-8"><title>Подключить PythonTutor</title><body style="font:18px system-ui;padding:32px"><h1>Подключить помощника</h1><p>Разрешить сайту dimaystinov.github.io отправлять вопросы в установленный OpenCode CLI?</p><button id="connect">Подключить PythonTutor</button><p id="status"></p><script>document.getElementById("connect").onclick=()=>{if(!window.opener){document.getElementById("status").textContent="Откройте это окно кнопкой в настройках помощника.";return;}window.opener.postMessage({type:"pythontutor-pair",token:'+json.dumps(token)+'},"https://dimaystinov.github.io");document.getElementById("status").textContent="Подключено. Можно закрыть это окно.";};</script></body></html>').encode()
+    self.send_response(200);self.send_header('Content-Type','text/html; charset=utf-8');self.send_header('Cache-Control','no-store');self.send_header('X-Frame-Options','DENY');self.send_header('Content-Length',str(len(page)));self.end_headers();self.wfile.write(page);return
    if path=='/api/pair':
     # Pairing secret is readable only by the locally served course, never CORS.
     if self.headers.get('Origin') not in {None,f'http://127.0.0.1:{PORT}',f'http://localhost:{PORT}'} or self.headers.get('Sec-Fetch-Site') not in {None,'same-origin','none'}:self.respond({'error':'Pair in desktop app'},403);return

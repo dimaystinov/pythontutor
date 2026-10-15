@@ -70,7 +70,7 @@ async function mount(container, group, onReady) {
  for(const pack of data.packages.filter(p=>p.group===group)){
   const link=document.createElement('a');link.href='https://github.com/dimaystinov/pythontutor/releases/download/'+data.release+'/'+pack.name;link.textContent=pack.name;link.download=pack.name;link.style.display='block';links.append(link);
  }
- const download=document.createElement('a');download.className='btn btn-primary';download.textContent='Установить автоматически';download.href='https://github.com/dimaystinov/pythontutor/releases/tag/desktop-v1.2.0';download.target='_blank';download.rel='noopener noreferrer';
+ const download=document.createElement('a');download.className='btn btn-primary';download.textContent='Установить автоматически';download.href='https://github.com/dimaystinov/pythontutor/releases/tag/desktop-v1.2.1';download.target='_blank';download.rel='noopener noreferrer';
  const details=document.createElement('details'),summary=document.createElement('summary');summary.textContent='Ссылки на отдельные пакеты';details.append(summary,links);
  const label=document.createElement('label');label.textContent='Выбрать скачанные пакеты';label.className='btn btn-default';
  const input=document.createElement('input');input.type='file';input.multiple=true;input.accept='.tar';input.style.display='block';input.setAttribute('aria-label','Пакеты локального помощника');label.append(input);

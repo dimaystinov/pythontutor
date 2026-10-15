@@ -37,3 +37,23 @@ class DesktopTests(unittest.TestCase):
     installer.download('https://github.com/test',target,lambda *_:None,hashlib.sha256(b'abcdef').hexdigest())
     self.assertEqual(network.call_args.args[0].get_header('Range'),'bytes=3-');self.assertEqual(target.read_bytes(),b'abcdef')
 if __name__=='__main__':unittest.main()
+
+class AutostartTests(unittest.TestCase):
+ def test_mac_registration_and_disable(self):
+  import os,sys,plistlib
+  with tempfile.TemporaryDirectory() as td:
+   home=Path(td);root=home/'data';root.mkdir();exe=home/'download/PythonTutor.app/Contents/MacOS/PythonTutor';exe.parent.mkdir(parents=True);exe.write_bytes(b'test');exe.chmod(0o755)
+   with patch.object(installer,'ROOT',root),patch.object(sys,'frozen',True,create=True),patch.object(sys,'platform','darwin'),patch.object(sys,'executable',str(exe)),patch('installer.Path.home',return_value=home):
+    installer.install_autostart(True)
+    plist=home/'Library/LaunchAgents/org.pythontutor.helper.plist'
+    data=plistlib.loads(plist.read_bytes());self.assertTrue(data['RunAtLoad']);self.assertEqual(data['ProgramArguments'][-1],'--serve');self.assertTrue(Path(data['ProgramArguments'][0]).exists())
+    installer.install_autostart(False);self.assertFalse(plist.exists())
+ def test_windows_registration_and_disable(self):
+  import sys,types
+  from unittest.mock import MagicMock
+  with tempfile.TemporaryDirectory() as td:
+   root=Path(td)/'data';root.mkdir();exe=Path(td)/'setup.exe';exe.write_bytes(b'test')
+   registry=types.SimpleNamespace(HKEY_CURRENT_USER=1,REG_SZ=1,CreateKey=MagicMock(),SetValueEx=MagicMock(),DeleteValue=MagicMock())
+   with patch.object(installer,'ROOT',root),patch.object(sys,'frozen',True,create=True),patch.object(sys,'platform','win32'),patch.object(sys,'executable',str(exe)),patch.dict(sys.modules,{'winreg':registry}),patch.dict(installer.os.environ,{'APPDATA':str(Path(td)/'roaming')}),patch('installer.subprocess.run'):
+    installer.install_autostart(True);self.assertIn('--serve',registry.SetValueEx.call_args.args[-1]);self.assertEqual(len(list((root/'launchers').rglob('*.exe'))),1)
+    installer.install_autostart(False);registry.DeleteValue.assert_called_once()
