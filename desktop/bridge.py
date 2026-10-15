@@ -28,14 +28,16 @@ def run_chat(binary, messages, model):
    # Flat deny removes tools and triggers upstream free-tier bug #50627.
    env['OPENCODE_CONFIG_CONTENT']=json.dumps({'permission':'ask','share':'disabled','autoupdate':False,'agent':{'tutor':{'mode':'primary','description':'Text-only Python teacher','permission':'ask','prompt':'Ты преподаватель Python. Только текстовый ответ. Не используй инструменты.'}}})
    result=subprocess.run([str(binary),'run','--pure','--agent','tutor','--format','json','--model','opencode/'+model,prompt],cwd=work,env=env,capture_output=True,text=True,timeout=100,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
-   parts=[];free_rejected=False
+   parts=[];free_rejected=False;provider_failed=False
    for line in result.stdout.splitlines():
     try:event=json.loads(line)
     except ValueError:continue
+    if event.get('type')=='error':provider_failed=True
     if event.get('type')=='error' and 'free tier' in str(event.get('error',{})).lower():free_rejected=True
     if event.get('type')=='text' and isinstance(event.get('part',{}).get('text'),str):parts.append(event['part']['text'])
    if free_rejected:raise ValueError('OpenCode ограничил использование бесплатного тарифа в этом режиме. Выберите локальный Qwen или настройте разрешённый доступ в OpenCode. Обход ограничений не выполняется.')
-   if not parts:raise ValueError('OpenCode не вернул ответ. Проверьте интернет и доступ к бесплатной модели. В настройках OpenCode может потребоваться вход.')
+   if provider_failed:raise ValueError('Сервис выбранной модели вернул ошибку. Попробуйте ещё раз или выберите другую бесплатную модель в настройках.')
+   if not parts:raise ValueError('OpenCode не завершил ответ. Попробуйте ещё раз или выберите другую бесплатную модель.')
    answer='\n'.join(parts)
    # Some providers leak a reasoning prefix with only a closing think tag.
    if '</think>' in answer:answer=answer.rsplit('</think>',1)[1]

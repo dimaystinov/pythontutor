@@ -33,3 +33,6 @@ assert.ok(!hintOnly('Проверь это:\n```python\nprint(42)\n```',false).e
 assert.ok(messages[0].content.includes('5 / 2 == 2.5'));
 
 assert.equal(hintOnly('input возвращает строку.\nИсправленный код будет выглядеть так:\n```python\nprint(42)\n```',false),'input возвращает строку.');
+
+const drawing='Прямоугольник:\n```text\n+---+\n| / |\n+---+\n```\nДиагональ делит его на две равные части.';
+assert.equal(hintOnly(drawing,false),drawing,'Keep diagrams and the explanation after them');

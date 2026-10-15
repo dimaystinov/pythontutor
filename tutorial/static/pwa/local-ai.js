@@ -59,9 +59,14 @@ function dialogueMessages(id,{question='',code='',context='',learningContext='',
 }
 function hintOnly(output,solved){
  if(solved)return output;
+ const diagrams=[];
+ output=output.replace(/```(?:text|plaintext)?\n([\s\S]*?)```/g,(block,body)=>{
+  if(!/[│┌┐└┘─]|\+[-+]{2,}/.test(body)||/\b(?:print|input|import|def|for|while)\b|=/.test(body))return block;
+  return '\uFFF0'+(diagrams.push(block)-1)+'\uFFF1';
+ });
  const start=output.split('```')[0].replace(/(?:Вот|Ниже)[^.!?\n]*(?:код|решени)[^.!?\n]*:?\s*$/iu,'').trim();
  const useful=start.replace(/(?:Исправленный код|Код решения)[^.!?\n]*:\s*$/iu,'').replace(/(?:Попробуйте|Попробуй) изменить строку[^.!?]*следующую:\s*$/iu,'').trim();
- return useful&&!/^(?:Проверь это|Вот как это работает|Вот решение|Вот код|Смотри|Например)[:.!]?$/iu.test(useful)?useful.slice(0,2400):'Готовую программу пока не показываю. Давай начнём с условия: какие данные вводятся и какой результат нужно получить?';
+ return useful&&!/^(?:Проверь это|Вот как это работает|Вот решение|Вот код|Смотри|Например)[:.!]?$/iu.test(useful)?useful.slice(0,2400).replace(/\uFFF0(\d+)\uFFF1/g,(_,i)=>diagrams[Number(i)]):'Готовую программу пока не показываю. Давай начнём с условия: какие данные вводятся и какой результат нужно получить?';
 }
 
 async function apiAnswer(payload,progress){
