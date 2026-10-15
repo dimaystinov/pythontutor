@@ -68,17 +68,21 @@ def install(progress,offline=False):
  (ROOT/'cli-path').write_text(str(versioned.relative_to(ROOT)))
  shutil.rmtree(bin_stage)
  if offline:
+  (site/'static/models/installed.json').unlink(missing_ok=True)
   manifest=json.loads((site/'static/pwa/model-assets.json').read_text());files={x['path']:x for x in manifest['files']};packs=manifest['packages'];
   for i,pack in enumerate(packs):
    url='https://github.com/dimaystinov/pythontutor/releases/download/'+manifest['release']+'/'+pack['name'];archive=cache/pack['name']
    download(url,archive,lambda d,t:progress('ИИ: '+pack['name'],70+(i+(d/t if t else 0))*27/len(packs)))
+   seen=set()
    with tarfile.open(archive) as tar:
     for member in tar:
-     item=files.get(member.name)
+     if member.name in seen:raise ValueError('Повторный файл в пакете ИИ.')
+     seen.add(member.name);item=files.get(member.name)
      if not member.isfile() or not item or member.size!=item['size']:raise ValueError('Неизвестный файл в пакете ИИ.')
      target=safe_path(site/'static/models',member.name.replace('ndarray-cache.json','tensor-cache.json'));target.parent.mkdir(parents=True,exist_ok=True)
      with tar.extractfile(member) as src,target.open('wb') as dst:shutil.copyfileobj(src,dst)
      if digest(target)!=item['sha256']:target.unlink();raise ValueError('Повреждён файл ИИ. Повторите установку.')
+   if seen!=set(pack['files']):raise ValueError('Пакет ИИ неполный. Повторите установку.')
   (site/'static/models/installed.json').write_text(json.dumps({'groups':['qwen7b','whisper-tiny']}))
  (ROOT/'installed.json').write_text(json.dumps({'course':sha,'opencode':release['tag_name']}));progress('Готово',100)
 def install_autostart(enabled):
@@ -114,6 +118,7 @@ def start_service():
   try:
    if api(f'http://127.0.0.1:{PORT}/api/health').get('service')=='pythontutor':return
   except OSError:time.sleep(.1)
+ raise RuntimeError('Не удалось запустить помощника на порту 8043. Закройте другую программу, использующую этот порт.')
 def main():
  ROOT.mkdir(parents=True,exist_ok=True)
  if '--self-test' in sys.argv:

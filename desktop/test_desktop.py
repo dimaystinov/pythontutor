@@ -57,3 +57,28 @@ class AutostartTests(unittest.TestCase):
    with patch.object(installer,'ROOT',root),patch.object(sys,'frozen',True,create=True),patch.object(sys,'platform','win32'),patch.object(sys,'executable',str(exe)),patch.dict(sys.modules,{'winreg':registry}),patch.dict(installer.os.environ,{'APPDATA':str(Path(td)/'roaming')}),patch('installer.subprocess.run'):
     installer.install_autostart(True);self.assertIn('--serve',registry.SetValueEx.call_args.args[-1]);self.assertEqual(len(list((root/'launchers').rglob('*.exe'))),1)
     installer.install_autostart(False);registry.DeleteValue.assert_called_once()
+
+class CompleteInstallTests(unittest.TestCase):
+ def test_all_offline_parts_installed_without_user_selection(self):
+  import tarfile
+  with tempfile.TemporaryDirectory() as td:
+   p=Path(td);root=p/'install';fixtures=p/'fixtures';fixtures.mkdir();manifest={'release':'vtest','files':[],'packages':[]}
+   for group in ['qwen7b','whisper-tiny']:
+    data=(group+' content').encode();name=group+'/data.bin';pack=group+'.tar'
+    manifest['files'].append({'path':name,'group':group,'size':len(data),'sha256':hashlib.sha256(data).hexdigest()})
+    manifest['packages'].append({'name':pack,'group':group,'files':[name]})
+    with tarfile.open(fixtures/pack,'w') as tar:
+     info=tarfile.TarInfo(name);info.size=len(data);tar.addfile(info,io.BytesIO(data))
+   with zipfile.ZipFile(fixtures/'course.zip','w') as z:
+    z.writestr('repo/index.html','course');z.writestr('repo/static/pwa/model-assets.json',json.dumps(manifest))
+   with zipfile.ZipFile(fixtures/'cli.zip','w') as z:z.writestr('opencode','cli')
+   release={'tag_name':'vtest','assets':[{'name':'opencode-darwin-arm64.zip','digest':'sha256:'+hashlib.sha256((fixtures/'cli.zip').read_bytes()).hexdigest(),'browser_download_url':'https://github.com/cli.zip'}]}
+   downloads=[];progress=[]
+   def fake_download(url,target,callback,expected=None):
+    downloads.append(url);target.parent.mkdir(parents=True,exist_ok=True)
+    src=fixtures/('course.zip' if '/zipball/' in url else url.rsplit('/',1)[1]);target.write_bytes(src.read_bytes());callback(target.stat().st_size,0);return target
+   with patch.object(installer,'ROOT',root),patch.object(installer,'BINARY',root/'bin/opencode'),patch.object(installer.sys,'platform','darwin'),patch('installer.platform.machine',return_value='arm64'),patch('installer.api',side_effect=[{'commit':{'sha':'test'}},release]),patch('installer.download',side_effect=fake_download):
+    installer.install(lambda _,v:progress.append(v),True)
+   self.assertEqual(len(downloads),4);self.assertTrue(all(0<=x<=100 for x in progress));self.assertEqual(progress[-1],100)
+   for group in ['qwen7b','whisper-tiny']:self.assertEqual((root/'site/pythontutor/static/models'/group/'data.bin').read_text(),group+' content')
+   self.assertTrue((root/'site/pythontutor/static/models/installed.json').exists());self.assertTrue((root/(root/'cli-path').read_text()).exists())
