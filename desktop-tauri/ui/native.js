@@ -10,7 +10,7 @@ window.addEventListener('DOMContentLoaded',()=>{
  const model=document.getElementById('tutor-model');if(model){model.value='opencode-local';for(const o of [...model.options])if(o.value!=='opencode-local')o.remove();}
  document.getElementById('tutor-prepare-ai')?.remove();
  const apiSettings=document.getElementById('tutor-api-settings');if(apiSettings){for(const el of apiSettings.querySelectorAll('button,p'))el.remove();apiSettings.querySelector('input')?.closest('label')?.remove();}
- const header=document.querySelector('header')||document.querySelector('.navbar')||document.body;
+ const header=document.body;
  const control=document.createElement('button');control.textContent=profile.name+' · Выйти';control.className='btn btn-link';control.style.cssText='position:fixed;bottom:10px;left:12px;z-index:10000;background:white;border:1px solid #ccddeb;border-radius:8px';
  control.onclick=async()=>{await invoke('logout');sessionStorage.removeItem('tutor-native-profile');location.replace('/index.html');};header.append(control);
  for(const id of ['pwa-install','pwa-install-nav','pwa-download','pwa-online','pwa-open']){const e=document.getElementById(id);if(e)e.hidden=true;}
