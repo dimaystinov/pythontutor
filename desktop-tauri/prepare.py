@@ -29,9 +29,8 @@ resources=HERE/'src-tauri/resources';resources.mkdir(exist_ok=True)
 asset={'Darwin': 'opencode-darwin-'+('arm64' if platform.machine()=='arm64' else 'x64-baseline')+'.zip','Windows':'opencode-windows-x64-baseline.zip'}[platform.system()]
 version='v1.19.0';binary=resources/('opencode.exe' if platform.system()=='Windows' else 'opencode')
 if not binary.exists():
- req=urllib.request.Request('https://api.github.com/repos/anomalyco/opencode/releases/tags/'+version,headers={'User-Agent':'PythonTutor-build'})
- release=json.load(urllib.request.urlopen(req));a=next(a for a in release['assets'] if a['name']==asset)
- archive=resources/'cli.zip';urllib.request.urlretrieve(a['browser_download_url'],archive)
+ a=json.loads((HERE/'opencode.json').read_text())[asset]
+ archive=resources/'cli.zip';urllib.request.urlretrieve(a['url'],archive)
  if 'sha256:'+hashlib.sha256(archive.read_bytes()).hexdigest()!=a.get('digest'):raise RuntimeError('CLI checksum mismatch')
  with zipfile.ZipFile(archive) as z:
   name=next(n for n in z.namelist() if Path(n).name==binary.name);binary.write_bytes(z.read(name))
