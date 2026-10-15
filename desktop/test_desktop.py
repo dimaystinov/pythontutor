@@ -13,9 +13,13 @@ class DesktopTests(unittest.TestCase):
   result=type('Result',(),{'stdout':json.dumps({'type':'text','part':{'text':'Ответ'}})})()
   with patch('bridge.subprocess.run',return_value=result) as run:
    self.assertEqual(bridge.run_chat(Path('opencode'),[{'role':'user','content':'input()'}],'big-pickle'),'Ответ')
-   args,kwargs=run.call_args;self.assertIn('--pure',args[0]);self.assertEqual(json.loads(kwargs['env']['OPENCODE_CONFIG_CONTENT'])['permission'],{'*':'deny'})
+   args,kwargs=run.call_args;self.assertIn('--pure',args[0]);self.assertEqual(json.loads(kwargs['env']['OPENCODE_CONFIG_CONTENT'])['permission'],'ask');self.assertNotIn('--auto',args[0]);self.assertNotIn('--interactive',args[0])
    self.assertFalse(kwargs.get('shell',False))
   with self.assertRaises(ValueError):bridge.run_chat(Path('opencode'),[],'paid')
+ def test_reasoning_prefix_is_not_shown(self):
+  result=type('Result',(),{'stdout':json.dumps({'type':'text','part':{'text':'private reasoning</think>Площадь — половина произведения катетов.'}})})()
+  with patch('bridge.subprocess.run',return_value=result),patch.dict(bridge.os.environ,{'OPENCODE_PERMISSION':'allow'}):
+   self.assertEqual(bridge.run_chat(Path('opencode'),[{'role':'user','content':'площадь'}],'big-pickle'),'Площадь — половина произведения катетов.')
  def test_bridge_rejects_other_origins_and_no_token(self):
   with tempfile.TemporaryDirectory() as td:
    server=bridge.make_server(Path(td),Path('opencode'),'test-token');threading.Thread(target=server.serve_forever,daemon=True).start()

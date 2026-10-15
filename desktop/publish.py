@@ -1,7 +1,7 @@
 """Publish CI-built installers with the workflow's scoped GitHub token."""
 import hashlib,json,os,urllib.request,urllib.error
 from pathlib import Path
-repo='dimaystinov/pythontutor';tag='desktop-v1.2.1';base='https://api.github.com/repos/'+repo
+repo='dimaystinov/pythontutor';tag='desktop-v1.2.2';base='https://api.github.com/repos/'+repo
 headers={'Authorization':'Bearer '+os.environ['GITHUB_TOKEN'],'Accept':'application/vnd.github+json','User-Agent':'PythonTutor-release'}
 def request(url,body=None,content='application/json'):
  req=urllib.request.Request(url,data=body,headers={**headers,'Content-Type':content})

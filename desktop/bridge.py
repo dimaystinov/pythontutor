@@ -1,5 +1,5 @@
 """Loopback-only chat bridge. No generic proxy, file, shell or OpenCode control API."""
-import functools, hmac, json, os, secrets, subprocess, tempfile, threading
+import functools, hmac, json, os, re, secrets, subprocess, tempfile, threading
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -17,14 +17,16 @@ def run_chat(binary, messages, model):
  if not LOCK.acquire(blocking=False):raise ValueError('Дождитесь предыдущего ответа.')
  try:
   with tempfile.TemporaryDirectory(prefix='pythontutor-chat-') as work:
-   env=os.environ.copy();env['XDG_CONFIG_HOME']=work
+   env={k:v for k,v in os.environ.items() if not k.startswith('OPENCODE_')};env['XDG_CONFIG_HOME']=work
    # Keep CLI transcripts out of the next student's profile; reuse only provider auth.
    auth=Path(os.environ.get('XDG_DATA_HOME',Path.home()/'.local/share'))/'opencode/auth.json'
    env['XDG_DATA_HOME']=str(Path(work)/'data');env['XDG_CACHE_HOME']=str(Path(work)/'cache')
    if auth.exists():
     credentials=json.loads(auth.read_text());provider={k:v for k,v in credentials.items() if k=='opencode'}
     target=Path(env['XDG_DATA_HOME'])/'opencode/auth.json';target.parent.mkdir(parents=True,exist_ok=True);target.write_text(json.dumps(provider));target.chmod(0o600)
-   env['OPENCODE_CONFIG_CONTENT']=json.dumps({'permission':{'*':'deny'},'share':'disabled','autoupdate':False,'agent':{'tutor':{'mode':'primary','description':'Text-only Python teacher','permission':{'*':'deny'},'prompt':'Ты преподаватель Python. Только текстовый ответ. Не используй инструменты.'}}})
+   # Stock CLI rejects every permission request in noninteractive run (no --auto).
+   # Flat deny removes tools and triggers upstream free-tier bug #50627.
+   env['OPENCODE_CONFIG_CONTENT']=json.dumps({'permission':'ask','share':'disabled','autoupdate':False,'agent':{'tutor':{'mode':'primary','description':'Text-only Python teacher','permission':'ask','prompt':'Ты преподаватель Python. Только текстовый ответ. Не используй инструменты.'}}})
    result=subprocess.run([str(binary),'run','--pure','--agent','tutor','--format','json','--model','opencode/'+model,prompt],cwd=work,env=env,capture_output=True,text=True,timeout=100,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
    parts=[];free_rejected=False
    for line in result.stdout.splitlines():
@@ -34,7 +36,12 @@ def run_chat(binary, messages, model):
     if event.get('type')=='text' and isinstance(event.get('part',{}).get('text'),str):parts.append(event['part']['text'])
    if free_rejected:raise ValueError('OpenCode ограничил использование бесплатного тарифа в этом режиме. Выберите локальный Qwen или настройте разрешённый доступ в OpenCode. Обход ограничений не выполняется.')
    if not parts:raise ValueError('OpenCode не вернул ответ. Проверьте интернет и доступ к бесплатной модели. В настройках OpenCode может потребоваться вход.')
-   return '\n'.join(parts)[:10000]
+   answer='\n'.join(parts)
+   # Some providers leak a reasoning prefix with only a closing think tag.
+   if '</think>' in answer:answer=answer.rsplit('</think>',1)[1]
+   answer=re.sub(r'<think>.*?</think>', '', answer, flags=re.S).strip()
+   if not answer:raise ValueError('Модель не завершила ответ. Попробуйте ещё раз.')
+   return answer[:10000]
  finally:LOCK.release()
 def make_server(root,binary,token):
  site=root/'site'
