@@ -56,7 +56,7 @@ def install(progress,offline=False):
  expected=asset.get('digest','').removeprefix('sha256:')
  if len(expected)!=64:raise ValueError('GitHub не предоставил контрольную сумму OpenCode. Установка остановлена.')
  jobs=[('Учебник',f'https://api.github.com/repos/dimaystinov/pythontutor/zipball/{sha}',cache/(sha+'.zip'),None),('OpenCode CLI',asset['browser_download_url'],cache/(release['tag_name']+'-'+assetname),expected)]
- for i,(label,url,target,sha256) in enumerate(jobs):download(url,target,lambda d,t:progress(label, (i+d/max(t,1))*60/len(jobs)),sha256)
+ for i,(label,url,target,sha256) in enumerate(jobs):download(url,target,lambda d,t:progress(label+(f' · {d//1048576} МБ' if not t else ''), (i+(d/t if t else 0))*60/len(jobs)),sha256)
  progress('Распаковываю учебник',62);staging=ROOT/'site-new';shutil.rmtree(staging,ignore_errors=True);unzip(jobs[0][2],staging)
  source=next(p for p in staging.iterdir() if p.is_dir());site=ROOT/'site'/'pythontutor';site.mkdir(parents=True,exist_ok=True);shutil.copytree(source,site,dirs_exist_ok=True);shutil.rmtree(staging)
  progress('Настраиваю OpenCode CLI',67);bin_stage=ROOT/'bin-new';shutil.rmtree(bin_stage,ignore_errors=True);unzip(jobs[1][2],bin_stage)
@@ -69,7 +69,7 @@ def install(progress,offline=False):
   manifest=json.loads((site/'static/pwa/model-assets.json').read_text());files={x['path']:x for x in manifest['files']};packs=manifest['packages'];
   for i,pack in enumerate(packs):
    url='https://github.com/dimaystinov/pythontutor/releases/download/'+manifest['release']+'/'+pack['name'];archive=cache/pack['name']
-   download(url,archive,lambda d,t:progress('ИИ: '+pack['name'],70+(i+d/max(t,1))*27/len(packs)))
+   download(url,archive,lambda d,t:progress('ИИ: '+pack['name'],70+(i+(d/t if t else 0))*27/len(packs)))
    with tarfile.open(archive) as tar:
     for member in tar:
      item=files.get(member.name)
