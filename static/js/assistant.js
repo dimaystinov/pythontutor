@@ -11,9 +11,9 @@
     try {
         const choice=localStorage.getItem('tutor-ai-model');
         if(choice&&model?.querySelector('option[value="'+choice.replace(/[^\w.-]/g,'')+'"]'))model.value=choice;
+        else if(!choice&&model&&location.origin==='http://127.0.0.1:8043')model.value='opencode-local';
         else if(model&&choice){model.value='Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC';localStorage.setItem('tutor-ai-model',model.value);}
     } catch(_){}
-    if(location.origin==='http://127.0.0.1:8043'&&model)model.value='opencode-local';
     const api=()=>model?.value==='opencode-local';
     const local=()=>!!model&&model.value!=='cloud';
     const chatKey='tutor-local-chat:'+window.TutorDevice.owner()+':'+panel.dataset.url;
