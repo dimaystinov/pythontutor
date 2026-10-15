@@ -38,7 +38,7 @@
     $('tutor-connect-desktop')?.addEventListener('click',()=>{
         if(location.origin==='http://127.0.0.1:8043'){prepareModel().then(()=>{$('tutor-desktop-status').textContent='Приложение подключено.';}).catch(e=>notice(e.message,true));return;}
         pairingWindow=window.open('http://127.0.0.1:8043/connect','pythontutor-connect','width=600,height=350');
-        $('tutor-desktop-status').textContent='Подтвердите подключение в открывшемся окне.';
+        $('tutor-desktop-status').textContent=pairingWindow?'Подтвердите подключение в открывшемся окне.':'Браузер не открыл окно. Разрешите всплывающее окно или вставьте код из приложения.';
     });
     window.addEventListener('message',event=>{
         if(event.origin!=='http://127.0.0.1:8043'||!pairingWindow||event.source!==pairingWindow||event.data?.type!=='pythontutor-pair'||typeof event.data.token!=='string')return;
