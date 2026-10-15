@@ -3,9 +3,19 @@
 const choices=[
  {id:'Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC',label:'Qwen Coder 7B · мощный компьютер',download:'около 4,5 ГБ',memory:'около 5,1 ГБ памяти GPU',note:'Более крупная модель для программирования. Нужен запас памяти; рекомендации всё равно проверяйте. Apache 2.0.'},
 ];
+let apiController;
+const apiModels=new Set(['deepseek-v4.1-flash-free','mimo-v2.6-flash-free','big-pickle']);
 let engine,worker,loadedId,loading=false,cancelLoading;
 const library=()=>import('/static/vendor/webllm/webllm.mjs?v=github1');
 async function load(id,progress){
+ if(id==='opencode-local'){
+  const input=document.getElementById('tutor-api-key');
+  if(!input?.value.trim()&&location.origin==='http://127.0.0.1:8043'){
+   const response=await fetch('/api/pair',{cache:'no-store'});if(response.ok)input.value=(await response.json()).token;
+  }
+  if(!input?.value.trim())throw Error('Запустите приложение PythonTutor и вставьте код подключения из него.');
+  return null;
+ }
  if(engine&&loadedId===id)return engine;
  if(loading)throw Error('Дождитесь загрузки модели.');
  if(!choices.some(c=>c.id===id))throw Error('Неизвестная модель.');
@@ -24,6 +34,7 @@ async function load(id,progress){
  }catch(e){worker?.terminate();engine=null;throw e;}finally{loading=false;cancelLoading=null;}
 }
 async function answer(id,{question,code,context,learningContext,turns,solved},progress){
+ if(id==='opencode-local')return apiAnswer({question,code,context,learningContext,turns,solved},progress);
  const e=await load(id,progress);
  const messages=dialogueMessages(id,{question,code,context,learningContext,turns,solved});
  let output='';const timer=setTimeout(()=>e.interruptGenerate(),120000);
@@ -53,6 +64,25 @@ function hintOnly(output,solved){
  return useful&&!/^(?:Проверь это|Вот как это работает|Вот решение|Вот код|Смотри|Например)[:.!]?$/iu.test(useful)?useful.slice(0,2400):'Готовую программу пока не показываю. Давай начнём с условия: какие данные вводятся и какой результат нужно получить?';
 }
 
-function stop(){if(loading)cancelLoading?.();else engine?.interruptGenerate();}
+async function apiAnswer(payload,progress){
+ await load('opencode-local');
+ const model=document.getElementById('tutor-api-model').value;
+ if(!apiModels.has(model))throw Error('Выберите бесплатную модель из списка.');
+ apiController=new AbortController();const controller=apiController,timer=setTimeout(()=>controller.abort(),110000);
+ progress?.('Питоныч отвечает через OpenCode…');
+ try{
+  const response=await fetch('http://127.0.0.1:8043/api/chat',{
+   method:'POST',credentials:'omit',signal:controller.signal,
+   headers:{'Content-Type':'application/json','Authorization':'Bearer '+document.getElementById('tutor-api-key').value.trim()},
+   body:JSON.stringify({model,messages:dialogueMessages(model,payload),max_tokens:700,stream:false})
+  });
+  if(!response.ok){const data=await response.json().catch(()=>({}));throw Error(data.error|| (response.status===429?'Лимит бесплатной модели исчерпан. Повторите позже или выберите другую модель.':response.status===401||response.status===403?'OpenCode отклонил доступ. Проверьте ключ и доступность бесплатной модели.':'OpenCode сейчас недоступен. Платная модель автоматически не подключается.'));}
+  const data=await response.json(),answer=data.answer;
+  if(typeof answer!=='string'||!answer.trim())throw Error('OpenCode вернул пустой ответ. Попробуйте другую модель.');
+  return hintOnly(answer.replace(/<think>[\s\S]*?<\/think>/g,'').trim(),payload.solved);
+ }catch(e){if(e.name==='AbortError')throw Error('Запрос остановлен или превышено время ожидания.');if(e instanceof TypeError)throw Error('Нет связи с приложением PythonTutor. Запустите его и разрешите браузеру доступ к локальной сети, если появится запрос.');throw e;}
+ finally{clearTimeout(timer);if(apiController===controller)apiController=null;}
+}
+function stop(){apiController?.abort();if(loading)cancelLoading?.();else engine?.interruptGenerate();}
 window.TutorLocalAI={choices,load,answer,stop,hintOnly,dialogueMessages};
 })();

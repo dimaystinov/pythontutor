@@ -12,7 +12,7 @@ from tutorial.image_course import catalog
 from tutorial.views import DEFAULT_COURSE
 
 PUBLIC_VIEWS = {'home', 'old', 'lesson_in_course', 'problem_in_lesson', 'image_index', 'image_task', 'visualizer', 'pwa'}
-VERSION = 'pwa-20261015-progress5'
+VERSION = 'pwa-20261015-desktop1'
 
 @require_GET
 def dashboard(request):
