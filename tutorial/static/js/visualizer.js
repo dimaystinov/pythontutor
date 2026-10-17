@@ -150,11 +150,7 @@ function Visualizer(block, init_code, init_stdin, passed_options) {
 		elem.removeClass(class1).addClass(class2);
 	}
 
-	function toggleFullRow(elem, full_row, w1, w2) {
-		var width1 = (full_row ? w1 : w2);
-		var width2 = (full_row ? w2 : w1);
-		replaceClass(elem, 'col-xs-' + width1, 'col-xs-' + width2);
-	}
+
 
 
 	///// UI setup /////
@@ -686,12 +682,7 @@ function Visualizer(block, init_code, init_stdin, passed_options) {
 		mblock.toggleClass('has-dataviz', blocks.dataviz.is(':visible'));
 		plumb.repaintEverything(); // with all these 123 we could spoil the position of endpoints, so redraw
 
-		// stdin should be full-row if stdout is not visible, and half-row otherwise
-		toggleFullRow(blocks.stdin.parent(), !blocks.stdout.parent().is(':visible'), 6, 12);
-		// stdout - if stdin is not visible
-		toggleFullRow(blocks.stdout.parent(), !blocks.stdin.parent().is(':visible'), 6, 12);
-		// code - if dataviz and error is not visible
-		toggleFullRow(blocks.code.parent().parent(), !(blocks.dataviz.is(':visible') || blocks.error.is(':visible') || has_ever_runned), 9, 12);
+		// Code and I/O keep their full width when results appear.
 
 		// similarly
 		blocks.vcr.toggle(options.explain_mode && has_ever_runned);

@@ -127,8 +127,11 @@ hr { margin-top: 16px; margin-bottom: 16px; }
 .visualizer button .glyphicon { display: none; }
 #example_tests .debug_me { width: 130px; white-space: nowrap; }
 #example_tests .debug_me button { font-family: inherit; font-size: 14px; padding: 4px 8px; }
-.visualizer.has-dataviz > .row > .visualizer-editor-column { width: 50%; }
-.visualizer.has-dataviz > .row > .visualizer-result-column { width: 50%; }
+/* Keep the editor width stable before, during and after execution. */
+.visualizer > .row > .visualizer-editor-column,
+.visualizer > .row > .visualizer-result-column { width: 100%; min-width: 0; }
+.visualizer-result-column { clear: both; }
+.visualizer-editor-column > .row > [class*="col-xs-"] { width:100%; }
 .visualizer-result-column > .col-xs-6 { width: 100%; padding: 0; }
 .visualizer_dataviz { overflow: auto; max-width: 100%; padding-bottom: 12px; }
 .visualizer_code_toppanel { min-height: 35px; }
