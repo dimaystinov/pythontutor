@@ -1,3 +1,4 @@
+import {NativeFileCache} from './native-file-cache.mjs';
 // scripts/browser-ai/node_modules/@mlc-ai/web-llm/lib/index.js
 var require$$3 = "MLC_DUMMY_REQUIRE_VAR";
 var require$$4 = "MLC_DUMMY_REQUIRE_VAR";
@@ -5362,6 +5363,7 @@ fn fragment_clear(@location(0) uv : vec2<f32>) -> @location(0) vec4<f32> {
           return "cache";
         }
         const normalized = cacheType.toLowerCase();
+        if (normalized === "native-file") return "native-file";
         if (normalized === "cache") {
           return "cache";
         }
@@ -5394,6 +5396,7 @@ fn fragment_clear(@location(0) uv : vec2<f32>) -> @location(0) vec4<f32> {
           return options.artifactCache;
         }
         const cacheType = normalizeCacheType(options.cacheType);
+        if (cacheType === "native-file") return new NativeFileCache();
         if (cacheType === "indexeddb") {
           return new ArtifactIndexedDBCache(scope);
         }

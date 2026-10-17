@@ -3,7 +3,7 @@
 if(document.querySelector('meta[name=execution-mode]')?.content!=='browser')return;
 function status(text){document.querySelectorAll('[data-browser-status]').forEach(e=>{e.textContent=text;e.hidden=!text;});}
 function runJob(job){return new Promise((resolve,reject)=>{
- const worker=new Worker('/browser/worker/',{type:'module'});
+ const worker=new Worker('/browser/worker/?v=20261017',{type:'module'});
  let timer,index=0;
  function dispose(){clearTimeout(timer);worker.terminate();}
  function fail(error){dispose();status(error);reject(new Error(error));}

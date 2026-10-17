@@ -20,8 +20,8 @@ s=s.replace(" await load('opencode-local');", " if(window.TutorNative){progress?
 s=s.replace("function stop(){", "function stop(){if(window.TutorNative)TutorNative.invoke('cancel_chat');")
 p.write_text(s)
 p=out/'pythontutor/static/js/assistant.js';s=p.read_text().replace("location.origin==='http://127.0.0.1:8043'", "(window.TutorNative||location.origin==='http://127.0.0.1:8043')")
-# Native always uses the bundled CLI, without browser pairing or WebGPU requirements.
-s=s.replace("    const api=", "    if(window.TutorNative&&model)model.value='opencode-local';\n    const api=");p.write_text(s)
+# Keep the user's choice between local inference and OpenCode.
+p.write_text(s)
 p=out/'pythontutor/static/pwa/app.js';s=p.read_text().replace("if('serviceWorker' in navigator)","if(window.TutorNative){say('Курс установлен на этом компьютере.');}else if('serviceWorker' in navigator)");s=s.replace('if(backupKey(key))data[key]',"if(backupKey(key)&&(!/^(problem-draft:|image-draft:|tutor-local-chat:)/.test(key)||key.split(':')[1]===TutorDevice.owner()))data[key]")
 s=s.replace('localStorage.setItem(key,value);await progress()',"localStorage.setItem(key.replace(/^(problem-draft:|image-draft:|tutor-local-chat:)[^:]+:/,(_,p)=>p+TutorDevice.owner()+':'),value);await progress()")
 p.write_text(s)
@@ -37,3 +37,6 @@ if not binary.exists():
  archive.unlink();binary.chmod(0o755)
 (resources/'opencode-version.txt').write_text(version)
 print('Course, Python runtime, tests, photos and OpenCode prepared.')
+
+# Bundle the terminal registration script for the Windows installer.
+shutil.copy2(HERE/'install/install-cli.ps1', resources/'install-cli.ps1')

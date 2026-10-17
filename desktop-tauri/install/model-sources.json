@@ -1,0 +1,12 @@
+{
+  "model": "Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC",
+  "archive": {
+    "filename": "Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC-WebLLM.zip",
+    "size": 4296797134,
+    "sha256": "76bc666dc023b1f7f8e458537a7a27d05f9b445475a0acd31012d43d918028d3"
+  },
+  "fallbackBaseURL": "https://dimaystinov.duckdns.org/models/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/",
+  "huggingFaceRevision": "56dea5411b44b2a45cf0ceb16ead4c1f30141f49",
+  "status": "Rust installer: verified disk store, Yandex archive then server/Hugging Face fallback; native inference does not duplicate browser caches.",
+  "yandexPublicURL": "https://disk.yandex.ru/d/OMU394wW8v-5KQ"
+}

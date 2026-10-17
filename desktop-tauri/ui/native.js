@@ -8,7 +8,7 @@ let meta=document.querySelector('meta[name=learner-id]');if(!meta){meta=document
 invoke('current_profile').then(p=>{if(p?.id!==profile.id)location.replace('/index.html');});
 window.addEventListener('DOMContentLoaded',()=>{
  document.getElementById('desktop-release')?.addEventListener('click',event=>{event.preventDefault();invoke('open_release').catch(e=>alert(String(e)));});
- const model=document.getElementById('tutor-model');if(model){model.value='opencode-local';for(const o of [...model.options])if(o.value!=='opencode-local')o.remove();}
+ const model=document.getElementById('tutor-model');if(model){for(const o of [...model.options])if(!['opencode-local','Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC'].includes(o.value))o.remove();}
  document.getElementById('tutor-prepare-ai')?.remove();
  const apiSettings=document.getElementById('tutor-api-settings');if(apiSettings){for(const el of apiSettings.querySelectorAll('button,p'))el.remove();apiSettings.querySelector('input')?.closest('label')?.remove();}
  const header=document.body;

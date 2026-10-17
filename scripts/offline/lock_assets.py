@@ -36,6 +36,6 @@ for group in ['qwen7b','whisper-tiny']:
  if batch:packages.append(dict(name=f'{group}-part-{index}.tar',group=group,files=batch))
 lock=dict(version=1,release='v1.1.0',files=files,packages=packages)
 (ROOT/'scripts/offline/assets.lock.json').write_text(json.dumps(lock,ensure_ascii=False,indent=2)+'\n')
-public={**lock,'files':[{k:v for k,v in f.items() if k!='source'} for f in files]}
+public={**lock,'files':[{k:v for k,v in f.items() if k!='source' or f['group']=='qwen7b'} for f in files]}
 (ROOT/'tutorial/static/pwa/model-assets.json').write_text(json.dumps(public,ensure_ascii=False,indent=2)+'\n')
 print(len(files),'files',sum(f['size'] for f in files),'bytes',[p['name'] for p in packages],flush=True)

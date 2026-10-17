@@ -1,1 +1,12 @@
-{"name":"pythontutor-desktop","version":"2.0.0","private":true,"scripts":{"dev":"tauri dev","build":"tauri build"},"devDependencies":{"@tauri-apps/cli":"^2.0.0"}}
+{
+  "name": "pythontutor-desktop",
+  "version": "2.0.2",
+  "private": true,
+  "scripts": {
+    "dev": "tauri dev",
+    "build": "tauri build"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.0.0"
+  }
+}

@@ -3,7 +3,8 @@
 'use strict';
 const base = new URL('../models/', document.currentScript.src);
 const manifestURL = new URL('model-assets.json', document.currentScript.src);
-let manifestPromise,installedPromise;
+let manifestPromise,installedPromise,downloadController;
+const downloadModuleURL=new URL("model-download.mjs",document.currentScript.src).href;
 const installed=()=>installedPromise ||= fetch(new URL('installed.json',base),{cache:'no-store'}).then(r=>r.ok?r.json():{groups:[]}).catch(()=>({groups:[]}));
 const manifest = () => manifestPromise ||= fetch(manifestURL).then(r => {if (!r.ok) throw Error('Не удалось прочитать список файлов ИИ.'); return r.json();});
 const target = item => new URL(item.path.replace('ndarray-cache.json','tensor-cache.json'), base).href;
@@ -17,8 +18,39 @@ async function ready(group) {
  for (const item of data.files.filter(f => f.group === group)) if (!await present(item)) return false;
  return true;
 }
-async function ensure(group) {
+async function ensure(group, progress = () => {}) {
+ if(window.TutorNative && group==='qwen7b'){
+  const unlisten=await window.__TAURI__.event.listen('model-progress',event=>progress(event.payload));
+  try{
+   const directory=await window.TutorNative.invoke('prepare_model');
+   window.TutorModelAssets.base=window.__TAURI__.core.convertFileSrc(directory)+'/';
+   // Migrate only this model's old web cache, after Rust verified the disk copy.
+   if(typeof caches!=='undefined'){
+    for(const name of await caches.keys()){
+     if(!['webllm/model','webllm/config','webllm/wasm'].includes(name))continue;
+     const cache=await caches.open(name);
+     for(const request of await cache.keys()){
+      const path=new URL(request.url).pathname;
+      if(path.includes('/qwen7b/')||path.includes('/Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC/'))await cache.delete(request);
+     }
+    }
+   }
+   return;
+  }finally{unlisten();}
+ }
  if (await ready(group)) return;
+ if(group==='qwen7b'){
+  if(downloadController)throw Error('Дождитесь загрузки модели.');
+  const controller=downloadController=new AbortController();
+  try{
+   const {downloadModel}=await import(downloadModuleURL);
+   await downloadModel((await manifest()).files.filter(f=>f.group===group),{present,progress,signal:controller.signal,save:async(item,bytes)=>{
+    const cache=await caches.open(item.cache);
+    await cache.put(target(item),new Response(bytes,{headers:{'Content-Type':item.path.endsWith('.json')?'application/json':'application/octet-stream','x-tutor-sha256':item.sha256}}));
+   }});
+   return;
+  }finally{downloadController=null;}
+ }
  window.dispatchEvent(new CustomEvent('tutor-model-needed', {detail: group}));
  throw Error('Подготовьте помощника один раз: скачайте пакеты и выберите их ниже.');
 }
@@ -79,5 +111,5 @@ async function mount(container, group, onReady) {
  container.append(text,download,details,label,status);
 }
 document.querySelectorAll('[data-model-group]').forEach(button=>button.addEventListener('click',()=>mount(document.getElementById('pwa-model-setup'),button.dataset.modelGroup).catch(error=>{document.getElementById('pwa-model-setup').textContent=error.message;})));
-window.TutorModelAssets={ready,ensure,importFiles,mount,base:base.href,headerInfo};
+window.TutorModelAssets={cancel:()=>downloadController?.abort(),ready,ensure,importFiles,mount,base:base.href,headerInfo};
 })();
