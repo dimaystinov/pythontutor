@@ -15,7 +15,7 @@ function runJob(job){return new Promise((resolve,reject)=>{
  },ms);}
  function receive(event){
   const data=event.data;
-  if(data.phase==='loading'){status('Загружаем Python в браузер…');return;}
+  if(data.phase==='loading'){status('');return;}
   if(data.phase==='executing'){index=data.index;status('Выполняется в вашем браузере'+(job.tests?' · тест '+(index+1)+'/'+data.total:''));deadline(8000,true);return;}
   if(data.error){fail('Ошибка среды Python: '+data.error);return;}
   if(data.result){dispose();status('');resolve(data.result);}
