@@ -101,7 +101,7 @@
             $('tutor-context').textContent=api()?'Питоныч · OpenCode CLI':'Питоныч · локальный помощник';
             voiceReady=true;loaded=true;$('tutor-voice-mode').disabled=false;$('tutor-dictate').disabled=false;
             if(api()){notice('Помощник работает через приложение PythonTutor.');return;}
-            window.TutorModelAssets.ready('qwen7b').then(ready=>{if(ready)return prepareModel();notice('Подсказки доступны сразу. Для свободного разговора можно подготовить ИИ.');}).catch(e=>notice(e.message||String(e),true));return;
+            prepareModel().catch(e=>notice(e.message||String(e),true));return;
         }
         notice('Загружаю историю…');
         try{
