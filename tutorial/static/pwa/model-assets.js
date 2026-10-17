@@ -2,9 +2,9 @@
 (function () {
 'use strict';
 const base = new URL('../models/', document.currentScript.src);
-const manifestURL = new URL('model-assets.json', document.currentScript.src);
+const manifestURL = new URL('model-assets.json?v=cors20261017', document.currentScript.src);
 let manifestPromise,installedPromise,downloadController;
-const downloadModuleURL=new URL("model-download.mjs",document.currentScript.src).href;
+const downloadModuleURL=new URL("model-download.mjs?v=cors20261017",document.currentScript.src).href;
 const installed=()=>installedPromise ||= fetch(new URL('installed.json',base),{cache:'no-store'}).then(r=>r.ok?r.json():{groups:[]}).catch(()=>({groups:[]}));
 const manifest = () => manifestPromise ||= fetch(manifestURL).then(r => {if (!r.ok) throw Error('Не удалось прочитать список файлов ИИ.'); return r.json();});
 const target = item => new URL(item.path.replace('ndarray-cache.json','tensor-cache.json'), base).href;
