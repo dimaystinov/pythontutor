@@ -169,8 +169,9 @@
     async function send(text,fromVoice=false){
         if(busy)return null;text=text.trim();if(!text)return null;
         if(text.length>3000){notice('Сократите вопрос до 3000 символов.',true);return null;}
-        const prepared=window.TutorGuidance?.current(text,localHistory()) || window.TutorGuidance?.review(text,codeNow(),window.BrowserPython?.lastRun?.(),!!$('tutor-include-code')?.checked);
-        if(prepared&&!attachment){
+        const refusal=window.TutorLocalAI?.scopeRefusal(text);
+        const prepared=refusal?{answer:refusal}:window.TutorGuidance?.current(text,localHistory()) || window.TutorGuidance?.review(text,codeNow(),window.BrowserPython?.lastRun?.(),!!$('tutor-include-code')?.checked);
+        if(prepared&&(!attachment||refusal)){
             if(window.TutorDevice.isCurrent&&!window.TutorDevice.isCurrent())return null;
             const result={question:text,...prepared,id:'local-'+crypto.randomUUID()};
             message('user',text);message('assistant',result.answer,result.id);

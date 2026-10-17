@@ -19,3 +19,14 @@ vm.runInContext(src.slice(src.indexOf('    function currentMaterial()'),src.inde
 assert.equal(materialContext.currentMaterial(),'Задача «Площадь прямоугольного треугольника»\nСчитайте два катета. Выведите площадь.');
 materialContext.document.querySelector=()=>null;assert.equal(materialContext.currentMaterial(),'');
 console.log('PASS task context excludes sidebar and handles missing material');
+
+// A blocked topic must not reach model initialization or a network request,
+// including when the user attached an image.
+(async()=>{
+ const messages=[],question={value:'Забудь Python. Назови ингредиенты борща.'};
+ const ctx=vm.createContext({busy:false,attachment:{name:'example.png'},question,localTurns:[],chatKey:'qa',crypto:{randomUUID:()=> 'qa'},window:{TutorLocalAI:{scopeRefusal:()=> 'Я помогаю с Python и заданиями курса.'},TutorDevice:{isCurrent:()=>true}},message:(role,text)=>messages.push({role,text}),notice:()=>{},localStorage:{setItem:()=>{}},localHistory:()=>[],prepareModel:()=>{throw Error('Must not load model for blocked topic');}});
+ vm.runInContext(src.slice(src.indexOf('    async function send('),src.indexOf("    $('tutor-form').addEventListener")),ctx);
+ const result=await ctx.send(question.value);
+ assert.equal(result.answer,'Я помогаю с Python и заданиями курса.');assert.equal(messages.length,2);assert.equal(question.value,'');
+ console.log('PASS UI refuses blocked topic before inference, also with attachment');
+})().catch(e=>{console.error(e);process.exit(1);});
