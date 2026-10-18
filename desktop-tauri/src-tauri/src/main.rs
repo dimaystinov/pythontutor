@@ -85,7 +85,7 @@ fn autostart(app: tauri::AppHandle, enabled: bool) -> Result<(), String> {
 }
 #[tauri::command]
 fn open_release() -> Result<(), String> {
-    let url = "https://github.com/dimaystinov/pythontutor/releases/tag/app-v2.0.0";
+    let url = concat!("https://github.com/dimaystinov/pythontutor/releases/tag/app-v", env!("CARGO_PKG_VERSION"));
     #[cfg(target_os = "macos")]
     let result = std::process::Command::new("/usr/bin/open").arg(url).spawn();
     #[cfg(windows)]
