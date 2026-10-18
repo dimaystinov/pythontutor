@@ -6,7 +6,7 @@
 	{{ block.super }}
 
 	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/lesson.css?v=progress6">
-	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/problem.css?v=snakes5">
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/problem.css?v=readable1">
 
 	<script type="text/javascript" src="{{ STATIC_URL }}js/problem.js?v=progress6"></script>
 
@@ -34,8 +34,10 @@
 	<h3 class="problem_name">Задача &laquo;{{ problem.name }}&raquo;</h3>
 	<hr>
 
+	<div class="task-statement">
 	<h4 class="statement-title">Условие</h4>
 	{{ problem.statement | safe }}
+	</div>
     </section>
     {% if figure %}<figure class="task-figure"><img src="{{ STATIC_URL }}{{ figure.src }}" alt="{{ figure.caption }}" width="480" height="220"><figcaption>{{ figure.caption }}</figcaption></figure>{% endif %}
 

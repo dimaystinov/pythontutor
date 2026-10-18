@@ -1,5 +1,5 @@
 """Prepare the offline course. Optional OpenCode is downloaded only on user request."""
-import base64,hashlib,json,os,platform,shutil,subprocess,sys,urllib.request,zipfile
+import re,base64,hashlib,json,os,platform,shutil,subprocess,sys,urllib.request,zipfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];HERE=Path(__file__).resolve().parent
 out=HERE/'frontend';out.mkdir(exist_ok=True)
@@ -8,7 +8,7 @@ if not python.exists():python=Path(sys.executable)
 subprocess.run([str(python),str(ROOT/'scripts/build_pages.py'),'--output','desktop-tauri/frontend/pythontutor'],cwd=ROOT,check=True)
 for p in (HERE/'ui').iterdir():shutil.copy2(p,out/p.name)
 for p in (out/'pythontutor').rglob('*.html'):
- s=p.read_text();s=s.replace('<meta name="learner-id" content="local">','<meta name="learner-id" content="local"><script src="/native.js"></script><script src="/update-settings.js"></script>');p.write_text(s)
+ s=p.read_text();s=re.sub(r'<!-- WEB_OFFLINE_START -->.*?<!-- WEB_OFFLINE_END -->', '', s, flags=re.S);s=s.replace('<meta name="learner-id" content="local">','<meta name="learner-id" content="local"><script src="/native.js"></script><script src="/update-settings.js"></script>');p.write_text(s)
 # Native SQLite replaces browser-only progress, without changing the browser site.
 p=out/'pythontutor/static/pwa/storage.js';s=p.read_text();s=s.replace("async function get(kind,slug){return", "async function get(kind,slug){if(window.TutorNative)return (await list()).find(r=>r.kind===kind&&r.slug===slug);return")
 s=s.replace("await query('readwrite',s=>{requireCurrent();return s.put(item);});", "if(window.TutorNative)await TutorNative.invoke('save_solution',{data:item});else await query('readwrite',s=>{requireCurrent();return s.put(item);});")
