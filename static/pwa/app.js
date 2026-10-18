@@ -12,7 +12,7 @@ async function refresh(){const state=await message({type:'status'});if($('pwa-op
 if('serviceWorker' in navigator){navigator.serviceWorker.register('/pythontutor/sw.js',{scope:'/pythontutor/'}).then(async r=>{registration=r;await navigator.serviceWorker.ready;await refresh();}).catch(e=>say('Не удалось подготовить работу без интернета: '+e.message));}else say('Работа без интернета недоступна в этом браузере.');
 $('pwa-download')?.addEventListener('click',async()=>{
  $('pwa-download').disabled=true;$('pwa-progress').hidden=false;
- try{await navigator.storage?.persist?.();await message({type:'download'},r=>{say('Скачиваем курс: '+Math.round(r.done/r.total*100)+'%');$('pwa-progress').value=r.done/r.total*100;});await refresh();}
+ try{await navigator.storage?.persist?.();await message({type:'download'},r=>{say('Скачиваем курс: '+Math.floor(r.done/r.total*100)+'% · '+r.done+' из '+r.total+' файлов'+(r.bytes?' · '+(r.bytes/1048576).toFixed(1)+' МБ':''));$('pwa-progress').value=r.done/r.total*100;});await refresh();}
  catch(e){say(e.message+' Предыдущая полная загрузка сохранена.');}
  finally{$('pwa-download').disabled=false;$('pwa-progress').hidden=true;}
 });

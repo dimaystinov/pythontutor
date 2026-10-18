@@ -19,11 +19,12 @@ async function stream(url,signal){
  try{const r=await fetch(url,{credentials:'omit',cache:'no-store',signal:c.signal});clearTimeout(timer);if(!r.ok)throw Error('HTTP '+r.status);return {response:r,close:()=>{clearTimeout(timer);signal.removeEventListener('abort',stop);c.abort();}};}
  catch(e){clearTimeout(timer);signal.removeEventListener('abort',stop);throw e;}
 }
-export async function readStoredZip(reader,files,save,signal){
+export async function readStoredZip(reader,files,save,signal,progress=()=>{}){
+ let received=0;const total=files.reduce((n,f)=>n+f.size,0);
  const allowed=new Map(files.map(f=>[f.path,f]));let buffer=new Uint8Array(),offset=0;
  async function read(size){
   const result=new Uint8Array(size);let written=0;
-  while(written<size){signal?.throwIfAborted();if(offset===buffer.length){const chunk=await next(reader,signal);if(chunk.done)throw Error('Архив скачан не полностью.');buffer=chunk.value;offset=0;}
+  while(written<size){signal?.throwIfAborted();if(offset===buffer.length){const chunk=await next(reader,signal);if(chunk.done)throw Error('Архив скачан не полностью.');buffer=chunk.value;offset=0;received+=buffer.length;progress('Скачивание модели · '+Math.min(99,Math.floor(received/total*100))+'% · '+(received/1048576).toFixed(1)+' МБ');}
    const take=Math.min(size-written,buffer.length-offset);result.set(buffer.subarray(offset,offset+take),written);offset+=take;written+=take;}
   return result;
  }
@@ -49,8 +50,8 @@ export async function downloadModel(files,{present,save,progress=()=>{},signal})
   try{
    progress('Подключаю Яндекс Диск…');
    transfer=await stream(YANDEX,signal);let count=0;
-   await readStoredZip(transfer.response.body.getReader(),files,async(item,bytes)=>{await save(item,await checkedBytes(bytes,item));progress('Сохраняю модель с Яндекс Диска · '+(++count)+'/'+files.length);},signal);
-   return;
+   await readStoredZip(transfer.response.body.getReader(),files,async(item,bytes)=>{await save(item,await checkedBytes(bytes,item));progress('Сохраняю модель с Яндекс Диска · '+(++count)+'/'+files.length);},signal,progress);
+   progress('Модель сохранена. 100%');return;
   }catch(e){signal.throwIfAborted();if(e.name==='QuotaExceededError')throw e;progress('Яндекс Диск недоступен из браузера. Подключаю резервные источники…');}
   finally{transfer?.close();}
  }
@@ -63,7 +64,7 @@ export async function downloadModel(files,{present,save,progress=()=>{},signal})
    try{
     if(!url)throw Error('Не указан резервный адрес.');progress(label+' · файл '+(count+1)+'/'+files.length);
     transfer=await stream(url,signal);const reader=transfer.response.body.getReader(),bytes=new Uint8Array(item.size);let offset=0;
-    for(;;){const part=await next(reader,signal);if(part.done)break;if(offset+part.value.length>bytes.length)throw Error('Неверный размер файла.');bytes.set(part.value,offset);offset+=part.value.length;}
+    for(;;){const part=await next(reader,signal);if(part.done)break;if(offset+part.value.length>bytes.length)throw Error('Неверный размер файла.');bytes.set(part.value,offset);offset+=part.value.length;progress(label+' · файл '+(count+1)+'/'+files.length+' · '+Math.min(99,Math.floor(offset/item.size*100))+'% · '+(offset/1048576).toFixed(1)+' из '+(item.size/1048576).toFixed(1)+' МБ');}
     if(offset!==item.size)throw Error('Файл скачан не полностью.');
     await save(item,await checkedBytes(bytes,item));done=true;break;
    }catch(e){signal.throwIfAborted();if(e.name==='QuotaExceededError')throw e;}
