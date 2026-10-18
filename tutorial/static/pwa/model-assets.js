@@ -111,13 +111,17 @@ async function mount(container, group, onReady) {
  container.append(text,download,details,label,status);
 }
 document.querySelectorAll('[data-model-group]').forEach(button=>button.addEventListener('click',()=>mount(document.getElementById('pwa-model-setup'),button.dataset.modelGroup).catch(error=>{document.getElementById('pwa-model-setup').textContent=error.message;})));
+function selectBuiltIn(group){
+ const id=group==='qwen7b'?'Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC':group==='opencode'?'opencode-local':null;
+ try{if(id&&localStorage.getItem('tutor-ai-model')===id)localStorage.setItem('tutor-ai-model','guided');}catch(_){}
+}
 // Component deletion is separate from learner-data reset and course offline caches.
 async function remove(group) {
  if(!['qwen7b','whisper-tiny','localspeech','opencode'].includes(group))throw Error('Неизвестный компонент.');
  if(downloadController)throw Error('Сначала дождитесь завершения или отмените скачивание.');
  if(group==='opencode'){
   if(!window.TutorNative)throw Error('OpenCode удаляется в приложении PythonTutor.');
-  await window.TutorNative.invoke('remove_cli');return;
+  await window.TutorNative.invoke('remove_cli');selectBuiltIn(group);return;
  }
  if(group==='qwen7b'){
   await window.TutorLocalAI?.unload?.();
@@ -135,7 +139,7 @@ async function remove(group) {
    if(prefixes.some(prefix=>request.url.startsWith(prefix))||(group==='localspeech'&&request.url===new URL('local-speech-manifest.json',document.currentScript?.src||manifestURL).href)){if(await cache.delete(request))removed++;}
   }
  }
- installedPromise=null;
+ installedPromise=null;selectBuiltIn(group);
  window.dispatchEvent(new CustomEvent('tutor-component-removed',{detail:group}));
  return removed;
 }

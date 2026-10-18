@@ -29,7 +29,7 @@ notices and licenses. The source SDK is https://github.com/dimaystinov/local-spe
 Deletion is independent of learner reset: only component-owned caches or native
 component directories are removed. Course pages, SQLite learner profiles, local
 progress, editor drafts, and chat history remain. An active download must finish
-or be cancelled first. Deleted components can be downloaded again. Native files
+or be cancelled first. Deleting the selected language model switches the tutor to built-in rules, preventing automatic redownload on reopening. Deleted components can be downloaded again. Native files
 are shared between local profiles; removing a component affects all those profiles.
 
 Validation on macOS: real Python missing-colon error; deterministic conversation

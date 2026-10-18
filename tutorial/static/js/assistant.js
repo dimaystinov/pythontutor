@@ -151,6 +151,7 @@
     if(!question)return;
     model?.addEventListener('change',()=>{if(busy)return;stopCall();window.TutorLocalAI.stop();loaded=false;try{localStorage.setItem('tutor-ai-model',model.value);}catch(_){}describeModel();history();});
     $('tutor-prepare-ai')?.addEventListener('click',()=>prepareModel().catch(e=>notice(e.message||String(e),true)));
+    window.addEventListener('storage',event=>{if(event.key==='tutor-ai-model'&&event.newValue==='guided'&&model){window.TutorLocalAI.stop();stopCall();model.value='guided';describeModel();notice('Компонент удалён. Включён встроенный консультант.');}});
     $('tutor-stop-model')?.addEventListener('click',()=>window.TutorLocalAI.stop());
     function setMode(voice){
         stopCall();
