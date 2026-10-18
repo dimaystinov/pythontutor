@@ -17,15 +17,23 @@ async function install(progress=()=>{}){
   if(window.TutorNative){const off=await window.__TAURI__.event.listen('speech-progress',({payload})=>progress(payload));try{await window.TutorNative.invoke('install_speech');}finally{off();}return;}
   if(!navigator.serviceWorker?.controller)throw Error('Перезагрузите страницу, чтобы включить хранение голосового компонента.');
   aborter=new AbortController();const m=await manifest(),total=m.files.reduce((n,f)=>n+f.bytes,0);let done=0;
+  const report=(received=0,phase='Скачивание')=>progress(Math.min(99,Math.floor((done+received)/total*100)),{loaded:done+received,total,phase});
+  report();
   for(const file of m.files){
    const cache=await caches.open(cacheName(file)),saved=await cache.match(key(file));
-   if(saved?.headers.get('x-tutor-sha256')===file.sha256){done+=file.bytes;progress(Math.round(done/total*100));continue;}
+   if(saved?.headers.get('x-tutor-sha256')===file.sha256){done+=file.bytes;report();continue;}
    const r=await fetch(new URL(file.path,base),{signal:aborter.signal,cache:'no-store'});if(!r.ok)throw Error('Не удалось скачать LocalSpeech: '+file.path);
-   const bytes=await r.arrayBuffer(),hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(n=>n.toString(16).padStart(2,'0')).join('');
+   const parts=[];let received=0;
+   if(r.body){const reader=r.body.getReader();try{while(true){const {done:end,value}=await reader.read();if(end)break;received+=value.byteLength;if(received>file.bytes)throw Error('Неверный размер файла LocalSpeech.');parts.push(value);report(received);}}finally{reader.releaseLock();}}
+   else{const part=new Uint8Array(await r.arrayBuffer());parts.push(part);received=part.byteLength;report(received);}
+   const bytes=new Uint8Array(received);let offset=0;for(const part of parts){bytes.set(part,offset);offset+=part.byteLength;}
+   report(received,'Проверка файла');
+   const hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(n=>n.toString(16).padStart(2,'0')).join('');
    if(bytes.byteLength!==file.bytes||hash!==file.sha256)throw Error('Файл LocalSpeech повреждён. Повторите загрузку.');
    const type=/\.m?js$/.test(file.path)?'text/javascript':file.path.endsWith('.wasm')?'application/wasm':file.path.endsWith('.json')?'application/json':'application/octet-stream';
-   await cache.put(key(file),new Response(bytes,{headers:{'content-type':type,'x-tutor-sha256':hash}}));done+=file.bytes;progress(Math.round(done/total*100));
+   await cache.put(key(file),new Response(bytes,{headers:{'content-type':type,'x-tutor-sha256':hash}}));done+=file.bytes;report();
   }
+  progress(100,{loaded:total,total,phase:'Готово'});
  }finally{installing=false;aborter=null;}
 }
 function cancel(){aborter?.abort();if(window.TutorNative)window.TutorNative.invoke('cancel_speech');}
@@ -49,7 +57,7 @@ function showSetup(){
  box.innerHTML='<p>Голосовой ввод LocalSpeech · русский язык · 43 МБ</p><button type="button" class="btn btn-default">Установить LocalSpeech</button> <button type="button" hidden>Отменить</button><progress hidden max="100" style="width:100%"></progress><p role="status"></p>';
  const host=document.getElementById('tutor-messages')||document.getElementById('pwa-model-setup');host.before(box);
  const [button,stop]=box.querySelectorAll('button'),bar=box.querySelector('progress'),note=box.querySelector('[role=status]');
- button.onclick=async()=>{button.disabled=true;stop.hidden=false;bar.hidden=false;bar.value=0;note.textContent='Подключение…';try{await install(n=>{bar.value=n;note.textContent='Скачивание · '+n+'%';});note.textContent='Готово. Нажмите микрофон для диктовки.';}catch(e){note.textContent=e.name==='AbortError'?'Скачивание отменено.':String(e.message||e);}finally{button.disabled=false;stop.hidden=true;bar.hidden=true;}};
+ button.onclick=async()=>{button.disabled=true;stop.hidden=false;bar.hidden=false;bar.value=0;note.textContent='Подключение…';try{await install((n,info)=>{bar.value=n;note.textContent=(info?.phase||'Скачивание')+' · '+n+'%'+(info?' · '+(info.loaded/1048576).toFixed(1)+' из '+(info.total/1048576).toFixed(1)+' МБ':'');});note.textContent='Готово. Нажмите микрофон для диктовки.';}catch(e){note.textContent=e.name==='AbortError'?'Скачивание отменено.':String(e.message||e);}finally{button.disabled=false;stop.hidden=true;bar.hidden=true;}};
  stop.onclick=cancel;
  }box.hidden=false;return box;
 }
