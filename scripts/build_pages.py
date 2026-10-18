@@ -60,7 +60,7 @@ with tempfile.TemporaryDirectory() as tmp, contextlib.ExitStack() as cleanup:
         write(url, rewrite(html))
     shutil.copytree(ROOT/'tutorial/static', out/'static', dirs_exist_ok=True, ignore=shutil.ignore_patterns('tests','__pycache__'))
     for path in (out/'static').rglob('*'):
-        if path.is_file() and path.suffix in {'.js','.mjs','.css','.html'} and 'vendor' not in path.relative_to(out).parts:
+        if path.is_file() and path.suffix in {'.js','.mjs','.css','.html'} and 'vendor' not in path.relative_to(out).parts and 'local-speech' not in path.relative_to(out).parts:
             
             if path.name == 'worker.mjs': continue
             try: text = path.read_text()
@@ -97,7 +97,7 @@ with tempfile.TemporaryDirectory() as tmp, contextlib.ExitStack() as cleanup:
     sw = sw.replace("'tutor-pwa-meta-v1'",json.dumps('tutor-pages-meta-'+base))
     sw = sw.replace("'tutor-pwa-pack-'",json.dumps('tutor-pages-pack-'+base+'-'))
     write('/sw.js',sw)
-    resources += [base+p.relative_to(out).as_posix() for p in (out/'static').rglob('*') if p.is_file()]
+    resources += [base+p.relative_to(out).as_posix() for p in (out/'static').rglob('*') if p.is_file() and 'local-speech' not in p.relative_to(out).parts]
     resources.append(base+'manifest.webmanifest')
     write('/pwa/download-manifest.json',json.dumps({'version':'pages-v1.1.0','pages':[base+u.lstrip('/') for u in package['pages']], 'resources':sorted(set(resources))}))
     write('/.nojekyll','')

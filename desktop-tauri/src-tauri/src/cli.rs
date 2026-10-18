@@ -41,6 +41,19 @@ pub fn cli_status(app: tauri::AppHandle) -> Result<Value,String> {
     Ok(json!({"installed":path(&app).is_ok(),"bytes":asset()?.size,"version":VERSION}))
 }
 #[tauri::command]
+pub fn remove_cli(app: tauri::AppHandle,state:State<'_,crate::AppState>,profile:String)->Result<(),String>{
+    drop(state.checked(&profile)?);
+    let _chat=state.busy.try_acquire().map_err(|_|"Сначала остановите ответ помощника.")?;
+    if BUSY.swap(true,Ordering::SeqCst){return Err("Дождитесь завершения или отмены загрузки.".into());}
+    let result=(|| {
+        // Only binaries managed by PythonTutor; never touch user profiles or system OpenCode.
+        let root=directory(&app)?.parent().unwrap().to_path_buf();
+        if root.exists(){fs::remove_dir_all(root).map_err(|e|e.to_string())?;}
+        Ok(())
+    })();
+    BUSY.store(false,Ordering::SeqCst);result
+}
+#[tauri::command]
 pub fn cancel_cli_install() {CANCEL.store(true,Ordering::Relaxed);}
 fn active() -> Result<(),String> {if CANCEL.load(Ordering::Relaxed){Err("Загрузка отменена.".into())}else{Ok(())}}
 fn unpack(archive: &Path, destination: &Path) -> Result<(),String> {

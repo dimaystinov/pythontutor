@@ -108,10 +108,26 @@ pub async fn prepare_model(app: tauri::AppHandle, state: tauri::State<'_,crate::
     let result=tauri::async_runtime::spawn_blocking(move||install(app)).await.map_err(|e|e.to_string()).and_then(|r|r);
     BUSY.store(false,Ordering::SeqCst);result
 }
+fn remove_downloads(root:&Path)->Result<(),String>{
+    // This directory contains only the downloaded Qwen component, not course/profile data.
+    let qwen=root.join("qwen7b");
+    if qwen.exists(){fs::remove_dir_all(qwen).map_err(|e|e.to_string())?;}
+    for name in ["qwen.zip","qwen.part"] {let p=root.join(name);if p.exists(){fs::remove_file(p).map_err(|e|e.to_string())?;}}
+    Ok(())
+}
+#[tauri::command]
+pub fn remove_model(app:tauri::AppHandle,state:tauri::State<'_,crate::AppState>,profile:String)->Result<(),String>{
+    drop(state.checked(&profile)?);
+    if BUSY.swap(true,Ordering::SeqCst){return Err("Дождитесь завершения или отмены загрузки модели.".into());}
+    let result=app.path().app_data_dir().map_err(|e|e.to_string()).and_then(|p|remove_downloads(&p.join("models")));
+    BUSY.store(false,Ordering::SeqCst);result
+}
 #[tauri::command]
 pub fn cancel_model(){CANCEL.store(true,Ordering::SeqCst);}
 #[cfg(test)]
 mod tests {
+ #[test]fn removal_preserves_other_data(){let d=tempfile::tempdir().unwrap();let root=d.path();fs::create_dir(root.join("qwen7b")).unwrap();fs::write(root.join("qwen7b/model.bin"),b"weights").unwrap();fs::write(root.join("qwen.part"),b"partial").unwrap();fs::write(root.join("profiles.db"),b"student").unwrap();fs::create_dir(root.join("speech")).unwrap();remove_downloads(root).unwrap();remove_downloads(root).unwrap();assert!(!root.join("qwen7b").exists());assert!(!root.join("qwen.part").exists());assert_eq!(fs::read(root.join("profiles.db")).unwrap(),b"student");assert!(root.join("speech").exists());}
+
  use super::*;
  #[test] fn rejects_corruption(){let dir=tempfile::tempdir().unwrap();let p=dir.path().join("x");fs::write(&p,b"abc").unwrap();assert!(valid(&p,3,"ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad").unwrap());assert!(!valid(&p,2,"bad").unwrap());assert!(!valid(&p,3,"bad").unwrap());}
  #[test] fn archive_extracts_only_verified_manifest_entries(){

@@ -29,3 +29,15 @@ for(const type of ['SyntaxError','TypeError','ValueError','EOFError','IndexError
  assert.ok(!answer.includes('точную причину без дополнительного разбора'),type);
 }
 console.log('PASS execution-based explanations, outdated-code guard, code privacy, limits, wrong answers and successful runs');
+
+const consult=ctx.window.TutorGuidance.consult;
+assert.match(consult('Забыл поставить двоеточие', {code:'if x > 0',run:{code:'if x > 0',result:'unhandled_exception',exception:{exception_type:'SyntaxError',exception_msg:"expected ':'",line:1}}}).answer,/двоеточие/);
+assert.match(consult('Объясни условие простыми словами', {material:'Считать два катета и найти площадь'}).answer,/два катета/);
+assert.match(consult('Почему тест 2 не прошёл?',{code,run:{code,checked:true,total:2,passed:1,tests:[{result:'ok'},{result:'wrong_answer',stdout:'YES',expected:'NO',stdin:'4'}]}}).answer,/NO/);
+assert.match(consult('Проверь мой код',{code:'changed',run:failure}).answer,/изменил код/);
+assert.match(consult('Почему ошибка?',{code,run:failure,allowed:false}).answer,/Доступ к коду отключён/);
+assert.match(consult('Что такое range?').answer,/правая граница/);
+assert.match(consult('Придумай роман').answer,/заготовки/);
+assert.match(diagnose('print()', {code:'print()',result:'wrong_answer',stdout:'',expected:'3'}),/Вывод пуст/);
+assert.match(diagnose('print()', {code:'print()',result:'wrong_answer',stdout:'yes',expected:'YES'}),/регистр/);
+console.log('PASS deterministic dialogue, specific test context, missing colon, output comparison, privacy, stale code and honest fallback');

@@ -111,5 +111,46 @@ async function mount(container, group, onReady) {
  container.append(text,download,details,label,status);
 }
 document.querySelectorAll('[data-model-group]').forEach(button=>button.addEventListener('click',()=>mount(document.getElementById('pwa-model-setup'),button.dataset.modelGroup).catch(error=>{document.getElementById('pwa-model-setup').textContent=error.message;})));
-window.TutorModelAssets={cancel:()=>downloadController?.abort(),ready,ensure,importFiles,mount,base:base.href,headerInfo};
+// Component deletion is separate from learner-data reset and course offline caches.
+async function remove(group) {
+ if(!['qwen7b','whisper-tiny','localspeech','opencode'].includes(group))throw Error('Неизвестный компонент.');
+ if(downloadController)throw Error('Сначала дождитесь завершения или отмените скачивание.');
+ if(group==='opencode'){
+  if(!window.TutorNative)throw Error('OpenCode удаляется в приложении PythonTutor.');
+  await window.TutorNative.invoke('remove_cli');return;
+ }
+ if(group==='qwen7b'){
+  await window.TutorLocalAI?.unload?.();
+  if(window.TutorNative)await window.TutorNative.invoke('remove_model');
+ }
+ if(group==='localspeech'){await window.TutorSpeech?.dispose?.();if(window.TutorNative)await window.TutorNative.invoke('remove_speech');}
+ const originRoot=new URL('../../',base);
+ const prefixes=group==='localspeech'?[new URL('static/local-speech/',originRoot).href]:[new URL(group+'/',base).href];
+ const names=group==='qwen7b'?['webllm/model','webllm/config','webllm/wasm']:group==='whisper-tiny'?['transformers-cache']:['local-speech-verified-v1','tutor-local-speech-runtime-v1'];
+ let removed=0;
+ for(const name of await caches.keys()){
+  if(!names.includes(name))continue;
+  const cache=await caches.open(name);
+  for(const request of await cache.keys()){
+   if(prefixes.some(prefix=>request.url.startsWith(prefix))||(group==='localspeech'&&request.url===new URL('local-speech-manifest.json',document.currentScript?.src||manifestURL).href)){if(await cache.delete(request))removed++;}
+  }
+ }
+ installedPromise=null;
+ window.dispatchEvent(new CustomEvent('tutor-component-removed',{detail:group}));
+ return removed;
+}
+const deletePanel=document.getElementById('component-delete-options');
+if(deletePanel){
+ if(window.TutorNative)deletePanel.querySelector('[data-native-component]').hidden=false;
+ document.getElementById('component-delete').addEventListener('click',async()=>{
+  const selected=[...deletePanel.querySelectorAll('input:checked')].map(input=>input.value);
+  const status=document.getElementById('component-delete-status');
+  if(!selected.length){status.textContent='Выберите, что удалить.';return;}
+  const button=document.getElementById('component-delete');button.disabled=true;
+  try{for(const group of selected)await remove(group);status.textContent='Скачанные компоненты удалены. Прогресс, код и переписка сохранены.';deletePanel.querySelectorAll('input').forEach(input=>input.checked=false);}
+  catch(e){status.textContent=String(e.message||e);}
+  finally{button.disabled=false;}
+ });
+}
+window.TutorModelAssets={cancel:()=>downloadController?.abort(),ready,ensure,importFiles,mount,remove,base:base.href,headerInfo};
 })();

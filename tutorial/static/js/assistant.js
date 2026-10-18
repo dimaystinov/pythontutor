@@ -11,9 +11,10 @@
     try {
         const choice=localStorage.getItem('tutor-ai-model');
         if(choice&&model?.querySelector('option[value="'+choice.replace(/[^\w.-]/g,'')+'"]'))model.value=choice;
-        else if(!choice&&model&&location.origin==='http://127.0.0.1:8043')model.value='opencode-local';
-        else if(model&&choice){model.value='Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC';localStorage.setItem('tutor-ai-model',model.value);}
+        else if(!choice&&model)model.value='guided';
+        else if(model&&choice){model.value='guided';localStorage.setItem('tutor-ai-model',model.value);}
     } catch(_){}
+    const guided=()=>model?.value==='guided';
     const api=()=>model?.value==='opencode-local';
     const local=()=>!!model&&model.value!=='cloud';
     const chatKey='tutor-local-chat:'+window.TutorDevice.owner()+':'+panel.dataset.url;
@@ -28,12 +29,12 @@
         if(setup)window.TutorModelAssets.mount(setup,event.detail,()=>event.detail==='qwen7b'?prepareModel():window.TutorLocalVoice.prepare(friendlyProgress)).catch(e=>notice(e.message,true));
     });
     function prepareModel(){
-        if(!local())return Promise.resolve();
+        if(!local()||guided())return Promise.resolve();
         if(!modelPromise){model.disabled=true;modelPromise=window.TutorLocalAI.load(model.value,friendlyProgress).finally(()=>{modelPromise=null;model.disabled=busy;});}
         return modelPromise;
     }
     function localHistory(){try{localTurns=JSON.parse(localStorage.getItem(chatKey)||'[]');}catch(_){localTurns=[];}return localTurns;}
-    function describeModel(){if($('tutor-api-settings'))$('tutor-api-settings').hidden=!api();const c=window.TutorLocalAI?.choices.find(c=>c.id===model?.value);if($('tutor-model-info'))$('tutor-model-info').textContent=c?c.download+' загрузка, '+c.memory+'. '+c.note:'Обработка через настроенный API. Нужен интернет.';if($('tutor-load-model'))$('tutor-load-model').hidden=!c;if($('tutor-load-voice'))$('tutor-load-voice').hidden=!c;}
+    function describeModel(){if($('tutor-privacy'))$('tutor-privacy').textContent=guided()?'Встроенный консультант использует правила и заготовленные объяснения. Код и вопросы остаются на устройстве.':'Qwen обрабатывает код на устройстве. OpenCode отправляет вопрос, условие и разрешённый код облачному провайдеру. ИИ может ошибаться.';if($('tutor-api-settings'))$('tutor-api-settings').hidden=!api();const c=window.TutorLocalAI?.choices.find(c=>c.id===model?.value);if($('tutor-model-info'))$('tutor-model-info').textContent=c?c.download+' загрузка, '+c.memory+'. '+c.note:guided()?'Объясняет ошибки и тесты по правилам. Не требует загрузок и интернета.':'Обработка через настроенный API. Нужен интернет.';if($('tutor-load-model'))$('tutor-load-model').hidden=!c;if($('tutor-load-voice'))$('tutor-load-voice').hidden=!c;}
     let pairingWindow;
     $('tutor-connect-desktop')?.addEventListener('click',()=>{
         if(location.origin==='http://127.0.0.1:8043'){prepareModel().then(()=>{$('tutor-desktop-status').textContent='Приложение подключено.';}).catch(e=>notice(e.message,true));return;}
@@ -83,7 +84,7 @@
         }).then(()=>{log.scrollTop=log.scrollHeight;}).catch(()=>{});
     }
     async function copy(text){try{await navigator.clipboard.writeText(text);notice('Сообщение скопировано.');}catch(_){notice('Выделите текст сообщения и скопируйте его.',true);}}
-    function message(role,text,id){
+    function message(role,text,id,theory){
         const item=document.createElement('div');item.className='tutor-message '+role;
         const body=document.createElement('div');body.className='message-body';formatted(body,text);item.append(body);
         if(role==='assistant'){
@@ -92,14 +93,16 @@
             if(id&&voiceReady){const play=document.createElement('button');play.type='button';play.textContent='Слушать';play.addEventListener('click',async()=>{stopCall();try{await speak(id);}catch(e){notice(e.message,true);}});tools.append(play);}
             item.append(tools);
         }
+        if(theory&&/^[a-z_]+$/.test(theory)){const link=document.createElement('a');link.href='/lessons/'+theory+'/';link.textContent='Открыть теорию';body.append(document.createElement('br'),link);}
         log.append(item);typesetMessage(body);log.scrollTop=log.scrollHeight;
     }
     async function history(){
         if(local()){
             log.querySelectorAll('.tutor-message').forEach(e=>e.remove());
-            for(const turn of localHistory()){message('user',turn.question);message('assistant',turn.answer);}
-            $('tutor-context').textContent=api()?'Питоныч · OpenCode CLI':'Питоныч · локальный помощник';
+            for(const turn of localHistory()){message('user',turn.question);message('assistant',turn.answer,null,turn.theory);}
+            $('tutor-context').textContent=guided()?'Питоныч · встроенный консультант':api()?'Питоныч · OpenCode CLI':'Питоныч · локальный помощник';
             voiceReady=true;loaded=true;$('tutor-voice-mode').disabled=false;$('tutor-dictate').disabled=false;
+            if(guided()){notice('Готов помочь с задачей.');return;}
             if(api()){notice('Помощник работает через приложение PythonTutor.');return;}
             prepareModel().catch(e=>notice(e.message||String(e),true));return;
         }
@@ -169,14 +172,14 @@
     async function send(text,fromVoice=false){
         if(busy)return null;text=text.trim();if(!text)return null;
         if(text.length>3000){notice('Сократите вопрос до 3000 символов.',true);return null;}
-        const refusal=window.TutorLocalAI?.scopeRefusal(text);
-        const prepared=refusal?{answer:refusal}:window.TutorGuidance?.current(text,localHistory()) || window.TutorGuidance?.review(text,codeNow(),window.BrowserPython?.lastRun?.(),!!$('tutor-include-code')?.checked);
-        if(prepared&&(!attachment||refusal)){
+        const refusal=guided()?null:window.TutorLocalAI?.scopeRefusal(text);
+        const prepared=guided()?(attachment?{answer:'Встроенный консультант разбирает текст, код и результаты тестов. Опиши вопрос словами; изображение он не анализирует.'}:window.TutorGuidance.consult(text,{code:codeNow(),run:window.BrowserPython?.lastRun?.(),allowed:!!$('tutor-include-code')?.checked,material:currentMaterial(),turns:localHistory()})):refusal?{answer:refusal}:window.TutorGuidance?.current(text,localHistory()) || window.TutorGuidance?.review(text,codeNow(),window.BrowserPython?.lastRun?.(),!!$('tutor-include-code')?.checked);
+        if(prepared&&(guided()||!attachment||refusal)){
             if(window.TutorDevice.isCurrent&&!window.TutorDevice.isCurrent())return null;
             const result={question:text,...prepared,id:'local-'+crypto.randomUUID()};
-            message('user',text);message('assistant',result.answer,result.id);
+            message('user',text);message('assistant',result.answer,result.id,result.theory);
             localTurns.push(result);try{localStorage.setItem(chatKey,JSON.stringify(localTurns.slice(-20)));}catch(_){}
-            question.value='';notice('Помощь по задаче · работает без ИИ и интернета.');return result;
+            question.value='';if(guided())clearImage();notice('Помощь по задаче · работает без ИИ и интернета.');return result;
         }
         updateCode();const code=$('tutor-include-code').checked?lastCode:'';
         if(code.length>12000){notice('Код слишком длинный. Сократите его или отключите передачу кода.',true);return null;}

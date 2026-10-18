@@ -2,6 +2,7 @@
 mod profiles;
 mod cli;
 mod models;
+mod speech;
 use profiles::Profile;
 use serde_json::{json, Value};
 use std::{path::PathBuf, sync::Mutex};
@@ -222,11 +223,22 @@ fn main() {
             Some(vec!["--background"]),
         ))
         .setup(|app| {
+            let speech_app=app.handle().clone();
             tauri::WebviewWindowBuilder::new(
                 app,
                 "main",
                 tauri::WebviewUrl::App("index.html".into()),
             )
+            .on_web_resource_request(move |request,response| {
+                if let Some(bytes)=speech::resource(&speech_app,request.uri().path()){
+                    let path=request.uri().path();
+                    let mime=if path.ends_with(".wasm"){"application/wasm"}else if path.ends_with(".js")||path.ends_with(".mjs"){"text/javascript"}else if path.ends_with(".json"){"application/json"}else{"application/octet-stream"};
+                    *response.status_mut()=tauri::http::StatusCode::OK;
+                    response.headers_mut().insert("content-type",mime.parse().unwrap());
+                    response.headers_mut().remove("content-length");
+                    *response.body_mut()=std::borrow::Cow::Owned(bytes);
+                }
+            })
             .title("PythonTutor")
             .inner_size(1280.0, 850.0)
             .min_inner_size(800.0, 600.0)
@@ -275,10 +287,16 @@ fn main() {
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
+            speech::speech_status,
+            speech::install_speech,
+            speech::cancel_speech,
+            speech::remove_speech,
             cli::cli_status,
+            cli::remove_cli,
             cli::install_cli,
             cli::cancel_cli_install,
             models::prepare_model,
+            models::remove_model,
             models::cancel_model,
             open_release,
             register,

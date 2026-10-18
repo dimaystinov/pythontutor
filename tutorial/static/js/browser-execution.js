@@ -28,7 +28,7 @@ function remember(job,result){
  const list=Array.isArray(result)?result:[result];
  const index=list.findIndex(r=>r.result!=='ok'&&r.result!=='skipped');
  const item=list[index<0?0:index]||{};
- lastRun={code:job.code,checked:!!job.tests,total:list.length,passed:list.filter(r=>r.result==='ok').length,
+ lastRun={tests:job.tests?list.map((r,i)=>({result:r.result,exception:r.exception||null,stdout:String(r.stdout||'').slice(0,1500),stdin:String(job.tests[i]?.stdin||'').slice(0,800),expected:typeof job.tests[i]?.answer==='string'?job.tests[i].answer.slice(0,800):null})):null,code:job.code,checked:!!job.tests,total:list.length,passed:list.filter(r=>r.result==='ok').length,
   result:item.result,exception:item.exception||null,stderr:String(item.stderr||'').slice(0,1500),
   stdout:String(item.stdout||'').slice(0,1500),test:index<0?null:index+1,
   stdin:String((job.tests?.[index]?.stdin)??job.stdin??'').slice(0,800),

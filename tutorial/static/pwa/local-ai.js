@@ -98,5 +98,9 @@ async function apiAnswer(payload,progress){
  finally{clearTimeout(timer);if(apiController===controller)apiController=null;}
 }
 function stop(){if(loading)window.TutorModelAssets.cancel?.();if(window.TutorNative&&loading)window.TutorNative.invoke('cancel_model');apiController?.abort();if(loading)cancelLoading?.();else engine?.interruptGenerate();}
-window.TutorLocalAI={choices,load,answer,stop,hintOnly,dialogueMessages,scopeRefusal};
+async function unload(){
+ if(loading)throw Error('Дождитесь завершения или отмены загрузки модели.');
+ engine?.interruptGenerate();if(engine)await engine.unload();worker?.terminate();engine=null;worker=null;loadedId=null;
+}
+window.TutorLocalAI={choices,load,answer,stop,unload,hintOnly,dialogueMessages,scopeRefusal};
 })();
