@@ -14,7 +14,7 @@ async function ready(){
 async function install(progress=()=>{}){
  if(installing)throw Error('LocalSpeech уже скачивается.');installing=true;
  try{
-  if(window.TutorNative){const off=await window.__TAURI__.event.listen('speech-progress',({payload})=>progress(payload));try{await window.TutorNative.invoke('install_speech');}finally{off();}return;}
+  if(window.TutorNative){const off=await window.__TAURI__.event.listen('speech-progress',({payload})=>typeof payload==='number'?progress(payload):progress(payload.percent,payload));try{await window.TutorNative.invoke('install_speech');}finally{off();}return;}
   if(!navigator.serviceWorker?.controller)throw Error('Перезагрузите страницу, чтобы включить хранение голосового компонента.');
   aborter=new AbortController();const m=await manifest(),total=m.files.reduce((n,f)=>n+f.bytes,0);let done=0;
   const report=(received=0,phase='Скачивание')=>progress(Math.min(99,Math.floor((done+received)/total*100)),{loaded:done+received,total,phase});

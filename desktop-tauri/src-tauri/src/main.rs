@@ -3,6 +3,7 @@ mod profiles;
 mod cli;
 mod models;
 mod speech;
+mod updates;
 use profiles::Profile;
 use serde_json::{json, Value};
 use std::{path::PathBuf, sync::Mutex};
@@ -288,6 +289,7 @@ fn main() {
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
+            updates::app_version, updates::check_update, updates::install_update, updates::cancel_update, updates::finish_update,
             speech::speech_status,
             speech::install_speech,
             speech::cancel_speech,

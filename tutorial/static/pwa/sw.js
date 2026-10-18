@@ -21,11 +21,12 @@ self.addEventListener('message',event=>{
    if(!response.ok)throw Error('Не удалось получить список файлов курса.');
    const manifest=await response.json(),cache=await caches.open(name);
    const tasks=[...manifest.resources.map(url=>({key:url,url})),...manifest.pages.map(path=>({key:path,url:'/pwa/page/?path='+encodeURIComponent(path)}))];
-   let done=0,cursor=0;
+   let done=0,cursor=0,bytes=0;
    async function load(){while(cursor<tasks.length){const task=tasks[cursor++];
     const r=await fetch(task.url,{cache:'reload',credentials:'omit'});
     if(!r.ok||r.redirected)throw Error('Не удалось скачать '+task.key);
-    await cache.put(task.key,r);done++;send({done,total:tasks.length});
+    if(r.body){const reader=r.body.getReader();const body=new ReadableStream({async pull(controller){try{const chunk=await reader.read();if(chunk.done){controller.close();return;}bytes+=chunk.value.byteLength;send({done,total:tasks.length,bytes});controller.enqueue(chunk.value);}catch(e){controller.error(e);}},cancel(reason){return reader.cancel(reason);}});await cache.put(task.key,new Response(body,{status:r.status,statusText:r.statusText,headers:r.headers}));}else await cache.put(task.key,r);
+    done++;send({done,total:tasks.length,bytes});
    }}
    const results=await Promise.allSettled(Array.from({length:4},load));
    const failure=results.find(r=>r.status==='rejected');if(failure)throw failure.reason;

@@ -23,7 +23,7 @@ fn install(app:tauri::AppHandle)->Result<(),String>{
   let path=temp.path().join(&f.path);fs::create_dir_all(path.parent().unwrap()).map_err(|e|e.to_string())?;
   let mut response=client.get(format!("{}{}",m.base,f.path)).send().and_then(|r|r.error_for_status()).map_err(|e|e.to_string())?;
   let mut file=fs::File::create(path).map_err(|e|e.to_string())?;let mut hash=Sha256::new();let mut size=0u64;let mut buffer=vec![0;256*1024];
-  loop{if CANCEL.load(Ordering::SeqCst){return Err("Загрузка отменена.".into());}let n=response.read(&mut buffer).map_err(|e|e.to_string())?;if n==0{break;}size+=n as u64;if size>f.bytes{return Err("Неверный размер файла LocalSpeech.".into());}hash.update(&buffer[..n]);file.write_all(&buffer[..n]).map_err(|e|e.to_string())?;let _=app.emit("speech-progress",(done+size)*100/total);}
+  loop{if CANCEL.load(Ordering::SeqCst){return Err("Загрузка отменена.".into());}let n=response.read(&mut buffer).map_err(|e|e.to_string())?;if n==0{break;}size+=n as u64;if size>f.bytes{return Err("Неверный размер файла LocalSpeech.".into());}hash.update(&buffer[..n]);file.write_all(&buffer[..n]).map_err(|e|e.to_string())?;let _=app.emit("speech-progress",serde_json::json!({"percent":(done+size)*100/total,"loaded":done+size,"total":total,"phase":"Скачивание"}));}
   if size!=f.bytes||format!("{:x}",hash.finalize())!=f.sha256{return Err("Файл LocalSpeech не прошёл проверку. Повторите скачивание.".into());}done+=size;
  }
  fs::write(temp.path().join("installed"),b"0.3.0").map_err(|e|e.to_string())?;
