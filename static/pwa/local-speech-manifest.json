@@ -1,0 +1,147 @@
+{
+  "version": "0.3.0",
+  "source": "https://github.com/dimaystinov/local-speech/tree/8db716c",
+  "base": "https://dimaystinov.github.io/pythontutor/static/local-speech/0.3.0/",
+  "files": [
+    {
+      "path": "local-speech.js",
+      "bytes": 60115,
+      "sha256": "37fd13074fd6b0cedb121668d44daee02f2393f1fc165875008d61ea5d37489b"
+    },
+    {
+      "path": "voice.mjs",
+      "bytes": 3400,
+      "sha256": "b7610d0b88f9d2d5857f38e380a1f56d2d54fb4632fa1761b7face6bb97ac334"
+    },
+    {
+      "path": "voice.d.ts",
+      "bytes": 804,
+      "sha256": "f722b9f044a9f84d2aa64c1bb7612da8610f3004f26ba41eb3e193d63576d67f"
+    },
+    {
+      "path": "worker.js",
+      "bytes": 10246,
+      "sha256": "dcbca9e8b326a8438885d39b5da643ce6cee08c8881ed156afd9b203a22f0c15"
+    },
+    {
+      "path": "pcm-worklet.js",
+      "bytes": 831,
+      "sha256": "49a03dabff2f42346a0d1a77a0cacb0cda12c506d8fc1cfb31586f4af01de867"
+    },
+    {
+      "path": "model-catalog.js",
+      "bytes": 1839,
+      "sha256": "5e66354f88abe647aba5a4a0d345d2488d4f5ef0d888083c8d36a5377c8f41fc"
+    },
+    {
+      "path": "signal.js",
+      "bytes": 628,
+      "sha256": "6bf2f37cd225e888735d2a235d33b083b5cecb7c4ede208e94035b88f78ccbd0"
+    },
+    {
+      "path": "context.js",
+      "bytes": 2012,
+      "sha256": "36f4d0439282a774448b54f5bc27f10af85644f9447e7cb52897547e1796f0f6"
+    },
+    {
+      "path": "vendor/sherpa-onnx-wasm-web.js",
+      "bytes": 93039,
+      "sha256": "ef434f0a6868aa4d622797d24d1089c5638a1991f1c491db44931eef5170eb72"
+    },
+    {
+      "path": "vendor/sherpa-onnx-wasm-web.wasm",
+      "bytes": 15162849,
+      "sha256": "1223d484c0e12b2a0f124516f851ef128cb003bbfbe181393734a204fd15f640"
+    },
+    {
+      "path": "vendor/sherpa-onnx-asr.js",
+      "bytes": 54712,
+      "sha256": "fff0b2059f4e203d8d3c9fc4af997d146e724236c081b9f5af1e5df05c5a421b"
+    },
+    {
+      "path": "vendor/sherpa-onnx-vad.js",
+      "bytes": 7784,
+      "sha256": "e6bf4f36dcc8067b3d94d2f6b9ce279f77470d4a9ea758dc7fe2b8e99fb68c41"
+    },
+    {
+      "path": "vendor/LICENSE-sherpa-onnx",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "README.md",
+      "bytes": 10611,
+      "sha256": "01600066a0df6ef06ef9b2a85fe7a96c8e8eaede49e428c204912ccbb5b7d083"
+    },
+    {
+      "path": "local-speech.mjs",
+      "bytes": 60281,
+      "sha256": "3e8a1edea94b1b02bf64da37edf37e754fd8d9f103b0ecaa68a361cf398955e3"
+    },
+    {
+      "path": "local-speech.d.ts",
+      "bytes": 1700,
+      "sha256": "9da20b780644bc1bcd3e5536df242a285e96cef74b0eaa0e6bdc107d591c32c8"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "bytes": 2410,
+      "sha256": "0e785670958a3d31d236117ff0213340b1c26d2117e47408d52613406bc56e96"
+    },
+    {
+      "path": "licenses/whisper.txt",
+      "bytes": 1063,
+      "sha256": "b5d65a59060e68c4ff940e1eddfa6f94b2d68fdf58ed7f4dd57721c997e35e9d"
+    },
+    {
+      "path": "licenses/silero-vad.txt",
+      "bytes": 1075,
+      "sha256": "2e63e9a38b6e8fc0c7bc37ce174caca1862870856c6daf5697cfb785e925520b"
+    },
+    {
+      "path": "licenses/onnxruntime.txt",
+      "bytes": 1073,
+      "sha256": "2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c"
+    },
+    {
+      "path": "models/small/encoder.int8.onnx",
+      "bytes": 26214060,
+      "sha256": "e0db705e94ec35d803b1df4f40cda23d064e1142977c80ab288430b109777a9d"
+    },
+    {
+      "path": "models/small/decoder.onnx",
+      "bytes": 2093080,
+      "sha256": "89b3088a9e20e1ef7f2e85ce1a3478afe6a9c4ac57369cabcc4beb8e95328ea0"
+    },
+    {
+      "path": "models/small/joiner.int8.onnx",
+      "bytes": 259417,
+      "sha256": "b55784b071ab7512eab4c7c44e4f5478284ef33c83562cc6a249b972515a31e5"
+    },
+    {
+      "path": "models/small/tokens.txt",
+      "bytes": 6388,
+      "sha256": "93bbbc0bae6b78c0bbb743d4aa9fded3bb5ff3aac5f0200e3a769a5a05e0fdf6"
+    },
+    {
+      "path": "models/vad/silero_vad.onnx",
+      "bytes": 643854,
+      "sha256": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6"
+    },
+    {
+      "path": "models/context/ru-bpe.vocab",
+      "bytes": 13916,
+      "sha256": "52649881bb41fafe4257c74d77a85320524494a9d8c48e93d4aaa216cc45113d"
+    },
+    {
+      "path": "evidence/model-manifest.json",
+      "bytes": 2829,
+      "sha256": "48916ab63ec1f48a0f9bab2f7e3aed0614fb5c89399bd2b19f01b7390eabc491"
+    },
+    {
+      "path": "models/small/LICENSE",
+      "bytes": 10173,
+      "sha256": "bb618af833c817ab01c1564bd3ec75ba4b4f9cf30910a4a2168e30a674ee8cc6"
+    }
+  ]
+}

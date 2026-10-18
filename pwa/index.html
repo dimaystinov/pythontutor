@@ -51,7 +51,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 <link rel="apple-touch-icon" href="/pythontutor/static/pwa/icon-192.png">
 <script defer src="/pythontutor/static/pwa/app.js?v=progress5"></script>
 <script src="/pythontutor/static/pwa/storage.js?v=reset7"></script>
-<meta name="csrf-token" content="cBfJvS28mJovTT3UBCpv4oKL1r1DFEeVDwHTHvLFRiiUQffqw6oHHZonU9J1jjEf">
+<meta name="csrf-token" content="V16Aqmoa5ncI9ZPdeZJb3Cemrr9xoyunNCkGmv0bjcnfzHpEW3EPLoO9c5Dmy8fQ">
 
 	<title>Интерактивный учебник языка Python</title>
 
@@ -135,9 +135,19 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 </section>
 <section class="settings-section" aria-labelledby="settings-assistant">
  <h2 id="settings-assistant">Помощник</h2>
- <p>Скачайте помощника и голосовой ввод, если хотите пользоваться ими без интернета.</p>
- <div class="settings-actions"><button class="btn btn-default" data-model-group="qwen7b">Настроить помощника</button> <button class="btn btn-default" data-model-group="whisper-tiny">Настроить голосовой ввод</button></div>
+ <p>Встроенный консультант работает без загрузок. Голосовой ввод и нейросеть можно установить отдельно.</p>
+ <div class="settings-actions"><button class="btn btn-default" data-model-group="qwen7b">Настроить помощника</button> <button class="btn btn-default" data-speech-install>Голосовой ввод LocalSpeech</button></div>
  <div id="pwa-model-setup" hidden></div>
+ <details id="component-delete-options">
+  <summary>Удалить скачанные компоненты</summary>
+  <p>Освободить место в кэше. Курс, прогресс, код и переписка останутся. Для повторного скачивания понадобится интернет.</p>
+  <p><label><input type="checkbox" value="qwen7b"> Модель Qwen</label></p>
+  <p><label><input type="checkbox" value="whisper-tiny"> Голосовой ввод Whisper</label></p>
+  <p><label><input type="checkbox" value="localspeech"> Голосовой ввод LocalSpeech</label></p>
+  <p data-native-component hidden><label><input type="checkbox" value="opencode"> OpenCode</label></p>
+  <button id="component-delete" class="btn btn-default" type="button">Удалить выбранное</button>
+  <p id="component-delete-status" role="status"></p>
+ </details>
 </section>
 <section class="settings-section settings-reset" aria-labelledby="settings-data">
  <h2 id="settings-data">Очистка данных</h2>
@@ -154,6 +164,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 </div>
 <script defer src="/pythontutor/static/pwa/desktop-download.js?v=1"></script>
 <script defer src="/pythontutor/static/pwa/model-assets.js?v=cors20261017"></script>
+<script defer src="/pythontutor/static/pwa/local-speech.js?v=1"></script>
 
 
 

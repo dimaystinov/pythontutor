@@ -3,7 +3,7 @@
 if(document.querySelector('meta[name=execution-mode]')?.content!=='browser')return;
 function status(text){document.querySelectorAll('[data-browser-status]').forEach(e=>{e.textContent=text;e.hidden=!text;});}
 function runJob(job){return new Promise((resolve,reject)=>{
- const worker=new Worker('/pythontutor/static/browser/worker.mjs',{type:'module'});
+ const worker=new Worker('/pythontutor/static/browser/worker.mjs?v=20261017',{type:'module'});
  let timer,index=0;
  function dispose(){clearTimeout(timer);worker.terminate();}
  function fail(error){dispose();status(error);reject(new Error(error));}
@@ -15,7 +15,7 @@ function runJob(job){return new Promise((resolve,reject)=>{
  },ms);}
  function receive(event){
   const data=event.data;
-  if(data.phase==='loading'){status('Загружаем Python в браузер…');return;}
+  if(data.phase==='loading'){status('');return;}
   if(data.phase==='executing'){index=data.index;status('Выполняется в вашем браузере'+(job.tests?' · тест '+(index+1)+'/'+data.total:''));deadline(8000,true);return;}
   if(data.error){fail('Ошибка среды Python: '+data.error);return;}
   if(data.result){dispose();status('');resolve(data.result);}
@@ -28,7 +28,7 @@ function remember(job,result){
  const list=Array.isArray(result)?result:[result];
  const index=list.findIndex(r=>r.result!=='ok'&&r.result!=='skipped');
  const item=list[index<0?0:index]||{};
- lastRun={code:job.code,checked:!!job.tests,total:list.length,passed:list.filter(r=>r.result==='ok').length,
+ lastRun={tests:job.tests?list.map((r,i)=>({result:r.result,exception:r.exception||null,stdout:String(r.stdout||'').slice(0,1500),stdin:String(job.tests[i]?.stdin||'').slice(0,800),expected:typeof job.tests[i]?.answer==='string'?job.tests[i].answer.slice(0,800):null})):null,code:job.code,checked:!!job.tests,total:list.length,passed:list.filter(r=>r.result==='ok').length,
   result:item.result,exception:item.exception||null,stderr:String(item.stderr||'').slice(0,1500),
   stdout:String(item.stdout||'').slice(0,1500),test:index<0?null:index+1,
   stdin:String((job.tests?.[index]?.stdin)??job.stdin??'').slice(0,800),

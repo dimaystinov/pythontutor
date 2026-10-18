@@ -33,7 +33,15 @@ async function load(id,progress){
   loadedId=id;progress?.('Модель готова. Вопросы и код обрабатываются на устройстве.');return engine;
  }catch(e){worker?.terminate();engine=null;throw e;}finally{loading=false;cancelLoading=null;}
 }
+function scopeRefusal(question){
+ const q=String(question||'').toLowerCase();
+ const redirect=/(?:забудь|игнорируй|отмени|ignore|forget|disregard).{0,45}(?:python|питон|правил|инструкц|system|instruction|rule)|(?:теперь ты|ты теперь|act as|you are now).{0,35}(?:повар|врач|политик|cook|chef|doctor)/u.test(q);
+ const unrelated=/(?:борщ|рецепт|ингредиент|гороскоп|прогноз погоды|ставк[аиу] на спорт|borscht|recipe|ingredients|horoscope|weather forecast)/u.test(q);
+ const programming=/(?:python|питон|алгоритм|программ|код|список|словар|цикл|функци|сортиров|строк|code|algorithm|list|dictionary|loop|function)/u.test(q);
+ return redirect||(unrelated&&!programming)?'Я помогаю с Python и заданиями курса. Давай вернёмся к программированию.':null;
+}
 async function answer(id,{question,code,context,learningContext,turns,solved},progress){
+ const refusal=scopeRefusal(question);if(refusal)return refusal;
  if(id==='opencode-local')return apiAnswer({question,code,context,learningContext,turns,solved},progress);
  const e=await load(id,progress);
  const messages=dialogueMessages(id,{question,code,context,learningContext,turns,solved});
@@ -50,6 +58,7 @@ function dialogueMessages(id,{question='',code='',context='',learningContext='',
  const pythonFacts='Проверенные правила Python 3: input() возвращает строку; int() преобразует её в целое число. / выполняет обычное деление: 5 / 2 == 2.5, даже если оба операнда int. // округляет частное вниз: 5 // 2 == 2, -5 // 2 == -3. % возвращает остаток: 17 % 10 == 7. Для / не требуется заранее переводить операнды в float. range(n) даёт индексы от 0 до n-1. Не путай эти операции и проверяй свой пример арифметически.';
  let budget=1300;const history=[];
  for(const turn of turns.slice(-6).reverse()){
+  if(scopeRefusal(turn.question))continue;
   const q=String(turn.question).slice(0,350),a=String(turn.answer).slice(0,500);
   if(q.length+a.length>budget)break;
   history.unshift({role:'user',content:q},{role:'assistant',content:a});budget-=q.length+a.length;
@@ -89,5 +98,9 @@ async function apiAnswer(payload,progress){
  finally{clearTimeout(timer);if(apiController===controller)apiController=null;}
 }
 function stop(){if(loading)window.TutorModelAssets.cancel?.();if(window.TutorNative&&loading)window.TutorNative.invoke('cancel_model');apiController?.abort();if(loading)cancelLoading?.();else engine?.interruptGenerate();}
-window.TutorLocalAI={choices,load,answer,stop,hintOnly,dialogueMessages};
+async function unload(){
+ if(loading)throw Error('Дождитесь завершения или отмены загрузки модели.');
+ engine?.interruptGenerate();if(engine)await engine.unload();worker?.terminate();engine=null;worker=null;loadedId=null;
+}
+window.TutorLocalAI={choices,load,answer,stop,unload,hintOnly,dialogueMessages,scopeRefusal};
 })();

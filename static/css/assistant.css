@@ -83,3 +83,9 @@ body.tutor-open #tutor-quick { flex-wrap:wrap; overflow:visible; }
 .tutor-voice-orb { background:#e3ebf1; box-shadow:0 0 0 16px #f4f8fb; }
 
 .tutor-message mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden; padding:3px 0; }
+
+/* Model labels and scrollbars must not resize the lesson or chat controls. */
+body.tutor-open #tutor-content, #tutor-messages, #tutor-settings[open] { scrollbar-gutter: stable; }
+#tutor-settings .tutor-local-options, #tutor-api-settings { min-width:0; width:100%; }
+#tutor-settings label { display:block; min-width:0; width:100%; }
+#tutor-settings select { width:100%; min-width:0; max-width:100%; box-sizing:border-box; }

@@ -52,6 +52,14 @@ def browser_run(code, stdin, explain, image, expected, answer):
         finally:
             os.chdir(before)
 `);
+    // Packages are fully loaded before student code runs. Static/native hosting
+    // may not supply the worker CSP used by Django, so close these network APIs too.
+    for (const name of ['fetch', 'XMLHttpRequest', 'WebSocket', 'EventSource', 'Worker', 'SharedWorker', 'importScripts']) {
+      Object.defineProperty(self, name, {
+        value: function () { throw new Error('Network access is disabled during Python execution.'); },
+        writable: false, configurable: false
+      });
+    }
     const run = py.globals.get('browser_run');
     const inputs=job.tests || [{stdin:job.stdin||'',image:job.image}];
     const results=[];

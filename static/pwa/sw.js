@@ -42,6 +42,12 @@ self.addEventListener('fetch',event=>{
  const req=event.request,url=new URL(req.url);
  if(req.method!=='GET'||url.origin!==self.location.origin)return;
  event.respondWith((async()=>{
+  if(url.pathname.includes('/pythontutor/static/local-speech/0.3.0/')){
+   for(const name of ['tutor-local-speech-runtime-v1','local-speech-verified-v1']){
+    const saved=await (await caches.open(name)).match(req,{ignoreSearch:true});if(saved)return saved;
+   }
+   return fetch(req);
+  }
   const config=await configuration(),cache=config?await caches.open(config.name):null;
   const saved=cache?await cache.match(url.pathname):null;
   if(saved && await localMode())return saved;

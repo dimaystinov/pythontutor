@@ -150,11 +150,7 @@ function Visualizer(block, init_code, init_stdin, passed_options) {
 		elem.removeClass(class1).addClass(class2);
 	}
 
-	function toggleFullRow(elem, full_row, w1, w2) {
-		var width1 = (full_row ? w1 : w2);
-		var width2 = (full_row ? w2 : w1);
-		replaceClass(elem, 'col-xs-' + width1, 'col-xs-' + width2);
-	}
+
 
 
 	///// UI setup /////
@@ -285,6 +281,8 @@ function Visualizer(block, init_code, init_stdin, passed_options) {
 
 		editors.code.setOptions({
 			fontSize: options.code_font_size,
+            minLines: 20,
+            maxLines: 20,
 			mode: 'ace/mode/python',
 			vScrollBarAlwaysVisible: true
 		});
@@ -414,7 +412,8 @@ function Visualizer(block, init_code, init_stdin, passed_options) {
 		if(editor !== undefined) {
 			var lines = editor.getSession().getScreenLength();
 			var line_height = editor.renderer.layerConfig.lineHeight;
-			var height = Math.min(MAX_AUTO_HEIGHT, line_height * lines);
+			if(editor === editors.code) { editor.resize(); return; }
+            var height = Math.min(MAX_AUTO_HEIGHT, line_height * lines);
 
 			$(editor.renderer.getContainerElement()).height(height);
 			editor.resize();
@@ -686,12 +685,9 @@ function Visualizer(block, init_code, init_stdin, passed_options) {
 		mblock.toggleClass('has-dataviz', blocks.dataviz.is(':visible'));
 		plumb.repaintEverything(); // with all these 123 we could spoil the position of endpoints, so redraw
 
-		// stdin should be full-row if stdout is not visible, and half-row otherwise
-		toggleFullRow(blocks.stdin.parent(), !blocks.stdout.parent().is(':visible'), 6, 12);
-		// stdout - if stdin is not visible
-		toggleFullRow(blocks.stdout.parent(), !blocks.stdin.parent().is(':visible'), 6, 12);
-		// code - if dataviz and error is not visible
-		toggleFullRow(blocks.code.parent().parent(), !(blocks.dataviz.is(':visible') || blocks.error.is(':visible') || has_ever_runned), 9, 12);
+		// Keep code full-width; share the I/O row when both panes are visible.
+        blocks.stdin.parent().toggleClass('col-xs-12', !blocks.stdout.parent().is(':visible')).toggleClass('col-xs-6', blocks.stdout.parent().is(':visible'));
+        blocks.stdout.parent().toggleClass('col-xs-12', !blocks.stdin.parent().is(':visible')).toggleClass('col-xs-6', blocks.stdin.parent().is(':visible'));
 
 		// similarly
 		blocks.vcr.toggle(options.explain_mode && has_ever_runned);
@@ -1548,9 +1544,8 @@ function Visualizer(block, init_code, init_stdin, passed_options) {
 	editors.code.moveCursorTo(0, 0);
 	editors.stdin.moveCursorTo(0, 0);
 
-	if(options.auto_height) {
-		autoHeight(editors.code);
-	}
+	// Start every code editor with twenty visible lines, including lesson examples.
+	autoHeight(editors.code);
 
 
 	_clearCurrent();
