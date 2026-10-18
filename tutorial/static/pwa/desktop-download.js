@@ -1,7 +1,7 @@
 (function(root){
 'use strict';
-const base='https://github.com/dimaystinov/pythontutor/releases/download/app-v2.0.8/';
-const files={windows:'PythonTutor_2.0.8_x64-setup.exe',arm:'PythonTutor_2.0.8_aarch64.dmg',intel:'PythonTutor_2.0.8_x64.dmg'};
+const base='https://github.com/dimaystinov/pythontutor/releases/download/app-v2.1.0/';
+const files={windows:'PythonTutor_2.1.0_x64-setup.exe',arm:'PythonTutor_2.1.0_aarch64.dmg',intel:'PythonTutor_2.1.0_x64.dmg'};
 function detect(info){
  const platform=info.platform||'',ua=info.ua||'';
  if(/Android|iPhone|iPad|iPod/i.test(ua)||(/Mac/i.test(platform)&&info.touch>1))return null;
