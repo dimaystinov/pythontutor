@@ -216,3 +216,6 @@ hr { margin-top: 16px; margin-bottom: 16px; }
 .task-statement code { font-size:.95em; }
 .task-statement img { max-width:100%; height:auto; }
 @media(max-width:600px) { .task-statement { font-size:18px; padding-left:12px; margin:16px 0 24px; } }
+
+.lesson-theory dfn, .lesson-theory em, .lesson-theory i, .lesson-theory strong, .lesson-theory b { font-weight:700; color:#182c3c; }
+.lesson-theory dfn { font-style:normal; }
