@@ -20,7 +20,7 @@ async function install(progress=()=>{}){
   for(const file of m.files){
    const cache=await caches.open(cacheName(file)),saved=await cache.match(key(file));
    if(saved?.headers.get('x-tutor-sha256')===file.sha256){done+=file.bytes;progress(Math.round(done/total*100));continue;}
-   const r=await fetch(new URL(file.path,base),{signal:aborter.signal});if(!r.ok)throw Error('Не удалось скачать LocalSpeech: '+file.path);
+   const r=await fetch(new URL(file.path,base),{signal:aborter.signal,cache:'no-store'});if(!r.ok)throw Error('Не удалось скачать LocalSpeech: '+file.path);
    const bytes=await r.arrayBuffer(),hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(n=>n.toString(16).padStart(2,'0')).join('');
    if(bytes.byteLength!==file.bytes||hash!==file.sha256)throw Error('Файл LocalSpeech повреждён. Повторите загрузку.');
    const type=/\.m?js$/.test(file.path)?'text/javascript':file.path.endsWith('.wasm')?'application/wasm':file.path.endsWith('.json')?'application/json':'application/octet-stream';
