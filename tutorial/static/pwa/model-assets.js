@@ -1,4 +1,4 @@
-/* Import verified release packages directly into the inference libraries' caches. */
+/* Download optional components directly into verified local storage. */
 (function () {
 'use strict';
 const base = new URL('../models/', document.currentScript.src);
@@ -52,7 +52,7 @@ async function ensure(group, progress = () => {}) {
   }finally{downloadController=null;}
  }
  window.dispatchEvent(new CustomEvent('tutor-model-needed', {detail: group}));
- throw Error('Подготовьте помощника один раз: скачайте пакеты и выберите их ниже.');
+ throw Error('Для голосового ввода установите LocalSpeech в настройках помощника.');
 }
 const decode = bytes => new TextDecoder().decode(bytes).replace(/\0.*$/s, '').trim();
 function headerInfo(bytes) {
@@ -95,22 +95,36 @@ async function importFiles(files, progress = () => {}) {
  window.dispatchEvent(new CustomEvent('tutor-model-imported',{detail:groups}));
  return groups;
 }
-async function mount(container, group, onReady) {
- const data=await manifest();container.replaceChildren();container.hidden=false;
- const text=document.createElement('p');text.textContent='Установщик скачает все части, проверит их и настроит помощника. Для офлайн-ИИ отметьте Qwen 7B при установке. Ручная загрузка также доступна ниже. ';/*group==='qwen7b'?'Один раз скачайте 3 пакета (4,3 ГБ), затем выберите их вместе. Дальше помощник запускается сам, без интернета.':'Один раз скачайте пакет голосового ввода (около 46 МБ) и выберите его здесь.';*/
- const links=document.createElement('div');
- for(const pack of data.packages.filter(p=>p.group===group)){
-  const link=document.createElement('a');link.href='https://github.com/dimaystinov/pythontutor/releases/download/'+data.release+'/'+pack.name;link.textContent=pack.name;link.download=pack.name;link.style.display='block';links.append(link);
- }
- const download=document.createElement('a');download.className='btn btn-primary';download.textContent='Установить автоматически';download.href='https://github.com/dimaystinov/pythontutor/releases/tag/desktop-v1.2.2';download.target='_blank';download.rel='noopener noreferrer';
- const details=document.createElement('details'),summary=document.createElement('summary');summary.textContent='Ссылки на отдельные пакеты';details.append(summary,links);
- const label=document.createElement('label');label.textContent='Выбрать скачанные пакеты';label.className='btn btn-default';
- const input=document.createElement('input');input.type='file';input.multiple=true;input.accept='.tar';input.style.display='block';input.setAttribute('aria-label','Пакеты локального помощника');label.append(input);
- const status=document.createElement('p');status.setAttribute('role','status');
- input.onchange=async()=>{input.disabled=true;try{const groups=await importFiles(input.files,t=>status.textContent=t);if(groups.includes(group)){status.textContent=onReady?'Готово! Запускаю…':'Готово. Помощник подготовлен для работы без интернета.';if(onReady){await onReady();container.hidden=true;}}else status.textContent='Файлы сохранены. Выберите оставшиеся пакеты.';}catch(error){status.textContent=error.name==='QuotaExceededError'?'Недостаточно места на устройстве. Освободите место и повторите выбор пакетов.':error.message;}finally{input.disabled=false;input.value='';}};
- container.append(text,download,details,label,status);
+const setups=new WeakMap();
+function cancel(){
+ if(window.TutorNative)return window.TutorNative.invoke('cancel_model');
+ downloadController?.abort();
 }
-document.querySelectorAll('[data-model-group]').forEach(button=>button.addEventListener('click',()=>mount(document.getElementById('pwa-model-setup'),button.dataset.modelGroup).catch(error=>{document.getElementById('pwa-model-setup').textContent=error.message;})));
+async function mount(container, group, onReady, start=false) {
+ if(group!=='qwen7b'){
+  if(window.TutorSpeech)return window.TutorSpeech.showSetup(start);
+  throw Error('Откройте настройки и установите голосовой ввод LocalSpeech.');
+ }
+ const existing=setups.get(container);if(existing?.running){container.hidden=false;return;}
+ container.replaceChildren();container.hidden=false;
+ const state={running:false};setups.set(container,state);
+ const text=document.createElement('p');text.textContent='Qwen 7B · около 4,3 ГБ. Скачивание и настройка выполняются автоматически. Встроенный консультант работает и без этой модели.';
+ const button=document.createElement('button');button.type='button';button.className='btn btn-primary';button.textContent='Скачать Qwen 7B';
+ const stop=document.createElement('button');stop.type='button';stop.className='btn btn-default';stop.textContent='Отменить';stop.hidden=true;
+ const bar=document.createElement('progress');bar.max=100;bar.hidden=true;bar.style.width='100%';bar.setAttribute('aria-label','Скачивание Qwen 7B');
+ const status=document.createElement('p');status.setAttribute('role','status');status.setAttribute('aria-live','polite');
+ const progress=value=>{status.textContent=String(value);const match=String(value).match(/(\d+)%/);if(match)bar.value=Number(match[1]);else bar.removeAttribute('value');};
+ button.onclick=async()=>{
+  if(state.running)return;state.running=true;button.disabled=true;stop.hidden=false;bar.hidden=false;bar.removeAttribute('value');status.textContent='Подключение…';
+  try{await ensure(group,progress);bar.value=100;status.textContent='Qwen 7B установлен. Его можно выбрать в настройках помощника.';button.textContent='Проверить установленную модель';if(onReady)await onReady();}
+  catch(error){status.textContent=error.name==='AbortError'?'Скачивание отменено. Проверенные файлы сохранены.':error.name==='QuotaExceededError'?'Недостаточно места. Освободите место и нажмите «Продолжить скачивание».':String(error.message||error);button.textContent='Продолжить скачивание';}
+  finally{state.running=false;button.disabled=false;stop.hidden=true;bar.hidden=true;}
+ };
+ stop.onclick=()=>{stop.disabled=true;status.textContent='Отмена скачивания…';Promise.resolve(cancel()).catch(e=>status.textContent=String(e.message||e)).finally(()=>stop.disabled=false);};
+ container.append(text,button,stop,bar,status);
+ if(start)await button.onclick();
+}
+document.querySelectorAll('[data-model-group]').forEach(button=>button.addEventListener('click',()=>mount(document.getElementById('pwa-model-setup'),button.dataset.modelGroup,null,true).catch(error=>{document.getElementById('pwa-model-setup').textContent=error.message;})));
 function selectBuiltIn(group){
  const id=group==='qwen7b'?'Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC':group==='opencode'?'opencode-local':null;
  try{if(id&&localStorage.getItem('tutor-ai-model')===id)localStorage.setItem('tutor-ai-model','guided');}catch(_){}
@@ -156,5 +170,5 @@ if(deletePanel){
   finally{button.disabled=false;}
  });
 }
-window.TutorModelAssets={cancel:()=>downloadController?.abort(),ready,ensure,importFiles,mount,remove,base:base.href,headerInfo};
+window.TutorModelAssets={cancel,ready,ensure,importFiles,mount,remove,base:base.href,headerInfo};
 })();
