@@ -1,4 +1,4 @@
-"""Prepare the entire course and official CLI for the native installer, no runtime downloads."""
+"""Prepare the offline course. Optional OpenCode is downloaded only on user request."""
 import base64,hashlib,json,os,platform,shutil,subprocess,sys,urllib.request,zipfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];HERE=Path(__file__).resolve().parent
@@ -16,7 +16,7 @@ s=s.replace("async function list(){return", "async function list(){if(window.Tut
 s=s.replace(" const d=await db();\n await new Promise", " if(window.TutorNative)await TutorNative.invoke('reset_progress');\n const d=await db();\n await new Promise")
 p.write_text(s)
 p=out/'pythontutor/static/pwa/local-ai.js';s=p.read_text().replace("if(id==='opencode-local'){", "if(id==='opencode-local'){\n  if(window.TutorNative)return null;",1)
-s=s.replace(" await load('opencode-local');", " if(window.TutorNative){progress?.('Питоныч отвечает…');const answer=await TutorNative.invoke('chat',{model:document.getElementById('tutor-api-model').value,messages:dialogueMessages('opencode-local',payload)});return hintOnly(answer,payload.solved);}\n await load('opencode-local');")
+s=s.replace(" await load('opencode-local');", " if(window.TutorNative){await window.TutorNative.ensureCLI();progress?.('Питоныч отвечает…');const answer=await TutorNative.invoke('chat',{model:document.getElementById('tutor-api-model').value,messages:dialogueMessages('opencode-local',payload)});return hintOnly(answer,payload.solved);}\n await load('opencode-local');")
 s=s.replace("function stop(){", "function stop(){if(window.TutorNative)TutorNative.invoke('cancel_chat');")
 p.write_text(s)
 p=out/'pythontutor/static/js/assistant.js';s=p.read_text().replace("location.origin==='http://127.0.0.1:8043'", "(window.TutorNative||location.origin==='http://127.0.0.1:8043')")
@@ -25,18 +25,4 @@ p.write_text(s)
 p=out/'pythontutor/static/pwa/app.js';s=p.read_text().replace("if('serviceWorker' in navigator)","if(window.TutorNative){say('Курс установлен на этом компьютере.');}else if('serviceWorker' in navigator)");s=s.replace('if(backupKey(key))data[key]',"if(backupKey(key)&&(!/^(problem-draft:|image-draft:|tutor-local-chat:)/.test(key)||key.split(':')[1]===TutorDevice.owner()))data[key]")
 s=s.replace('localStorage.setItem(key,value);await progress()',"localStorage.setItem(key.replace(/^(problem-draft:|image-draft:|tutor-local-chat:)[^:]+:/,(_,p)=>p+TutorDevice.owner()+':'),value);await progress()")
 p.write_text(s)
-resources=HERE/'src-tauri/resources';resources.mkdir(exist_ok=True)
-asset={'Darwin': 'opencode-darwin-'+('arm64' if platform.machine()=='arm64' else 'x64-baseline')+'.zip','Windows':'opencode-windows-x64-baseline.zip'}[platform.system()]
-version='v1.19.0';binary=resources/('opencode.exe' if platform.system()=='Windows' else 'opencode')
-if not binary.exists():
- a=json.loads((HERE/'opencode.json').read_text())[asset]
- archive=resources/'cli.zip';urllib.request.urlretrieve(a['url'],archive)
- if 'sha256:'+hashlib.sha256(archive.read_bytes()).hexdigest()!=a.get('digest'):raise RuntimeError('CLI checksum mismatch')
- with zipfile.ZipFile(archive) as z:
-  name=next(n for n in z.namelist() if Path(n).name==binary.name);binary.write_bytes(z.read(name))
- archive.unlink();binary.chmod(0o755)
-(resources/'opencode-version.txt').write_text(version)
-print('Course, Python runtime, tests, photos and OpenCode prepared.')
-
-# Bundle the terminal registration script for the Windows installer.
-shutil.copy2(HERE/'install/install-cli.ps1', resources/'install-cli.ps1')
+print('Course, Python runtime, tests and photos prepared. OpenCode is installed on request.')

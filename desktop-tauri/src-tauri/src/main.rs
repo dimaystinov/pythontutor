@@ -1,5 +1,6 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 mod profiles;
+mod cli;
 mod models;
 use profiles::Profile;
 use serde_json::{json, Value};
@@ -103,16 +104,7 @@ fn open_release() -> Result<(), String> {
         .map_err(|_| "Не удалось открыть браузер.".into())
 }
 fn cli_path(app: &tauri::AppHandle) -> Result<PathBuf, String> {
-    app.path()
-        .resolve(
-            if cfg!(windows) {
-                "resources/opencode.exe"
-            } else {
-                "resources/opencode"
-            },
-            tauri::path::BaseDirectory::Resource,
-        )
-        .map_err(|e| e.to_string())
+    cli::path(app)
 }
 #[tauri::command]
 async fn chat(
@@ -243,22 +235,6 @@ fn main() {
                     && matches!(url.host_str(), Some("localhost" | "tauri.localhost"))
             })
             .build()?;
-            #[cfg(target_os = "macos")]
-            {
-                // A DMG has no post-install hook: register on the first application launch.
-                let source = cli_path(app.handle()).map_err(std::io::Error::other)?;
-                let home = app.path().home_dir()?;
-                let output = std::process::Command::new("/bin/sh")
-                    .arg("-c")
-                    .arg(include_str!("../../install/install-cli.sh"))
-                    .arg("pythontutor-cli-setup")
-                    .arg(source)
-                    .arg(home)
-                    .output()?;
-                if !output.status.success() {
-                    eprintln!("OpenCode PATH setup failed: {}", String::from_utf8_lossy(&output.stderr));
-                }
-            }
             let dir = app.path().app_data_dir()?;
             std::fs::create_dir_all(&dir)?;
             let db =
@@ -299,6 +275,9 @@ fn main() {
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
+            cli::cli_status,
+            cli::install_cli,
+            cli::cancel_cli_install,
             models::prepare_model,
             models::cancel_model,
             open_release,

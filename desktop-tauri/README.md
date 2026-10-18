@@ -1,8 +1,8 @@
 # PythonTutor — Rust + Tauri 2
 
-Native Windows/macOS application. The installer includes all 316 course pages, 134 Python problems with 1,302 tests, the vendored Pyodide runtime, OpenCV learning images, and the official OpenCode CLI (pinned 1.19.0; GitHub release SHA-256 verified at build time). No user-installed Python, Node, server, API key, pairing code or model download is needed for cloud assistance. MiMo Free needs internet and is subject to provider availability; no paid fallback.
+Native Windows/macOS application. The installer includes all 316 course pages, 134 Python problems with 1,302 tests, the vendored Pyodide runtime and OpenCV learning images. OpenCode is optional: the assistant offers an explicit install button with the platform-specific download size, progress, cancellation and retry. No download happens on app startup. The official pinned 1.19.0 GitHub archive is size/SHA-256 checked before extraction. The persistent copy lives in app_data_dir/opencode/1.19.0; subsequent launches reuse it. Questions through OpenCode require internet; lessons and profiles do not.
 
-Local registration/login uses Argon2 salted password hashes. Solutions live in SQLite under Tauri app_data_dir (`org.pythontutor.desktop`); drafts and chat history use profile-prefixed WebView storage. No central account server or password recovery service. Each application launch starts at login. Autostart is optional at login; it starts hidden with a tray menu. The course stays offline, and the native assistant calls the bundled CLI through restricted Rust commands.
+Local registration/login uses Argon2 salted password hashes. Solutions live in SQLite under Tauri app_data_dir (`org.pythontutor.desktop`); drafts and chat history use profile-prefixed WebView storage. No central account server or password recovery service. Each application launch starts at login. Autostart is optional at login; it starts hidden with a tray menu. The course stays offline, and the native assistant calls the optional CLI through restricted Rust commands.
 
 OpenCode runs with isolated temporary config/data/cache directories, no plugins, no inherited OPENCODE configuration, `permission: ask` and no auto-approval. Its noninteractive command rejects tools. Cancellation/timeout terminates the subprocess. No general shell commands are exposed to JavaScript. External web pages cannot navigate inside the privileged WebView.
 
@@ -17,15 +17,9 @@ Build:
 
 `prepare.py` builds a separate native frontend; it does not modify the GitHub Pages frontend. Packaged binaries and generated course files are not committed. GitHub Actions builds Windows NSIS, Mac ARM64 DMG and Mac Intel DMG. Signing certificates are not yet configured; this is a prerelease until platform UI checks are complete.
 
-### OpenCode в терминале
+### Optional OpenCode
 
-Windows NSIS добавляет `%LOCALAPPDATA%\PythonTutor\bin` в пользовательский PATH
-при установке и удаляет только эту запись при удалении приложения.
-На macOS DMG не выполняет установочные скрипты: при первом запуске PythonTutor
-копирует CLI в `~/.local/share/pythontutor/bin` и добавляет этот каталог в настройки
-zsh/bash. Откройте новый терминал и выполните `opencode --version`.
-Существующая установка OpenCode, расположенная раньше в PATH, имеет приоритет.
-Проверка регистрации без изменения личных настроек: `python3 install/test_cli.py`.
+OpenCode is private to the application. Installation does not change PATH or shell startup files. Old external CLI installations are left untouched. Partial downloads live in temporary directories and are discarded after failure or cancellation. A verified executable is checked against its receipt before execution.
 
 ## Local Qwen storage
 
