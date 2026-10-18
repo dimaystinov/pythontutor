@@ -3,9 +3,7 @@ use std::path::Path;
 
 pub fn apply(path:&Path)->Result<(),String>{
  #[cfg(windows)]{
-  let exe=std::env::current_exe().map_err(|e|e.to_string())?;
-  let folder=exe.parent().ok_or("Не найдена папка приложения")?;
-  std::process::Command::new(path).args(["/P","/UPDATE","/R"]).arg(format!("/D={}",folder.display())).spawn().map_err(|e|format!("Не удалось запустить обновление: {e}"))?;
+  std::process::Command::new(path).args(["/P","/UPDATE","/R"]).spawn().map_err(|e|format!("Не удалось запустить обновление: {e}"))?;
   Ok(())
  }
  #[cfg(target_os="macos")]{macos(path)}
