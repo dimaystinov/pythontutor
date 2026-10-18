@@ -51,7 +51,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 <link rel="apple-touch-icon" href="/pythontutor/static/pwa/icon-192.png">
 <script defer src="/pythontutor/static/pwa/app.js?v=progress5"></script>
 <script src="/pythontutor/static/pwa/storage.js?v=reset7"></script>
-<meta name="csrf-token" content="Fv0CjiGLp54OfGi8hm7SL7BdPUkzhoZ9Ur6RkcuSfqaWthvFgp2gN85Ia8TG6g8s">
+<meta name="csrf-token" content="yQ6gkKhaBktZ16PQe43Kdmyh2XS31UxK4pc9KSygklAmc1p7Yq2BsbH302tTgRJT">
 
 	<title>Интерактивный учебник языка Python</title>
 
@@ -495,7 +495,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 <script defer src="/pythontutor/static/pwa/local-ai.js?v=cors20261017"></script>
 <script defer src="/pythontutor/static/pwa/local-voice.js?v=sdk2"></script>
 <script defer src="/pythontutor/static/pwa/chat-history.js?v=1"></script>
-<script defer src="/pythontutor/static/js/assistant.js?v=sdk2"></script>
+<script defer src="/pythontutor/static/js/assistant.js?v=textonly1"></script>
 <button id="tutor-launcher" type="button" aria-expanded="false" aria-controls="tutor-panel" aria-label="Помощник" title="Помощник"><span aria-hidden="true">🐍</span></button>
 <div id="tutor-divider" role="separator" aria-label="Ширина помощника" aria-orientation="vertical" aria-valuemin="28" aria-valuemax="60" aria-valuenow="42" tabindex="0" hidden></div>
 <aside id="tutor-panel" hidden aria-label="Помощник по текущей задаче" data-url="/pythontutor/assistant/problem/raznost_vremen/" data-kind="problem" data-learning-context="Мы в интерактивном учебнике Python: 15 уроков и 134 основные задачи. Ученик пишет код в редакторе на этой странице; Python, тесты и пошаговый запуск уже работают в браузере. Устанавливать Python или IDE для этих занятий не нужно. Основной способ обучения — последовательно решать задачи: прочитать условие, попробовать самому, запустить пример, проверить все тесты, при необходимости раскрыть подсказку, затем перейти к следующей задаче. После успешного решения можно обсудить разбор и улучшение. Цель прохождения курса с самостоятельной практикой — база начинающего Python-разработчика. Если спрашивают, как учиться или с чего начать, предложи посильный шаг в текущей задаче этого курса, а не установку программ, сторонние курсы или длинный общий план. Учитывай тему текущего урока и не вводи ещё не изученные конструкции. Это фон беседы: не повторяй описание курса и не навязывай решение задачи в ответ на каждое приветствие." data-user="" data-stt="/pythontutor/assistant/speech/transcribe/" data-worklet="/pythontutor/static/js/tutor-audio-worklet.js" data-auth="no">
@@ -523,7 +523,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
     <div id="tutor-messages" role="log" aria-live="polite" aria-relevant="additions"><div class="tutor-welcome"><span aria-hidden="true">🐍</span><p>Привет, я Питоныч. Помогу разобраться с Python, алгоритмами и заданиями курса. Что будем разбирать?</p></div></div>
     <div id="tutor-quick"><button type="button" data-question="Объясни условие простыми словами, без готового решения.">Объясни условие</button><button type="button" data-question="Дай небольшую подсказку, с чего начать. Не выдавай решение целиком.">Дай подсказку</button><button type="button" data-question="Посмотри мой текущий код: помоги найти ошибку и понять её причину.">Проверь мой код</button></div>
     <p id="tutor-status" role="status" aria-live="polite"></p>
-    <form id="tutor-form"><label class="sr-only" for="tutor-question">Вопрос помощнику</label><textarea id="tutor-question" rows="3" maxlength="3000" placeholder="Напиши или надиктуй вопрос"></textarea><div id="tutor-attachment" hidden><span></span><button type="button" id="tutor-remove-image" aria-label="Убрать изображение">×</button></div><div class="tutor-composer-tools"><label class="tutor-attach" title="Прикрепить изображение"><span aria-hidden="true">📎</span><span class="sr-only">Прикрепить изображение</span><input id="tutor-image" type="file" accept="image/png,image/jpeg" aria-label="Прикрепить изображение"></label><button id="tutor-dictate" type="button" aria-label="Начать голосовой ввод" title="Надиктовать вопрос">🎙</button><button id="tutor-stop-model" type="button" aria-label="Остановить ответ" title="Остановить ответ" hidden>■</button><button id="tutor-send" type="submit" aria-label="Отправить вопрос">↑</button></div></form>
+    <form id="tutor-form"><label class="sr-only" for="tutor-question">Вопрос помощнику</label><textarea id="tutor-question" rows="3" maxlength="3000" placeholder="Напиши или надиктуй вопрос"></textarea><div class="tutor-composer-tools"><button id="tutor-dictate" type="button" aria-label="Начать голосовой ввод" title="Надиктовать вопрос">🎙</button><button id="tutor-stop-model" type="button" aria-label="Остановить ответ" title="Остановить ответ" hidden>■</button><button id="tutor-send" type="submit" aria-label="Отправить вопрос">↑</button></div></form>
     <p id="tutor-privacy" class="tutor-fineprint">По отправке вопроса ИИ получает материал и включённый код. Qwen обрабатывает вопросы и код на устройстве. В режиме OpenCode CLI вопросы, условие и включённый код отправляются облачному провайдеру. ИИ может ошибаться.</p>
     
 </aside>

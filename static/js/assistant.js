@@ -4,7 +4,7 @@
     if(!panel) return;
     const $=id=>document.getElementById(id), launcher=$('tutor-launcher');
     let loaded=false,busy=false,voiceMode=false,callActive=false,recording=null,audio=null,audioFinish=null,epoch=0,voiceReady=false;
-    let attachment=null,lastCode='',pending=null;
+    let lastCode='',pending=null;
     const workspace=$('tutor-workspace'),divider=$('tutor-divider');
     const question=$('tutor-question'),log=$('tutor-messages'),status=$('tutor-status');
     const model=$('tutor-model');
@@ -176,9 +176,6 @@
     }
     $('tutor-text-mode').addEventListener('click',()=>setMode(false));$('tutor-voice-mode').addEventListener('click',()=>setMode(true));
     $('tutor-include-code').addEventListener('change',updateCode);setInterval(()=>{if(!panel.hidden)updateCode();},600);
-    function clearImage(){attachment=null;$('tutor-image').value='';$('tutor-attachment').hidden=true;}
-    $('tutor-remove-image').addEventListener('click',clearImage);
-    $('tutor-image').addEventListener('change',()=>{const file=$('tutor-image').files[0];if(!file){clearImage();return;}if(!['image/png','image/jpeg'].includes(file.type)||file.size>2*1024*1024){clearImage();notice('Выберите PNG или JPEG до 2 МБ.',true);return;}attachment=file;$('tutor-attachment').hidden=false;panel.querySelector('#tutor-attachment span').textContent=file.name;});
     function currentMaterial(){
         // Navigation and chat history must never displace the current statement.
         const material=document.querySelector('[data-tutor-material]');
@@ -188,23 +185,22 @@
         if(busy)return null;text=text.trim();if(!text)return null;
         if(text.length>3000){notice('Сократите вопрос до 3000 символов.',true);return null;}
         const refusal=guided()?null:window.TutorLocalAI?.scopeRefusal(text);
-        const prepared=guided()?(attachment?{answer:'Встроенный консультант разбирает текст, код и результаты тестов. Опиши вопрос словами; изображение он не анализирует.'}:window.TutorGuidance.consult(text,{code:codeNow(),run:window.BrowserPython?.lastRun?.(),allowed:!!$('tutor-include-code')?.checked,material:currentMaterial(),turns:taskHistory()})):refusal?{answer:refusal}:window.TutorGuidance?.current(text,taskHistory()) || window.TutorGuidance?.review(text,codeNow(),window.BrowserPython?.lastRun?.(),!!$('tutor-include-code')?.checked);
-        if(prepared&&(guided()||!attachment||refusal)){
+        const prepared=guided()?window.TutorGuidance.consult(text,{code:codeNow(),run:window.BrowserPython?.lastRun?.(),allowed:!!$('tutor-include-code')?.checked,material:currentMaterial(),turns:taskHistory()}):refusal?{answer:refusal}:window.TutorGuidance?.current(text,taskHistory()) || window.TutorGuidance?.review(text,codeNow(),window.BrowserPython?.lastRun?.(),!!$('tutor-include-code')?.checked);
+        if(prepared){
             if(window.TutorDevice.isCurrent&&!window.TutorDevice.isCurrent())return null;
             const result={question:text,...prepared,id:'local-'+crypto.randomUUID()};
             message('user',text);message('assistant',result.answer,result.id,result.theory);
             saveTurn(result);
-            question.value='';if(guided())clearImage();notice('Помощь по задаче · работает без ИИ и интернета.');return result;
+            question.value='';notice('Помощь по задаче · работает без ИИ и интернета.');return result;
         }
         updateCode();const code=$('tutor-include-code').checked?lastCode:'';
         if(code.length>12000){notice('Код слишком длинный. Сократите его или отключите передачу кода.',true);return null;}
         if(!pending||pending.text!==text||pending.code!==code)pending={text,code,id:crypto.randomUUID()};
         busy=true;$('tutor-stop-model').hidden=false;$('tutor-send').disabled=true;notice('Питоныч думает…');
-        const data=new FormData();data.set('question',text);data.set('code',code);data.set('request_id',pending.id);if(attachment)data.set('image',attachment);
+        const data=new FormData();data.set('question',text);data.set('code',code);data.set('request_id',pending.id);
         try{
             if(local()){
                 await prepareModel();
-                if(attachment)throw Error('Локальные модели работают с текстом и кодом. Опишите изображение словами или выберите облачный режим.');
                 model.disabled=true;
                 const slug=panel.dataset.url.split('/').filter(Boolean).pop();
                 const record=await window.TutorDevice.get(panel.dataset.kind,slug);
@@ -217,11 +213,11 @@
                 saveTurn(result);
                 pending=null;question.value='';notice(api()?'Ответ получен от OpenCode.':'Ответ создан на устройстве.');return result;
             }
-            const result=await request(panel.dataset.url,data);message('user',result.question);message('assistant',result.answer,result.id);pending=null;question.value='';clearImage();notice('');return result;
+            const result=await request(panel.dataset.url,data);message('user',result.question);message('assistant',result.answer,result.id);pending=null;question.value='';notice('');return result;
         }catch(e){notice(e.message||String(e)||'Не удалось получить ответ. Повторите вопрос.',true);pending=null;if(fromVoice)throw e;return null;}
         finally{busy=false;$('tutor-stop-model').hidden=true;$('tutor-send').disabled=false;if(model)model.disabled=false;}
     }
-    $('tutor-form').addEventListener('submit',e=>{e.preventDefault();send(question.value|| (attachment?'Помоги понять, что показано на изображении.':''));});
+    $('tutor-form').addEventListener('submit',e=>{e.preventDefault();send(question.value);});
     question.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();$('tutor-form').requestSubmit();}});
     panel.querySelectorAll('[data-question]').forEach(b=>b.addEventListener('click',()=>{question.value=b.dataset.question;send(question.value);}));
     function stopAudio(){if(local())window.TutorLocalVoice?.stop();if(audio){audio.pause();URL.revokeObjectURL(audio.src);audio=null;}if(audioFinish){const end=audioFinish;audioFinish=null;end();}}
