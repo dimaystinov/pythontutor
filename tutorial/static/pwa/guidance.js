@@ -44,7 +44,7 @@ function diagnose(code,run){
  }
  if(!advice)advice='Запуск завершился с ошибкой. Посмотри сообщение Python ниже и проверь указанную операцию; точную причину без дополнительного разбора я не утверждаю.';
  const line=Number(ex.line);
- return (run.checked&&run.test?'Первый непройденный тест: '+run.test+'. Пройдено '+run.passed+' из '+run.total+'.\n\n':'')+(type?type+(Number.isInteger(line)&&line>0?' · строка '+line:'')+'\n\n':'')+advice+(ex.exception_msg?'\n\nСообщение Python: '+String(ex.exception_msg).slice(0,500):'')+'\n\nИсправь один шаг и запусти проверку снова.';
+ return (run.checked&&run.test?'Непройденный тест: '+run.test+'. Пройдено '+run.passed+' из '+run.total+'.\n\n':'')+(type?type+(Number.isInteger(line)&&line>0?' · строка '+line:'')+'\n\n':'')+advice+(ex.exception_msg?'\n\nСообщение Python: '+String(ex.exception_msg).slice(0,500):'')+'\n\nИсправь один шаг и запусти проверку снова.';
 }
 function explainException(ex,code){
  const msg=String(ex.exception_msg||''),type=ex.exception_type;
@@ -57,6 +57,9 @@ function explainException(ex,code){
  }
  if(type==='IndentationError'&&/expected an indented block/.test(msg))return 'После заголовка с двоеточием Python ждёт команду с отступом. Добавь перед командой блока четыре пробела. Например:\n```python\nif x > 0:\n    print(x)\n```';
  if(type==='IndentationError'&&/unexpected indent/.test(msg))return 'В указанной строке лишний отступ: перед ней не начат новый блок. Сравни её положение с соседними командами.';
+ if(type==='SyntaxError'&&/outside loop/.test(msg))return '`break` и `continue` относятся к циклу. Проверь, находится ли команда внутри `for` или `while`, и её отступ.';
+ if(type==='SyntaxError'&&/outside function/.test(msg))return '`return` используется внутри функции `def`. Для вывода ответа основной программы нужен `print()`, а не `return`.';
+ if(type==='TypeError'&&/NoneType/.test(msg))return 'Вместо ожидаемого значения получено `None`. Проверь, возвращает ли функция результат через `return`. Методы вроде `append()` меняют список, но не возвращают новый список.';
  if(type==='ValueError'&&/invalid literal for int/.test(msg))return 'Функция `int()` получила текст, который не является записью целого числа. Например, `"3.5"` или `"3 5"` нельзя прочитать одним `int()`. Проверь формат входа: дробное число читают через `float()`, несколько чисел в строке сначала разделяют. Меняй чтение только в соответствии с условием задачи.';
  if(type==='ValueError'&&/unpack/.test(msg))return 'Количество значений не совпало с количеством переменных слева от `=`. Например, для `a, b = ...` нужны ровно два значения. Проверь, как разделены входные данные.';
  if(type==='TypeError'&&/str|string/.test(msg))return 'В операции встретились текст и число. `input()` возвращает строку: `"2" + "3"` даёт `"23"`. Для арифметики сначала преобразуй ввод в `int()` или `float()` по условию задачи. Строку с именем или словом преобразовывать не нужно.';
@@ -111,7 +114,7 @@ function consult(text,{code='',run=null,allowed=true,material='',turns=[]}={}){
   const selected={...run,...run.tests[i],test:i+1};
   return {answer:selected.result==='ok'?'Тест '+(i+1)+' пройден. Остальные тесты проверяют другие входные данные.':diagnose(code,selected)};
  }
- if(/ошиб|забыл|двоеточие|не работа|не получ|не проход|тест|проверь|проверить|неправиль|почему|неверн|завис|падает/.test(t)){
+ if(/error|ошиб|забыл|двоеточие|не работа|не получ|не проход|тест|проверь|проверить|неправиль|почему|неверн|завис|падает/.test(t)){
   if(!allowed)return {answer:'Доступ к коду отключён в настройках помощника. Включи его для разбора запуска. Правила Python можно спрашивать и без доступа к коду.'};
   if(run)return {answer:diagnose(code,run),theory:({SyntaxError:'ifelse',IndentationError:'ifelse',TabError:'ifelse',IndexError:'lists',KeyError:'dicts',ValueError:'inout_and_arithmetic_operations',TypeError:'inout_and_arithmetic_operations',NameError:'inout_and_arithmetic_operations',ZeroDivisionError:'int_and_float',RecursionError:'functions'})[run.exception?.exception_type]};
   const topic=topics.find(([re])=>re.test(t));

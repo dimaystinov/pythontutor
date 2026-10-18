@@ -9,6 +9,11 @@
     const question=$('tutor-question'),log=$('tutor-messages'),status=$('tutor-status');
     const model=$('tutor-model');
     try {
+        // One-time migration: existing learners also start with the no-download tutor.
+        if(model&&localStorage.getItem('tutor-guided-default-v1')!=='1'){
+            localStorage.setItem('tutor-ai-model','guided');
+            localStorage.setItem('tutor-guided-default-v1','1');
+        }
         const choice=localStorage.getItem('tutor-ai-model');
         if(choice&&model?.querySelector('option[value="'+choice.replace(/[^\w.-]/g,'')+'"]'))model.value=choice;
         else if(!choice&&model)model.value='guided';

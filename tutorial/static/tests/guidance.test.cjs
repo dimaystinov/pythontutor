@@ -41,3 +41,5 @@ assert.match(consult('Придумай роман').answer,/заготовки/)
 assert.match(diagnose('print()', {code:'print()',result:'wrong_answer',stdout:'',expected:'3'}),/Вывод пуст/);
 assert.match(diagnose('print()', {code:'print()',result:'wrong_answer',stdout:'yes',expected:'YES'}),/регистр/);
 console.log('PASS deterministic dialogue, specific test context, missing colon, output comparison, privacy, stale code and honest fallback');
+
+for(const [type,msg,expected] of [['SyntaxError',"'break' outside loop",/внутри `for`/],['SyntaxError',"'return' outside function",/внутри функции/],['TypeError',"'NoneType' object is not iterable",/возвращает ли функция/]]){assert.match(diagnose(code,{code,result:'unhandled_exception',exception:{exception_type:type,exception_msg:msg}}),expected);}
