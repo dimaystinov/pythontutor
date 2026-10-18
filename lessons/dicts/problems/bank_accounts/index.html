@@ -51,7 +51,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 <link rel="apple-touch-icon" href="/pythontutor/static/pwa/icon-192.png">
 <script defer src="/pythontutor/static/pwa/app.js?v=progress5"></script>
 <script src="/pythontutor/static/pwa/storage.js?v=reset7"></script>
-<meta name="csrf-token" content="bzAkoNQCldzEH7jwFRzEi2awGFNnFkWSiWqagOMEOQerLI4N78Hd7yvbChSSpXXd">
+<meta name="csrf-token" content="UW9wmwd820oPmmvWCPNNelqwocTeB7b7Z9lWxUF27MOOawLC7tIRJYC9Gp5tlJsa">
 
 	<title>Интерактивный учебник языка Python</title>
 
@@ -87,7 +87,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 
 
 	<link rel="stylesheet" type="text/css" href="/pythontutor/static/css/lesson.css?v=progress6">
-	<link rel="stylesheet" type="text/css" href="/pythontutor/static/css/problem.css?v=snakes5">
+	<link rel="stylesheet" type="text/css" href="/pythontutor/static/css/problem.css?v=readable1">
 
 	<script type="text/javascript" src="/pythontutor/static/js/problem.js?v=progress6"></script>
 
@@ -95,7 +95,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 		var problem_name = 'bank_accounts';
 	</script>
 
-<link rel="stylesheet" href="/pythontutor/static/css/selfhost.css?v=stablewidth2">
+<link rel="stylesheet" href="/pythontutor/static/css/selfhost.css?v=readable3">
 <meta name="static-site" content="yes"></head>
 <body>
 	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -263,8 +263,10 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 	<h3 class="problem_name">Задача &laquo;Банковские счета&raquo;</h3>
 	<hr>
 
+	<div class="task-statement">
 	<h4 class="statement-title">Условие</h4>
 	<p>Некоторый банк хочет внедрить систему управления счетами клиентов, поддерживающую следующие операции:</p>  <ol> <li>Пополнение счета клиента. <li>Снятие денег со счета. <li>Запрос остатка средств на счете. <li>Перевод денег между счетами клиентов. <li>Начисление процентов всем клиентам. </ol>  <p>Вам необходимо реализовать такую систему. Клиенты банка идентифицируются именами (уникальная строка, не содержащая пробелов). Первоначально у банка нет ни одного клиента. Как только для клиента проводится операция пололнения, снятия или перевода денег, ему заводится счет с нулевым балансом. Все дальнейшие операции проводятся только с этим счетом. Сумма на счету может быть как положительной, так и отрицательной, при этом всегда является целым числом.</p>  <p> Входной файл содержит последовательность операций. Возможны следующие операции: </p><p> DEPOSIT name sum - зачислить сумму sum на счет клиента name. Если у клиента нет счета, то счет создается. </p><p> WITHDRAW name sum - снять сумму sum со счета клиента name. Если у клиента нет счета, то счет создается. </p><p> BALANCE name - узнать остаток средств на счету клиента name. </p><p> TRANSFER name1 name2 sum - перевести сумму sum со счета клиента name1 на счет клиента name2. Если у какого-либо клиента нет счета, то ему создается счет. </p><p> INCOME p - начислить всем клиентам, у которых открыты счета, p% от суммы счета. Проценты начисляются только клиентам с положительным остатком на счету, если у клиента остаток отрицательный, то его счет не меняется. После начисления процентов сумма на счету остается целой, то есть начисляется только целое число денежных единиц. Дробная часть начисленных процентов отбрасывается. </p>  <p> Для каждого запроса BALANCE программа должна вывести остаток на счету данного клиента. Если же у клиента с запрашиваемым именем не открыт счет в банке, выведите ERROR. </p>
+	</div>
     </section>
     
 

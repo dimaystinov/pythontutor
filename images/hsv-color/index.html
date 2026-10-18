@@ -51,7 +51,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 <link rel="apple-touch-icon" href="/pythontutor/static/pwa/icon-192.png">
 <script defer src="/pythontutor/static/pwa/app.js?v=progress5"></script>
 <script src="/pythontutor/static/pwa/storage.js?v=reset7"></script>
-<meta name="csrf-token" content="yDxphdXrtPvqCpkquyKlmYJrUyzzJb8JNrjEGROsQP2uIM9l0hAUMLJVuNaoAOrP">
+<meta name="csrf-token" content="xny4o5vzXOoDIa1dtoxEHGsNDGchsssKh51JVTvFjktgfn3QMOwWAIAhLpn6jwVR">
 
 	<title>Интерактивный учебник языка Python</title>
 
@@ -73,7 +73,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 <script src="/pythontutor/static/js/ace-editor/ace.js"></script>
 <script defer src="/pythontutor/static/js/image-task.js?v=reset7"></script>
 
-<link rel="stylesheet" href="/pythontutor/static/css/selfhost.css?v=stablewidth2">
+<link rel="stylesheet" href="/pythontutor/static/css/selfhost.css?v=readable3">
 <meta name="static-site" content="yes"></head>
 <body>
 	<div class="navbar navbar-default navbar-static-top" role="navigation">
@@ -109,7 +109,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 <p><a href="/pythontutor/static/hsv/index.html">Лаборатория HSV — подобрать цвет и маску</a> · <a href="/pythontutor/static/hsv/theory.html">Теория: HSV и ползунки</a></p>
 <p><a href="/pythontutor/images/">← Все задачи с изображениями</a> · </p>
 <section data-tutor-material><h1>HSV: яблоки на чёрном фоне</h1>
-<p>Сохраните исходные BGR-цвета зелёных участков яблок, а остальные пиксели сделайте чёрными. В этой задаче результат — цветная фотография, а не чёрно-белая маска. Прочитайте input.png и преобразуйте BGR в HSV (OpenCV: H от 0 до 179, S и V от 0 до 255). Диапазоны: H=25…85, S=80…255, V=40…255. Все границы включительны. Сохраните цветной результат в output.png без изменения размеров. Проверка сравнивает пиксели на трёх версиях фотографии. На своём изображении можно экспериментировать отдельно.</p></section>
+<div class="task-statement"><h2 class="statement-title">Условие</h2><p>Сохраните исходные BGR-цвета зелёных участков яблок, а остальные пиксели сделайте чёрными. В этой задаче результат — цветная фотография, а не чёрно-белая маска. Прочитайте input.png и преобразуйте BGR в HSV (OpenCV: H от 0 до 179, S и V от 0 до 255). Диапазоны: H=25…85, S=80…255, V=40…255. Все границы включительны. Сохраните цветной результат в output.png без изменения размеров. Проверка сравнивает пиксели на трёх версиях фотографии. На своём изображении можно экспериментировать отдельно.</p></div></section>
 <p>Прочитайте входной файл через <code>cv2.imread('input.png')</code> и сохраните результат командой <code>cv2.imwrite('output.png', result)</code>. Используйте также <code>numpy</code> и <code>PIL</code>. Результат появится ниже; <code>cv2.imshow()</code> в этой среде не используется.</p>
 <div id="image-task" data-slug="hsv-color" data-run-url="/pythontutor/images/hsv-color/run/" data-submit-url="/pythontutor/images/hsv-color/submit/">
     <h2 class="h4" id="image-code-label">Код Python</h2>

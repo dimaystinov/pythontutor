@@ -52,15 +52,15 @@ async function transcribe(chunks,_rate,progress){
   await client.stop();if(failure)throw Error(failure);const text=[...finals.values()].join(' ').trim();if(!text)throw Error('Речь не распознана. Повторите или напишите вопрос.');return text;
  }finally{active=false;if(client){await client.dispose();client=null;}}
 }
-function showSetup(){
+function showSetup(start=false){
  let box=document.getElementById('localspeech-setup');if(!box){box=document.createElement('section');box.id='localspeech-setup';box.style.cssText='padding:16px;margin:12px;background:#eef7ff;border-radius:10px';
  box.innerHTML='<p>Голосовой ввод LocalSpeech · русский язык · 43 МБ</p><button type="button" class="btn btn-default">Установить LocalSpeech</button> <button type="button" hidden>Отменить</button><progress hidden max="100" style="width:100%"></progress><p role="status"></p>';
- const host=document.getElementById('tutor-messages')||document.getElementById('pwa-model-setup');host.before(box);
+ const host=document.getElementById('pwa-model-setup')||document.getElementById('tutor-messages');host.before(box);
  const [button,stop]=box.querySelectorAll('button'),bar=box.querySelector('progress'),note=box.querySelector('[role=status]');
- button.onclick=async()=>{button.disabled=true;stop.hidden=false;bar.hidden=false;bar.value=0;note.textContent='Подключение…';try{await install((n,info)=>{bar.value=n;note.textContent=(info?.phase||'Скачивание')+' · '+n+'%'+(info?' · '+(info.loaded/1048576).toFixed(1)+' из '+(info.total/1048576).toFixed(1)+' МБ':'');});note.textContent='Готово. Нажмите микрофон для диктовки.';}catch(e){note.textContent=e.name==='AbortError'?'Скачивание отменено.':String(e.message||e);}finally{button.disabled=false;stop.hidden=true;bar.hidden=true;}};
+ button.onclick=async()=>{if(installing)return;button.disabled=true;stop.hidden=false;bar.hidden=false;bar.value=0;note.textContent='Подключение…';try{await install((n,info)=>{bar.value=n;note.textContent=(info?.phase||'Скачивание')+' · '+n+'%'+(info?' · '+(info.loaded/1048576).toFixed(1)+' из '+(info.total/1048576).toFixed(1)+' МБ':'');});note.textContent='Готово. Нажмите микрофон для диктовки.';}catch(e){note.textContent=e.name==='AbortError'?'Скачивание отменено.':String(e.message||e);}finally{button.disabled=false;stop.hidden=true;bar.hidden=true;}};
  stop.onclick=cancel;
- }box.hidden=false;return box;
+ }box.hidden=false;if(start&&!installing)box.querySelector('button').click();return box;
 }
 window.TutorSpeech={prepare,transcribe,dispose,install,ready,cancel,showSetup};
-document.querySelectorAll('[data-speech-install]').forEach(button=>button.addEventListener('click',showSetup));
+document.querySelectorAll('[data-speech-install]').forEach(button=>button.addEventListener('click',()=>showSetup(true)));
 })();

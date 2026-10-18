@@ -51,7 +51,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 <link rel="apple-touch-icon" href="/pythontutor/static/pwa/icon-192.png">
 <script defer src="/pythontutor/static/pwa/app.js?v=progress5"></script>
 <script src="/pythontutor/static/pwa/storage.js?v=reset7"></script>
-<meta name="csrf-token" content="r290FqOQJh6Q14Kjb5J3CsAasC3QLwikib4ihlxYDeUBg88SN1pwHVn9L4t7OcIQ">
+<meta name="csrf-token" content="5IZ3GRTQVw8ShKuMzFEWAEwttCQyFIzvu21L3zln3tikRQiml8mxMCVE9Qik4J8H">
 
 	<title>Интерактивный учебник языка Python</title>
 
@@ -73,7 +73,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 <script src="/pythontutor/static/js/ace-editor/ace.js"></script>
 <script defer src="/pythontutor/static/js/image-task.js?v=reset7"></script>
 
-<link rel="stylesheet" href="/pythontutor/static/css/selfhost.css?v=stablewidth2">
+<link rel="stylesheet" href="/pythontutor/static/css/selfhost.css?v=readable3">
 <meta name="static-site" content="yes"></head>
 <body>
 	<div class="navbar navbar-default navbar-static-top" role="navigation">
@@ -109,7 +109,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 <p><a href="/pythontutor/static/hsv/index.html">Лаборатория HSV — подобрать цвет и маску</a> · <a href="/pythontutor/static/hsv/theory.html">Теория: HSV и ползунки</a></p>
 <p><a href="/pythontutor/images/">← Все задачи с изображениями</a> · </p>
 <section data-tutor-material><h1>HSV: Луна на вечернем небе</h1>
-<p>Отделите светлые малонасыщенные участки Луны от неба. Здесь важнее насыщенность S и яркость V, чем оттенок H. Прочитайте input.png и преобразуйте BGR в HSV (OpenCV: H от 0 до 179, S и V от 0 до 255). Диапазоны: H=0…179, S=0…90, V=120…255. Все границы включительны. Сохраните одноканальную маску uint8: подходящий пиксель — 255, остальные — 0 в output.png без изменения размеров. Проверка сравнивает пиксели на трёх версиях фотографии. На своём изображении можно экспериментировать отдельно.</p></section>
+<div class="task-statement"><h2 class="statement-title">Условие</h2><p>Отделите светлые малонасыщенные участки Луны от неба. Здесь важнее насыщенность S и яркость V, чем оттенок H. Прочитайте input.png и преобразуйте BGR в HSV (OpenCV: H от 0 до 179, S и V от 0 до 255). Диапазоны: H=0…179, S=0…90, V=120…255. Все границы включительны. Сохраните одноканальную маску uint8: подходящий пиксель — 255, остальные — 0 в output.png без изменения размеров. Проверка сравнивает пиксели на трёх версиях фотографии. На своём изображении можно экспериментировать отдельно.</p></div></section>
 <p>Прочитайте входной файл через <code>cv2.imread('input.png')</code> и сохраните результат командой <code>cv2.imwrite('output.png', result)</code>. Используйте также <code>numpy</code> и <code>PIL</code>. Результат появится ниже; <code>cv2.imshow()</code> в этой среде не используется.</p>
 <div id="image-task" data-slug="hsv-moon" data-run-url="/pythontutor/images/hsv-moon/run/" data-submit-url="/pythontutor/images/hsv-moon/submit/">
     <h2 class="h4" id="image-code-label">Код Python</h2>
