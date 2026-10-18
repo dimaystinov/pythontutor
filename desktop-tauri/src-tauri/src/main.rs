@@ -291,7 +291,7 @@ fn main() {
         })
         .invoke_handler(tauri::generate_handler![
             updates::app_version, updates::check_update, updates::install_update, updates::cancel_update, updates::finish_update,
-            speech::speech_status,
+            speech::speech_status, speech::speech_active_version, speech::speech_installed_versions, speech::activate_speech,
             speech::install_speech,
             speech::cancel_speech,
             speech::remove_speech,

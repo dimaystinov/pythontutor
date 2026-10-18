@@ -43,7 +43,8 @@ self.addEventListener('fetch',event=>{
  const req=event.request,url=new URL(req.url);
  if(req.method!=='GET'||url.origin!==self.location.origin)return;
  event.respondWith((async()=>{
-  if(url.pathname.includes('/static/local-speech/0.3.0/')){
+  if(url.pathname.endsWith('/local-speech-catalog.json')){try{return await fetch(req,{cache:'no-store'});}catch(_){return new Response(JSON.stringify({schemaVersion:1,versions:[]}),{headers:{'content-type':'application/json'}});}}
+  if(/\/static\/local-speech\/\d+\.\d+\.\d+\//.test(url.pathname)){
    for(const name of ['tutor-local-speech-runtime-v1','local-speech-verified-v1']){
     const saved=await (await caches.open(name)).match(req,{ignoreSearch:true});if(saved)return saved;
    }
