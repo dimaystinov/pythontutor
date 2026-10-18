@@ -8,27 +8,25 @@
     });
 })(jQuery);
 
-$(function () {
-    var menuOpen = true;
-    try { menuOpen = localStorage.getItem('lesson-menu-open') !== 'no'; } catch (_) {}
-    $('body').toggleClass('lesson-menu-hidden', !menuOpen);
-    function syncMenuButton() {
-        var sidebar = document.querySelector('.sidebar');
-        if (!sidebar) return;
-        var visible = getComputedStyle(sidebar).display !== 'none';
-        $('.sidebar-toggle').attr('aria-expanded', String(visible))
-            .attr('aria-label', visible ? 'Скрыть меню уроков' : 'Показать меню уроков')
-            .find('i').toggleClass('fa-angle-left', visible).toggleClass('fa-angle-right', !visible);
-    }
-    $('.sidebar-toggle').on('click', function () {
-        var sidebar = document.querySelector('.sidebar');
-        if (!sidebar) return;
-        var show = getComputedStyle(sidebar).display === 'none';
-        $('body').toggleClass('lesson-menu-hidden', !show);
-        try { localStorage.setItem('lesson-menu-open', show ? 'yes' : 'no'); } catch (_) {}
-        syncMenuButton();
-        window.dispatchEvent(new Event('resize'));
-    });
-    window.addEventListener('resize', syncMenuButton);
-    syncMenuButton();
-});
+// Bind once to the document: lesson renderers may replace heading/button nodes.
+(function(){
+ function sync(){
+  const sidebar=document.querySelector('.sidebar');if(!sidebar)return;
+  const open=!document.body.classList.contains('lesson-menu-hidden');
+  sidebar.hidden=!open;
+  document.querySelectorAll('.sidebar-toggle').forEach(button=>{
+   button.setAttribute('aria-expanded',String(open));
+   button.setAttribute('aria-label',open?'Скрыть меню уроков':'Показать меню уроков');
+   const icon=button.querySelector('i');if(icon){icon.classList.toggle('fa-angle-left',open);icon.classList.toggle('fa-angle-right',!open);}
+  });
+ }
+ document.addEventListener('click',event=>{
+  if(!event.target.closest?.('.sidebar-toggle')||!document.querySelector('.sidebar'))return;
+  event.preventDefault();
+  const hidden=document.body.classList.toggle('lesson-menu-hidden');
+  try{localStorage.setItem('lesson-menu-open',hidden?'no':'yes');}catch(_){}
+  sync();window.dispatchEvent(new Event('resize'));
+ });
+ function init(){try{document.body.classList.toggle('lesson-menu-hidden',localStorage.getItem('lesson-menu-open')==='no');}catch(_){}sync();}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();

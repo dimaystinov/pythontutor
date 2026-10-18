@@ -1,4 +1,5 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+mod update_install;
 mod profiles;
 mod cli;
 mod models;

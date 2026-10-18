@@ -1,7 +1,7 @@
 (function(root){
 'use strict';
-const base='https://github.com/dimaystinov/pythontutor/releases/download/app-v2.1.0/';
-const files={windows:'PythonTutor_2.1.0_x64-setup.exe',arm:'PythonTutor_2.1.0_aarch64.dmg',intel:'PythonTutor_2.1.0_x64.dmg'};
+const base='https://github.com/dimaystinov/pythontutor/releases/download/app-v2.1.1/';
+const files={windows:'PythonTutor_2.1.1_x64-setup.exe',arm:'PythonTutor_2.1.1_aarch64.dmg',intel:'PythonTutor_2.1.1_x64.dmg'};
 function detect(info){
  const platform=info.platform||'',ua=info.ua||'';
  if(/Android|iPhone|iPad|iPod/i.test(ua)||(/Mac/i.test(platform)&&info.touch>1))return null;
@@ -30,5 +30,18 @@ button.addEventListener('click',event=>{
  selected=detect(info);
  if(selected){button.href=base+files[selected];button.textContent='Скачать для '+({windows:'Windows',arm:'macOS · Apple Silicon',intel:'macOS · Intel'}[selected]);}
  else{button.textContent=/Mac/i.test(info.platform||'')&&info.touch<=1?'Выбрать версию для Mac':'Выбрать установщик';}
+ // Refresh only to a complete app release; never navigate to a release listing.
+ try {
+  const response=await fetch('https://api.github.com/repos/dimaystinov/pythontutor/releases?per_page=100',{signal:AbortSignal.timeout(8000)});
+  if(!response.ok)return;
+  const releases=await response.json();
+  const ready=releases.filter(r=>!r.draft&&!r.prerelease&&/^app-v\d+\.\d+\.\d+$/.test(r.tag_name)&&['x64-setup.exe','aarch64.dmg','x64.dmg'].every(suffix=>r.assets.some(a=>a.name==='PythonTutor_'+r.tag_name.slice(5)+'_'+suffix&&a.size>0)));
+  ready.sort((a,b)=>{const av=a.tag_name.slice(5).split('.').map(Number),bv=b.tag_name.slice(5).split('.').map(Number);return bv[0]-av[0]||bv[1]-av[1]||bv[2]-av[2];});
+  const release=ready[0];if(!release)return;
+  const suffix={windows:'x64-setup.exe',arm:'aarch64.dmg',intel:'x64.dmg'};
+  function direct(kind){const name='PythonTutor_'+release.tag_name.slice(5)+'_'+suffix[kind];const expected='https://github.com/dimaystinov/pythontutor/releases/download/'+release.tag_name+'/'+name;return release.assets.some(a=>a.name===name&&a.browser_download_url===expected)?expected:null;}
+  if(selected&&direct(selected))button.href=direct(selected);
+  ['windows','arm','intel'].forEach((kind,index)=>{const link=choices.querySelectorAll('a')[index];if(link&&direct(kind))link.href=direct(kind);});
+ }catch(_){} // Keep the last verified direct installer link offline.
 })();
 })(typeof window==='undefined'?globalThis:window);
