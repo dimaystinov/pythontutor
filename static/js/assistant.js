@@ -22,7 +22,7 @@
     const guided=()=>model?.value==='guided';
     const api=()=>model?.value==='opencode-local';
     const local=()=>!!model&&model.value!=='cloud';
-    const chatKey='tutor-local-chat:'+window.TutorDevice.owner()+':'+panel.dataset.url;
+    const chatStore=window.TutorChatHistory.create(localStorage,window.TutorDevice.owner());
     let localTurns=[],modelPromise=null,mathQueue=Promise.resolve();
     function friendlyProgress(text){
         const percent=String(text).match(/Загрузка модели: (\d+)%/);
@@ -38,7 +38,9 @@
         if(!modelPromise){model.disabled=true;modelPromise=window.TutorLocalAI.load(model.value,friendlyProgress).finally(()=>{modelPromise=null;model.disabled=busy;});}
         return modelPromise;
     }
-    function localHistory(){try{localTurns=JSON.parse(localStorage.getItem(chatKey)||'[]');}catch(_){localTurns=[];}return localTurns;}
+    function localHistory(){try{localTurns=chatStore.list();}catch(_){localTurns=[];}return localTurns;}
+    function taskHistory(){return localHistory().filter(t=>!t.task||t.task===panel.dataset.url);}
+    function saveTurn(result){try{localTurns=chatStore.append(result,panel.dataset.url);}catch(_){notice('Не удалось сохранить переписку: недостаточно места на устройстве.',true);}}
     function describeModel(){if($('tutor-privacy'))$('tutor-privacy').textContent=guided()?'Встроенный консультант использует правила и заготовленные объяснения. Код и вопросы остаются на устройстве.':'Qwen обрабатывает код на устройстве. OpenCode отправляет вопрос, условие и разрешённый код облачному провайдеру. ИИ может ошибаться.';if($('tutor-api-settings'))$('tutor-api-settings').hidden=!api();const c=window.TutorLocalAI?.choices.find(c=>c.id===model?.value);if($('tutor-model-info'))$('tutor-model-info').textContent=c?c.download+' загрузка, '+c.memory+'. '+c.note:guided()?'Объясняет ошибки и тесты по правилам. Не требует загрузок и интернета.':'Обработка через настроенный API. Нужен интернет.';if($('tutor-load-model'))$('tutor-load-model').hidden=!c;if($('tutor-load-voice'))$('tutor-load-voice').hidden=!c;}
     let pairingWindow;
     $('tutor-connect-desktop')?.addEventListener('click',()=>{
@@ -149,6 +151,13 @@
         if(open){updateCode();if(question&&!loaded)history();if(question)question.focus();}
         else {stopCall();if(recording)finishRecording(false);launcher.focus();}
     }
+    $('tutor-clear-chat')?.addEventListener('click',()=>{if(busy||callActive){notice('Сначала остановите ответ или голосовой разговор.',true);return;}$('tutor-clear-confirm').hidden=false;});
+    $('tutor-clear-cancel')?.addEventListener('click',()=>{$('tutor-clear-confirm').hidden=true;});
+    $('tutor-clear-accept')?.addEventListener('click',()=>{
+        if(busy||callActive)return;
+        if(window.TutorDevice.isCurrent&&!window.TutorDevice.isCurrent())return;
+        try{chatStore.clear();localTurns=[];pending=null;log.querySelectorAll('.tutor-message').forEach(e=>e.remove());question.value='';$('tutor-clear-confirm').hidden=true;notice('Переписка удалена.');}catch(_){notice('Не удалось удалить переписку.',true);}
+    });
     launcher.addEventListener('click',()=>setOpen(true));$('tutor-close').addEventListener('click',()=>setOpen(false));
     $('tutor-expand').addEventListener('click',()=>{const full=panel.classList.toggle('fullscreen');$('tutor-expand').setAttribute('aria-pressed',String(full));$('tutor-expand').setAttribute('aria-label',full?'Вернуть боковую панель':'Развернуть на весь экран');});
     document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden)setOpen(false);});
@@ -179,12 +188,12 @@
         if(busy)return null;text=text.trim();if(!text)return null;
         if(text.length>3000){notice('Сократите вопрос до 3000 символов.',true);return null;}
         const refusal=guided()?null:window.TutorLocalAI?.scopeRefusal(text);
-        const prepared=guided()?(attachment?{answer:'Встроенный консультант разбирает текст, код и результаты тестов. Опиши вопрос словами; изображение он не анализирует.'}:window.TutorGuidance.consult(text,{code:codeNow(),run:window.BrowserPython?.lastRun?.(),allowed:!!$('tutor-include-code')?.checked,material:currentMaterial(),turns:localHistory()})):refusal?{answer:refusal}:window.TutorGuidance?.current(text,localHistory()) || window.TutorGuidance?.review(text,codeNow(),window.BrowserPython?.lastRun?.(),!!$('tutor-include-code')?.checked);
+        const prepared=guided()?(attachment?{answer:'Встроенный консультант разбирает текст, код и результаты тестов. Опиши вопрос словами; изображение он не анализирует.'}:window.TutorGuidance.consult(text,{code:codeNow(),run:window.BrowserPython?.lastRun?.(),allowed:!!$('tutor-include-code')?.checked,material:currentMaterial(),turns:taskHistory()})):refusal?{answer:refusal}:window.TutorGuidance?.current(text,taskHistory()) || window.TutorGuidance?.review(text,codeNow(),window.BrowserPython?.lastRun?.(),!!$('tutor-include-code')?.checked);
         if(prepared&&(guided()||!attachment||refusal)){
             if(window.TutorDevice.isCurrent&&!window.TutorDevice.isCurrent())return null;
             const result={question:text,...prepared,id:'local-'+crypto.randomUUID()};
             message('user',text);message('assistant',result.answer,result.id,result.theory);
-            localTurns.push(result);try{localStorage.setItem(chatKey,JSON.stringify(localTurns.slice(-20)));}catch(_){}
+            saveTurn(result);
             question.value='';if(guided())clearImage();notice('Помощь по задаче · работает без ИИ и интернета.');return result;
         }
         updateCode();const code=$('tutor-include-code').checked?lastCode:'';
@@ -205,7 +214,7 @@
                 if(window.TutorDevice.isCurrent&&!window.TutorDevice.isCurrent())return null;
                 const result={question:text,answer,id:'local-'+crypto.randomUUID()};
                 message('user',text);message('assistant',answer);
-                localTurns.push(result);try{localStorage.setItem(chatKey,JSON.stringify(localTurns.slice(-20)));}catch(_){}
+                saveTurn(result);
                 pending=null;question.value='';notice(api()?'Ответ получен от OpenCode.':'Ответ создан на устройстве.');return result;
             }
             const result=await request(panel.dataset.url,data);message('user',result.question);message('assistant',result.answer,result.id);pending=null;question.value='';clearImage();notice('');return result;

@@ -51,7 +51,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 <link rel="apple-touch-icon" href="/pythontutor/static/pwa/icon-192.png">
 <script defer src="/pythontutor/static/pwa/app.js?v=progress5"></script>
 <script src="/pythontutor/static/pwa/storage.js?v=reset7"></script>
-<meta name="csrf-token" content="YegdViFxTonkZVVuU6UuqXsGIHJxRXGjK1NZi6cemNVEiSwYDuTcO8nZ2Lk9pTcb">
+<meta name="csrf-token" content="I9h7DtgRtv6cTzuQakjxbEEtNaHfco6T3nFylrA3bGY1HlP6IMGYqnQHWNTouKdF">
 
 	<title>Интерактивный учебник языка Python</title>
 
@@ -95,7 +95,7 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 		var problem_name = 'mkad';
 	</script>
 
-<link rel="stylesheet" href="/pythontutor/static/css/selfhost.css?v=readable3">
+<link rel="stylesheet" href="/pythontutor/static/css/selfhost.css?v=definitions4">
 <meta name="static-site" content="yes"></head>
 <body>
 	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -414,7 +414,8 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
 <script defer src="/pythontutor/static/pwa/model-assets.js?v=cors20261017"></script>
 <script defer src="/pythontutor/static/pwa/local-ai.js?v=cors20261017"></script>
 <script defer src="/pythontutor/static/pwa/local-voice.js?v=bundle1"></script>
-<script defer src="/pythontutor/static/js/assistant.js?v=cors20261017"></script>
+<script defer src="/pythontutor/static/pwa/chat-history.js?v=1"></script>
+<script defer src="/pythontutor/static/js/assistant.js?v=sharedchat1"></script>
 <button id="tutor-launcher" type="button" aria-expanded="false" aria-controls="tutor-panel" aria-label="Помощник" title="Помощник"><span aria-hidden="true">🐍</span></button>
 <div id="tutor-divider" role="separator" aria-label="Ширина помощника" aria-orientation="vertical" aria-valuemin="28" aria-valuemax="60" aria-valuenow="42" tabindex="0" hidden></div>
 <aside id="tutor-panel" hidden aria-label="Помощник по текущей задаче" data-url="/pythontutor/assistant/problem/mkad/" data-kind="problem" data-learning-context="Мы в интерактивном учебнике Python: 15 уроков и 134 основные задачи. Ученик пишет код в редакторе на этой странице; Python, тесты и пошаговый запуск уже работают в браузере. Устанавливать Python или IDE для этих занятий не нужно. Основной способ обучения — последовательно решать задачи: прочитать условие, попробовать самому, запустить пример, проверить все тесты, при необходимости раскрыть подсказку, затем перейти к следующей задаче. После успешного решения можно обсудить разбор и улучшение. Цель прохождения курса с самостоятельной практикой — база начинающего Python-разработчика. Если спрашивают, как учиться или с чего начать, предложи посильный шаг в текущей задаче этого курса, а не установку программ, сторонние курсы или длинный общий план. Учитывай тему текущего урока и не вводи ещё не изученные конструкции. Это фон беседы: не повторяй описание курса и не навязывай решение задачи в ответ на каждое приветствие." data-user="" data-stt="/pythontutor/assistant/speech/transcribe/" data-worklet="/pythontutor/static/js/tutor-audio-worklet.js" data-auth="no">
@@ -435,6 +436,8 @@ Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
     </div>
     <div class="tutor-code-access"><label><input id="tutor-include-code" type="checkbox" checked> Помощник видит мой код</label><span id="tutor-code-status">Код считывается из редактора</span></div>
     </details>
+    <button id="tutor-clear-chat" type="button" class="btn btn-link">Очистить переписку</button>
+    <div id="tutor-clear-confirm" hidden><p>Удалить всю переписку с Питонычем? Решения задач и прогресс останутся.</p><button id="tutor-clear-accept" type="button">Удалить переписку</button> <button id="tutor-clear-cancel" type="button">Отмена</button></div>
     <div id="tutor-model-setup" hidden></div>
     <div id="tutor-voice-view" hidden><div class="tutor-voice-orb" aria-hidden="true">🐍</div><h3>Голосовой разговор</h3><p id="tutor-voice-status" role="status">Готовлю разговор… При первом запуске браузер попросит доступ к микрофону.</p><button id="tutor-call" type="button">Начать разговор</button><button id="tutor-interrupt" type="button" hidden>Отправить реплику</button><p class="tutor-fineprint">После паузы вопрос отправится автоматически. Ответ прозвучит вслух и останется в текстовом чате. Одна реплика — до 60 секунд.</p></div>
     <div id="tutor-messages" role="log" aria-live="polite" aria-relevant="additions"><div class="tutor-welcome"><span aria-hidden="true">🐍</span><p>Привет, я Питоныч. Помогу разобраться с Python, алгоритмами и заданиями курса. Что будем разбирать?</p></div></div>
