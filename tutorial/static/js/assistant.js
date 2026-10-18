@@ -227,6 +227,7 @@
     }
     async function startRecording(dialogue){
         if(recording)return;
+        if(local()&&window.TutorSpeech)await window.TutorSpeech.prepare();
         if(!navigator.mediaDevices||!window.AudioWorkletNode)throw new Error('Для микрофона нужен современный браузер и HTTPS (или localhost).');
         const current=epoch;
         const stream=await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,echoCancellation:true,noiseSuppression:true},video:false});
