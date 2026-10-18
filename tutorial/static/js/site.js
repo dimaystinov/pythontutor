@@ -1,12 +1,13 @@
 /* Send Django CSRF tokens only to same-origin, state-changing requests. */
 (function ($) {
+    if (!$ || typeof $.ajaxPrefilter !== "function") return;
     $.ajaxPrefilter(function (options, original, xhr) {
         if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(options.type) && !options.crossDomain) {
             var token = document.querySelector('meta[name="csrf-token"]');
             if (token) xhr.setRequestHeader('X-CSRFToken', token.content);
         }
     });
-})(jQuery);
+})(window.jQuery);
 
 // Bind once to the document: lesson renderers may replace heading/button nodes.
 (function(){
