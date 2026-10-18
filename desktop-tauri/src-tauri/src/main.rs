@@ -236,6 +236,7 @@ fn main() {
                     *response.status_mut()=tauri::http::StatusCode::OK;
                     response.headers_mut().insert("content-type",mime.parse().unwrap());
                     response.headers_mut().remove("content-length");
+                    response.headers_mut().insert("cache-control","no-store".parse().unwrap());
                     *response.body_mut()=std::borrow::Cow::Owned(bytes);
                 }
             })
