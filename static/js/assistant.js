@@ -242,7 +242,7 @@
     }
     async function startRecording(dialogue){
         if(recording)return;
-        if(local()&&window.TutorSpeech)await window.TutorSpeech.prepare();
+        await window.TutorLocalVoice.prepare();
         if(!navigator.mediaDevices||!window.AudioWorkletNode)throw new Error('Для микрофона нужен современный браузер и HTTPS (или localhost).');
         const current=epoch;
         const stream=await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,echoCancellation:true,noiseSuppression:true},video:false});
@@ -266,8 +266,7 @@
         try{
             notice('Распознаю речь…');voiceStatus('Распознаю речь…');$('tutor-interrupt').hidden=true;
             let result;
-            if(local())result={text:await window.TutorLocalVoice.transcribe(r.chunks,r.ctx.sampleRate,notice)};
-            else {const data=new FormData();data.set('audio',new Blob(r.chunks,{type:'application/octet-stream'}),'speech.pcm');result=await request(panel.dataset.stt,data);}
+            result={text:await window.TutorLocalVoice.transcribe(r.chunks,16000,notice)};
             if(current!==epoch)return;
             question.value=result.text;notice('');
             if(r.dialogue&&callActive){voiceStatus('Вы: '+result.text+'\n\nПитоныч думает…');const reply=await send(result.text,true);if(current!==epoch)return;if(reply){voiceStatus('Питоныч отвечает…');$('tutor-interrupt').hidden=false;$('tutor-interrupt').textContent='Перебить ответ';await speak(reply.id);}if(current===epoch&&callActive)await startRecording(true);}

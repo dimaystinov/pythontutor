@@ -1,20 +1,9 @@
 (function(){
 'use strict';
-let worker,pending,speechEnd;
-function operation(audio,progress){
- if(pending)return Promise.reject(Error('Дождитесь распознавания речи.'));
- if(!worker)worker=new Worker('/pythontutor/static/pwa/voice-worker.mjs',{type:'module'});
- return new Promise((resolve,reject)=>{const timer=setTimeout(()=>{worker.terminate();worker=null;pending=null;reject(Error('Не удалось загрузить или запустить распознавание речи. Повторите с подключением к сети.'));},300000);
- pending=true;worker.onmessage=({data})=>{if(data.progress){progress?.(data.progress);return;}clearTimeout(timer);pending=null;if(data.error)reject(Error(data.error));else resolve(data);};worker.onerror=e=>{clearTimeout(timer);pending=null;worker.terminate();worker=null;reject(Error(e.message||'Ошибка локального распознавания.'));};worker.postMessage({audio});});
-}
-async function prepare(progress){if(window.TutorSpeech)return window.TutorSpeech.prepare(progress);await window.TutorModelAssets.ensure('whisper-tiny');await operation(null,progress);progress?.('Whisper готов: голосовой ввод работает локально.');}
-async function transcribe(chunks,sampleRate,progress){
- if(window.TutorSpeech)return window.TutorSpeech.transcribe(chunks,sampleRate,progress);
- // The AudioWorklet already resamples microphone audio to 16 kHz.
- const length=chunks.reduce((n,c)=>n+c.length,0),audio=new Float32Array(length);let offset=0;
- for(const c of chunks){for(let i=0;i<c.length;i++)audio[offset+i]=c[i]/32768;offset+=c.length;}
- const result=await operation(audio,progress);if(!result.text?.trim())throw Error('Речь не распознана. Повторите или напишите вопрос.');return result.text;
-}
+let speechEnd;
+function sdk(){if(!window.TutorSpeech)throw Error('Голосовой ввод LocalSpeech не загрузился. Перезагрузите страницу.');return window.TutorSpeech;}
+async function prepare(progress){return sdk().prepare(progress);}
+async function transcribe(chunks,sampleRate,progress){return sdk().transcribe(chunks,sampleRate,progress);}
 function stop(){window.speechSynthesis?.cancel();if(speechEnd){speechEnd();speechEnd=null;}}
 async function speak(text){
  if(!window.speechSynthesis)throw Error('На устройстве недоступна озвучка. Ответ сохранён в чате.');
