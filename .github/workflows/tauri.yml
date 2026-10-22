@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['desktop-tauri/**', 'scripts/build_pages.py', 'tutorial/management/commands/seed_course.py', '.github/workflows/tauri.yml']
+    paths: ['tutorial/static/js/assistant.js', 'tutorial/static/pwa/**', 'tutorial/static/tests/**', 'desktop-tauri/**', 'scripts/build_pages.py', 'tutorial/management/commands/seed_course.py', '.github/workflows/tauri.yml']
 concurrency:
   group: tauri-installers
   cancel-in-progress: true

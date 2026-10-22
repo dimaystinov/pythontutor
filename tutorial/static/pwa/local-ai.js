@@ -20,6 +20,7 @@ async function load(id,progress){
  if(engine&&loadedId===id)return engine;
  if(loading)throw Error('Дождитесь загрузки модели.');
  if(!choices.some(c=>c.id===id))throw Error('Неизвестная модель.');
+ progress?.('Проверка видеокарты…');
  if(!navigator.gpu)throw Error('WebGPU недоступен. Откройте приложение в браузере с поддержкой WebGPU, например Chrome или Edge.');
  const adapter=await navigator.gpu.requestAdapter();
  if(!adapter||!adapter.features.has('shader-f16'))throw Error('На этом устройстве недоступен WebGPU с shader-f16. Локальная модель не может запуститься; облачный режим автоматически не включается.');

@@ -25,3 +25,10 @@ test('voice conversation starts after preparation without resetting stored turns
  vm.runInNewContext(src.slice(src.indexOf('    async function beginCall()'),src.indexOf("    $('tutor-call').addEventListener")),ctx);
  await ctx.beginCall();assert.deepEqual(calls,['model','voice','record']);
 });
+
+test('selecting Qwen starts preparation and reports failure without sending a question',async()=>{
+ const src=fs.readFileSync('tutorial/static/js/assistant.js','utf8'),events=[];
+ const ctx={requestEpoch:0,stopCall(){},window:{TutorLocalAI:{stop(){}}},modelPromise:null,loaded:true,localStorage:{setItem(){}},model:{value:'Qwen'},describeModel(){},history(){},guided:()=>false,friendlyProgress:t=>events.push(t),prepareModel:async()=>{events.push('prepare');throw Error('WebGPU unavailable');},$:()=>({hidden:false}),notice:t=>events.push(t)};
+ vm.runInNewContext(src.slice(src.indexOf('    async function changeModel()'),src.indexOf("    model?.addEventListener('change',changeModel)")),ctx);
+ await ctx.changeModel();assert.equal(events[1],'prepare');assert.equal(events.at(-1),'WebGPU unavailable');
+});

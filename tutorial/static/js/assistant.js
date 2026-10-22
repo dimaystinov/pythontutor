@@ -167,7 +167,20 @@
     document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden)setOpen(false);});
     // Each page starts with the launcher only; opening requires a user click.
     if(!question)return;
-    model?.addEventListener('change',async()=>{requestEpoch++;stopCall();window.TutorLocalAI.stop();if(modelPromise)try{await modelPromise;}catch(_){}loaded=false;try{localStorage.setItem('tutor-ai-model',model.value);}catch(_){}describeModel();history();});
+    async function changeModel(){
+        const selection=++requestEpoch;
+        stopCall();window.TutorLocalAI.stop();
+        if(modelPromise)try{await modelPromise;}catch(_){}
+        if(selection!==requestEpoch)return;
+        loaded=false;
+        try{localStorage.setItem('tutor-ai-model',model.value);}catch(_){}
+        describeModel();history();
+        if(guided()){notice('Готов к разговору');return;}
+        friendlyProgress('Подготовка помощника…');
+        try{await prepareModel();if(selection===requestEpoch)friendlyProgress('Модель готова');}
+        catch(e){if(selection===requestEpoch){const bar=$('tutor-download-progress');if(bar)bar.hidden=true;notice(e.message||String(e),true);}}
+    }
+    model?.addEventListener('change',changeModel);
     $('tutor-prepare-ai')?.addEventListener('click',()=>prepareModel().catch(e=>notice(e.message||String(e),true)));
     window.addEventListener('storage',event=>{if(event.key==='tutor-ai-model'&&event.newValue==='guided'&&model){window.TutorLocalAI.stop();stopCall();model.value='guided';describeModel();notice('Компонент удалён. Включён встроенный консультант.');}});
     const apiModel=$('tutor-api-model');
