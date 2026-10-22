@@ -306,6 +306,7 @@ fn main() {
             cli::install_cli,
             cli::cancel_cli_install,
             models::prepare_model,
+            models::model_status,
             models::remove_model,
             models::cancel_model,
             open_release,

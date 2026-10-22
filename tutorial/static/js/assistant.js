@@ -57,6 +57,7 @@
         $('tutor-api-key').value=event.data.token;$('tutor-desktop-status').textContent='Приложение подключено.';
     });
     describeModel();
+    window.addEventListener('tutor-components-ready',describeModel);
     const csrf=()=>panel.querySelector('[name=csrfmiddlewaretoken]').value;
     function notice(text,error=false){if(status){status.textContent=text;status.classList.toggle('error',error);}}
     function codeNow(){

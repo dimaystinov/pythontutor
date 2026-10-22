@@ -101,6 +101,14 @@ fn install(app: tauri::AppHandle) -> Result<String,String> {
     Ok(root.to_string_lossy().into_owned())
 }
 #[tauri::command]
+pub fn model_status(app: tauri::AppHandle) -> Result<serde_json::Value,String> {
+    let root=app.path().app_data_dir().map_err(|e|e.to_string())?.join("models");
+    let files=assets();
+    let bytes:u64=files.iter().map(|a|a.size).sum();
+    let complete=files.iter().all(|a|fs::metadata(root.join(&a.path)).map(|m|m.is_file()&&m.len()==a.size).unwrap_or(false));
+    Ok(serde_json::json!({"installed":complete,"bytes":bytes}))
+}
+#[tauri::command]
 pub async fn prepare_model(app: tauri::AppHandle, state: tauri::State<'_,crate::AppState>, profile:String) -> Result<String,String> {
     {drop(state.checked(&profile)?);}
     if BUSY.swap(true,Ordering::SeqCst){return Err("Дождитесь текущей загрузки модели.".into());}
