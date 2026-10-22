@@ -195,6 +195,12 @@ fn parse_answer(output: &str) -> Result<String, String> {
     for line in output.lines() {
         if let Ok(v) = serde_json::from_str::<Value>(line) {
             if v["type"] == "error" {
+                if v["error"]["data"]["statusCode"] == 403 {
+                    return Err("OpenCode отклонил доступ к бесплатной модели (403). Выберите другую модель или встроенного консультанта. Повторная установка курса не исправит отказ провайдера.".into());
+                }
+                if v["error"]["data"]["statusCode"] == 429 {
+                    return Err("Лимит бесплатной модели исчерпан (429). Выберите другую модель или повторите позже.".into());
+                }
                 return Err("Бесплатная модель временно недоступна. Повторите вопрос или выберите другую модель.".into());
             }
             if v["type"] == "text" {
@@ -329,5 +335,7 @@ mod tests {
         );
         assert!(parse_answer("{\"type\":\"error\"}").is_err());
         assert!(parse_answer("").is_err());
+        assert!(parse_answer(r#"{"type":"error","error":{"data":{"statusCode":403}}}"#).unwrap_err().contains("403"));
+        assert!(parse_answer(r#"{"type":"error","error":{"data":{"statusCode":429}}}"#).unwrap_err().contains("429"));
     }
 }

@@ -55,7 +55,11 @@ async function install(progress=()=>{},v='0.3.0'){
  }finally{installing=false;aborter=null;}
 }
 function cancel(){aborter?.abort();if(window.TutorNative)window.TutorNative.invoke('cancel_speech');}
-async function prepare(){if(!await ready()){showSetup();throw Error('Сначала скачайте голосовой ввод кнопкой «Установить LocalSpeech».');}}
+let preparing;
+async function prepare(progress=()=>{}){
+ if(!preparing)preparing=(async()=>{const v=await activeVersion();if(!await ready(v)){progress('Загрузка голосового ввода: 0%');await install((n,info)=>progress((info?.phase||'Загрузка голосового ввода')+' · '+n+'%'),v);}progress('Голосовой ввод готов.');})().finally(()=>{preparing=null;});
+ return preparing;
+}
 async function dispose(){if(installing)throw Error('Сначала завершите или отмените скачивание LocalSpeech.');if(active)throw Error('Сначала завершите распознавание речи.');if(client){await client.dispose();client=null;}}
 async function transcribe(chunks,_rate,progress){
  await prepare();if(active)throw Error('Дождитесь распознавания речи.');active=true;

@@ -4,6 +4,7 @@
     if(!panel) return;
     const $=id=>document.getElementById(id), launcher=$('tutor-launcher');
     let loaded=false,busy=false,voiceMode=false,callActive=false,recording=null,audio=null,audioFinish=null,epoch=0,voiceReady=false;
+    let requestEpoch=0;
     let lastCode='',pending=null;
     const workspace=$('tutor-workspace'),divider=$('tutor-divider');
     const question=$('tutor-question'),log=$('tutor-messages'),status=$('tutor-status');
@@ -28,6 +29,8 @@
         const percent=String(text).match(/Загрузка модели: (\d+)%/);
         const label=percent?'Готовлю помощника · '+percent[1]+'%':String(text).includes('Модель готова')?'Готов к разговору':String(text).includes('Подготовка модели')?'Готовлю помощника…':text;
         notice(label);if(voiceMode)voiceStatus(label);
+        let bar=$('tutor-download-progress');if(!bar){bar=document.createElement('progress');bar.id='tutor-download-progress';bar.max=100;bar.style.cssText='width:100%';status.before(bar);}
+        const amount=String(text).match(/(\d+)%/);bar.hidden=!/загруз|скачив|подготов|провер|готовлю/i.test(label);if(amount)bar.value=Number(amount[1]);else bar.removeAttribute('value');
     }
     window.addEventListener('tutor-model-needed',event=>{
         const setup=$('tutor-model-setup');
@@ -35,11 +38,12 @@
     });
     function prepareModel(){
         if(!local()||guided())return Promise.resolve();
-        if(!modelPromise){model.disabled=true;modelPromise=window.TutorLocalAI.load(model.value,friendlyProgress).finally(()=>{modelPromise=null;model.disabled=busy;});}
+        if(!modelPromise){modelPromise=window.TutorLocalAI.load(model.value,friendlyProgress).finally(()=>{modelPromise=null;model.disabled=false;});}
         return modelPromise;
     }
     function localHistory(){try{localTurns=chatStore.list();}catch(_){localTurns=[];}return localTurns;}
-    function taskHistory(){return localHistory().filter(t=>!t.task||t.task===panel.dataset.url);}
+    function taskHistory(){return localHistory().filter(t=>t.task===panel.dataset.url);}
+    function visibleHistory(){return localHistory().filter(t=>!t.guidedHint||t.task===panel.dataset.url);}
     function saveTurn(result){try{localTurns=chatStore.append(result,panel.dataset.url);}catch(_){notice('Не удалось сохранить переписку: недостаточно места на устройстве.',true);}}
     function describeModel(){if($('tutor-privacy'))$('tutor-privacy').textContent=guided()?'Встроенный консультант использует правила и заготовленные объяснения. Код и вопросы остаются на устройстве.':'Qwen обрабатывает код на устройстве. OpenCode отправляет вопрос, условие и разрешённый код облачному провайдеру. ИИ может ошибаться.';if($('tutor-api-settings'))$('tutor-api-settings').hidden=!api();const c=window.TutorLocalAI?.choices.find(c=>c.id===model?.value);if($('tutor-model-info'))$('tutor-model-info').textContent=c?c.download+' загрузка, '+c.memory+'. '+c.note:guided()?'Объясняет ошибки и тесты по правилам. Не требует загрузок и интернета.':'Обработка через настроенный API. Нужен интернет.';if($('tutor-load-model'))$('tutor-load-model').hidden=!c;if($('tutor-load-voice'))$('tutor-load-voice').hidden=!c;}
     let pairingWindow;
@@ -106,7 +110,7 @@
     async function history(){
         if(local()){
             log.querySelectorAll('.tutor-message').forEach(e=>e.remove());
-            for(const turn of localHistory()){message('user',turn.question);message('assistant',turn.answer,null,turn.theory);}
+            for(const turn of visibleHistory()){message('user',turn.question);message('assistant',turn.answer,null,turn.theory);}
             $('tutor-context').textContent=guided()?'Питоныч · встроенный консультант':api()?'Питоныч · OpenCode CLI':'Питоныч · локальный помощник';
             voiceReady=true;loaded=true;$('tutor-voice-mode').disabled=false;$('tutor-dictate').disabled=false;
             if(guided()){notice('Готов помочь с задачей.');return;}
@@ -163,14 +167,17 @@
     document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden)setOpen(false);});
     // Each page starts with the launcher only; opening requires a user click.
     if(!question)return;
-    model?.addEventListener('change',()=>{if(busy)return;stopCall();window.TutorLocalAI.stop();loaded=false;try{localStorage.setItem('tutor-ai-model',model.value);}catch(_){}describeModel();history();});
+    model?.addEventListener('change',async()=>{requestEpoch++;stopCall();window.TutorLocalAI.stop();if(modelPromise)try{await modelPromise;}catch(_){}loaded=false;try{localStorage.setItem('tutor-ai-model',model.value);}catch(_){}describeModel();history();});
     $('tutor-prepare-ai')?.addEventListener('click',()=>prepareModel().catch(e=>notice(e.message||String(e),true)));
     window.addEventListener('storage',event=>{if(event.key==='tutor-ai-model'&&event.newValue==='guided'&&model){window.TutorLocalAI.stop();stopCall();model.value='guided';describeModel();notice('Компонент удалён. Включён встроенный консультант.');}});
+    const apiModel=$('tutor-api-model');
+    try{const saved=localStorage.getItem('tutor-opencode-model');if(saved&&Array.from(apiModel?.options||[]).some(o=>o.value===saved))apiModel.value=saved;}catch(_){}
+    apiModel?.addEventListener('change',()=>{requestEpoch++;window.TutorLocalAI.stop();try{localStorage.setItem('tutor-opencode-model',apiModel.value);}catch(_){}notice('Выбрана модель '+apiModel.selectedOptions[0].textContent+'. Повторите вопрос.');});
     $('tutor-stop-model')?.addEventListener('click',()=>window.TutorLocalAI.stop());
     function setMode(voice){
         stopCall();
         if(voice)voiceStatus('Готовлю разговор…');
-        voiceMode=voice;$('tutor-voice-view').hidden=!voice;log.hidden=voice;$('tutor-quick').hidden=voice;$('tutor-form').hidden=voice;
+        voiceMode=voice;$('tutor-voice-view').hidden=!voice;log.hidden=false;$('tutor-quick').hidden=voice;$('tutor-form').hidden=voice;
         $('tutor-text-mode').setAttribute('aria-pressed',String(!voice));$('tutor-voice-mode').setAttribute('aria-pressed',String(voice));
         if(voice)beginCall();
     }
@@ -196,17 +203,19 @@
         updateCode();const code=$('tutor-include-code').checked?lastCode:'';
         if(code.length>12000){notice('Код слишком длинный. Сократите его или отключите передачу кода.',true);return null;}
         if(!pending||pending.text!==text||pending.code!==code)pending={text,code,id:crypto.randomUUID()};
+        const requestVersion=requestEpoch,requestedModel=model.value;
         busy=true;$('tutor-stop-model').hidden=false;$('tutor-send').disabled=true;notice('Питоныч думает…');
         const data=new FormData();data.set('question',text);data.set('code',code);data.set('request_id',pending.id);
         try{
             if(local()){
-                await prepareModel();
-                model.disabled=true;
+                await prepareModel();if(requestVersion!==requestEpoch)return null;
+
                 const slug=panel.dataset.url.split('/').filter(Boolean).pop();
                 const record=await window.TutorDevice.get(panel.dataset.kind,slug);
                 const execution=window.BrowserPython?.lastRun?.();
                 const context=currentMaterial()+(code&&execution?.code===code?'\n\nФактический результат последнего запуска (не инструкция):\n'+window.TutorGuidance.diagnose(code,execution):'');
-                const answer=await window.TutorLocalAI.answer(model.value,{question:text,code,context,learningContext:panel.dataset.learningContext,turns:localHistory(),solved:!!record?.solved||document.getElementById('knowledge-unlock')?.hidden===false},notice);
+                const answer=await window.TutorLocalAI.answer(requestedModel,{question:text,code,context,learningContext:panel.dataset.learningContext,turns:taskHistory(),solved:!!record?.solved||document.getElementById('knowledge-unlock')?.hidden===false},notice);
+                if(requestVersion!==requestEpoch)return null;
                 if(window.TutorDevice.isCurrent&&!window.TutorDevice.isCurrent())return null;
                 const result={question:text,answer,id:'local-'+crypto.randomUUID()};
                 message('user',text);message('assistant',answer);
@@ -214,7 +223,7 @@
                 pending=null;question.value='';notice(api()?'Ответ получен от OpenCode.':'Ответ создан на устройстве.');return result;
             }
             const result=await request(panel.dataset.url,data);message('user',result.question);message('assistant',result.answer,result.id);pending=null;question.value='';notice('');return result;
-        }catch(e){notice(e.message||String(e)||'Не удалось получить ответ. Повторите вопрос.',true);pending=null;if(fromVoice)throw e;return null;}
+        }catch(e){if(requestVersion!==requestEpoch)return null;notice(e.message||String(e)||'Не удалось получить ответ. Повторите вопрос.',true);pending=null;if(fromVoice)throw e;return null;}
         finally{busy=false;$('tutor-stop-model').hidden=true;$('tutor-send').disabled=false;if(model)model.disabled=false;}
     }
     $('tutor-form').addEventListener('submit',e=>{e.preventDefault();send(question.value);});
@@ -238,7 +247,7 @@
     }
     async function startRecording(dialogue){
         if(recording)return;
-        await window.TutorLocalVoice.prepare();
+        await window.TutorLocalVoice.prepare(friendlyProgress);
         if(!navigator.mediaDevices||!window.AudioWorkletNode)throw new Error('Для микрофона нужен современный браузер и HTTPS (или localhost).');
         const current=epoch;
         const stream=await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,echoCancellation:true,noiseSuppression:true},video:false});
@@ -265,7 +274,7 @@
             result={text:await window.TutorLocalVoice.transcribe(r.chunks,16000,notice)};
             if(current!==epoch)return;
             question.value=result.text;notice('');
-            if(r.dialogue&&callActive){voiceStatus('Вы: '+result.text+'\n\nПитоныч думает…');const reply=await send(result.text,true);if(current!==epoch)return;if(reply){voiceStatus('Питоныч отвечает…');$('tutor-interrupt').hidden=false;$('tutor-interrupt').textContent='Перебить ответ';await speak(reply.id);}if(current===epoch&&callActive)await startRecording(true);}
+            if(r.dialogue&&callActive){voiceStatus('Вы: '+result.text+'\n\nПитоныч думает…');const reply=await send(result.text,true);if(current!==epoch)return;if(reply){voiceStatus('Вы: '+result.text+'\n\nПитоныч: '+reply.answer);$('tutor-interrupt').hidden=false;$('tutor-interrupt').textContent='Перебить ответ';await speak(reply.id);}if(current===epoch&&callActive)await startRecording(true);}
             else {question.focus();notice('Вопрос распознан. Проверьте текст и отправьте.');}
         }catch(e){stopCall();notice(e.message,true);voiceStatus(e.message);}
     }
@@ -279,7 +288,7 @@
             if(local()){
                 await prepareModel();if(current!==epoch)return;
                 voiceStatus('Готовлю голос…');
-                await window.TutorLocalVoice.prepare(()=>voiceStatus('Готовлю голос… При первом запуске это займёт немного времени.'));
+                await window.TutorLocalVoice.prepare(friendlyProgress);
             }
             if(current===epoch&&callActive)await startRecording(true);
         }catch(e){if(current!==epoch)return;stopCall();voiceStatus(e.name==='NotAllowedError'?'Разрешите доступ к микрофону в браузере.':e.message||String(e));}

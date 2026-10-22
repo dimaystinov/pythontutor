@@ -18,21 +18,22 @@ window.addEventListener('DOMContentLoaded',()=>{
   setup.innerHTML='<p>Для ответов через OpenCode установите помощника один раз.</p><button type="button" class="btn btn-primary">Установить помощника</button> <button type="button" class="btn btn-default" hidden>Отменить</button><progress max="100" value="0" hidden style="width:100%;margin-top:12px"></progress><p role="status" style="margin:8px 0 0"></p>';
   panel.querySelector('#tutor-messages').before(setup);
   const [install,cancel]=setup.querySelectorAll('button'),bar=setup.querySelector('progress'),note=setup.querySelector('[role=status]');
-  let installed=false,installing=false,checking=null;
+  let installed=false,installing=false,checking=null,installation=null;
   const show=()=>{setup.hidden=model?.value!=='opencode-local'||installed;};
   const check=()=>checking||(checking=invoke('cli_status').then(state=>{installed=state.installed;install.textContent='Установить помощника · '+Math.ceil(state.bytes/1024/1024)+' МБ';show();}).catch(e=>{note.textContent=String(e);}).finally(()=>{checking=null;}));
-  window.TutorNative.ensureCLI=async()=>{await check();if(!installed){show();install.focus();throw Error(installing?'Дождитесь установки помощника.':'Нажмите «Установить помощника» в его окне.');}};
+  window.TutorNative.ensureCLI=async()=>{await check();if(installed)return;if(!installation)installation=installCLI().finally(()=>{installation=null;});await installation;};
   new MutationObserver(()=>{if(!panel.hidden&&!installed&&!installing)check();}).observe(panel,{attributes:true,attributeFilter:['hidden']});
-  model?.addEventListener('change',()=>{show();if(!panel.hidden&&!installed)check();});
+  model?.addEventListener('change',()=>{show();if(model.value==='opencode-local')window.TutorNative.ensureCLI().catch(e=>{note.textContent=String(e);});});
   let unlisten;
-  install.addEventListener('click',async()=>{
-   if(installing)return;installing=true;install.disabled=true;cancel.hidden=false;bar.hidden=false;bar.value=0;note.textContent='Подключение…';
+  async function installCLI(){
+   if(installing)return;setup.hidden=false;installing=true;install.disabled=true;cancel.hidden=false;bar.hidden=false;bar.value=0;note.textContent='Подключение…';
    try{
     unlisten=await window.__TAURI__.event.listen('cli-install-progress',({payload})=>{bar.value=payload.percent;note.textContent=payload.text;});
     await window.TutorNative.invoke('install_cli');installed=true;note.textContent='Помощник установлен. Можно задать вопрос.';show();document.getElementById('tutor-question')?.focus();
-   }catch(e){note.textContent=String(e);install.textContent='Повторить установку';}
+   }catch(e){note.textContent=String(e);install.textContent='Повторить установку';throw e;}
    finally{unlisten?.();unlisten=null;installing=false;install.disabled=false;cancel.hidden=true;bar.hidden=true;}
-  });
+  }
+  install.addEventListener('click',()=>window.TutorNative.ensureCLI().catch(()=>{}));
   cancel.addEventListener('click',()=>{note.textContent='Отмена загрузки…';invoke('cancel_cli_install');});
   if(!panel.hidden)check();
  }

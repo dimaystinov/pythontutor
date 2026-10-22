@@ -15,10 +15,6 @@ s=s.replace("await query('readwrite',s=>{requireCurrent();return s.put(item);});
 s=s.replace("async function list(){return", "async function list(){if(window.TutorNative)return TutorNative.invoke('solutions');return")
 s=s.replace(" const d=await db();\n await new Promise", " if(window.TutorNative)await TutorNative.invoke('reset_progress');\n const d=await db();\n await new Promise")
 p.write_text(s)
-p=out/'pythontutor/static/pwa/local-ai.js';s=p.read_text().replace("if(id==='opencode-local'){", "if(id==='opencode-local'){\n  if(window.TutorNative)return null;",1)
-s=s.replace(" await load('opencode-local');", " if(window.TutorNative){await window.TutorNative.ensureCLI();progress?.('Питоныч отвечает…');const answer=await TutorNative.invoke('chat',{model:document.getElementById('tutor-api-model').value,messages:dialogueMessages('opencode-local',payload)});return hintOnly(answer,payload.solved);}\n await load('opencode-local');")
-s=s.replace("function stop(){", "function stop(){if(window.TutorNative)TutorNative.invoke('cancel_chat');")
-p.write_text(s)
 p=out/'pythontutor/static/js/assistant.js';s=p.read_text().replace("location.origin==='http://127.0.0.1:8043'", "(window.TutorNative||location.origin==='http://127.0.0.1:8043')")
 # Keep the user's choice between local inference and OpenCode.
 p.write_text(s)

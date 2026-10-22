@@ -9,6 +9,7 @@ let engine,worker,loadedId,loading=false,cancelLoading;
 const library=()=>import('/static/vendor/webllm/webllm.mjs?v=github1');
 async function load(id,progress){
  if(id==='opencode-local'){
+  if(window.TutorNative){await window.TutorNative.ensureCLI();return null;}
   const input=document.getElementById('tutor-api-key');
   if(!input?.value.trim()&&location.origin==='http://127.0.0.1:8043'){
    const response=await fetch('/api/pair',{cache:'no-store'});if(response.ok)input.value=(await response.json()).token;
@@ -28,8 +29,9 @@ async function load(id,progress){
   await window.TutorModelAssets.ensure('qwen7b',progress);
   progress?.('Подготовка модели…');
   const api=await library();worker=new Worker('/static/pwa/llm-worker.mjs',{type:'module'});
-  const timeout=new Promise((_,reject)=>{cancelLoading=()=>reject(Error('Загрузка остановлена. Уже скачанные файлы сохранены.'));worker.onerror=e=>reject(Error(e.message||'Ошибка локального ИИ.'));});
-  engine=await Promise.race([api.CreateWebWorkerMLCEngine(worker,id,{appConfig:{cacheBackend:window.TutorNative?'native-file':'cache',model_list:[{model_id:id,model:new URL('qwen7b/',window.TutorModelAssets.base).href,model_lib:new URL('qwen7b/model.wasm',window.TutorModelAssets.base).href}]},initProgressCallback:p=>progress?.('Загрузка модели: '+Math.round(p.progress*100)+'% · '+p.text)}, {context_window_size:4096}),timeout]);
+  let initTimer;
+  const timeout=new Promise((_,reject)=>{initTimer=setTimeout(()=>reject(Error('Не удалось запустить Qwen за 3 минуты. Проверьте доступную память GPU или выберите встроенного консультанта.')),180000);cancelLoading=()=>reject(Error('Загрузка остановлена. Уже скачанные файлы сохранены.'));worker.onerror=e=>reject(Error(e.message||'Ошибка локального ИИ.'));});
+  engine=await Promise.race([api.CreateWebWorkerMLCEngine(worker,id,{appConfig:{cacheBackend:window.TutorNative?'native-file':'cache',model_list:[{model_id:id,model:new URL('qwen7b/',window.TutorModelAssets.base).href,model_lib:new URL('qwen7b/model.wasm',window.TutorModelAssets.base).href}]},initProgressCallback:p=>progress?.('Загрузка модели: '+Math.round(p.progress*100)+'% · '+p.text)}, {context_window_size:4096}),timeout]).finally(()=>clearTimeout(initTimer));
   loadedId=id;progress?.('Модель готова. Вопросы и код обрабатываются на устройстве.');return engine;
  }catch(e){worker?.terminate();engine=null;throw e;}finally{loading=false;cancelLoading=null;}
 }
@@ -82,6 +84,7 @@ async function apiAnswer(payload,progress){
  await load('opencode-local');
  const model=document.getElementById('tutor-api-model').value;
  if(!apiModels.has(model))throw Error('Выберите бесплатную модель из списка.');
+ if(window.TutorNative){progress?.('Питоныч отвечает через OpenCode · '+model+'…');const answer=await window.TutorNative.invoke('chat',{model,messages:dialogueMessages(model,payload)});return hintOnly(answer,payload.solved);}
  apiController=new AbortController();const controller=apiController,timer=setTimeout(()=>controller.abort(),110000);
  progress?.('Питоныч отвечает через OpenCode…');
  try{
@@ -97,7 +100,7 @@ async function apiAnswer(payload,progress){
  }catch(e){if(e.name==='AbortError')throw Error('Запрос остановлен или превышено время ожидания.');if(e instanceof TypeError)throw Error('Нет связи с приложением PythonTutor. Запустите его и разрешите браузеру доступ к локальной сети, если появится запрос.');throw e;}
  finally{clearTimeout(timer);if(apiController===controller)apiController=null;}
 }
-function stop(){if(loading)window.TutorModelAssets.cancel?.();if(window.TutorNative&&loading)window.TutorNative.invoke('cancel_model');apiController?.abort();if(loading)cancelLoading?.();else engine?.interruptGenerate();}
+function stop(){if(window.TutorNative)window.TutorNative.invoke('cancel_chat').catch(()=>{});if(loading)window.TutorModelAssets.cancel?.();if(window.TutorNative&&loading)window.TutorNative.invoke('cancel_model');apiController?.abort();if(loading)cancelLoading?.();else engine?.interruptGenerate();}
 async function unload(){
  if(loading)throw Error('Дождитесь завершения или отмены загрузки модели.');
  engine?.interruptGenerate();if(engine)await engine.unload();worker?.terminate();engine=null;worker=null;loadedId=null;
