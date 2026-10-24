@@ -21,8 +21,6 @@ jobs:
             bundle: nsis
           - os: macos-15
             bundle: dmg
-          - os: macos-15-intel
-            bundle: dmg
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4

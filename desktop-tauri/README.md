@@ -15,7 +15,7 @@ Build:
 5. `cargo test --manifest-path src-tauri/Cargo.toml`
 6. `npm run build`
 
-`prepare.py` builds a separate native frontend; it does not modify the GitHub Pages frontend. Packaged binaries and generated course files are not committed. GitHub Actions builds Windows NSIS, Mac ARM64 DMG and Mac Intel DMG. Signing certificates are not yet configured; this is a prerelease until platform UI checks are complete.
+`prepare.py` builds a separate native frontend; it does not modify the GitHub Pages frontend. Packaged binaries and generated course files are not committed. GitHub Actions builds Windows NSIS and Mac ARM64 DMG. Signing certificates are not yet configured; this is a prerelease until platform UI checks are complete.
 
 ### Optional OpenCode
 
