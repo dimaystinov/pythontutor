@@ -4,6 +4,13 @@ if(!window.__TAURI__)return;
 const invoke=window.__TAURI__.core.invoke;let profile;try{profile=JSON.parse(sessionStorage.getItem('tutor-native-profile'));}catch(_){}
 if(!profile?.id){location.replace('/index.html');return;}
 window.TutorNative={profile,invoke:(name,args={})=>invoke(name,{...args,profile:profile.id})};
+window.TutorSession?.start({id:profile.id,storage:sessionStorage,now:Date.now,
+ setTimeout:window.setTimeout.bind(window),clearTimeout:window.clearTimeout.bind(window),
+ on:(event,fn)=>window.addEventListener(event,fn,{capture:true,passive:true}),
+ touch:()=>invoke('touch_profile',{profile:profile.id}),
+ logout:()=>{invoke('logout').finally(()=>location.replace('/index.html'));}
+});
+
 let meta=document.querySelector('meta[name=learner-id]');if(!meta){meta=document.createElement('meta');meta.name='learner-id';document.head.append(meta);}meta.content=profile.id;
 const verifyProfile=()=>invoke('current_profile').then(p=>{if(p?.id!==profile.id)location.replace('/index.html');}).catch(()=>location.replace('/index.html'));
 verifyProfile();

@@ -13,6 +13,13 @@ use tauri_plugin_autostart::ManagerExt;
 struct Store {
     db: rusqlite::Connection,
     profile: Option<Profile>,
+    last_activity: Option<std::time::SystemTime>,
+}
+impl Store {
+    fn expire(&mut self) {
+        let valid=self.last_activity.and_then(|t|t.elapsed().ok()).map(|d|d.as_secs()<600).unwrap_or(false);
+        if !valid {self.profile=None;self.last_activity=None;}
+    }
 }
 struct AppState {
     store: Mutex<Store>,
@@ -21,7 +28,8 @@ struct AppState {
 }
 impl AppState {
     fn checked(&self, id: &str) -> Result<std::sync::MutexGuard<'_, Store>, String> {
-        let s = self.store.lock().map_err(|_| "Хранилище недоступно")?;
+        let mut s = self.store.lock().map_err(|_| "Хранилище недоступно")?;
+        s.expire();
         if s.profile.as_ref().map(|p| p.id.as_str()) != Some(id) {
             return Err("Войдите в свой профиль.".into());
         }
@@ -29,27 +37,44 @@ impl AppState {
     }
 }
 #[tauri::command]
-fn register(state: State<AppState>, name: String, password: String) -> Result<Profile, String> {
-    let mut s = state.store.lock().map_err(|_| "Ошибка профиля")?;
-    let p = profiles::create(&s.db, &name, &password)?;
-    s.profile = Some(p.clone());
-    Ok(p)
+fn register_student(state: State<AppState>,surname:String,given_name:String,school_class:u8,pin:String)->Result<Profile,String>{
+    let mut s=state.store.lock().map_err(|_|"Ошибка профиля")?;
+    let p=profiles::create_student(&mut s.db,&surname,&given_name,school_class,&pin)?;
+    s.profile=Some(p.clone());s.last_activity=Some(std::time::SystemTime::now());Ok(p)
+}
+#[tauri::command]
+fn login_student(state: State<AppState>,surname:String,given_name:String,school_class:u8,pin:String)->Result<Profile,String>{
+    let mut s=state.store.lock().map_err(|_|"Ошибка профиля")?;
+    let p=profiles::login_student(&s.db,&surname,&given_name,school_class,&pin)?;
+    s.profile=Some(p.clone());s.last_activity=Some(std::time::SystemTime::now());Ok(p)
+}
+#[tauri::command]
+fn convert_student(state: State<AppState>,profile:String,surname:String,given_name:String,school_class:u8,pin:String)->Result<Profile,String>{
+    let mut s=state.checked(&profile)?;
+    let p=profiles::convert_student(&mut s.db,&profile,&surname,&given_name,school_class,&pin)?;
+    s.profile=Some(p.clone());s.last_activity=Some(std::time::SystemTime::now());Ok(p)
+}
+#[tauri::command]
+fn touch_profile(state: State<AppState>,profile:String)->Result<(),String>{
+    state.checked(&profile)?.last_activity=Some(std::time::SystemTime::now());Ok(())
 }
 #[tauri::command]
 fn login(state: State<AppState>, name: String, password: String) -> Result<Profile, String> {
     let mut s = state.store.lock().map_err(|_| "Ошибка профиля")?;
     let p = profiles::login(&s.db, &name, &password)?;
     s.profile = Some(p.clone());
+    s.last_activity = Some(std::time::SystemTime::now());
     Ok(p)
 }
 #[tauri::command]
 fn current_profile(state: State<AppState>) -> Option<Profile> {
-    state.store.lock().ok()?.profile.clone()
+    let mut s=state.store.lock().ok()?;s.expire();s.profile.clone()
 }
 #[tauri::command]
 fn logout(state: State<AppState>) {
     if let Ok(mut s) = state.store.lock() {
         s.profile = None;
+        s.last_activity = None;
     }
     if let Some(cancel) = state.cancel.lock().unwrap().take() {
         let _ = cancel.send(());
@@ -261,7 +286,7 @@ fn main() {
             let db =
                 profiles::open(&dir.join("learners.sqlite3")).map_err(std::io::Error::other)?;
             app.manage(AppState {
-                store: Mutex::new(Store { db, profile: None }),
+                store: Mutex::new(Store { db, profile: None, last_activity: None }),
                 busy: tokio::sync::Semaphore::new(1),
                 cancel: Mutex::new(None),
             });
@@ -310,7 +335,7 @@ fn main() {
             models::remove_model,
             models::cancel_model,
             open_release,
-            register,
+            register_student, login_student, convert_student, touch_profile,
             login,
             current_profile,
             logout,
@@ -338,5 +363,19 @@ mod tests {
         assert!(parse_answer("").is_err());
         assert!(parse_answer(r#"{"type":"error","error":{"data":{"statusCode":403}}}"#).unwrap_err().contains("403"));
         assert!(parse_answer(r#"{"type":"error","error":{"data":{"statusCode":429}}}"#).unwrap_err().contains("429"));
+    }
+}
+
+#[cfg(test)]
+mod session_tests {
+    use super::*;
+    #[test]
+    fn idle_session_expires_without_deleting_progress() {
+        let d=tempfile::tempdir().unwrap();let mut db=profiles::open(&d.path().join("p.db")).unwrap();
+        let p=profiles::create_student(&mut db,"Сидоров","Иван",4,"0123").unwrap();
+        profiles::save(&db,&p.id,json!({"kind":"problem","slug":"apples","solved":true})).unwrap();
+        let mut s=Store{db,profile:Some(p.clone()),last_activity:Some(std::time::SystemTime::now()-std::time::Duration::from_secs(601))};
+        s.expire();assert!(s.profile.is_none());assert_eq!(profiles::list(&s.db,&p.id).unwrap().len(),1);
+        s.profile=Some(p);s.last_activity=Some(std::time::SystemTime::now());s.expire();assert!(s.profile.is_some());
     }
 }

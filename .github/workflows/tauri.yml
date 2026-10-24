@@ -40,7 +40,7 @@ jobs:
       - run: node --test tutorial/static/tests/profile-progress.test.cjs
         env:
           TUTOR_TEST_BUNDLE: "1"
-      - run: node --test tutorial/static/tests/profile-progress.test.cjs tutorial/static/tests/progress-reset.test.cjs tutorial/static/tests/assistant-native.test.cjs tutorial/static/tests/assistant-behavior.test.cjs tutorial/static/tests/opencode.test.cjs tutorial/static/tests/sidebar-menu.test.cjs tutorial/static/tests/speech-adapter.test.cjs tutorial/static/tests/chat-history.test.cjs tutorial/static/tests/component-install-ui.test.cjs desktop-tauri/test-updates.cjs desktop-tauri/test-components.cjs tutorial/static/tests/guidance.test.cjs tutorial/static/tests/speech-progress.test.cjs tutorial/static/tests/model-download.test.cjs
+      - run: node --test tutorial/static/tests/profile-progress.test.cjs tutorial/static/tests/progress-reset.test.cjs tutorial/static/tests/assistant-native.test.cjs tutorial/static/tests/assistant-behavior.test.cjs tutorial/static/tests/opencode.test.cjs tutorial/static/tests/sidebar-menu.test.cjs tutorial/static/tests/speech-adapter.test.cjs tutorial/static/tests/chat-history.test.cjs tutorial/static/tests/component-install-ui.test.cjs desktop-tauri/test-updates.cjs desktop-tauri/test-components.cjs desktop-tauri/test-session.cjs desktop-tauri/test-account.cjs tutorial/static/tests/guidance.test.cjs tutorial/static/tests/speech-progress.test.cjs tutorial/static/tests/model-download.test.cjs
       - run: npm ci
         working-directory: desktop-tauri
       - run: cargo test --locked

@@ -1,1 +1,13 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PythonTutor</title><link rel="stylesheet" href="/desktop.css"></head><body><main><img src="/pythontutor/static/pwa/icon-192.png" width="72" alt=""><h1>PythonTutor</h1><p>Учитесь Python. Решайте задачи. Сохраняйте свой прогресс.</p><nav><button id="login-mode" class="selected">Войти</button><button id="register-mode">Создать профиль</button></nav><form id="account"><label>Имя ученика<input id="name" autocomplete="username" required maxlength="60"></label><label>Пароль<input id="password" type="password" autocomplete="current-password" required minlength="4" maxlength="256"></label><label class="check"><input id="autostart" type="checkbox" checked> Запускать помощника при входе в компьютер</label><button id="submit" type="submit">Войти</button><p id="status" role="status"></p></form><small>Профиль хранится только на этом компьютере. Для занятий интернет не нужен. Встроенный консультант работает без интернета и скачивания моделей.</small></main><script src="/account.js"></script></body></html>
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PythonTutor</title><link rel="stylesheet" href="/desktop.css"></head><body><main><img src="/pythontutor/static/pwa/icon-192.png" width="72" alt=""><h1>PythonTutor</h1><nav><button id="login-mode" class="selected">Войти</button><button id="register-mode">Создать профиль</button></nav>
+<form id="account">
+<fieldset id="student-fields"><legend id="student-title">Данные ученика</legend>
+<label>Фамилия<input id="surname" autocomplete="family-name" required maxlength="40"></label>
+<label>Имя<input id="given-name" autocomplete="given-name" required maxlength="40"></label>
+<label>Класс<input id="school-class" type="number" inputmode="numeric" min="1" max="11" step="1" required></label>
+<label>PIN-код · 4 цифры<input id="pin" type="password" inputmode="numeric" pattern="[0-9]{4}" minlength="4" maxlength="4" autocomplete="off" required></label>
+</fieldset>
+<fieldset id="legacy-fields" hidden disabled><legend>Вход в старый профиль</legend><label>Прежнее имя ученика<input id="legacy-name" autocomplete="username" required maxlength="60"></label><label>Прежний пароль<input id="legacy-password" type="password" autocomplete="current-password" required></label></fieldset>
+<label class="check"><input id="autostart" type="checkbox" checked> Запускать помощника при входе в компьютер</label>
+<button id="submit" type="submit">Войти</button><p id="status" role="status"></p></form>
+<button id="legacy-mode" class="legacy" type="button">У меня профиль со старым паролем</button>
+<small>Профиль и прогресс хранятся на этом компьютере. После 10 минут без действий выполняется выход.</small></main><script src="/account.js"></script></body></html>
