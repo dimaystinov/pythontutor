@@ -118,6 +118,15 @@ async function restoreProgress(){
    } catch(e) { /* Ignore a damaged draft without losing other progress. */ }
   }
  } catch(e) { /* Browser storage may be disabled. */ }
+ // Local progress is authoritative; DOM marks may belong to a previous state.
+ if(local){
+  for(const a of document.querySelectorAll('.lesson_sections .problems_link li > a')){
+   a.classList.remove('text-success');
+   a.parentElement.classList.remove('solved','unsolved','accepted');
+   a.removeAttribute('title');
+  }
+  if($('knowledge-unlock'))$('knowledge-unlock').hidden=true;
+ }
  const article=document.querySelector('[data-local-article]');
  if(article){const record=await TutorDevice.get(article.dataset.localArticle,article.dataset.slug);if(record?.solved){article.hidden=false;$('local-knowledge-notice').hidden=true;$('knowledge-own-code').textContent=record.acceptedCode||record.code;}}
  for(const r of states.values()){
@@ -126,7 +135,7 @@ async function restoreProgress(){
    if(!a.getAttribute('href').endsWith(ending))continue;
    a.classList.remove('text-success');
    if(a.matches('.lesson_sections .problems_link li > a')){
-    const solved=r.solved||a.parentElement.classList.contains('solved');
+    const solved=r.solved||(!local&&a.parentElement.classList.contains('solved'));
     a.parentElement.classList.remove('unsolved','accepted');
     a.parentElement.classList.add(solved?'solved':'unsolved');
     a.title=solved?'Задача решена':'Задача начата, но ещё не решена';

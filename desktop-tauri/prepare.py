@@ -9,12 +9,6 @@ subprocess.run([str(python),str(ROOT/'scripts/build_pages.py'),'--output','deskt
 for p in (HERE/'ui').iterdir():shutil.copy2(p,out/p.name)
 for p in (out/'pythontutor').rglob('*.html'):
  s=p.read_text();s=re.sub(r'<!-- WEB_OFFLINE_START -->.*?<!-- WEB_OFFLINE_END -->', '', s, flags=re.S);s=s.replace('<meta name="learner-id" content="local">','<meta name="learner-id" content="local"><script src="/native.js"></script><script src="/update-settings.js"></script><script src="/components.js"></script>');p.write_text(s)
-# Native SQLite replaces browser-only progress, without changing the browser site.
-p=out/'pythontutor/static/pwa/storage.js';s=p.read_text();s=s.replace("async function get(kind,slug){return", "async function get(kind,slug){if(window.TutorNative)return (await list()).find(r=>r.kind===kind&&r.slug===slug);return")
-s=s.replace("await query('readwrite',s=>{requireCurrent();return s.put(item);});", "if(window.TutorNative)await TutorNative.invoke('save_solution',{data:item});else await query('readwrite',s=>{requireCurrent();return s.put(item);});")
-s=s.replace("async function list(){return", "async function list(){if(window.TutorNative)return TutorNative.invoke('solutions');return")
-s=s.replace(" const d=await db();\n await new Promise", " if(window.TutorNative)await TutorNative.invoke('reset_progress');\n const d=await db();\n await new Promise")
-p.write_text(s)
 p=out/'pythontutor/static/js/assistant.js';s=p.read_text().replace("location.origin==='http://127.0.0.1:8043'", "(window.TutorNative||location.origin==='http://127.0.0.1:8043')")
 # Keep the user's choice between local inference and OpenCode.
 p.write_text(s)

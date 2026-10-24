@@ -20,7 +20,7 @@ var visualizer;
 $(function() {
 	var code = undefined;
 	var stdin = $('#example_tests pre.input:first').text();
-	var draftUserId = $('#visualizer').attr('data-draft-user-id') || 'local';
+	var draftUserId = window.TutorDevice?.owner() || $('#visualizer').attr('data-draft-user-id') || 'local';
 	var draftKey = draftUserId ? 'problem-draft:' + draftUserId + ':' + problem_name : null;
 
 	var resetKey = 'tutor-progress-reset:' + draftUserId;
