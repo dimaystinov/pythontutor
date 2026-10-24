@@ -51,3 +51,11 @@ test('local menu clears stale solved marks when there are no stored solutions',a
  vm.runInNewContext(fn+'\nthis.restore=restoreProgress;',context);await context.restore();
  assert.equal(classes.has('solved'),false);
 });
+test('returning to a cached page from another account returns to login',async()=>{
+ let active={id:'alice'},redirect;const events={};
+ const context={sessionStorage:{getItem:()=>JSON.stringify({id:'alice'})},location:{replace:url=>redirect=url},document:{querySelector:()=>({content:'local'})},window:{__TAURI__:{core:{invoke:async()=>active}},addEventListener:(name,fn)=>events[name]=fn}};
+ vm.runInNewContext(fs.readFileSync(path.join(root,'../desktop-tauri/ui/native.js'),'utf8'),context);
+ await new Promise(r=>setImmediate(r));assert.equal(redirect,undefined);
+ active={id:'bob'};events.pageshow?.();await new Promise(r=>setImmediate(r));
+ assert.equal(redirect,'/index.html');
+});

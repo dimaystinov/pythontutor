@@ -5,7 +5,9 @@ const invoke=window.__TAURI__.core.invoke;let profile;try{profile=JSON.parse(ses
 if(!profile?.id){location.replace('/index.html');return;}
 window.TutorNative={profile,invoke:(name,args={})=>invoke(name,{...args,profile:profile.id})};
 let meta=document.querySelector('meta[name=learner-id]');if(!meta){meta=document.createElement('meta');meta.name='learner-id';document.head.append(meta);}meta.content=profile.id;
-invoke('current_profile').then(p=>{if(p?.id!==profile.id)location.replace('/index.html');});
+const verifyProfile=()=>invoke('current_profile').then(p=>{if(p?.id!==profile.id)location.replace('/index.html');}).catch(()=>location.replace('/index.html'));
+verifyProfile();
+window.addEventListener('pageshow',verifyProfile);
 window.addEventListener('DOMContentLoaded',()=>{
  document.getElementById('desktop-release')?.addEventListener('click',event=>{event.preventDefault();invoke('open_release').catch(e=>alert(String(e)));});
  const model=document.getElementById('tutor-model');if(model){for(const o of [...model.options])if(!['guided','opencode-local','Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC'].includes(o.value))o.remove();}
