@@ -35,8 +35,7 @@ pub async fn enter_course(state:State<'_,AppState>,surname:String,given_name:Str
  }
  if let Some(id)=&legacy{drop(state.checked(id)?);}
  let remote=request(json!({"op":"login","id":uid,"proof":proof})).await;
- if let Err(e)=&remote{if e!="OFFLINE"{return Err(e.clone())}
- if existing.is_none() && legacy.is_none(){return Err("Для первого входа на этом компьютере нужен интернет, чтобы проверить пароль. Затем можно заниматься без сети.".into())}}
+ if let Err(e)=&remote { if e!="OFFLINE" { return Err(e.clone()) } }
  let mut s=state.store.lock().map_err(|_|"Ошибка профиля")?;
  let p=if let Some((id,_))=existing{
   if old_pin.is_some(){s.db.execute("UPDATE profiles SET password=? WHERE id=?",params![profiles::pin_hash(&password)?,id]).map_err(err)?;}
@@ -45,7 +44,7 @@ pub async fn enter_course(state:State<'_,AppState>,surname:String,given_name:Str
   s.expire();if s.profile.as_ref().map(|p|&p.id)!=Some(&id){return Err("Войдите ещё раз".into())}
   profiles::convert_student(&mut s.db,&id,&surname,&given_name,school_class,&password)?
  }else{profiles::create_student(&mut s.db,&surname,&given_name,school_class,&password)?};
- s.db.execute("INSERT OR IGNORE INTO sync_state(profile,epoch,reset) VALUES(?,?,0)",params![p.id,remote.as_ref().ok().and_then(|r|r["epoch"].as_i64()).unwrap_or(0)]).map_err(err)?;
+ s.db.execute("INSERT OR IGNORE INTO sync_state(profile,epoch,reset) VALUES(?,?,0)",params![p.id,remote.as_ref().ok().and_then(|r|r["epoch"].as_i64()).unwrap_or(-1)]).map_err(err)?;
  s.profile=Some(p.clone());s.last_activity=Some(std::time::SystemTime::now());
  s.sync_auth=Some((p.id.clone(),uid,proof));Ok(p)
 }
@@ -57,15 +56,16 @@ pub async fn sync_progress(state:State<'_,AppState>,profile:String)->Result<(),S
  let (epoch,reset):(i64,i64)=s.db.query_row("SELECT epoch,reset FROM sync_state WHERE profile=?",[&profile],|r|Ok((r.get(0)?,r.get(1)?))).map_err(err)?;
  let items=profiles::list(&s.db,&profile)?; (uid.clone(),proof.clone(),epoch,reset,items)};
  // Claim an offline-created identity with the same proof before synchronizing.
- request(json!({"op":"login","id":uid,"proof":proof})).await?;
+ let login=request(json!({"op":"login","id":uid,"proof":proof})).await?;
+ let upload_epoch=if epoch<0 {login["epoch"].as_i64().ok_or("Нет версии прогресса")?}else{epoch};
  let send:Vec<_>=items.iter().map(|x|json!({"kind":x["kind"],"slug":x["slug"],"time":x["time"],"solved":x["solved"],"code":x["code"],"acceptedCode":x["acceptedCode"]})).collect();
- let reply=request(json!({"op":"sync","id":uid,"proof":proof,"epoch":epoch,"reset":reset!=0,"items":send})).await?;
+ let reply=request(json!({"op":"sync","id":uid,"proof":proof,"epoch":upload_epoch,"reset":epoch>=0 && reset!=0,"items":send})).await?;
  let new_epoch=reply["epoch"].as_i64().ok_or("Нет версии прогресса")?;let rows=reply["items"].as_array().ok_or("Нет данных прогресса")?;
  let mut s=state.checked(&profile)?;let tx=s.db.transaction().map_err(err)?;
  let current:i64=tx.query_row("SELECT reset FROM sync_state WHERE profile=?",[&profile],|r|r.get(0)).map_err(err)?;
  if current!=reset{return Ok(())}
  let local=profiles::list(&tx,&profile)?;
- for x in &items{if new_epoch!=epoch&&local.contains(x){tx.execute("DELETE FROM solutions WHERE profile=? AND kind=? AND slug=?",params![profile,x["kind"].as_str(),x["slug"].as_str()]).map_err(err)?;}}
+ for x in &items{if new_epoch!=upload_epoch&&local.contains(x){tx.execute("DELETE FROM solutions WHERE profile=? AND kind=? AND slug=?",params![profile,x["kind"].as_str(),x["slug"].as_str()]).map_err(err)?;}}
  for x in rows{let old=local.iter().find(|y|y["kind"]==x["kind"]&&y["slug"]==x["slug"]);if old.is_some_and(|v|!items.contains(v)){continue}
  let mut record=x.clone();record["result"]=json!({"status":if x["solved"]==true{"ok"}else{"wrong_answer"}});profiles::save(&tx,&profile,record)?;}
  tx.execute("UPDATE sync_state SET epoch=?,reset=0 WHERE profile=?",params![new_epoch,profile]).map_err(err)?;tx.commit().map_err(err)
