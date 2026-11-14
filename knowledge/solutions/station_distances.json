@@ -1,0 +1,28 @@
+{
+  "slug": "station_distances",
+  "title": "Расстояния от станции",
+  "origin": "authored",
+  "summary": "Старт находится на расстоянии ноль.",
+  "hints": [
+    "Старт находится на расстоянии ноль.",
+    "Берите вершины из начала очереди. Новому соседу присвойте расстояние на единицу больше."
+  ],
+  "recommended": {
+    "title": "Решение",
+    "code": "n, m = map(int, input().split())\ng = [[] for _ in range(n)]\nfor _ in range(m):\n    a, b = map(int, input().split())\n    g[a-1].append(b-1)\n    g[b-1].append(a-1)\nfrom collections import deque\ns = int(input()) - 1\ndist = [-1] * n\ndist[s] = 0\nqueue = deque([s])\nwhile queue:\n    v = queue.popleft()\n    for u in g[v]:\n        if dist[u] == -1:\n            dist[u] = dist[v] + 1\n            queue.append(u)\nprint(*dist)",
+    "explanation": "Берите вершины из начала очереди. Новому соседу присвойте расстояние на единицу больше.",
+    "time_complexity": "O(n + m)",
+    "space_complexity": "O(n + m)"
+  },
+  "alternatives": [
+    {
+      "title": "Обход слоями",
+      "code": "n, m = map(int, input().split())\ng = [[] for _ in range(n)]\nfor _ in range(m):\n    a, b = map(int, input().split())\n    g[a-1].append(b-1)\n    g[b-1].append(a-1)\ns = int(input()) - 1\ndist = [-1] * n\ndist[s] = 0\nlayer = [s]\nwhile layer:\n    following = []\n    for v in layer:\n        for u in g[v]:\n            if dist[u] == -1:\n                dist[u] = dist[v] + 1\n                following.append(u)\n    layer = following\nprint(*dist)",
+      "explanation": "Следующий список содержит только новые вершины, удалённые ещё на одно ребро.",
+      "time_complexity": "O(n + m)",
+      "space_complexity": "O(n + m)"
+    }
+  ],
+  "pitfalls": [],
+  "sources": []
+}

@@ -34,11 +34,11 @@ for page in ROOT.rglob('index.html'):
   hints=json.loads(match.group(1))
   assert len(hints)==2 and all(h.get('text','').strip() for h in hints),page
   hint_pages+=1
-assert hint_pages==148, hint_pages
+assert hint_pages==156, hint_pages
 counts={};total=0
-for kind,expected in [('problem',134),('image',14)]:
+for kind,expected in [('problem',142),('image',14)]:
  files=list((ROOT/'browser/tests'/kind).glob('*/index.json'));assert len(files)==expected
  count=sum(len(json.loads(p.read_text())['tests']) for p in files);counts[kind]=count;total+=count
-assert counts=={'problem':1302,'image':42},counts
+assert counts=={'problem':1335,'image':42},counts
 assert not missing,f'{len(missing)} broken internal references'
-print('PASS 316 pages; 134 Python tasks/1302 tests; 14 OpenCV tasks/42 tests; internal links and assets exist')
+print('PASS 332 pages; 142 Python tasks/1335 tests; 14 OpenCV tasks/42 tests; internal links and assets exist')

@@ -26,7 +26,7 @@ class TaskHelpTests(TestCase):
     def test_every_task_has_two_closed_hints(self):
         urls=[f'/lessons/{p.lesson.urlname}/problems/{p.problem.urlname}/' for p in ProblemInLesson.objects.select_related('lesson','problem')]
         urls += [f'/images/{t["slug"]}/' for t in catalog()]
-        self.assertEqual(len(urls),148)
+        self.assertEqual(len(urls),156)
         for url in urls:
             r=self.client.get(url);self.assertEqual(r.status_code,200,url)
             self.assertContains(r, "data-tutor-material")

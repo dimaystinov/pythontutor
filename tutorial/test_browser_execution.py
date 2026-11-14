@@ -42,7 +42,7 @@ class BrowserExecutionTests(TestCase):
 
     def test_offline_public_snapshots_and_manifest(self):
         manifest=self.client.get('/pwa/download-manifest/').json()
-        self.assertEqual(len([p for p in manifest['pages'] if '/problems/' in p]),134)
+        self.assertEqual(len([p for p in manifest['pages'] if '/problems/' in p]),142)
         self.assertIn('/browser/worker/',manifest['resources'])
         self.assertTrue(any(x.endswith('.wasm') for x in manifest['resources']))
         page=self.client.get('/pwa/page/',{'path':'/lessons/int_and_float/problems/last_digit/'})

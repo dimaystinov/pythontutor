@@ -1,0 +1,28 @@
+{
+  "slug": "stream_number_sum",
+  "title": "Сумма из журнала",
+  "origin": "authored",
+  "summary": "Перебирайте входной поток по одной строке.",
+  "hints": [
+    "Перебирайте входной поток по одной строке.",
+    "Разделите каждую строку на числа и добавьте их к общей сумме."
+  ],
+  "recommended": {
+    "title": "Решение",
+    "code": "import sys\ntotal = 0\nfor line in sys.stdin:\n    total += sum(map(int,line.split()))\nprint(total)",
+    "explanation": "Разделите каждую строку на числа и добавьте их к общей сумме.",
+    "time_complexity": "O(L), где L — длина текста",
+    "space_complexity": "O(k), где k — длина самой длинной строки"
+  },
+  "alternatives": [
+    {
+      "title": "Чтение целиком",
+      "code": "import sys\nprint(sum(map(int, sys.stdin.read().split())))",
+      "explanation": "Можно прочитать весь поток и затем обработать строки или числа.",
+      "time_complexity": "O(L), где L — длина текста",
+      "space_complexity": "O(L)"
+    }
+  ],
+  "pitfalls": [],
+  "sources": []
+}

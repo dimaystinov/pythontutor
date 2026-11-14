@@ -1,0 +1,28 @@
+{
+  "slug": "isolated_stations",
+  "title": "Изолированные станции",
+  "origin": "authored",
+  "summary": "Изолированная станция не встречается ни в одной паре.",
+  "hints": [
+    "Изолированная станция не встречается ни в одной паре.",
+    "У такой вершины список соседей пуст."
+  ],
+  "recommended": {
+    "title": "Решение",
+    "code": "n, m = map(int, input().split())\ng = [[] for _ in range(n)]\nfor _ in range(m):\n    a, b = map(int, input().split())\n    g[a-1].append(b-1)\n    g[b-1].append(a-1)\nprint(sum(not row for row in g))",
+    "explanation": "У такой вершины список соседей пуст.",
+    "time_complexity": "O(n + m)",
+    "space_complexity": "O(n + m)"
+  },
+  "alternatives": [
+    {
+      "title": "Счётчики",
+      "code": "n, m = map(int, input().split())\ndeg = [0] * n\nfor _ in range(m):\n    a, b = map(int, input().split())\n    deg[a-1] += 1\n    deg[b-1] += 1\nprint(deg.count(0))",
+      "explanation": "Для каждой станции достаточно хранить количество дорог.",
+      "time_complexity": "O(n + m)",
+      "space_complexity": "O(n)"
+    }
+  ],
+  "pitfalls": [],
+  "sources": []
+}

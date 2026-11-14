@@ -1,0 +1,28 @@
+{
+  "slug": "station_components",
+  "title": "Группы станций",
+  "origin": "authored",
+  "summary": "Один обход помечает всю связанную группу.",
+  "hints": [
+    "Один обход помечает всю связанную группу.",
+    "Начните новый обход из каждой ещё не отмеченной вершины."
+  ],
+  "recommended": {
+    "title": "Решение",
+    "code": "n, m = map(int, input().split())\ng = [[] for _ in range(n)]\nfor _ in range(m):\n    a, b = map(int, input().split())\n    g[a-1].append(b-1)\n    g[b-1].append(a-1)\ndef visit(v):\n    seen.add(v)\n    for u in g[v]:\n        if u not in seen:\n            visit(u)\nseen = set()\ncount = 0\nfor v in range(n):\n    if v not in seen:\n        visit(v)\n        count += 1\nprint(count)",
+    "explanation": "Начните новый обход из каждой ещё не отмеченной вершины.",
+    "time_complexity": "O(n + m)",
+    "space_complexity": "O(n + m)"
+  },
+  "alternatives": [
+    {
+      "title": "Явный стек",
+      "code": "n, m = map(int, input().split())\ng = [[] for _ in range(n)]\nfor _ in range(m):\n    a, b = map(int, input().split())\n    g[a-1].append(b-1)\n    g[b-1].append(a-1)\ndef visit(v):\n    stack = [v]\n    seen.add(v)\n    while stack:\n        for u in g[stack.pop()]:\n            if u not in seen:\n                seen.add(u)\n                stack.append(u)\nseen = set()\ncount = 0\nfor v in range(n):\n    if v not in seen:\n        visit(v)\n        count += 1\nprint(count)",
+      "explanation": "Стек хранит вершины, соседей которых ещё предстоит посмотреть.",
+      "time_complexity": "O(n + m)",
+      "space_complexity": "O(n + m)"
+    }
+  ],
+  "pitfalls": [],
+  "sources": []
+}

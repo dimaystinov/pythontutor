@@ -1,0 +1,28 @@
+{
+  "slug": "stream_line_count",
+  "title": "Строки журнала",
+  "origin": "authored",
+  "summary": "Одна строка может содержать много слов или не содержать ни одного.",
+  "hints": [
+    "Одна строка может содержать много слов или не содержать ни одного.",
+    "Цикл по sys.stdin заканчивается при достижении конца файла."
+  ],
+  "recommended": {
+    "title": "Решение",
+    "code": "import sys\nprint(sum(1 for line in sys.stdin))",
+    "explanation": "Цикл по sys.stdin заканчивается при достижении конца файла.",
+    "time_complexity": "O(L), где L — длина текста",
+    "space_complexity": "O(k), где k — длина самой длинной строки"
+  },
+  "alternatives": [
+    {
+      "title": "Чтение целиком",
+      "code": "import sys\nprint(len(sys.stdin.read().splitlines()))",
+      "explanation": "Можно прочитать весь поток и затем обработать строки или числа.",
+      "time_complexity": "O(L), где L — длина текста",
+      "space_complexity": "O(L)"
+    }
+  ],
+  "pitfalls": [],
+  "sources": []
+}

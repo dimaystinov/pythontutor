@@ -21,9 +21,9 @@ class SelfHostTests(TestCase):
     def test_seed_is_complete_and_preserves_progress(self):
         submission = Submission.objects.create(user=self.user, problem=Problem.objects.first(), code='print(1)', status=1)
         call_command('seed_course', stdout=StringIO())
-        self.assertEqual(Problem.objects.count(), 134)
+        self.assertEqual(Problem.objects.count(), 142)
         self.assertEqual(Lesson.objects.count(), 15)
-        self.assertEqual(ProblemInLesson.objects.count(), 134)
+        self.assertEqual(ProblemInLesson.objects.count(), 142)
         self.assertEqual(User.objects.count(), 3)
         self.assertTrue(Submission.objects.filter(pk=submission.pk).exists())
 
@@ -32,8 +32,11 @@ class SelfHostTests(TestCase):
         for lesson in Lesson.objects.all():
             response = self.client.get(f'/lessons/{lesson.urlname}/')
             self.assertEqual(response.status_code, 200, lesson.urlname)
+            self.assertGreater(lesson.problems.count(), 0, lesson.urlname)
             for problem in lesson.problems.all():
-                self.assertEqual(self.client.get(f'/lessons/{lesson.urlname}/problems/{problem.urlname}/').status_code, 200)
+                url = f'/lessons/{lesson.urlname}/problems/{problem.urlname}/'
+                self.assertContains(response, url)
+                self.assertEqual(self.client.get(url).status_code, 200)
         for url in ['/', '/old/', '/visualizer/', '/healthz/']:
             self.assertEqual(self.client.get(url).status_code, 200)
 
