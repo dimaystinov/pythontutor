@@ -178,3 +178,15 @@ mod student_tests {
         assert_eq!(p.id,old.id);assert_eq!(list(&c,&p.id).unwrap().len(),1);
     }
 }
+
+#[cfg(test)]
+mod password_tests {
+ use super::*;
+ #[test] fn password_is_case_sensitive_and_persists_across_reopen(){
+ let dir=tempfile::tempdir().unwrap();let path=dir.path().join("db");let mut c=open(&path).unwrap();
+ let p=create_student(&mut c,"Иванов","Иван",5,"Пароль с пробелом").unwrap();drop(c);
+ let c=open(&path).unwrap();assert!(login_student(&c,"иванов","иван",5,"пароль с пробелом").is_err());
+ assert!(login_student(&c,"иванов","иван",5,"Пароль без пробела").is_err());
+ assert_eq!(login_student(&c,"ИВАНОВ","ИВАН",5,"Пароль с пробелом").unwrap().id,p.id);
+ }
+}

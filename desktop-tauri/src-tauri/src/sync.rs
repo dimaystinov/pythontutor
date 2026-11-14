@@ -35,7 +35,8 @@ pub async fn enter_course(state:State<'_,AppState>,surname:String,given_name:Str
  }
  if let Some(id)=&legacy{drop(state.checked(id)?);}
  let remote=request(json!({"op":"login","id":uid,"proof":proof})).await;
- if let Err(e)=&remote{if e!="OFFLINE"{return Err(e.clone())}}
+ if let Err(e)=&remote{if e!="OFFLINE"{return Err(e.clone())}
+ if existing.is_none() && legacy.is_none(){return Err("Для первого входа на этом компьютере нужен интернет, чтобы проверить пароль. Затем можно заниматься без сети.".into())}}
  let mut s=state.store.lock().map_err(|_|"Ошибка профиля")?;
  let p=if let Some((id,_))=existing{
   if old_pin.is_some(){s.db.execute("UPDATE profiles SET password=? WHERE id=?",params![profiles::pin_hash(&password)?,id]).map_err(err)?;}
