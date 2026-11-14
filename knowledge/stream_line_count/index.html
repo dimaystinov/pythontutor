@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<!--
+
+Online Python Tutor
+https://github.com/pgbovine/OnlinePythonTutor/
+
+Copyright (C) 2010-2012 Philip J. Guo (philip@pgbovine.net)
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+-->
+
+<!--
+
+Онлайн учебник Python
+
+Copyright (C) 2012 Vitaly Pavlenko (cxielamiko@gmail.com)
+
+-->
+
+
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="execution-mode" content="browser">
+<meta name="local-page" content="yes">
+<meta name="learner-id" content="local">
+<link rel="manifest" href="/pythontutor/manifest.webmanifest">
+<meta name="theme-color" content="#e3ebf1">
+<link rel="apple-touch-icon" href="/pythontutor/static/pwa/icon-192.png">
+<script defer src="/pythontutor/static/pwa/app.js?v=progress6"></script>
+<script src="/pythontutor/static/pwa/storage.js?v=reset8"></script>
+<meta name="csrf-token" content="f0FpppzimfvsrcgFGLwC83EoGYUeMidHnBptnjLPEBUTug2Vcq7H7EBdUbZtoCxA">
+
+	<title>Интерактивный учебник языка Python</title>
+
+
+	<script type="text/javascript" src="/pythontutor/static/js/jquery-3.7.1.min.js"></script>
+	<script type="text/javascript" src="/pythontutor/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/pythontutor/static/js/site.js?v=7"></script>
+    <script src="/pythontutor/static/js/browser-execution.js?v=quietload2"></script>
+    <script>window.MathJax = {options: {enableMenu: false}, loader: {load: []}, tex: {packages: {'[-]': ['autoload', 'require']}}, svg: {fontCache: 'local'}};</script>
+    <script defer src="/pythontutor/static/vendor/mathjax/tex-svg.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="/pythontutor/static/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/pythontutor/static/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/pythontutor/static/css/pythontutor.css">
+
+<link rel="stylesheet" href="/pythontutor/static/css/selfhost.css?v=definitions4">
+<meta name="static-site" content="yes"></head>
+<body>
+	<div class="navbar navbar-default navbar-static-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Открыть меню</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/pythontutor/">Питонтьютор</a>
+			</div>
+			<div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    
+                </ul>
+				<div class="navbar-text navbar-right">
+					<span><a href="/pythontutor/pwa/#settings">Настройки</a></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div  class="container">
+		
+        
+	
+		
+
+	
+<p id="local-knowledge-notice">Разбор откроется после решения задачи на этом устройстве. <a href="/pythontutor/lessons/file_io/problems/stream_line_count/">К задаче</a></p>
+<article class="knowledge-article" hidden data-local-article="problem" data-slug="stream_line_count">
+<p><a href="/pythontutor/lessons/file_io/problems/stream_line_count/">← К задаче</a> · <a href="/pythontutor/knowledge/">База знаний</a></p>
+<h2>Строки журнала</h2>
+<p class="text-success">Вы решили задачу. Теперь можно сравнить подходы.</p>
+<p>Одна строка может содержать много слов или не содержать ни одного.</p>
+<p class="knowledge-origin">Авторский разбор для локальной версии на основе условия задачи. Это не выгрузка чужих посылок и не официальное решение исходного сайта.</p>
+<details><summary>Ваше принятое решение</summary><pre><code id="knowledge-own-code"></code></pre></details>
+<section><h3>Рекомендуемое решение: Решение</h3>
+<p>Цикл по sys.stdin заканчивается при достижении конца файла.</p>
+<pre><code>import sys
+print(sum(1 for line in sys.stdin))</code></pre>
+<p><strong>Время:</strong> O(L), где L — длина текста. <strong>Память:</strong> O(k), где k — длина самой длинной строки.</p>
+</section>
+<section><h3>Другой способ: Чтение целиком</h3><p>Можно прочитать весь поток и затем обработать строки или числа.</p><pre><code>import sys
+print(len(sys.stdin.read().splitlines()))</code></pre><p><strong>Время:</strong> O(L), где L — длина текста. <strong>Память:</strong> O(L).</p></section>
+
+<p>Рекомендация учитывает сложность и читаемость для этой задачи. Единственного самого быстрого решения для всех размеров входа и всех компьютеров может не быть.</p>
+
+</article>
+
+
+
+		
+			<footer>
+                <p>Разработка и поддержка учебника: <a href="https://t.me/thingsiread">Виталий Павленко</a>, Владимир Соломатин (2014), команда Pythontutor (2016)<br>
+                Автор первоначального текста большинства уроков, задач и тестов: Д. П. Кириенко (см. <a href="https://informatics.msk.ru/moodle/course/view.php?id=156">оригинальный курс</a>)<br>
+                Идея учебника: В. М. Гуровиц<br>
+                Разработчик визуализатора: <a href="https://www.pgbovine.net/">Philip Guo</a> (см. <a href="https://pythontutor.com/">сайт визуализатора</a>)<br>
+                Родилось в 2012</p>
+                <p class="local-links"><a href="/pythontutor/knowledge/">База знаний</a> · <a href="/pythontutor/">Уроки</a> · <a href="/pythontutor/visualizer/">Визуализатор</a> · <a href="/pythontutor/images/">OpenCV</a> · <a href="https://github.com/Behnisch/pythontutor-ru">Публичный архив</a></p>
+
+			</footer>
+		
+	</div>
+
+</body>
+</html>
