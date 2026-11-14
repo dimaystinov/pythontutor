@@ -67,6 +67,7 @@ pub async fn sync_progress(state:State<'_,AppState>,profile:String)->Result<(),S
  let local=profiles::list(&tx,&profile)?;
  for x in &items{if new_epoch!=upload_epoch&&local.contains(x){tx.execute("DELETE FROM solutions WHERE profile=? AND kind=? AND slug=?",params![profile,x["kind"].as_str(),x["slug"].as_str()]).map_err(err)?;}}
  for x in rows{let old=local.iter().find(|y|y["kind"]==x["kind"]&&y["slug"]==x["slug"]);if old.is_some_and(|v|!items.contains(v)){continue}
+ if old.is_some_and(|v|["kind","slug","time","solved","code","acceptedCode"].iter().all(|k|v[*k]==x[*k])) {continue}
  let mut record=x.clone();record["result"]=json!({"status":if x["solved"]==true{"ok"}else{"wrong_answer"}});profiles::save(&tx,&profile,record)?;}
  tx.execute("UPDATE sync_state SET epoch=?,reset=0 WHERE profile=?",params![new_epoch,profile]).map_err(err)?;tx.commit().map_err(err)
 }

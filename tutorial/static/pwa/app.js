@@ -18,6 +18,7 @@ $('pwa-download')?.addEventListener('click',async()=>{
 });
 $('pwa-open')?.addEventListener('click',async()=>{await message({type:'mode',local:true});location.href='/';});
 $('pwa-online')?.addEventListener('click',async()=>{await message({type:'mode',local:false});location.href='/';});
+window.addEventListener('tutor-progress-changed',()=>progress());
 window.addEventListener('tutor-sync-finished',()=>progress());
 async function progress(){
  const results=$('pwa-results');
@@ -80,7 +81,16 @@ async function progress(){
     const item=document.createElement('li'),link=document.createElement('a');
     const task=tasks[r.kind+':'+r.slug];
     link.href=task.url;link.textContent=task.title;
-    item.append(link);list.append(item);
+    item.append(link);
+    function showCode(label, code){
+     if(typeof code!=='string'||!code.length)return;
+     const details=document.createElement('details'),summary=document.createElement('summary'),pre=document.createElement('pre');
+     summary.textContent=label;pre.textContent=code;
+     details.append(summary,pre);item.append(details);
+    }
+    if(r.solved)showCode('Принятое решение',r.acceptedCode);
+    if(r.code!==r.acceptedCode||!r.solved)showCode('Последняя попытка',r.code);
+    list.append(item);
    }
    section.append(list);
   }

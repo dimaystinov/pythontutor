@@ -9,7 +9,7 @@ def req(url,data=None,content='application/json'):
 try:r=req(base+'/releases/tags/'+tag)
 except urllib.error.HTTPError as e:
  if e.code!=404:raise
- r=req(base+'/releases',json.dumps({'tag_name':tag,'target_commitish':os.environ['GITHUB_SHA'],'name':'PythonTutor '+version,'prerelease':False,'body':'PythonTutor 2.5.0: восемь офлайн-задач в занятиях 12–15. Единый вход с паролем и синхронизация решений. Windows x64 и macOS Apple Silicon.'}).encode())
+ r=req(base+'/releases',json.dumps({'tag_name':tag,'target_commitish':os.environ['GITHUB_SHA'],'name':'PythonTutor '+version,'prerelease':False,'body':'Первый вход без сети, принятый код и последняя попытка в прогрессе. Восемь офлайн-задач в занятиях 12–15. Единый вход с паролем и синхронизация решений. Windows x64 и macOS Apple Silicon.'}).encode())
 files=list(Path('native-artifacts').rglob('*.exe'))+list(Path('native-artifacts').rglob('*.dmg'));assert len(files)==2 and {p.name for p in files}=={f"PythonTutor_{version}_x64-setup.exe",f"PythonTutor_{version}_aarch64.dmg"},files
 check=Path('native-artifacts/SHA256SUMS.txt');check.write_text(''.join(hashlib.sha256(p.read_bytes()).hexdigest()+'  '+p.name+'\n' for p in files));files.append(check)
 for p in files:
