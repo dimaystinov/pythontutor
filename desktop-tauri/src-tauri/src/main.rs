@@ -1,6 +1,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 mod update_install;
 mod profiles;
+mod sync;
 mod cli;
 mod models;
 mod speech;
@@ -13,15 +14,17 @@ use tauri_plugin_autostart::ManagerExt;
 struct Store {
     db: rusqlite::Connection,
     profile: Option<Profile>,
+    sync_auth: Option<(String,String,String)>,
     last_activity: Option<std::time::SystemTime>,
 }
 impl Store {
     fn expire(&mut self) {
         let valid=self.last_activity.and_then(|t|t.elapsed().ok()).map(|d|d.as_secs()<600).unwrap_or(false);
-        if !valid {self.profile=None;self.last_activity=None;}
+        if !valid {self.sync_auth=None;self.profile=None;self.last_activity=None;}
     }
 }
 struct AppState {
+    sync_gate: tokio::sync::Mutex<()>,
     store: Mutex<Store>,
     busy: tokio::sync::Semaphore,
     cancel: Mutex<Option<tokio::sync::oneshot::Sender<()>>>,
@@ -73,7 +76,7 @@ fn current_profile(state: State<AppState>) -> Option<Profile> {
 #[tauri::command]
 fn logout(state: State<AppState>) {
     if let Ok(mut s) = state.store.lock() {
-        s.profile = None;
+        s.profile = None;s.sync_auth=None;
         s.last_activity = None;
     }
     if let Some(cancel) = state.cancel.lock().unwrap().take() {
@@ -92,9 +95,11 @@ fn save_solution(state: State<AppState>, profile: String, data: Value) -> Result
 }
 #[tauri::command]
 fn reset_progress(state: State<AppState>, profile: String) -> Result<(), String> {
-    let s = state.checked(&profile)?;
-    s.db.execute("DELETE FROM solutions WHERE profile=?1", [profile])
-        .map_err(|e| e.to_string())?;
+    let mut s = state.checked(&profile)?;
+    let tx=s.db.transaction().map_err(|e|e.to_string())?;
+    tx.execute("DELETE FROM solutions WHERE profile=?", [&profile]).map_err(|e|e.to_string())?;
+    tx.execute("UPDATE sync_state SET reset=reset+1 WHERE profile=?",[&profile]).map_err(|e|e.to_string())?;
+    tx.commit().map_err(|e|e.to_string())?;
     Ok(())
 }
 #[tauri::command]
@@ -286,7 +291,8 @@ fn main() {
             let db =
                 profiles::open(&dir.join("learners.sqlite3")).map_err(std::io::Error::other)?;
             app.manage(AppState {
-                store: Mutex::new(Store { db, profile: None, last_activity: None }),
+                sync_gate:tokio::sync::Mutex::new(()),
+                store: Mutex::new(Store { db, sync_auth:None, profile: None, last_activity: None }),
                 busy: tokio::sync::Semaphore::new(1),
                 cancel: Mutex::new(None),
             });
@@ -335,7 +341,7 @@ fn main() {
             models::remove_model,
             models::cancel_model,
             open_release,
-            register_student, login_student, convert_student, touch_profile,
+            sync::enter_course, sync::sync_progress, touch_profile,
             login,
             current_profile,
             logout,
@@ -374,7 +380,7 @@ mod session_tests {
         let d=tempfile::tempdir().unwrap();let mut db=profiles::open(&d.path().join("p.db")).unwrap();
         let p=profiles::create_student(&mut db,"Сидоров","Иван",4,"0123").unwrap();
         profiles::save(&db,&p.id,json!({"kind":"problem","slug":"apples","solved":true})).unwrap();
-        let mut s=Store{db,profile:Some(p.clone()),last_activity:Some(std::time::SystemTime::now()-std::time::Duration::from_secs(601))};
+        let mut s=Store{db,sync_auth:None,profile:Some(p.clone()),last_activity:Some(std::time::SystemTime::now()-std::time::Duration::from_secs(601))};
         s.expire();assert!(s.profile.is_none());assert_eq!(profiles::list(&s.db,&p.id).unwrap().len(),1);
         s.profile=Some(p);s.last_activity=Some(std::time::SystemTime::now());s.expire();assert!(s.profile.is_some());
     }

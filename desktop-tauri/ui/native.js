@@ -46,6 +46,17 @@ window.addEventListener('DOMContentLoaded',()=>{
   cancel.addEventListener('click',()=>{note.textContent='Отмена загрузки…';invoke('cancel_cli_install');});
   if(!panel.hidden)check();
  }
+ let syncing=false,pending=false;
+ const syncNote=document.createElement('p');
+ document.getElementById('settings-app')?.closest('section')?.append(syncNote);
+ async function synchronize(){
+  if(syncing){pending=true;return;} syncing=true;
+  try{await window.TutorNative.invoke('sync_progress');syncNote.textContent='Прогресс синхронизирован.';window.dispatchEvent(new Event('tutor-sync-finished'));}
+  catch(e){syncNote.textContent=String(e)==='OFFLINE'?'Нет сети. Решения сохранены на компьютере.':'Синхронизация: '+String(e);}
+  finally{syncing=false;if(pending){pending=false;synchronize();}}
+ }
+ window.addEventListener('tutor-progress-changed',synchronize);window.addEventListener('online',synchronize);
+ setInterval(synchronize,60000);synchronize();
  const header=document.body;
  const control=document.createElement('button');control.textContent=profile.name+' · Выйти';control.className='btn btn-link';control.style.cssText='position:fixed;bottom:10px;left:12px;z-index:10000;background:white;border:1px solid #ccddeb;border-radius:8px';
  control.onclick=async()=>{await invoke('logout');sessionStorage.removeItem('tutor-native-profile');location.replace('/index.html');};header.append(control);

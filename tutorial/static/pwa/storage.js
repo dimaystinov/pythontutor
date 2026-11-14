@@ -33,6 +33,7 @@ async function reset(){
  keys.forEach(key=>localStorage.removeItem(key));
  localStorage.removeItem('tutor-hsv-settings');
  localStorage.setItem('tutor-progress-reset-done:'+owner(),generation());
+ if(window.TutorNative)window.dispatchEvent(new Event('tutor-progress-changed'));
 }
 window.TutorDevice={owner,get,save,list,reset,isCurrent};
 })();

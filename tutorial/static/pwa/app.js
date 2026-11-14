@@ -18,6 +18,7 @@ $('pwa-download')?.addEventListener('click',async()=>{
 });
 $('pwa-open')?.addEventListener('click',async()=>{await message({type:'mode',local:true});location.href='/';});
 $('pwa-online')?.addEventListener('click',async()=>{await message({type:'mode',local:false});location.href='/';});
+window.addEventListener('tutor-sync-finished',()=>progress());
 async function progress(){
  const results=$('pwa-results');
  if(!results)return;

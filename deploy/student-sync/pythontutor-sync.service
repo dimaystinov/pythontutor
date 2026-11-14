@@ -1,0 +1,15 @@
+[Unit]
+Description=PythonTutor progress
+After=network.target
+[Service]
+DynamicUser=yes
+StateDirectory=pythontutor-sync
+UMask=0077
+ExecStart=/usr/bin/python3 /opt/pythontutor-sync/service.py
+Restart=on-failure
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+[Install]
+WantedBy=multi-user.target

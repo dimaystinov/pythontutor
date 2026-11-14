@@ -12,6 +12,7 @@ pub fn open(path: &Path) -> Result<Connection, String> {
     let c = Connection::open(path).map_err(|e| e.to_string())?;
     c.execute_batch("PRAGMA journal_mode=WAL; CREATE TABLE IF NOT EXISTS profiles(id TEXT PRIMARY KEY,name TEXT NOT NULL UNIQUE,password TEXT NOT NULL); CREATE TABLE IF NOT EXISTS solutions(profile TEXT NOT NULL,kind TEXT NOT NULL,slug TEXT NOT NULL,data TEXT NOT NULL,PRIMARY KEY(profile,kind,slug));").map_err(|e|e.to_string())?;
     c.execute_batch("CREATE TABLE IF NOT EXISTS student_identities(profile TEXT PRIMARY KEY,identity TEXT UNIQUE NOT NULL,surname TEXT NOT NULL,given_name TEXT NOT NULL,school_class INTEGER NOT NULL);").map_err(|e|e.to_string())?;
+    c.execute_batch("CREATE TABLE IF NOT EXISTS sync_state(profile TEXT PRIMARY KEY,epoch INTEGER NOT NULL,reset INTEGER NOT NULL)").map_err(|e|e.to_string())?;
     Ok(c)
 }
 pub fn create(c: &Connection, name: &str, password: &str) -> Result<Profile, String> {
@@ -55,7 +56,7 @@ pub fn login(c: &Connection, name: &str, password: &str) -> Result<Profile, Stri
         .map_err(|_| "Неверное имя или пароль.")?;
     Ok(Profile { id, name })
 }
-fn student_details(surname: &str, given: &str, class: u8, pin: &str) -> Result<(String,String,String),String> {
+pub fn student_details(surname: &str, given: &str, class: u8, pin: &str) -> Result<(String,String,String),String> {
     fn normalize(value: &str) -> Result<String,String> {
         let en = "qwertyuiop[]asdfghjkl;'zxcvbnm,.`";
         let ru: Vec<char> = "йцукенгшщзхъфывапролджэячсмитьбюё".chars().collect();
@@ -65,11 +66,11 @@ fn student_details(surname: &str, given: &str, class: u8, pin: &str) -> Result<(
         Ok(value)
     }
     if !(1..=11).contains(&class) {return Err("Класс — число от 1 до 11.".into());}
-    if pin.len()!=4 || !pin.bytes().all(|b|b.is_ascii_digit()) {return Err("PIN-код должен содержать ровно 4 цифры.".into());}
+    if !(pin.len()==4 && pin.bytes().all(|b|b.is_ascii_digit())) && !(pin.chars().count()>=8 && pin.len()<=256) {return Err("PIN-код должен содержать ровно 4 цифры.".into());}
     let surname=normalize(surname)?;let given=normalize(given)?;
     Ok((format!("{surname}|{given}|{class}"),surname,given))
 }
-fn pin_hash(pin:&str)->Result<String,String> {
+pub fn pin_hash(pin:&str)->Result<String,String> {
     Argon2::default().hash_password(pin.as_bytes(),&SaltString::generate(&mut OsRng)).map(|h|h.to_string()).map_err(|e|e.to_string())
 }
 pub fn create_student(c:&mut Connection,surname:&str,given:&str,class:u8,pin:&str)->Result<Profile,String>{
