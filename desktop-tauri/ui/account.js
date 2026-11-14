@@ -9,6 +9,7 @@ function show(next){
  $('legacy-mode').hidden=converting;$('status').textContent='';$('pin').value='';
 }
 $('legacy-mode').onclick=()=>show(mode==='legacy'?'login':'legacy');
+for(const id of ['surname','given-name'])$(id).addEventListener('input',()=>{const el=$(id),v=el.value.toLowerCase();if(el.value!==v){const pos=el.selectionStart;el.value=v;el.setSelectionRange(pos,pos);}});
 for(const id of ['surname','given-name'])$(id).addEventListener('blur',()=>{$(id).value=$(id).value.trim().replace(/\s+/g,' ').toLowerCase();});
 $('account').onsubmit=async event=>{
  event.preventDefault();$('submit').disabled=true;$('status').textContent='';
@@ -17,7 +18,8 @@ $('account').onsubmit=async event=>{
    legacyProfile=await invoke('login',{name:$('legacy-name').value,password:$('legacy-password').value});
    $('legacy-password').value='';show('convert');$('surname').focus();return;
   }
-  const args={surname:$('surname').value,givenName:$('given-name').value,schoolClass:Number($('school-class').value),password:$('pin').value,oldPin:$('old-pin').value||null};
+  if(!/^(?:[1-9]|1[01])$/.test($('school-class').value))throw Error('Введите класс числом от 1 до 11, без буквы.');
+  const args={surname:$('surname').value.trim().toLowerCase(),givenName:$('given-name').value.trim().toLowerCase(),schoolClass:Number($('school-class').value),password:$('pin').value,oldPin:$('old-pin').value||null};
   if([...args.password].length<8)throw Error('Пароль должен содержать не меньше 8 символов.');
   if(!Number.isInteger(args.schoolClass)||args.schoolClass<1||args.schoolClass>11)throw Error('Укажите класс числом от 1 до 11.');
   if(mode==='convert')args.legacy=legacyProfile.id;

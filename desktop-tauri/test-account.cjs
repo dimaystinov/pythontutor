@@ -13,3 +13,13 @@ test('rejected password stays on login without session, autostart or navigation'
  assert.equal(f.calls.length,1);assert.equal(f.location.href,undefined);assert.equal(f.data.size,0);
  assert.equal(f.nodes.status.textContent,'Неверный пароль.');assert.equal(f.nodes.submit.disabled,false);
 });
+
+test('only a whole class number is accepted and submitted names are lowercase',async()=>{
+ for(const value of ['','5а','5.0','1e1','0','12','-1','05']){
+  const f=app();f.nodes['school-class'].value=value;await f.submit();assert.equal(f.calls.length,0,value);
+ }
+ for(const value of ['1','5','11']){
+  const f=app();f.nodes['school-class'].value=value;await f.submit();
+  assert.equal(f.calls[0].args.surname,'иванов');assert.equal(f.calls[0].args.givenName,'иван');assert.equal(f.calls[0].args.schoolClass,Number(value));
+ }
+});

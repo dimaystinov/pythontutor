@@ -3,7 +3,7 @@
 <fieldset id="student-fields"><legend id="student-title">Данные ученика</legend>
 <label>Фамилия<input id="surname" autocomplete="family-name" required maxlength="40"></label>
 <label>Имя<input id="given-name" autocomplete="given-name" required maxlength="40"></label>
-<label>Класс<input id="school-class" type="number" inputmode="numeric" min="1" max="11" step="1" required></label>
+<label>Класс — число от 1 до 11<input id="school-class" type="text" inputmode="numeric" pattern="([1-9]|1[01])" maxlength="2" placeholder="Например, 5" title="Введите число от 1 до 11 без буквы" required></label>
 <label>Пароль · от 8 символов<input id="pin" type="password" minlength="8" maxlength="128" autocomplete="current-password" required></label>
 <details id="migration"><summary>У меня был PIN</summary><label>Прежний PIN<input id="old-pin" type="password" inputmode="numeric" maxlength="4" autocomplete="off"></label></details></fieldset>
 <fieldset id="legacy-fields" hidden disabled><legend>Вход в старый профиль</legend><label>Прежнее имя ученика<input id="legacy-name" autocomplete="username" required maxlength="60"></label><label>Прежний пароль<input id="legacy-password" type="password" autocomplete="current-password" required></label></fieldset>
