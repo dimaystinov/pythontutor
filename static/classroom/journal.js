@@ -1,0 +1,45 @@
+(() => {
+const get=id=>document.getElementById(id),date=value=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Moscow'}).format(new Date(value));
+get('day').value=date(Date.now());
+const catalog=fetch('../../pwa/').then(r=>r.text()).then(html=>JSON.parse(new DOMParser().parseFromString(html,'text/html').getElementById('pwa-task-catalog').textContent));
+let roster=[];
+get('file').onchange=async()=>{
+ roster=[];get('group').length=1;
+ try{
+  const file=get('file').files[0];if(!file)return;
+  if(file.size>500000)throw Error('Список слишком большой.');
+  const lines=(await file.text()).trim().split(/\r?\n/);
+  if(lines.shift()!=='ФИО;Идентификатор;Группы')throw Error('Нужны столбцы ФИО;Идентификатор;Группы.');
+  roster=lines.map(line=>{const [name,id,groups]=line.split(';');if(!name||!id||!groups)throw Error('Проверьте строку списка.');return {name,groups:groups.split(' | ')};});
+  for(const group of new Set(roster.flatMap(p=>p.groups)))get('group').add(new Option(group,group));
+  get('note').textContent='Загружено участников: '+roster.length;
+ }catch(err){roster=[];get('note').textContent=err.message;}
+};
+document.querySelector('form').onsubmit=async e=>{
+ e.preventDefault();const table=document.querySelector('tbody');table.replaceChildren();
+ try{
+ const people=[];
+ for(const p of roster.filter(p=>!get('group').value||p.groups.includes(get('group').value))){
+  const [surname,given]=p.name.split(/\s+/);
+  people.push({...p, candidates:await Promise.all(Array.from({length:11},async(_,i)=>({id:await PTClass.identity(surname,given,i+1),grade:i+1})))});
+ }
+ for(const line of get('roster').value.trim().split(/\n+/).filter(Boolean)){
+  const fields=line.trim().split(/[\s;,]+/),grade=/^\d+$/.test(fields.at(-1))?fields.pop():get('grade').value;
+  if(fields.length<2||fields.length>3)throw Error('Проверьте строку: '+line);
+  const [surname,given]=fields;people.push({name:surname+' '+given,groups:[],candidates:[{grade,id:await PTClass.identity(surname,given,grade)}]});
+ }
+ if(!people.length)throw Error('Введите список или выберите CSV.');
+ const students={},ids=[...new Set(people.flatMap(p=>p.candidates.map(c=>c.id)))];
+ for(let i=0;i<ids.length;i+=400)Object.assign(students,(await PTClass.post({op:'journal',key:get('key').value,ids:ids.slice(i,i+400)})).students);
+ const tasks=await catalog;
+ for(const p of people){
+  const matches=p.candidates.filter(c=>students[c.id]),match=matches.length===1&&matches[0];
+  const ambiguous=matches.length>1||(match&&people.some(other=>other!==p&&other.candidates.some(c=>c.id===match.id)));
+  const records=match&&!ambiguous?students[match.id]:undefined,tr=table.insertRow(),solved=records?.filter(r=>r.solved).length;
+  const attempts=records?.filter(r=>date(r.time)===get('day').value).sort((a,b)=>b.time.localeCompare(a.time));
+  for(const value of [p.name,ambiguous?'Уточните класс':match?.grade||'—',p.groups.join(', ')||'—',records?solved:'Нет данных',records?records.length-solved:'—',attempts?.map(r=>(tasks[r.kind+':'+r.slug]?.title||r.slug)+(r.solved?' ✓':' · в работе')).join(', ')||'—'])tr.insertCell().textContent=value;
+ }
+ get('note').textContent='Обновлено '+new Date().toLocaleTimeString('ru');
+ }catch(err){get('note').textContent=err.message==='Неверный пароль.'?'Проверьте ключ преподавателя.':err.message;}
+};
+})();
