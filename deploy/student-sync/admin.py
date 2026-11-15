@@ -26,14 +26,18 @@ def dashboard(db,msg):
     if action=='roster':
         return json.loads(Path('/opt/pythontutor-sync/roster.enc.json').read_text())
     day=date.fromisoformat(msg['day']).isoformat()
-    if action=='attendance':
-        member=msg['member']
-        group=msg['group']
-        if not re.fullmatch('[a-f0-9]{64}',member) or group not in ('1','2','3') or type(msg['present']) is not bool:raise ValueError()
-        if msg['present']:
-            db.execute('INSERT OR IGNORE INTO attendance VALUES(?,?,?)',(member,group,day))
-        else:
-            db.execute('DELETE FROM attendance WHERE member=? AND grp=? AND day=?',(member,group,day))
+    if action in ('attendance','attendance_list'):
+        changes=[msg] if action=='attendance' else msg['changes']
+        if not isinstance(changes,list) or not 1<=len(changes)<=500:
+            raise ValueError()
+        for change in changes:
+            member,group,present=change['member'],change['group'],change['present']
+            if not re.fullmatch('[a-f0-9]{64}',member) or group not in ('1','2','3') or type(present) is not bool:
+                raise ValueError()
+            if present:
+                db.execute('INSERT OR IGNORE INTO attendance VALUES(?,?,?)',(member,group,day))
+            else:
+                db.execute('DELETE FROM attendance WHERE member=? AND grp=? AND day=?',(member,group,day))
         return {'saved':True}
     if action!='overview':raise ValueError()
     ids=msg['ids']
