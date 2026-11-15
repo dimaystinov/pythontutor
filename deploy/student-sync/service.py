@@ -4,6 +4,16 @@ from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 from contextlib import closing
 DB=os.environ.get('SYNC_DB','/var/lib/pythontutor-sync/progress.db')
 def handle(msg):
+    if msg.get('op')=='journal':
+        key=os.environ.get('PT_JOURNAL_KEY','')
+        if not key or not hmac.compare_digest(key.encode(),str(msg.get('key','')).encode()):return 403,{}
+        ids=msg.get('ids')
+        if not isinstance(ids,list) or len(ids)>500 or not all(isinstance(x,str) and re.fullmatch('[a-f0-9]{64}',x) for x in ids):raise ValueError()
+        result={}
+        with closing(sqlite3.connect(DB,timeout=8)) as db:
+            for uid,items in db.execute('SELECT id,items FROM accounts WHERE id IN ('+','.join('?' for _ in ids)+')',ids):
+                result[uid]=[{k:r[k] for k in ('kind','slug','solved','time')} for r in json.loads(items).values()]
+        return 200,{'students':result}
     uid,token=msg['id'],msg['proof']
     if not all(isinstance(x,str) and re.fullmatch('[a-f0-9]{64}',x) for x in (uid,token)):raise ValueError()
     op=msg['op']

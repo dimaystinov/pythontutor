@@ -52,7 +52,9 @@ with tempfile.TemporaryDirectory() as tmp, contextlib.ExitStack() as cleanup:
         html = re.sub(r'<input[^>]+name="csrfmiddlewaretoken"[^>]*>', '', html)
         html = html.replace('Облачный режим отправляет их внешним ИИ-сервисам. ', '')
         html = html.replace('</head>', '<meta name="static-site" content="yes"></head>')
+        html = html.replace('<script src="/static/pwa/storage.js', '<script src="/static/classroom/account.js"></script><script src="/static/pwa/storage.js')
         if url == '/pwa/':
+            html = html.replace('<h1 id="settings">Настройки</h1>', '<h1 id="settings">Настройки</h1>'+(ROOT/'tutorial/static/classroom/account.html').read_text())
             html = html.replace('Облачный ИИ, регистрация и кабинет преподавателя требуют сети.', 'Все учебные функции работают на устройстве. Учётная запись не нужна.')
             html = html.replace('Локальные решения хранятся в этом браузере отдельно от учётной записи.', 'Решения, черновики и история помощника хранятся только в этом браузере.')
             html = html.replace('Локальные Qwen и голосовой ввод Whisper скачиваются отдельно в помощнике.', 'Qwen и Whisper подготавливаются один раз из пакетов GitHub в помощнике или настройках.')
