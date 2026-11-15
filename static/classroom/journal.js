@@ -9,9 +9,18 @@ get('file').onchange=async()=>{
   const file=get('file').files[0];if(!file)return;
   if(file.size>500000)throw Error('Список слишком большой.');
   const lines=(await file.text()).trim().split(/\r?\n/);
-  if(lines.shift()!=='ФИО;Идентификатор;Группы')throw Error('Нужны столбцы ФИО;Идентификатор;Группы.');
-  roster=lines.map(line=>{const [name,id,groups]=line.split(';');if(!name||!id||!groups)throw Error('Проверьте строку списка.');return {name,groups:groups.split(' | ')};});
-  for(const group of new Set(roster.flatMap(p=>p.groups)))get('group').add(new Option(group,group));
+  const members=new Map();let section='';
+  for(const line of lines){
+   if(!line.trim()||line.startsWith('ФИО;Идентификатор'))continue;
+   const [name,id,groups]=line.split(';');
+   if(/^\d+ группа$/.test(name)){section=id;continue;}
+   if(!name||!/^[-a-f0-9]{36}$/i.test(id)||!(groups||section))throw Error('Проверьте строки и названия групп в CSV.');
+   const person=members.get(id)||{name,groups:[]};
+   person.groups=[...new Set(person.groups.concat(groups?groups.split(' | '):section))];members.set(id,person);
+  }
+  roster=[...members.values()].sort((a,b)=>a.name.localeCompare(b.name,'ru'));
+  const number=g=>Number(g.match(/группа (\d+)/i)?.[1]||0);
+  for(const group of [...new Set(roster.flatMap(p=>p.groups))].sort((a,b)=>number(a)-number(b)))get('group').add(new Option(group,group));
   get('note').textContent='Загружено участников: '+roster.length;
  }catch(err){roster=[];get('note').textContent=err.message;}
 };
