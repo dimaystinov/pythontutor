@@ -48,10 +48,15 @@ def handle(msg):
 class Api(BaseHTTPRequestHandler):
     def do_POST(self):
         try:
-            if self.path!='/progress':return self.send_error(404)
+            if self.path not in ('/progress','/journal'):return self.send_error(404)
             n=int(self.headers.get('Content-Length','0'))
             if not 0<n<=4_000_000:return self.send_error(413)
-            status,data=handle(json.loads(self.rfile.read(n)))
+            msg=json.loads(self.rfile.read(n))
+            if not isinstance(msg,dict):raise ValueError()
+            if (self.path=='/journal') != (msg.get('op')=='journal'):
+                status,data=403,{}
+            else:
+                status,data=handle(msg)
         except (KeyError,TypeError,ValueError):status,data=400,{}
         except sqlite3.Error:status,data=503,{}
         body=json.dumps(data,ensure_ascii=False).encode();self.send_response(status);self.send_header('Content-Type','application/json');self.send_header('Cache-Control','no-store');self.send_header('Content-Length',str(len(body)));self.end_headers();self.wfile.write(body)
