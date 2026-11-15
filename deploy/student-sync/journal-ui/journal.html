@@ -1,11 +1,7 @@
 <!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Журнал PythonTutor</title>
-<style>body{font:17px/1.5 system-ui;max-width:72rem;margin:auto;padding:1rem;color:#203044}label{display:block;margin:.5rem 0}input,textarea,button{font:inherit}textarea{display:block;width:min(100%,40rem)}table{border-collapse:collapse;width:100%}th,td{text-align:left;padding:.55rem;border-bottom:1px solid #ccd9e4}button{margin:.4rem}a{color:#126ba3}</style>
-<a href="https://dimaystinov.github.io/pythontutor/pwa/">Настройки</a><h1>Журнал PythonTutor</h1>
-<form><label>Ключ преподавателя <input id="key" type="password" required autocomplete="off"></label>
-<label>Список из журнала (CSV) <input id="file" type="file" accept=".csv"></label><label>Группа <select id="group"><option value="">Все группы</option></select></label><label>Класс для ручного списка <input id="grade" type="number" min="1" max="11" value="5" required></label>
-<label>Фамилия и имя, по одному ученику в строке. Класс можно указать в конце строки.
-<textarea id="roster" rows="5" placeholder="Иванов Иван 5"></textarea></label>
-<label>Дата работы <input type="date" id="day" required></label><button>Показать прогресс</button></form>
-<p id="note" role="status"></p><table><thead><tr><th>Ученик</th><th>Класс</th><th>Группа</th><th>Решено всего</th><th>В работе</th><th>Последние попытки за дату</th></tr></thead><tbody></tbody></table>
-<p>Дата относится к последней сохранённой попытке по каждой задаче. Гостевые и ещё не синхронизированные решения здесь не видны.</p>
+<style>*{box-sizing:border-box}body{font:16px/1.5 system-ui;color:#203044;max-width:78rem;margin:auto;padding:1.2rem}h1{font-size:1.7rem}input,button,select{font:inherit;padding:.4rem .6rem}label{display:inline-block;margin:.3rem}button{cursor:pointer}table{width:100%;border-collapse:collapse}th,td{text-align:left;border-bottom:1px solid #cbd8df;padding:.5rem}thead{background:#ecf4fb}.scroll{overflow:auto}#status{min-height:1.5em}small{color:#455769}button:disabled{cursor:wait}</style>
+<h1>Журнал PythonTutor</h1><form id="login"><label>Ключ преподавателя <input id="key" type="password" required autocomplete="off"></label><button>Открыть журнал</button></form>
+<section id="panel" hidden><label>Группа <select id="group"><option value="">Все группы</option><option value="1">1 группа</option><option value="2">2 группа</option><option value="3">3 группа</option></select></label> <label>Дата <input id="day" type="date"></label> <button id="refresh">Обновить</button> <button id="lock">Закрыть журнал</button>
+<p id="counts"></p><div class="scroll"><table><thead><tr><th>Ученик</th><th>Группа</th><th>Класс</th><th>Решено</th><th>В работе</th><th>Работа за дату</th><th>Явка в личном журнале</th></tr></thead><tbody></tbody></table></div>
+<small>«Работал» появляется после синхронизации попытки. Дата — московская. Явку подтверждает преподаватель.</small></section><p id="status" role="status"></p>
 <script src="teacher.js"></script><script src="journal.js"></script></html>

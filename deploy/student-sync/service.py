@@ -1,4 +1,5 @@
 """Loopback-only progress service; nginx terminates TLS and rate-limits requests."""
+import admin
 import hashlib,hmac,json,re,sqlite3,secrets,os
 from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 from contextlib import closing
@@ -7,6 +8,8 @@ def handle(msg):
     if msg.get('op')=='journal':
         key=os.environ.get('PT_JOURNAL_KEY','')
         if not key or not hmac.compare_digest(key.encode(),str(msg.get('key','')).encode()):return 403,{}
+        if msg.get('action'):
+            with closing(sqlite3.connect(DB,timeout=8)) as db,db:return 200,admin.dashboard(db,msg)
         ids=msg.get('ids')
         if not isinstance(ids,list) or len(ids)>500 or not all(isinstance(x,str) and re.fullmatch('[a-f0-9]{64}',x) for x in ids):raise ValueError()
         result={}
@@ -37,6 +40,7 @@ def handle(msg):
                 key=k+':'+s;old=items.get(key)
                 clean={f:entry[f] for f in ('kind','slug','time','solved','code','acceptedCode')}
                 if any(not isinstance(clean[f],str) or len(clean[f])>100000 for f in ('code','acceptedCode')):raise ValueError()
+                admin.record(db,uid,clean)
                 if old:
                     newer,older=(old,clean) if old['time']>t else (clean,old)
                     clean={**newer,'solved':old['solved'] or clean['solved'],'acceptedCode':newer['acceptedCode'] or older['acceptedCode']}
@@ -63,4 +67,5 @@ class Api(BaseHTTPRequestHandler):
     def log_message(self,*args):pass
 if __name__=='__main__':
     with sqlite3.connect(DB) as db:db.execute('CREATE TABLE IF NOT EXISTS accounts(id TEXT PRIMARY KEY,salt BLOB,proof BLOB,epoch INTEGER,items TEXT)')
+    with sqlite3.connect(DB) as db:admin.initialize(db)
     ThreadingHTTPServer(('127.0.0.1',18442),Api).serve_forever()
